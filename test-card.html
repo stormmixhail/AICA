@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>名片测试页面</title>
+    <link rel="stylesheet" href="css/style.css?v=20230703">
+    <style>
+        body {
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-info {
+            background: #fff;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+        .debug-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .debug-button {
+            padding: 8px 16px;
+            background: #3366ff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .debug-button:hover {
+            background: #254ecc;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-info">
+        <h1>名片测试页面</h1>
+        <p>这个页面用于测试名片样式是否正确加载。如果下方显示了带样式的名片，则CSS工作正常。</p>
+        <p><strong>注意：</strong>如果您看不到样式应用，请尝试清除浏览器缓存后重新加载。</p>
+    </div>
+    
+    <div class="debug-buttons">
+        <button class="debug-button" onclick="toggleDebugMode()">切换调试模式</button>
+        <button class="debug-button" onclick="forceClearCache()">强制刷新</button>
+        <button class="debug-button" onclick="showCssRules()">显示CSS规则</button>
+    </div>
+    
+    <div class="card-showcase">
+        <!-- 谭总名片 - 水平布局 -->
+        <div class="card-container">
+            <div class="business-card-standalone">
+                <div class="card-left-content-horizontal">
+                    <div class="card-avatar-small">
+                        <img src="img/tan-avatar.svg?v=20250716" alt="谭总头像">
+                    </div>
+                    <div class="card-person-info-horizontal">
+                        <h3 class="person-name">谭云杰</h3>
+                        <div class="person-title">创始人 & CEO</div>
+                        <div class="person-company">AICA科技</div>
+                        <div class="card-intro-text-horizontal">
+                            <p>前腾讯AI战略顾问，连续创业者，两次成功退出。清华大学计算机博士。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-right-content">
+                    <div class="service-label">AI联享名片</div>
+                    <div class="service-stats">已接待 <strong>1,280</strong> 人</div>
+                    <div class="service-button">立即进入</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="css-info" style="margin-top: 30px; background: white; padding: 15px; display: none;">
+        <h3>应用的CSS规则</h3>
+        <pre id="css-rules" style="background: #f0f0f0; padding: 10px; max-height: 400px; overflow: auto;"></pre>
+    </div>
+
+    <script>
+        // 显示CSS版本信息
+        document.addEventListener('DOMContentLoaded', function() {
+            const testInfo = document.querySelector('.test-info');
+            
+            // 创建时间戳元素
+            const timestamp = document.createElement('p');
+            timestamp.textContent = '页面生成时间: ' + new Date().toLocaleString();
+            testInfo.appendChild(timestamp);
+            
+            // 尝试获取CSS加载信息
+            fetch('css/style.css?v=' + new Date().getTime())
+                .then(response => {
+                    const lastModified = response.headers.get('last-modified');
+                    const info = document.createElement('p');
+                    info.textContent = 'CSS最后修改时间: ' + (lastModified || '未知');
+                    testInfo.appendChild(info);
+                })
+                .catch(error => {
+                    console.error('无法获取CSS信息:', error);
+                });
+        });
+
+        // 切换调试模式
+        function toggleDebugMode() {
+            document.querySelector('.card-showcase').classList.toggle('debug-highlight');
+            alert('已切换调试模式，可查看卡片结构');
+        }
+
+        // 强制清除缓存并刷新
+        function forceClearCache() {
+            const cacheBuster = new Date().getTime();
+            window.location.href = window.location.pathname + '?v=' + cacheBuster;
+        }
+
+        // 显示应用的CSS规则
+        function showCssRules() {
+            const cssInfo = document.getElementById('css-info');
+            const cssRules = document.getElementById('css-rules');
+            
+            if (cssInfo.style.display === 'none') {
+                cssInfo.style.display = 'block';
+                
+                const cardElement = document.querySelector('.card-container');
+                const cardStandalone = document.querySelector('.business-card-standalone');
+                const leftContent = document.querySelector('.card-left-content-horizontal');
+                const rightContent = document.querySelector('.card-right-content');
+                
+                let rulesText = '';
+                
+                rulesText += '/* .card-container 样式 */\n';
+                rulesText += getComputedStyleText(cardElement);
+                
+                rulesText += '\n\n/* .business-card-standalone 样式 */\n';
+                rulesText += getComputedStyleText(cardStandalone);
+                
+                rulesText += '\n\n/* .card-left-content-horizontal 样式 */\n';
+                rulesText += getComputedStyleText(leftContent);
+                
+                rulesText += '\n\n/* .card-right-content 样式 */\n';
+                rulesText += getComputedStyleText(rightContent);
+                
+                cssRules.textContent = rulesText;
+            } else {
+                cssInfo.style.display = 'none';
+            }
+        }
+        
+        // 获取元素计算样式的文本表示
+        function getComputedStyleText(element) {
+            if (!element) return '未找到元素';
+            
+            const style = window.getComputedStyle(element);
+            let text = '';
+            
+            const importantProps = [
+                'width', 'max-width', 'height', 'display', 'flex-direction',
+                'position', 'border', 'border-radius', 'padding', 'margin',
+                'background-color', 'color', 'box-shadow'
+            ];
+            
+            for (const prop of importantProps) {
+                text += `${prop}: ${style.getPropertyValue(prop)};\n`;
+            }
+            
+            return text;
+        }
+    </script>
+</body>
+</html> 

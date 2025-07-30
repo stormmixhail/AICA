@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="connectGradient" x1="10%" y1="10%" x2="90%" y2="90%">
+      <stop offset="0%" stop-color="#9C27B0"/>
+      <stop offset="100%" stop-color="#673AB7"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  
+  <!-- 背景圆 -->
+  <circle cx="28" cy="28" r="25" fill="#ffffff" stroke="#f0f0f0" stroke-width="1"/>
+  
+  <!-- 连接断层图标 -->
+  <g transform="translate(28, 28)" filter="url(#glow)">
+    <!-- 左侧节点群组 -->
+    <g class="left-nodes">
+      <circle cx="-12" cy="-8" r="3" fill="url(#connectGradient)">
+        <animate attributeName="r" values="3;3.5;3" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="-12" cy="0" r="3" fill="url(#connectGradient)">
+        <animate attributeName="r" values="3;3.5;3" dur="2.8s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="-12" cy="8" r="3" fill="url(#connectGradient)">
+        <animate attributeName="r" values="3;3.5;3" dur="3.2s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- 左侧内部连接 -->
+      <line x1="-12" y1="-8" x2="-12" y2="0" stroke="url(#connectGradient)" stroke-width="1.5" opacity="0.8"/>
+      <line x1="-12" y1="0" x2="-12" y2="8" stroke="url(#connectGradient)" stroke-width="1.5" opacity="0.8"/>
+    </g>
+    
+    <!-- 右侧节点群组 -->
+    <g class="right-nodes">
+      <circle cx="12" cy="-8" r="3" fill="url(#connectGradient)">
+        <animate attributeName="r" values="3;3.5;3" dur="3.1s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="12" cy="0" r="3" fill="url(#connectGradient)">
+        <animate attributeName="r" values="3;3.5;3" dur="2.9s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="12" cy="8" r="3" fill="url(#connectGradient)">
+        <animate attributeName="r" values="3;3.5;3" dur="3.3s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- 右侧内部连接 -->
+      <line x1="12" y1="-8" x2="12" y2="0" stroke="url(#connectGradient)" stroke-width="1.5" opacity="0.8"/>
+      <line x1="12" y1="0" x2="12" y2="8" stroke="url(#connectGradient)" stroke-width="1.5" opacity="0.8"/>
+    </g>
+    
+    <!-- 中间断层区域 -->
+    <g class="broken-connections">
+      <!-- 断裂的连接线 - 顶部 -->
+      <line x1="-12" y1="-8" x2="-4" y2="-8" stroke="url(#connectGradient)" stroke-width="1.5" stroke-dasharray="1,1" opacity="0.6">
+        <animate attributeName="opacity" values="0.6;0.3;0.6" dur="2s" repeatCount="indefinite"/>
+      </line>
+      <line x1="4" y1="-8" x2="12" y2="-8" stroke="url(#connectGradient)" stroke-width="1.5" stroke-dasharray="1,1" opacity="0.6">
+        <animate attributeName="opacity" values="0.6;0.3;0.6" dur="2.2s" repeatCount="indefinite"/>
+      </line>
+      
+      <!-- 断裂的连接线 - 中间 -->
+      <line x1="-12" y1="0" x2="-5" y2="0" stroke="url(#connectGradient)" stroke-width="1.5" stroke-dasharray="1,1" opacity="0.6">
+        <animate attributeName="opacity" values="0.6;0.3;0.6" dur="2.4s" repeatCount="indefinite"/>
+      </line>
+      <line x1="5" y1="0" x2="12" y2="0" stroke="url(#connectGradient)" stroke-width="1.5" stroke-dasharray="1,1" opacity="0.6">
+        <animate attributeName="opacity" values="0.6;0.3;0.6" dur="2.6s" repeatCount="indefinite"/>
+      </line>
+      
+      <!-- 断裂的连接线 - 底部 -->
+      <line x1="-12" y1="8" x2="-6" y2="8" stroke="url(#connectGradient)" stroke-width="1.5" stroke-dasharray="1,1" opacity="0.6">
+        <animate attributeName="opacity" values="0.6;0.3;0.6" dur="2.8s" repeatCount="indefinite"/>
+      </line>
+      <line x1="6" y1="8" x2="12" y2="8" stroke="url(#connectGradient)" stroke-width="1.5" stroke-dasharray="1,1" opacity="0.6">
+        <animate attributeName="opacity" values="0.6;0.3;0.6" dur="3s" repeatCount="indefinite"/>
+      </line>
+      
+      <!-- 断层闪烁效果 -->
+      <path d="M0,-10 L-2,-8 L2,-8 L-2,0 L2,0 L-2,8 L2,8 L0,10" fill="none" stroke="url(#connectGradient)" stroke-width="1" opacity="0.8">
+        <animate attributeName="opacity" values="0.8;0.4;0.8" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="stroke-width" values="1;1.5;1" dur="3s" repeatCount="indefinite"/>
+      </path>
+    </g>
+    
+    <!-- 断层指示粒子 -->
+    <circle r="1" fill="#ffffff">
+      <animateMotion path="M-10,-8 L-5,-8" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle r="1" fill="#ffffff">
+      <animateMotion path="M5,-8 L10,-8" dur="2.2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="2.2s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle r="1" fill="#ffffff">
+      <animateMotion path="M-10,0 L-6,0" dur="2.4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="2.4s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle r="1" fill="#ffffff">
+      <animateMotion path="M6,0 L10,0" dur="2.6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="2.6s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle r="1" fill="#ffffff">
+      <animateMotion path="M-10,8 L-7,8" dur="2.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="2.8s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle r="1" fill="#ffffff">
+      <animateMotion path="M7,8 L10,8" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg> 

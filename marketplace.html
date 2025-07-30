@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>商机广场 - AICA</title>
+    <link rel="stylesheet" href="css/style.css?v=20230704">
+    <link rel="stylesheet" href="css/feature-page.css?v=20230704">
+    <link rel="stylesheet" href="css/marketplace.css?v=20230704">
+    <script src="js/lib/vue.min.js"></script>
+    <style>
+        /* 基础响应式布局 */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* 商机广场基础样式 */
+        .marketplace-page {
+            min-height: 100vh;
+            background-color: #f5f8ff;
+        }
+        
+        .marketplace-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            height: 60px;
+            padding: 0 16px;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 16px;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+        
+        .back-button:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .back-button img {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .marketplace-content {
+            padding-top: 76px;
+            padding-bottom: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+        
+        .hero-section {
+            background-color: #3366ff;
+            background: linear-gradient(135deg, #3366ff, #6699ff);
+            color: white;
+            text-align: center;
+            padding: 40px 16px;
+            margin-bottom: 24px;
+            border-radius: 12px;
+        }
+        
+        .main-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: #333;
+        }
+        
+        .filter-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .search-bar {
+            display: flex;
+            width: 100%;
+            height: 48px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-input {
+            flex: 1;
+            border: none;
+            padding: 0 16px;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .search-btn {
+            width: 80px;
+            background-color: #3366ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+        
+        .search-btn:hover {
+            background-color: #2952cc;
+        }
+        
+        .filter-tabs {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 4px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            background: none;
+            border: none;
+            border-radius: 20px;
+            margin-right: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.2s;
+        }
+        
+        .filter-btn.active {
+            background-color: #3366ff;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        
+        .video-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            padding-top: 56.25%; /* 16:9 比例 */
+            overflow: hidden;
+        }
+        
+        .video-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+        
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+        
+        .play-icon:before {
+            content: "";
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-left: 16px solid white;
+            border-bottom: 10px solid transparent;
+            margin-left: 4px;
+        }
+        
+        .video-card:hover .play-icon {
+            background-color: rgba(51, 102, 255, 0.8);
+        }
+        
+        .video-info {
+            padding: 16px;
+        }
+        
+        .video-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            color: #333;
+        }
+        
+        .video-author {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .author-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 8px;
+            background-color: #f1f1f1;
+        }
+        
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .video-author span {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .video-stats {
+            display: flex;
+            gap: 12px;
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .category-section {
+            margin-top: 48px;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        
+        .category-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .category-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .category-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+        
+        .footer {
+            background-color: #f5f5f5;
+            padding: 16px;
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+        }
+        
+        /* 视频播放器模态框样式 */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.75);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .video-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .video-player-container {
+            max-width: 900px;
+            width: 100%;
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .video-player-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        
+        .video-player-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+        
+        .close-btn:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .video-player {
+            width: 100%;
+            background-color: black;
+        }
+        
+        .video-player video {
+            width: 100%;
+            display: block;
+            aspect-ratio: 16/9;
+        }
+        
+        .video-player-info {
+            padding: 16px;
+            overflow-y: auto;
+        }
+        
+        .video-author-info {
+            display: flex;
+            margin-bottom: 16px;
+        }
+        
+        .author-details {
+            flex: 1;
+        }
+        
+        .author-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #333;
+        }
+        
+        .video-description {
+            line-height: 1.6;
+            color: #666;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .marketplace-content {
+                padding-top: 70px;
+            }
+            
+            .hero-section {
+                padding: 32px 16px;
+                margin-bottom: 16px;
+            }
+            
+            .main-title {
+                font-size: 24px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+                margin-bottom: 16px;
+            }
+            
+            .filter-container {
+                gap: 12px;
+                margin-bottom: 16px;
+            }
+            
+            .search-bar {
+                height: 40px;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .category-card {
+                padding: 16px;
+            }
+            
+            .video-player-container {
+                max-height: 80vh;
+                width: 90%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .marketplace-header {
+                height: 56px;
+            }
+            
+            .feature-title {
+                font-size: 16px;
+            }
+            
+            .category-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .video-player-header h3 {
+                font-size: 16px;
+                max-width: 80%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="marketplace-app" class="marketplace-page">
+        <header class="marketplace-header">
+            <button class="back-button" @click="goBack">
+                <img src="img/back-arrow.svg" alt="返回">
+            </button>
+            <div class="feature-title">商机广场</div>
+        </header>
+
+        <main class="marketplace-content">
+            <div class="hero-section">
+                    <h1 class="main-title">商机广场</h1>
+                    <p class="subtitle">发现专业内容，连接精准资源，让价值匹配不再依赖偶然</p>
+                </div>
+
+            <section>
+                    <h2 class="section-title">发现优质商业内容</h2>
+                    
+                <div class="filter-container">
+                        <div class="search-bar">
+                        <input type="text" placeholder="搜索关键词、行业或话题..." class="search-input" v-model="searchKeyword">
+                        <button class="search-btn" @click="search">搜索</button>
+                        </div>
+                        <div class="filter-tabs">
+                        <button 
+                            v-for="filter in filters" 
+                            :key="filter.id" 
+                            class="filter-btn" 
+                            :class="{ active: currentFilter === filter.id }"
+                            @click="setFilter(filter.id)"
+                        >
+                            {{ filter.name }}
+                        </button>
+                        </div>
+                    </div>
+                    
+                    <div class="video-grid">
+                    <div 
+                        v-for="video in filteredVideos" 
+                        :key="video.id" 
+                        class="video-card" 
+                        @click="openVideoPlayer(video)"
+                    >
+                        <div class="video-thumbnail">
+                            <img :src="video.thumbnail" :alt="video.title">
+                            <div class="play-icon"></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">{{ video.title }}</div>
+                            <div class="video-author">
+                                <div class="author-avatar">
+                                    <img :src="video.authorAvatar" :alt="video.author">
+                                </div>
+                                <span>{{ video.author }}</span>
+                            </div>
+                            <div class="video-stats">
+                                <div class="video-stat">{{ video.views }} 次观看</div>
+                                <div class="video-stat">{{ video.time }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="category-section">
+                    <h2 class="section-title">探索行业领域</h2>
+                    <div class="category-grid">
+                    <div class="category-card" v-for="category in categories" :key="category.id" @click="filterByCategory(category.id)">
+                            <div class="category-icon">
+                            <img :src="category.icon" :alt="category.name">
+                        </div>
+                        <h3>{{ category.name }}</h3>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <p>&copy; 2023 AICA - 智能商务连接平台。保留所有权利。</p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- 视频播放器模态框 -->
+        <div class="video-modal" :class="{ active: videoPlayerActive }" @click.self="closeVideoPlayer">
+            <div class="video-player-container">
+                <div class="video-player-header">
+                    <h3>{{ currentVideo.title }}</h3>
+                    <button class="close-btn" @click="closeVideoPlayer">×</button>
+                </div>
+                <div class="video-player">
+                    <video controls autoplay>
+                        <source :src="currentVideo.videoSrc" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-player-info">
+                    <div class="video-author-info">
+                        <div class="author-avatar">
+                            <img :src="currentVideo.authorAvatar" :alt="currentVideo.author">
+                        </div>
+                        <div class="author-details">
+                            <div class="author-name">{{ currentVideo.author }}</div>
+                            <div class="video-stats">
+                                <span>{{ currentVideo.views }} 次观看</span>
+                                <span>{{ currentVideo.time }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-description">
+                        {{ currentVideo.description }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/marketplace.js?v=20230704"></script>
+</body>
+</html> 

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <!-- 渐变定义 -->
+    <linearGradient id="growthGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3366FF" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#3366FF" stop-opacity="0.2" />
+    </linearGradient>
+    <linearGradient id="valueGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F44336" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#F44336" stop-opacity="0.2" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景和边框 -->
+  <rect x="4" y="4" width="56" height="56" rx="4" ry="4" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1" />
+  
+  <!-- 网格线 -->
+  <line x1="4" y1="32" x2="60" y2="32" stroke="#E0E0E0" stroke-width="1" stroke-dasharray="2,2" />
+  <line x1="32" y1="4" x2="32" y2="60" stroke="#E0E0E0" stroke-width="1" stroke-dasharray="2,2" />
+  
+  <!-- 增长曲线（蓝色向上） -->
+  <path d="M4,60 L4,48 C10,44 16,38 22,32 C28,26 34,18 40,12 C46,6 52,8 60,4" 
+        fill="none" stroke="#3366FF" stroke-width="2" stroke-linecap="round" />
+  
+  <!-- 增长区域填充 -->
+  <path d="M4,60 L4,48 C10,44 16,38 22,32 C28,26 34,18 40,12 C46,6 52,8 60,4 L60,60 Z" 
+        fill="url(#growthGradient)" stroke="none" opacity="0.5" />
+  
+  <!-- 价值曲线（红色向下） -->
+  <path d="M4,32 C10,34 16,36 22,42 C28,48 34,52 40,54 C46,56 52,58 60,60" 
+        fill="none" stroke="#F44336" stroke-width="2" stroke-linecap="round" stroke-dasharray="3,2" />
+  
+  <!-- 价值区域填充 -->
+  <path d="M4,32 C10,34 16,36 22,42 C28,48 34,52 40,54 C46,56 52,58 60,60 L60,60 L4,60 Z" 
+        fill="url(#valueGradient)" stroke="none" opacity="0.3" />
+  
+  <!-- 断裂标记 -->
+  <circle cx="22" cy="37" r="5" fill="#FFF" stroke="#F44336" stroke-width="1.5" />
+  <line x1="19" y1="34" x2="25" y2="40" stroke="#F44336" stroke-width="1.5" />
+  <line x1="19" y1="40" x2="25" y2="34" stroke="#F44336" stroke-width="1.5" />
+  
+  <!-- 标注 -->
+  <text x="10" y="14" font-family="Arial, sans-serif" font-size="6" fill="#3366FF" font-weight="bold">流量</text>
+  <text x="48" y="54" font-family="Arial, sans-serif" font-size="6" fill="#F44336" font-weight="bold">价值</text>
+</svg> 

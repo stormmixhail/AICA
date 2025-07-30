@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI战略名片 - AICA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ai-card.css">
+    <script src="js/lib/vue.min.js"></script>
+</head>
+<body>
+    <div id="ai-card-app" class="ai-card-page">
+        <header class="feature-header">
+            <button class="back-button" @click="goBack">
+                <img src="img/back-arrow.svg?v=20250716" alt="返回">
+            </button>
+            <div class="feature-title">AI战略名片</div>
+        </header>
+        
+        <div class="card-content">
+            <!-- 个人信息模块 -->
+            <div class="card-module personal-info-module">
+                <div class="module-header">
+                    <h2 class="module-title">个人信息</h2>
+                    <div class="module-line"></div>
+                </div>
+                <div class="module-content">
+                    <div class="personal-info-content">
+                        <div class="personal-info-main">
+                            <div class="avatar-section">
+                                <div class="avatar-container">
+                                    <img v-if="cardInfo.avatar" :src="cardInfo.avatar" alt="个人头像" class="card-avatar">
+                                    <div v-else class="avatar-placeholder">
+                                        <img src="img/profile-avatar.svg?v=20250716" alt="默认头像" class="default-avatar">
+                                    </div>
+                                </div>
+                                <div class="qr-code-preview" v-if="cardInfo.qrCode">
+                                    <img :src="cardInfo.qrCode" alt="个人二维码" class="qr-code-image">
+                                    <span class="qr-code-label">扫码添加</span>
+                                </div>
+                            </div>
+                            <div class="info-details">
+                                <h1 class="card-name">{{ cardInfo.name }}</h1>
+                                <div class="card-title-container">
+                                    <p class="card-title">{{ cardInfo.title }} <span class="company-badge" v-if="cardInfo.company">· {{ cardInfo.company }}</span></p>
+                                    <div class="verification-badge" v-if="cardInfo.isVerified">
+                                        <img src="img/verification-icon.svg?v=20250716" alt="已认证" class="verification-icon">
+                                        <span class="verification-text">已认证</span>
+                                    </div>
+                                </div>
+                                <p class="card-slogan" v-if="cardInfo.slogan">{{ cardInfo.slogan }}</p>
+                                <div class="card-tags" v-if="cardInfo.tags && cardInfo.tags.length">
+                                    <span class="card-tag" v-for="(tag, index) in cardInfo.tags" :key="index">{{ tag }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="personal-info-bio" v-if="cardInfo.bio">
+                            <p class="card-content-text">{{ cardInfo.bio }}</p>
+                        </div>
+                        <div class="personal-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">{{ cardInfo.servedCount || 0 }}</div>
+                                <div class="stat-label">已服务客户</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">{{ cardInfo.projects || 0 }}</div>
+                                <div class="stat-label">完成项目</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">{{ cardInfo.yearsExperience || 0 }}</div>
+                                <div class="stat-label">行业经验</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 联系方式模块 -->
+            <div class="card-module contact-module">
+                <div class="module-header">
+                    <h2 class="module-title">联系方式</h2>
+                    <div class="module-line"></div>
+                </div>
+                <div class="module-content">
+                    <div class="contact-header">
+                        <div class="contact-title">联系方式</div>
+                        <button class="share-card-button" @click="shareCard" aria-label="分享名片">
+                            <img src="img/share-card-icon.svg?v=20250716" alt="分享">
+                            <span>分享名片</span>
+                        </button>
+                    </div>
+                    <div class="contact-grid">
+                        <!-- 电话 -->
+                        <div class="contact-item" v-if="cardInfo.phone" @click="openContact('phone', cardInfo.phone)">
+                            <div class="contact-icon">
+                                <img src="img/phone-icon.svg?v=20250716" alt="电话">
+                            </div>
+                            <div class="contact-info">
+                                <div class="contact-label">电话</div>
+                                <div class="contact-value">{{ cardInfo.phone }}</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 邮箱 -->
+                        <div class="contact-item" v-if="cardInfo.email" @click="openContact('email', cardInfo.email)">
+                            <div class="contact-icon">
+                                <img src="img/email-icon.svg?v=20250716" alt="邮箱">
+                            </div>
+                            <div class="contact-info">
+                                <div class="contact-label">邮箱</div>
+                                <div class="contact-value">{{ cardInfo.email }}</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 微信 -->
+                        <div class="contact-item" v-if="cardInfo.wechat" @click="openContact('wechat', cardInfo.wechat)">
+                            <div class="contact-icon">
+                                <img src="img/wechat-icon.svg?v=20250716" alt="微信">
+                            </div>
+                            <div class="contact-info">
+                                <div class="contact-label">微信</div>
+                                <div class="contact-value">{{ cardInfo.wechat }}</div>
+                            </div>
+                        </div>
+                        
+                        <!-- WhatsApp -->
+                        <div class="contact-item" v-if="cardInfo.whatsapp" @click="openContact('whatsapp', cardInfo.whatsapp)">
+                            <div class="contact-icon">
+                                <img src="img/whatsapp-icon.svg?v=20250716" alt="WhatsApp">
+                            </div>
+                            <div class="contact-info">
+                                <div class="contact-label">WhatsApp</div>
+                                <div class="contact-value">{{ cardInfo.whatsapp }}</div>
+                            </div>
+                        </div>
+                        
+                        <!-- LINE -->
+                        <div class="contact-item" v-if="cardInfo.line" @click="openContact('line', cardInfo.line)">
+                            <div class="contact-icon">
+                                <img src="img/line-icon.svg?v=20250716" alt="LINE">
+                            </div>
+                            <div class="contact-info">
+                                <div class="contact-label">LINE</div>
+                                <div class="contact-value">{{ cardInfo.line }}</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Facebook -->
+                        <div class="contact-item" v-if="cardInfo.facebook" @click="openContact('facebook', cardInfo.facebook)">
+                            <div class="contact-icon">
+                                <img src="img/facebook-icon.svg?v=20250716" alt="Facebook">
+                            </div>
+                            <div class="contact-info">
+                                <div class="contact-label">Facebook</div>
+                                <div class="contact-value">{{ cardInfo.facebook }}</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 地址 -->
+                        <div class="contact-item address-item" v-if="cardInfo.address" @click="openContact('address', cardInfo.address)">
+                            <div class="contact-icon">
+                                <img src="img/address-icon.svg?v=20250716" alt="地址">
+                            </div>
+                            <div class="contact-info">
+                                <div class="contact-label">地址</div>
+                                <div class="contact-value">{{ cardInfo.address }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 模块3：与人对话模块 -->
+            <section class="card-module card-chat-module">
+                <h2 class="module-title">与{{ profile.name }}对话</h2>
+                <p class="module-description">点击下方按钮，开始与{{ profile.name }}进行专业对话</p>
+                <div class="chat-action">
+                    <button class="primary-button" @click="startPersonalChat">
+                        <img src="img/chat-icon.svg?v=20250716" alt="对话">
+                        <span>开始对话</span>
+                    </button>
+                </div>
+            </section>
+            
+            <!-- 模块4：核心价值模块 -->
+            <section class="card-module card-value-module">
+                <h2 class="module-title">核心价值</h2>
+                
+                <div class="value-cubes">
+                    <div class="value-cube" @click="showValueDetails('ai-growth')" aria-label="AI驱动增长">
+                        <div class="cube-icon">
+                            <img src="img/ai-growth-icon.svg?v=20250716" alt="AI驱动增长">
+                        </div>
+                        <h3 class="cube-title">AI驱动增长</h3>
+                    </div>
+                    
+                    <div class="value-cube" @click="showValueDetails('system-efficiency')" aria-label="系统重塑效率">
+                        <div class="cube-icon">
+                            <img src="img/system-icon.svg?v=20250716" alt="系统重塑效率">
+                        </div>
+                        <h3 class="cube-title">系统重塑效率</h3>
+                    </div>
+                    
+                    <div class="value-cube" @click="showValueDetails('capital-future')" aria-label="资本链接未来">
+                        <div class="cube-icon">
+                            <img src="img/capital-icon.svg?v=20250716" alt="资本链接未来">
+                        </div>
+                        <h3 class="cube-title">资本链接未来</h3>
+                    </div>
+                </div>
+                
+                <!-- 价值详情弹窗 -->
+                <div class="value-details-modal" v-if="showValueModal" @touchmove.prevent>
+                    <!-- 弹窗内容保持不变 -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>{{ currentValueDetails.title }}</h3>
+                            <button class="close-button" @click="closeValueModal" aria-label="关闭">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- AI驱动增长展示 -->
+                            <div v-if="currentValueType === 'ai-growth'" class="case-study">
+                                <!-- 内容保持不变 -->
+                                <div class="case-header">
+                                    <img src="img/case-donna.jpg" alt="Donna饺子店" class="case-image">
+                                    <div class="case-title">
+                                        <h4>Donna饺子店 AI赋能案例</h4>
+                                        <div class="case-subtitle">传统餐饮 × AI营销</div>
+                                    </div>
+                                </div>
+                                <div class="case-stats">
+                                    <div class="stat-item">
+                                        <div class="stat-value">237%</div>
+                                        <div class="stat-label">营收增长</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-value">68%</div>
+                                        <div class="stat-label">成本降低</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-value">3个月</div>
+                                        <div class="stat-label">回本周期</div>
+                                    </div>
+                                </div>
+                                <div class="case-description">
+                                    通过AI精准定位目标客户、优化菜单定价和自动化市场推广，我们帮助Donna饺子店在疫情后迅速恢复并超越往年业绩，实现单店盈利能力倍增。
+                                </div>
+                            </div>
+                            
+                            <!-- 系统重塑效率展示 -->
+                            <div v-if="currentValueType === 'system-efficiency'" class="system-showcase">
+                                <!-- 内容保持不变 -->
+                                <div class="system-animation">
+                                    <img src="img/one-person-company.gif" alt="一人公司动画" class="system-gif">
+                                </div>
+                                <div class="system-description">
+                                    <p>我们的"一人公司"系统，将企业家的思维方式系统化，通过AI智能体矩阵和自动化工作流，帮助您用极小的团队实现10倍效率。</p>
+                                    <ul class="system-benefits">
+                                        <li>自动化客户获取与沟通</li>
+                                        <li>AI驱动的决策支持系统</li>
+                                        <li>全流程任务协同与监控</li>
+                                        <li>减少90%重复性工作</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- 资本链接未来展示 -->
+                            <div v-if="currentValueType === 'capital-future'" class="capital-showcase">
+                                <!-- 内容保持不变 -->
+                                <div class="capital-vision">
+                                    <h4>市值共创模式</h4>
+                                    <p>我们不只是顾问，我们是您企业价值增长的合伙人。通过"市值共创"模式，我们与您共担风险，共享成功。</p>
+                                </div>
+                                <div class="capital-model">
+                                    <div class="model-stage">
+                                        <div class="stage-icon"><img src="img/analysis-icon.svg?v=20250716" alt="分析"></div>
+                                        <div class="stage-text">价值评估</div>
+                                    </div>
+                                    <div class="model-arrow">→</div>
+                                    <div class="model-stage">
+                                        <div class="stage-icon"><img src="img/strategy-icon.svg?v=20250716" alt="策略"></div>
+                                        <div class="stage-text">增值战略</div>
+                                    </div>
+                                    <div class="model-arrow">→</div>
+                                    <div class="model-stage">
+                                        <div class="stage-icon"><img src="img/implementation-icon.svg?v=20250716" alt="实施"></div>
+                                        <div class="stage-text">系统实施</div>
+                                    </div>
+                                    <div class="model-arrow">→</div>
+                                    <div class="model-stage">
+                                        <div class="stage-icon"><img src="img/ipo-icon.svg?v=20250716" alt="上市"></div>
+                                        <div class="stage-text">上市赋能</div>
+                                    </div>
+                                </div>
+                                <div class="capital-cta">
+                                    <p>我们已成功帮助超过12家企业完成Pre-IPO准备</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 模块5：文件模块 -->
+            <section class="card-module card-files-module">
+                <h2 class="module-title">相关文件</h2>
+                <div class="files-container">
+                    <div class="file-item" v-for="(file, index) in files" :key="index" @click="downloadFile(file)">
+                        <div class="file-icon">
+                            <img :src="getFileIcon(file.type)" :alt="file.name">
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">{{ file.name }}</div>
+                            <div class="file-meta">{{ file.size }} · {{ file.date }}</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 文件为空时的提示 -->
+                    <div class="empty-state" v-if="!files || files.length === 0">
+                        <div class="empty-icon">
+                            <img src="img/file-icon.svg?v=20250716" alt="无文件">
+                        </div>
+                        <div class="empty-message">暂无文件</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 模块6：视频模块 -->
+            <section class="card-module card-videos-module">
+                <h2 class="module-title">相关视频</h2>
+                <div class="videos-container">
+                    <div class="video-item" v-for="(video, index) in videos" :key="index" @click="playVideo(video)">
+                        <div class="video-thumbnail">
+                            <img :src="video.thumbnail" :alt="video.title">
+                            <div class="play-button">
+                                <img src="img/play-icon.svg?v=20250716" alt="播放">
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">{{ video.title }}</div>
+                            <div class="video-duration">{{ video.duration }}</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 视频为空时的提示 -->
+                    <div class="empty-state" v-if="!videos || videos.length === 0">
+                        <div class="empty-icon">
+                            <img src="img/video-icon.svg?v=20250716" alt="无视频">
+                        </div>
+                        <div class="empty-message">暂无视频</div>
+                    </div>
+                </div>
+                
+                <!-- 视频播放器弹窗 -->
+                <div class="video-player-modal" v-if="showVideoPlayer" @touchmove.prevent>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>{{ currentVideo.title }}</h3>
+                            <button class="close-button" @click="closeVideoPlayer" aria-label="关闭">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <video controls :src="currentVideo.url" class="video-player"></video>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 行业案例模块 -->
+            <section class="card-module card-showcase-module">
+                <h2 class="module-title">行业标杆案例</h2>
+                <div class="showcase-items">
+                    <div class="showcase-item" @click="openCaseStudy('ajia')" aria-label="查看AJIA赋能报告">
+                        <div class="item-icon">
+                            <img src="img/ajia-logo.svg?v=20250716" alt="AJIA案例">
+                        </div>
+                        <div class="item-title">AJIA赋能报告</div>
+                    </div>
+                    <div class="showcase-item" @click="openCaseStudy('whitepaper')" aria-label="查看AI获客白皮书">
+                        <div class="item-icon">
+                            <img src="img/whitepaper-icon.svg?v=20250716" alt="白皮书">
+                        </div>
+                        <div class="item-title">AI获客白皮书</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 模块：名片使用说明 -->
+            <section class="card-module card-usage-guide-module">
+                <h2 class="module-title">名片使用说明</h2>
+                <div class="usage-guide-content">
+                    <p class="guide-description">
+                        AI战略名片是您展示专业形象与链接商业资源的数字工具。通过此名片，您可以分享个人信息、专业服务、成功案例和相关资源，并与潜在客户建立即时沟通渠道。每个名片都配备了智能助手，可以代表您回答客户常见问题。
+                    </p>
+                </div>
+            </section>
+            
+            <!-- 模块：名片展示内容解读 -->
+            <section class="card-module card-content-explanation-module">
+                <h2 class="module-title">名片展示内容解读</h2>
+                <div class="content-explanation">
+                    <div class="explanation-placeholder">
+                        <p class="explanation-text">此处将展示您名片内容的详细解读，帮助访客更好地理解您提供的服务和价值。</p>
+                        <p class="explanation-note">（内容正在完善中，敬请期待）</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 模块：发现商机广场 -->
+            <section class="card-module card-opportunity-plaza-module">
+                <h2 class="module-title">发现商机广场</h2>
+                <div class="opportunity-plaza-content">
+                    <div class="plaza-description">
+                        <p>商机广场汇集各行业优质商业机会，助您发现潜在合作伙伴与投资项目。</p>
+                    </div>
+                    
+                    <div class="opportunity-list">
+                        <div class="opportunity-item" @click="viewOpportunityDetail(1)">
+                            <div class="opportunity-thumbnail">
+                                <img src="img/videos/silicon-thumb1.jpg" alt="AI零售解决方案">
+                                <div class="play-button">
+                                    <img src="img/play-icon.svg?v=20250716" alt="播放">
+                                </div>
+                            </div>
+                            <div class="opportunity-info">
+                                <h3 class="opportunity-title">AI零售解决方案</h3>
+                                <p class="opportunity-summary">利用AI技术提升零售业客流与转化率，降低运营成本</p>
+                                <div class="opportunity-meta">
+                                    <span class="opportunity-industry">零售行业</span>
+                                    <span class="opportunity-cards">5张名片</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="opportunity-item" @click="viewOpportunityDetail(2)">
+                            <div class="opportunity-thumbnail">
+                                <img src="img/videos/customer-thumb2.jpg" alt="数字营销合作机会">
+                                <div class="play-button">
+                                    <img src="img/play-icon.svg?v=20250716" alt="播放">
+                                </div>
+                            </div>
+                            <div class="opportunity-info">
+                                <h3 class="opportunity-title">数字营销合作机会</h3>
+                                <p class="opportunity-summary">整合AI创意生成与精准投放，提供全链路营销服务</p>
+                                <div class="opportunity-meta">
+                                    <span class="opportunity-industry">营销服务</span>
+                                    <span class="opportunity-cards">3张名片</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="opportunity-item" @click="viewOpportunityDetail(3)">
+                            <div class="opportunity-thumbnail">
+                                <img src="img/videos/silicon-thumb3.jpg" alt="SaaS产品融资机会">
+                                <div class="play-button">
+                                    <img src="img/play-icon.svg?v=20250716" alt="播放">
+                                </div>
+                            </div>
+                            <div class="opportunity-info">
+                                <h3 class="opportunity-title">SaaS产品融资机会</h3>
+                                <p class="opportunity-summary">寻求Pre-A轮融资的AI驱动SaaS产品，已有成熟客户案例</p>
+                                <div class="opportunity-meta">
+                                    <span class="opportunity-industry">软件服务</span>
+                                    <span class="opportunity-cards">2张名片</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="view-more-container">
+                        <button class="secondary-button" @click="viewAllOpportunities">查看更多商机</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 模块：使用指南 -->
+            <section class="card-module card-usage-instruction-module">
+                <h2 class="module-title">使用指南</h2>
+                <div class="usage-instruction-content">
+                    <div class="instruction-steps">
+                        <div class="instruction-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3 class="step-title">创建您的AI名片</h3>
+                                <p class="step-description">上传您的个人信息、专业服务和相关资源，打造专属数字名片</p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3 class="step-title">分享您的名片链接</h3>
+                                <p class="step-description">通过社交媒体、邮件或短信分享您的名片链接，扩展您的专业网络</p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3 class="step-title">接收访客信息</h3>
+                                <p class="step-description">获取访问您名片的潜在客户信息，便于后续跟进与转化</p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h3 class="step-title">智能互动与商机发现</h3>
+                                <p class="step-description">通过智能助手自动回复，并在商机广场寻找合作机会</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="instruction-cta">
+                        <button class="primary-button" @click="showSetupGuide">
+                            <img src="img/doc-icon.svg?v=20250716" alt="指南">
+                            <span>查看详细教程</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 模块：商机展示 -->
+            <section class="card-module card-business-showcase-module">
+                <h2 class="module-title">商机展示</h2>
+                <div class="business-showcase-content">
+                    <div class="business-categories">
+                        <div class="category-tabs">
+                            <div class="category-tab" :class="{ active: activeCategory === 'all' }" @click="setActiveCategory('all')">全部</div>
+                            <div class="category-tab" :class="{ active: activeCategory === 'tech' }" @click="setActiveCategory('tech')">科技</div>
+                            <div class="category-tab" :class="{ active: activeCategory === 'retail' }" @click="setActiveCategory('retail')">零售</div>
+                            <div class="category-tab" :class="{ active: activeCategory === 'finance' }" @click="setActiveCategory('finance')">金融</div>
+                            <div class="category-tab" :class="{ active: activeCategory === 'education' }" @click="setActiveCategory('education')">教育</div>
+                        </div>
+                    </div>
+                    
+                    <div class="business-items">
+                        <div class="business-item" v-for="(item, index) in filteredBusinessItems" :key="index" @click="viewBusinessDetail(item)">
+                            <div class="business-item-header">
+                                <h3 class="business-item-title">{{ item.title }}</h3>
+                                <span class="business-item-tag" :style="{ backgroundColor: item.tagColor }">{{ item.tag }}</span>
+                            </div>
+                            <p class="business-item-description">{{ item.description }}</p>
+                            <div class="business-item-footer">
+                                <span class="business-item-contact">联系人: {{ item.contact }}</span>
+                                <span class="business-item-date">发布: {{ item.date }}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 暂无商机时的提示 -->
+                        <div class="empty-business" v-if="filteredBusinessItems.length === 0">
+                            <div class="empty-icon">
+                                <img src="img/file-icon.svg?v=20250716" alt="无商机">
+                            </div>
+                            <div class="empty-message">暂无相关商机</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- 智能助手浮动按钮 -->
+        <div class="chat-button" @click="toggleChatAssistant" aria-label="智能助手">
+            <img src="img/chat-icon.svg?v=20250716" alt="对话">
+            <span>{{ showChatAssistant ? '收起助手' : '智能助手' }}</span>
+        </div>
+        
+        <!-- 助手聊天窗口 -->
+        <div class="chat-container" v-show="showChatAssistant">
+            <div class="chat-header">
+                <div class="chat-avatar">
+                    <img src="img/ai-assistant-avatar.svg?v=20250716" alt="AI助手">
+                </div>
+                <span>您的专属AI战略顾问</span>
+            </div>
+            
+            <div class="chat-messages" ref="chatMessages">
+                <div v-for="(message, index) in messages" 
+                     :key="index"
+                     :class="['message', message.sender]">
+                    <div class="message-content">{{ message.text }}</div>
+                </div>
+                
+                <!-- 正在输入指示器 -->
+                <div v-if="isTyping" class="typing-indicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <textarea class="message-input" 
+                          v-model="userInput" 
+                          placeholder="有什么可以帮您了解的？"
+                          rows="1"
+                          @keyup.enter="sendMessage"></textarea>
+                <button class="send-button" @click="sendMessage" aria-label="发送">
+                    <img src="img/send-icon.svg?v=20250716" alt="发送">
+                </button>
+            </div>
+        </div>
+        
+        <!-- 联系信息采集弹窗 -->
+        <div class="contact-modal" v-if="showContactModal" @touchmove.prevent>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>很高兴认识您</h3>
+                    <button class="close-button" @click="closeContactModal" aria-label="关闭">×</button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-description">感谢您的关注！为了更好地为您提供服务，请留下您的联系方式：</p>
+                    <form @submit.prevent="submitVisitorInfo">
+                        <div class="form-group">
+                            <label for="visitor-name">您的姓名</label>
+                            <input type="text" id="visitor-name" v-model="visitorInfo.name" placeholder="请输入您的姓名" autocomplete="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="visitor-company">公司名称</label>
+                            <input type="text" id="visitor-company" v-model="visitorInfo.company" placeholder="请输入您的公司名称" autocomplete="organization">
+                        </div>
+                        <div class="form-group">
+                            <label for="visitor-position">职位</label>
+                            <input type="text" id="visitor-position" v-model="visitorInfo.position" placeholder="请输入您的职位" autocomplete="organization-title">
+                        </div>
+                        <div class="form-group">
+                            <label for="visitor-phone">联系电话</label>
+                            <input type="tel" id="visitor-phone" v-model="visitorInfo.phone" placeholder="请输入您的联系电话" autocomplete="tel" inputmode="tel">
+                        </div>
+                        <div class="form-group">
+                            <label for="visitor-interest">感兴趣的服务</label>
+                            <select id="visitor-interest" v-model="visitorInfo.interest">
+                                <option value="">请选择您感兴趣的服务</option>
+                                <option value="ai-growth">AI驱动增长</option>
+                                <option value="system-efficiency">系统重塑效率</option>
+                                <option value="capital-future">资本链接未来</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="submit-button">提交</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 个人对话弹窗 -->
+        <div class="personal-chat-modal" v-if="showPersonalChat" @touchmove.prevent>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>与{{ profile.name }}对话</h3>
+                    <button class="close-button" @click="closePersonalChat" aria-label="关闭">×</button>
+                </div>
+                <div class="modal-body chat-modal-body">
+                    <div class="personal-chat-messages" ref="personalChatMessages">
+                        <div v-for="(message, index) in personalChatMessages" 
+                             :key="index"
+                             :class="['message', message.sender]">
+                            <div class="message-content">{{ message.text }}</div>
+                        </div>
+                        
+                        <!-- 正在输入指示器 -->
+                        <div v-if="isPersonalChatTyping" class="typing-indicator">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input">
+                        <textarea class="message-input" 
+                                  v-model="personalChatInput" 
+                                  placeholder="请输入您想咨询的问题..."
+                                  rows="1"
+                                  @keyup.enter="sendPersonalChatMessage"></textarea>
+                        <button class="send-button" @click="sendPersonalChatMessage" aria-label="发送">
+                            <img src="img/send-icon.svg?v=20250716" alt="发送">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 商机详情弹窗 -->
+        <div class="opportunity-detail-modal" v-if="showOpportunityDetailModal" @touchmove.prevent>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>{{ currentOpportunity ? currentOpportunity.title : '商机详情' }}</h3>
+                    <button class="close-button" @click="closeOpportunityDetailModal" aria-label="关闭">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="opportunity-detail-content" v-if="currentOpportunity">
+                        <div class="opportunity-video">
+                            <video controls :src="currentOpportunity.videoUrl" class="video-player"></video>
+                        </div>
+                        <div class="opportunity-info-detail">
+                            <div class="opportunity-industry-tag">
+                                <span class="industry-label">所属行业：</span>
+                                <span class="industry-value">{{ currentOpportunity.industry }}</span>
+                            </div>
+                            <div class="opportunity-description">
+                                <p>{{ currentOpportunity.description }}</p>
+                            </div>
+                            <div class="related-cards">
+                                <h4 class="related-cards-title">相关名片</h4>
+                                <div class="related-cards-list">
+                                    <div class="related-card-item" v-for="(card, index) in currentOpportunity.relatedCards" :key="index">
+                                        <div class="card-avatar">
+                                            <img src="img/default-avatar.svg?v=20250716" alt="名片头像">
+                                        </div>
+                                        <div class="card-name">{{ card }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="opportunity-actions">
+                                <button class="primary-button" @click="showContactModal = true">
+                                    <img src="img/phone-icon.svg?v=20250716" alt="联系">
+                                    <span>我感兴趣</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 商业项目详情弹窗 -->
+        <div class="business-detail-modal" v-if="showBusinessDetailModal" @touchmove.prevent>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>{{ currentBusinessItem ? currentBusinessItem.title : '商机详情' }}</h3>
+                    <button class="close-button" @click="closeBusinessDetailModal" aria-label="关闭">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="business-detail-content" v-if="currentBusinessItem">
+                        <div class="business-detail-header">
+                            <span class="business-detail-tag" :style="{ backgroundColor: currentBusinessItem.tagColor }">
+                                {{ currentBusinessItem.tag }}
+                            </span>
+                            <span class="business-detail-date">发布时间：{{ currentBusinessItem.date }}</span>
+                        </div>
+                        <div class="business-detail-description">
+                            <p>{{ currentBusinessItem.description }}</p>
+                        </div>
+                        <div class="business-contact-info">
+                            <div class="contact-label">联系人</div>
+                            <div class="contact-value">{{ currentBusinessItem.contact }}</div>
+                        </div>
+                        <div class="business-detail-actions">
+                            <button class="primary-button" @click="contactBusinessPublisher(currentBusinessItem)">
+                                <img src="img/phone-icon.svg?v=20250716" alt="联系">
+                                <span>联系发布者</span>
+                            </button>
+                            <button class="secondary-button" @click="addToFavorites(currentBusinessItem)">
+                                <img src="img/brand-icon.svg?v=20250716" alt="收藏">
+                                <span>添加收藏</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 分享名片弹窗 -->
+        <div class="share-card-modal" v-if="showShareCardModal" @touchmove.prevent>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>分享名片</h3>
+                    <button class="close-button" @click="closeShareCardModal" aria-label="关闭">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="share-card-preview">
+                        <div class="share-card-image-container">
+                            <canvas ref="shareCardCanvas" class="share-card-canvas"></canvas>
+                            <img v-if="shareCardImageUrl" :src="shareCardImageUrl" alt="名片分享图片" class="share-card-image">
+                        </div>
+                        <p class="share-card-tip">长按图片保存到相册</p>
+                    </div>
+                    <div class="share-card-actions">
+                        <button class="primary-button" @click="downloadShareCardImage">
+                            <span>下载图片</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 创建我的名片模块 -->
+        <div class="card-module create-card-module">
+            <div class="module-header">
+                <h2 class="module-title">创建我的名片</h2>
+                <div class="module-line"></div>
+            </div>
+            <div class="module-content">
+                <div class="create-card-content">
+                    <div class="create-card-preview">
+                        <div class="preview-qrcode">
+                            <img src="img/qrcode-placeholder.svg?v=20250716" alt="名片二维码" class="qrcode-image">
+                        </div>
+                        <p class="preview-description">扫描二维码创建您的专属AI智能名片</p>
+                    </div>
+                    <div class="create-card-benefits">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <img src="img/ai-icon.svg?v=20250716" alt="AI功能">
+                            </div>
+                            <div class="benefit-text">AI自动对话，7x24小时代您回复</div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <img src="img/share-icon.svg?v=20250716" alt="一键分享">
+                            </div>
+                            <div class="benefit-text">一键分享，即刻连接潜在客户</div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <img src="img/data-icon.svg?v=20250716" alt="数据分析">
+                            </div>
+                            <div class="benefit-text">客户数据分析，洞察商业机会</div>
+                        </div>
+                    </div>
+                    <button class="create-card-button" @click="startCreateCard">
+                        立即创建我的名片
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <script src="js/ai-card.js"></script>
+</body>
+</html> 

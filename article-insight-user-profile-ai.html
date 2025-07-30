@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>用户画像双驱动模型：打造精准营销新范式 - AICA增长实验室</title>
+    <link rel="stylesheet" href="css/style.css?v=20230703">
+    <link rel="stylesheet" href="css/feature-page.css?v=20230703">
+    <link rel="stylesheet" href="css/growth-lab.css?v=20230703">
+    <link rel="stylesheet" href="css/whitepaper-theme.css?v=20230703">
+    <script src="js/lib/vue.min.js"></script>
+    <style>
+        /* 文章页面特有样式 */
+        .article-container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            font-family: "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        .article-header {
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .article-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            background: linear-gradient(120deg, #2D7BF6, #4766E6);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .article-meta {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .article-meta span {
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .article-meta span:before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background-color: #2D7BF6;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .article-tags {
+            margin-bottom: 30px;
+        }
+        
+        .article-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 16px;
+            background-color: #f0f6ff;
+            color: #2D7BF6;
+            font-size: 12px;
+            margin: 0 5px 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(45, 123, 246, 0.1);
+            cursor: pointer;
+        }
+        
+        .article-tag:hover {
+            background-color: #e0efff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(45, 123, 246, 0.2);
+        }
+        
+        .article-cover {
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            transition: all 0.5s ease;
+        }
+        
+        .article-cover img {
+            max-width: 100%;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            display: block;
+            transform-origin: center;
+        }
+        
+        .article-cover:hover img {
+            transform: scale(1.03);
+        }
+        
+        .article-content {
+            line-height: 1.8;
+            color: #333;
+            font-size: 16px;
+            position: relative;
+        }
+        
+        .article-content p {
+            margin-bottom: 24px;
+        }
+        
+        .article-content h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 45px 0 24px;
+            color: #222;
+            border-left: 4px solid #2D7BF6;
+            background: linear-gradient(to right, rgba(45, 123, 246, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+            padding: 10px 16px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .article-content h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 35px 0 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        
+        .article-content h3::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #2D7BF6;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+        
+        .article-content ul {
+            margin-bottom: 24px;
+            padding-left: 20px;
+        }
+        
+        .article-content li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .article-content li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #2D7BF6;
+        }
+        
+        .article-image {
+            margin: 35px 0;
+            text-align: center;
+            position: relative;
+            perspective: 1000px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .article-image img {
+            max-width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transform: translateY(0);
+            display: block;
+        }
+        
+        .article-image::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            z-index: -1;
+        }
+        
+        .article-image:hover img {
+            transform: translateY(-10px) rotateX(3deg);
+        }
+        
+        .article-image:hover::after {
+            opacity: 1;
+        }
+        
+        .article-image-caption {
+            font-size: 14px;
+            color: #777;
+            text-align: center;
+            margin-top: 15px;
+            font-style: italic;
+            opacity: 0.8;
+        }
+        
+        .article-highlight {
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f6ff 100%);
+            border-left: 4px solid #2D7BF6;
+            padding: 24px 30px;
+            margin: 35px 0;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .article-highlight::before {
+            content: "";
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            font-size: 120px;
+            color: rgba(45, 123, 246, 0.1);
+            font-family: serif;
+        }
+        
+        .article-highlight p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .article-cta {
+            background: linear-gradient(135deg, #f8fbff 0%, #edf5ff 100%);
+            border-radius: 16px;
+            padding: 35px;
+            margin: 60px 0 40px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .article-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+        }
+        
+        .article-cta::before {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(45, 123, 246, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            top: -100px;
+            right: -100px;
+            z-index: 0;
+        }
+        
+        .article-cta::after {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(94, 92, 230, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            bottom: -75px;
+            left: -75px;
+            z-index: 0;
+        }
+        
+        .article-cta h3 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .article-cta p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 25px;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .article-cta-button {
+            display: inline-block;
+            padding: 14px 34px;
+            background: linear-gradient(135deg, #3a8aff 0%, #1a68e3 100%);
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(42, 123, 246, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .article-cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(42, 123, 246, 0.4);
+            background: linear-gradient(135deg, #4a93ff 0%, #2575f5 100%);
+        }
+        
+        .article-footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+            position: relative;
+        }
+        
+        .article-share {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .article-share span {
+            margin-right: 15px;
+            font-size: 15px;
+            color: #555;
+        }
+        
+        .share-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f0f6ff 0%, #e0ecfd 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .share-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .share-button img {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .related-articles {
+            margin-top: 70px;
+        }
+        
+        .related-title {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+            background: linear-gradient(120deg, #2D7BF6, #4766E6);
+
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .related-title::after {
+            content: "";
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, #2D7BF6, transparent);
+            bottom: -10px;
+            left: 20%;
+        }
+        
+        .related-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        
+        .related-item {
+            width: calc(50% - 15px);
+            background-color: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+        }
+        
+        .related-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .related-image {
+            height: 180px;
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f6ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .related-image img {
+            max-width: 100%;
+            max-height: 100%;
+            transition: transform 0.5s ease;
+        }
+        
+        .related-item:hover .related-image img {
+            transform: scale(1.05);
+        }
+        
+        .related-info {
+            padding: 20px;
+        }
+        
+        .related-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: #f0f6ff;
+            color: #2D7BF6;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 5px rgba(45, 123, 246, 0.1);
+        }
+        
+        .related-item-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+            line-height: 1.4;
+        }
+        
+        .related-item-excerpt {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.6;
+            display: -webkit-box;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        /* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2D7BF6, #5E5CE6);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(45, 123, 246, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(45, 123, 246, 0.4);
+        }
+        
+        /* 内容区块动画 */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 数据卡片组 */
+        .data-card-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        
+        .data-card {
+            flex: 1;
+            min-width: 180px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .data-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .data-card-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2D7BF6;
+            margin-bottom: 8px;
+        }
+        
+        .data-card-label {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 24px;
+            }
+            
+            .article-content h2 {
+                font-size: 22px;
+            }
+            
+            .article-content h3 {
+                font-size: 18px;
+            }
+            
+            .article-content {
+                font-size: 15px;
+            }
+            
+            .related-item {
+                width: 100%;
+            }
+            
+            .article-cta {
+                padding: 25px 20px;
+            }
+            
+            .article-cta p {
+                max-width: 95%;
+            }
+            
+            .data-card-group {
+                flex-direction: column;
+            }
+            
+            .data-card {
+                width: 100%;
+            }
+            
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="article-app" class="growth-lab-page">
+        <header class="lab-header">
+            <button class="back-button" @click="goBack">
+                <img src="img/back-arrow.svg?v=20250716" alt="返回">
+            </button>
+            <div class="header-title">增长实验室</div>
+        </header>
+        
+        <div class="article-container">
+            <article class="article-main">
+                <header class="article-header">
+                    <h1 class="article-title">用户画像双驱动模型：打造精准营销新范式</h1>
+                    <div class="article-meta">
+                        <span class="article-date">2024年7月15日</span>
+                        <span class="article-read-time">15分钟阅读</span>
+                        <span class="article-views">浏览量 2842</span>
+                    </div>
+                    <div class="article-tags">
+                        <span class="article-tag">行业洞察</span>
+                        <span class="article-tag">用户画像</span>
+                        <span class="article-tag">AIGC</span>
+                    </div>
+                    
+                    <!-- 装饰元素 -->
+                    <div class="whitepaper-decoration-dot whitepaper-decoration-1"></div>
+                    <div class="whitepaper-decoration-dot whitepaper-decoration-2"></div>
+                    <div class="whitepaper-decoration-dot whitepaper-decoration-3"></div>
+                </header>
+                
+                <div class="article-cover">
+                    <img src="img/insight-user-profile.svg?v=20250716" alt="用户画像双驱动模型">
+                </div>
+                
+                <div class="article-content">
+                    <p>2024年企业新媒体运营进入"精准圈层运营"时代，用户画像的构建已经从单一维度的用户触达转变为"年龄分层+兴趣圈层"的双驱动模式，实现更加精准的内容推送和互动策略。各平台用户年龄分布数据显示，B站主要用户群体集中在18-24岁，抖音的用户年龄分布较为广泛，18-35岁用户占比超过80%，小红书则以18-35岁的年轻女性用户为主。</p>
+                    
+                    <p>同时，不同平台的用户兴趣特征鲜明，B站以"游戏电竞+动漫二次元+硬核科技"为内容金三角，抖音和视频号聚焦于健身、体育、生活化等内容，公众号则深耕于科技、财经、教育等深度内容，小红书和微博锁定18-35岁的都市消费主力，娱乐、时尚等话题的日均互动量达到480万次。通过构建"年龄×兴趣"的双驱动模型，企业能够实现跨平台的精准触达，最大化用户全生命周期价值。</p>
+                    
+                    <div class="article-highlight">
+                        <p><strong>核心洞察：</strong>用户画像已从单维度触达模式，转变为"年龄分层+兴趣圈层"的双驱动模式。在不同平台精准把握用户群体的年龄特征与内容兴趣偏好，是2024年内容营销的关键竞争力。</p>
+                    </div>
+                    
+                    <h2>各主要平台用户年龄分布特征</h2>
+                    
+                    <p>不同内容平台的用户年龄分布存在明显差异，这对企业的内容策略与投放决策有着重要指导意义：</p>
+                    
+                    <ul>
+                        <li><strong>抖音：</strong>18-24岁用户占比36.5%，24-35岁用户占比51.0%，年轻用户为主体但年龄分布相对均衡</li>
+                        <li><strong>小红书：</strong>18-24岁用户占比45.8%，24-35岁用户占比43.2%，年轻女性用户集中</li>
+                        <li><strong>B站：</strong>18-24岁用户占比79.9%，呈现出最年轻的用户群体特征</li>
+                        <li><strong>微博：</strong>18-24岁用户占比62.7%，明星、娱乐内容驱动的年轻用户高度集中</li>
+                        <li><strong>快手：</strong>24-35岁用户占比51.4%，相比其他短视频平台用户年龄略高</li>
+                        <li><strong>视频号：</strong>分布较为均衡，24-35岁占比27.4%，36-45岁占比30.3%</li>
+                        <li><strong>公众号：</strong>36-45岁用户占比45.6%，展现出较为成熟的用户群体</li>
+                    </ul>
+                    
+                    <div class="article-image">
+                        <img src="img/insight-user-profile.svg?v=20250716" alt="各平台用户年龄分布">
+                        <p class="article-image-caption">图1：各主要内容平台用户年龄分布对比</p>
+                    </div>
+                    
+                    <h2>兴趣圈层特征与内容偏好</h2>
+                    
+                    <p>除了年龄维度，用户的兴趣偏好同样是构建精准画像的关键因素：</p>
+                    
+                    <p><strong>B站用户兴趣圈层：</strong>形成了"游戏电竞+动漫二次元+硬核科技"的内容金三角，高度垂直且用户粘性强，社区氛围浓厚。内容创作遵循"ACGN文化"为核心的独特表达方式，视频平均观看完成率超过75%，弹幕互动成为平台特色。</p>
+                    
+                    <p><strong>抖音用户兴趣圈层：</strong>内容消费呈现"大众化+碎片化"特点，健身、体育、生活趣味内容表现突出，算法推荐主导用户内容发现，平均单次停留时长52分钟。内容创作需要在前5秒抓住用户注意力，悬念式开场和情感共鸣内容效果最佳。</p>
+                    
+                    <p><strong>小红书用户兴趣圈层：</strong>以"种草+生活方式+审美表达"为主，女性用户占比超过70%，消费决策影响力大，种草转化路径清晰。内容创作强调真实感和细节展示，图文并茂的多媒体表达最受欢迎。</p>
+                    
+                    <h2>从人力驱动到AI协同的内容创作方式转变</h2>
+                    
+                    <p>2024年人工智能技术在内容领域的应用已初露锋芒，尤其在剧情和文字创作上，AIGC（人工智能生成内容）开始发挥辅助作用。AI正成为内容生产的"效率杠杆"，企业正在逐步尝试以AI替代人力进行标准化内容的生产，从而让创意团队有更多精力专注于创意性情感化内容创作。这种转变不仅提升了内容的创作效率和质量，还有效降低了人力成本。</p>
+                    
+                    <div class="article-image">
+                        <img src="img/insight-ai-content.svg?v=20250716" alt="内容创作方式转变">
+                        <p class="article-image-caption">图2：从人力驱动到AI协同的内容创作模式转变</p>
+                    </div>
+                    
+                    <h3>各平台AIGC应用现状</h3>
+                    
+                    <div class="data-card-group">
+                        <div class="data-card">
+                            <div class="data-card-value">+55%</div>
+                            <div class="data-card-label">B站AI内容<br>日均产量增长</div>
+                        </div>
+                        <div class="data-card">
+                            <div class="data-card-value">500万+</div>
+                            <div class="data-card-label">快手AI服务<br>用户规模</div>
+                        </div>
+                        <div class="data-card">
+                            <div class="data-card-value">11.4%</div>
+                            <div class="data-card-label">AIGC产品<br>月均增长率</div>
+                        </div>
+                    </div>
+                    
+                    <h3>AIGC产品使用情况分布</h3>
+                    
+                    <p>当前AIGC产品的使用场景主要集中在以下几个方面：</p>
+                    <ul>
+                        <li>文案生成：80.7%（最主流的应用场景）</li>
+                        <li>图片生成：59.4%</li>
+                        <li>视频生成：34.9%</li>
+                        <li>文档分析：30.2%</li>
+                        <li>虚拟数字人：23.1%</li>
+                    </ul>
+                    
+                    <p>AIGC产品的活跃用户规模持续增长，2024年月均增长率达11.4%，预计到年底，国内内容创作者中超过40%将在工作流程中常态化使用AI辅助工具。</p>
+                    
+                    <h2>双驱动模型的实践路径</h2>
+                    
+                    <p>基于"年龄×兴趣"双驱动模型和AI内容创作技术，企业可以构建更高效的内容营销策略：</p>
+                    
+                    <h3>1. 建立平台矩阵，实现差异化内容分发</h3>
+                    <p>根据各平台的用户年龄分布和兴趣特点，构建差异化的内容分发矩阵。例如，针对B站的年轻用户群体，可以打造与ACGN文化相关的科技内容；而针对公众号的成熟用户，则可以提供深度的行业分析。</p>
+                    
+                    <h3>2. 运用AI辅助生产标准化内容</h3>
+                    <p>识别内容生产流程中的标准化环节，引入AIGC工具提升效率。例如，使用AI生成初步文案框架、批量处理图片素材、自动生成产品参数介绍等，将创意人员从重复性工作中解放出来。</p>
+                    
+                    <h3>3. 构建用户兴趣图谱，实现精准内容推送</h3>
+                    <p>利用平台数据和AI分析工具，构建细分用户群体的兴趣图谱，根据不同兴趣圈层的内容偏好和互动习惯，优化内容推送策略。例如，针对小红书的女性用户，可以围绕"种草体验+审美表达"设计内容形式。</p>
+                    
+                    <h3>4. 建立内容效果评估体系</h3>
+                    <p>打破传统的单一曝光量、点击量指标，构建更全面的内容效果评估体系，包括内容完成率、互动深度、转化路径等多维度指标，以及时调整内容策略。</p>
+                    
+                    <div class="article-highlight">
+                        <p><strong>结论：</strong>在2024年企业新媒体运营环境中，"年龄×兴趣"双驱动的用户画像模型与AI内容创作技术正在深度融合，为企业提供了更精准、更高效的内容营销路径。通过精准理解不同平台的用户年龄特征和兴趣偏好，结合AIGC技术的生产效率提升，企业能够构建更有竞争力的内容生态系统，实现营销效果的持续优化。</p>
+                    </div>
+                </div>
+                
+                <div class="article-cta">
+                    <h3>想了解如何将用户画像双驱动模型应用到您的业务中？</h3>
+                    <p>我们的增长顾问团队可以为您提供免费诊断，帮助您建立精准的用户画像和高效的内容营销策略。</p>
+                    <a href="ai-marketing.html" class="article-cta-button">预约免费诊断</a>
+                </div>
+                
+                <footer class="article-footer">
+                    <div class="article-share">
+                        <span>分享文章：</span>
+                        <a class="share-button" title="微信分享">
+                            <img src="img/wechat-icon.svg?v=20250716" alt="微信">
+                        </a>
+                        <a class="share-button" title="微博分享">
+                            <img src="img/weibo-icon.svg?v=20250716" alt="微博">
+                        </a>
+                        <a class="share-button" title="复制链接">
+                            <img src="img/link-icon.svg?v=20250716" alt="复制链接">
+                        </a>
+                    </div>
+                </footer>
+            </article>
+            
+            <section class="related-articles">
+                <h2 class="related-title">相关阅读</h2>
+                <div class="related-list">
+                    <div class="related-item">
+                        <div class="related-image">
+                            <img src="img/case-ai-engine.svg?v=20250716" alt="AI增长引擎">
+                        </div>
+                        <div class="related-info">
+                            <div class="related-tag">案例分析</div>
+                            <h3 class="related-item-title">从0到1：打造AI增长引擎</h3>
+                            <p class="related-item-excerpt">完整还原一家传统制造业企业如何在90天内构建完整的AI获客系统，实现线索增长120%的全过程。</p>
+                        </div>
+                    </div>
+                    <div class="related-item">
+                        <div class="related-image">
+                            <img src="img/method-comments.svg?v=20250716" alt="评论分析">
+                        </div>
+                        <div class="related-info">
+                            <div class="related-tag">方法论</div>
+                            <h3 class="related-item-title">AI分析千条评论提炼爆款话术</h3>
+                            <p class="related-item-excerpt">详解我们如何使用自然语言处理技术，从大量用户评论中挖掘情感倾向、核心诉求和潜在痛点，从而构建高转化的营销话术。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- 回到顶部按钮 -->
+        <div class="back-to-top" id="backToTop">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 5L5 12H9V19H15V12H19L12 5Z" fill="white"/>
+            </svg>
+        </div>
+    </div>
+    
+    <script>
+    const articleApp = new Vue({
+        el: '#article-app',
+        mounted() {
+            // 监听滚动，实现渐入动画
+            this.handleScrollAnimations();
+            window.addEventListener('scroll', this.handleScrollAnimations);
+            window.addEventListener('scroll', this.toggleBackToTopButton);
+            
+            // 初始显示图片
+            this.initImageAnimations();
+            
+            // 回到顶部按钮点击事件
+            document.getElementById('backToTop').addEventListener('click', this.scrollToTop);
+        },
+        beforeDestroy() {
+            window.removeEventListener('scroll', this.handleScrollAnimations);
+            window.removeEventListener('scroll', this.toggleBackToTopButton);
+            document.getElementById('backToTop').removeEventListener('click', this.scrollToTop);
+        },
+        methods: {
+            goBack() {
+                window.location.href = 'growth-lab.html';
+            },
+            initImageAnimations() {
+                // 设置图片容器的动画延迟
+                const imageContainers = document.querySelectorAll('.article-image');
+                imageContainers.forEach((container, index) => {
+                    container.style.animationDelay = `${index * 0.2}s`;
+                });
+                
+                // 添加淡入类
+                const contentElements = document.querySelectorAll('.article-content p, .article-content ul, .article-content h3');
+                contentElements.forEach(element => {
+                    element.classList.add('fade-in-section');
+                });
+            },
+            handleScrollAnimations() {
+                const sections = document.querySelectorAll('.fade-in-section');
+                
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (sectionTop < windowHeight * 0.85) {
+                        section.classList.add('is-visible');
+                    }
+                });
+            },
+            toggleBackToTopButton() {
+                const backToTopBtn = document.getElementById('backToTop');
+                if (window.scrollY > 500) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            },
+            scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    });
+    </script>
+</body>
+</html> 

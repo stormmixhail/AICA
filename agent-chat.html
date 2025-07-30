@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>智能体对话 - AICA</title>
+    <link rel="icon" href="img/favicon.svg?v=20250716" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/agent-chat.css">
+    <script src="js/lib/vue.min.js"></script>
+</head>
+<body>
+    <div id="agent-chat-app">
+        <header class="feature-header">
+            <button class="back-button" @click="goBack">
+                <img src="img/back-arrow.svg?v=20250716" alt="返回">
+            </button>
+            <div class="feature-title">{{ agentInfo.name }} - {{ agentInfo.title }}</div>
+        </header>
+        
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="agent-avatar">
+                    <img :src="agentInfo.avatar" :alt="agentInfo.name">
+                </div>
+                <div class="agent-info">
+                    <div class="agent-name">{{ agentInfo.name }}</div>
+                    <div class="agent-title">{{ agentInfo.title }}</div>
+                </div>
+                <div class="chat-actions">
+                    <button class="action-button" @click="clearChat" aria-label="清空对话">
+                        <img src="img/clear-icon.svg?v=20250716" alt="清空">
+                    </button>
+                </div>
+            </div>
+            
+            <div class="chat-messages" ref="chatMessages">
+                <div v-for="(message, index) in messages" 
+                     :key="index"
+                     :class="['message', message.sender]">
+                    <div class="message-avatar" v-if="message.sender === 'agent'">
+                        <img :src="agentInfo.avatar" :alt="agentInfo.name">
+                    </div>
+                    <div class="message-content">{{ message.text }}</div>
+                </div>
+                
+                <!-- 正在输入指示器 -->
+                <div v-if="isTyping" class="typing-indicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <textarea class="message-input" 
+                          v-model="userInput" 
+                          placeholder="请输入您的问题..."
+                          rows="1"
+                          @input="adjustTextareaHeight"
+                          @keyup.enter="sendMessage"></textarea>
+                <button class="send-button" @click="sendMessage" aria-label="发送">
+                    <img src="img/send-icon.svg?v=20250716" alt="发送">
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        new Vue({
+            el: '#agent-chat-app',
+            data: {
+                agentInfo: {
+                    name: '智能助手',
+                    title: 'AI助手',
+                    avatar: 'img/ai-avatar.svg'
+                },
+                messages: [],
+                userInput: '',
+                isTyping: false,
+                agentType: '',
+                welcomeMessages: {
+                    'tan-agent': '您好，我是谭云杰，AICA科技创始人兼CEO。很高兴能与您交流，我擅长AI战略规划、企业数字化转型和商业模式创新。请问有什么我可以帮助您的？',
+                    'zheng-agent': '您好，我是郑明，AICA科技联合创始人兼CTO。很高兴认识您，我专注于大模型应用开发、AI系统架构和数据智能分析。有任何技术问题，都可以向我咨询。',
+                    'default': '您好，我是AICA智能助手，请问有什么可以帮您？'
+                }
+            },
+            mounted() {
+                // 从URL参数中获取智能体类型
+                const urlParams = new URLSearchParams(window.location.search);
+                this.agentType = urlParams.get('agent') || 'default';
+                
+                // 从sessionStorage中获取智能体信息
+                const storedAgent = sessionStorage.getItem('currentAgent');
+                if (storedAgent) {
+                    this.agentInfo = JSON.parse(storedAgent);
+                }
+                
+                // 显示欢迎消息
+                this.addAgentMessage(this.welcomeMessages[this.agentType] || this.welcomeMessages.default);
+            },
+            methods: {
+                goBack() {
+                    window.history.back();
+                },
+                
+                sendMessage() {
+                    if (!this.userInput.trim()) return;
+                    
+                    // 添加用户消息
+                    this.addUserMessage(this.userInput);
+                    const userQuestion = this.userInput;
+                    this.userInput = '';
+                    
+                    // 显示智能体正在输入
+                    this.isTyping = true;
+                    
+                    // 模拟智能体回复
+                    setTimeout(() => {
+                        this.isTyping = false;
+                        
+                        // 根据智能体类型生成不同的回复
+                        let response = '';
+                        if (this.agentType === 'tan-agent') {
+                            response = this.generateTanResponse(userQuestion);
+                        } else if (this.agentType === 'zheng-agent') {
+                            response = this.generateZhengResponse(userQuestion);
+                        } else {
+                            response = this.generateDefaultResponse(userQuestion);
+                        }
+                        
+                        this.addAgentMessage(response);
+                    }, 1000 + Math.random() * 1000);
+                },
+                
+                addUserMessage(text) {
+                    this.messages.push({
+                        text: text,
+                        sender: 'user'
+                    });
+                    this.$nextTick(() => {
+                        this.scrollToBottom();
+                    });
+                },
+                
+                addAgentMessage(text) {
+                    this.messages.push({
+                        text: text,
+                        sender: 'agent'
+                    });
+                    this.$nextTick(() => {
+                        this.scrollToBottom();
+                    });
+                },
+                
+                scrollToBottom() {
+                    const chatContainer = this.$refs.chatMessages;
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                },
+                
+                adjustTextareaHeight() {
+                    const textarea = document.querySelector('.message-input');
+                    textarea.style.height = 'auto';
+                    textarea.style.height = Math.min(textarea.scrollHeight, 100) + 'px';
+                },
+                
+                clearChat() {
+                    if (confirm('确定要清空当前对话吗？')) {
+                        this.messages = [];
+                        // 重新显示欢迎消息
+                        this.addAgentMessage(this.welcomeMessages[this.agentType] || this.welcomeMessages.default);
+                    }
+                },
+                
+                // 谭总的回复生成逻辑
+                generateTanResponse(question) {
+                    // 这里是简单的模拟回复，实际项目中应该连接到后端AI服务
+                    const responses = [
+                        "从战略角度看，您提到的问题涉及到企业数字化转型的核心挑战。我们在AICA的实践中发现，成功的转型需要同时关注技术、人才和流程三个维度。",
+                        "AI战略规划需要从业务痛点出发，而不是技术本身。我们帮助客户首先明确业务目标，然后选择合适的AI技术路线。",
+                        "商业模式创新是数字化时代的必然选择。我们可以一起探讨如何利用AI技术为您的企业打造新的增长引擎。",
+                        "基于我们服务过的上百家企业经验，我认为您的问题需要从系统思维出发，综合考虑短期ROI和长期竞争力。",
+                        "很高兴您对这个话题感兴趣。我们在AICA有一套成熟的方法论，可以帮助企业快速评估AI落地机会并实现价值。"
+                    ];
+                    
+                    return responses[Math.floor(Math.random() * responses.length)];
+                },
+                
+                // 郑总的回复生成逻辑
+                generateZhengResponse(question) {
+                    // 这里是简单的模拟回复，实际项目中应该连接到后端AI服务
+                    const responses = [
+                        "从技术实现角度，您提到的需求可以通过大模型API和定制化微调相结合的方式实现。我们在AICA已经为多个行业客户落地了类似解决方案。",
+                        "AI系统架构设计需要考虑性能、成本和可扩展性的平衡。基于您的描述，我建议采用混合云架构，结合边缘计算提升响应速度。",
+                        "数据是AI系统的基础。在开始技术选型之前，我们需要先评估您现有的数据质量和数量，然后设计合适的数据处理流程。",
+                        "这个问题涉及到深度学习模型的优化。我们可以通过知识蒸馏和模型量化技术，将大模型轻量化部署到您的业务场景中。",
+                        "很高兴听到您对这个技术方向的兴趣。在AICA，我们开发了一套专有的AI中台，可以帮助企业快速构建和部署各类智能应用。"
+                    ];
+                    
+                    return responses[Math.floor(Math.random() * responses.length)];
+                },
+                
+                // 默认回复生成逻辑
+                generateDefaultResponse(question) {
+                    const responses = [
+                        "感谢您的提问。我们的团队正在研究这个问题，很快会给您更专业的回复。",
+                        "这是个很好的问题。AICA的专家团队可以为您提供定制化的解决方案。",
+                        "您提到的问题很有价值。我们有丰富的行业经验可以分享给您。",
+                        "我理解您的需求。AICA的AI解决方案可以帮助您解决这类挑战。",
+                        "这个问题涉及多个方面。我们可以安排专家与您进一步深入交流。"
+                    ];
+                    
+                    return responses[Math.floor(Math.random() * responses.length)];
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

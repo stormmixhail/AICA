@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>商机广场图标</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: white;
+        }
+        
+        .icon {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .star {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            fill: #4285F4;
+        }
+        
+        .center-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .dot {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: #FF5722;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .dot1 { top: 40px; left: 60px; }
+        .dot2 { top: 40px; right: 60px; }
+        .dot3 { bottom: 40px; left: 70px; }
+        .dot4 { bottom: 60px; right: 70px; }
+        
+        .line {
+            position: absolute;
+            background-color: #4285F4;
+            height: 2px;
+        }
+        
+        .line1 {
+            width: 40px;
+            top: 40px;
+            left: 70px;
+            transform: rotate(-30deg);
+        }
+        
+        .line2 {
+            width: 40px;
+            top: 40px;
+            right: 70px;
+            transform: rotate(30deg);
+        }
+        
+        .line3 {
+            width: 40px;
+            bottom: 60px;
+            left: 80px;
+            transform: rotate(30deg);
+        }
+        
+        .line4 {
+            width: 40px;
+            bottom: 70px;
+            right: 80px;
+            transform: rotate(-30deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="icon">
+        <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+        </svg>
+        
+        <div class="center-circle">商机</div>
+        
+        <div class="dot dot1"></div>
+        <div class="line line1"></div>
+        
+        <div class="dot dot2"></div>
+        <div class="line line2"></div>
+        
+        <div class="dot dot3"></div>
+        <div class="line line3"></div>
+        
+        <div class="dot dot4"></div>
+        <div class="line line4"></div>
+    </div>
+</body>
+</html>

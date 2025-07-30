@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>内容营销实战：3步写出高转化笔记 - AICA增长实验室</title>
+    <link rel="stylesheet" href="css/style.css?v=20230703">
+    <link rel="stylesheet" href="css/feature-page.css?v=20230703">
+    <link rel="stylesheet" href="css/growth-lab.css?v=20230703">
+    <link rel="stylesheet" href="css/whitepaper-theme.css?v=20230703">
+    <script src="js/lib/vue.min.js"></script>
+    <style>
+        /* 文章页面特有样式 */
+        .article-container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            font-family: "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        .article-header {
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .article-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            background: linear-gradient(120deg, #ff5c8a, #ff91a7);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .article-meta {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .article-meta span {
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .article-meta span:before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background-color: #ff5c8a;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .article-tags {
+            margin-bottom: 30px;
+        }
+        
+        .article-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 16px;
+            background-color: #ffeff4;
+            color: #ff5c8a;
+            font-size: 12px;
+            margin: 0 5px 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(255, 92, 138, 0.1);
+            cursor: pointer;
+        }
+        
+        .article-tag:hover {
+            background-color: #ffe0ea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 92, 138, 0.2);
+        }
+        
+        /* 顶部主视觉区域 */
+        .article-hero {
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fff5f8 0%, #ffeff4 100%);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+        }
+        
+        .article-hero-inner {
+            max-width: 90%;
+            margin: 0 auto;
+        }
+        
+        .article-cover {
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+        
+        .article-cover img {
+            max-width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            transition: all 0.5s ease;
+            transform-origin: center;
+        }
+        
+        .article-cover:hover img {
+            transform: scale(1.03);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 图片渐入动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .article-content {
+            line-height: 1.8;
+            color: #333;
+            font-size: 16px;
+            position: relative;
+        }
+        
+        .article-content p {
+            margin-bottom: 24px;
+        }
+        
+        .article-content h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 45px 0 24px;
+            color: #222;
+            border-left: 4px solid #ff5c8a;
+            background: linear-gradient(to right, rgba(255, 92, 138, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+            padding: 10px 16px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .article-content h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 35px 0 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        
+        .article-content h3::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #ff5c8a;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+        
+        .article-content ul {
+            margin-bottom: 24px;
+            padding-left: 20px;
+        }
+        
+        .article-content li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .article-content li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #ff5c8a;
+        }
+        
+        .article-image-container {
+            margin: 35px 0;
+            text-align: center;
+            position: relative;
+            perspective: 1000px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .article-image {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transform: translateY(0);
+        }
+        
+        .article-image::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            z-index: -1;
+        }
+        
+        .article-image:hover {
+            transform: translateY(-10px) rotateX(3deg);
+        }
+        
+        .article-image:hover::after {
+            opacity: 1;
+        }
+        
+        .article-image img {
+            max-width: 100%;
+            display: block;
+            transition: all 0.5s ease;
+        }
+        
+        .article-image-caption {
+            font-size: 14px;
+            color: #777;
+            text-align: center;
+            margin-top: 15px;
+            font-style: italic;
+            opacity: 0.8;
+        }
+        
+        .article-highlight {
+            background: linear-gradient(135deg, #fff5f8 0%, #ffeff4 100%);
+            border-left: 4px solid #ff5c8a;
+            padding: 24px 30px;
+            margin: 35px 0;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .article-highlight::before {
+            content: "\201C";
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            font-size: 120px;
+            color: rgba(255, 92, 138, 0.1);
+            font-family: serif;
+        }
+        
+        .article-highlight p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* 内容区块动画 */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 示例卡片组 */
+        .example-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #fff8fa 0%, #fff5f8 100%);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+        
+        .example-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        
+        .example-container {
+            display: flex;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+        
+        .example-bad {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff0f0;
+            position: relative;
+        }
+        
+        .example-good {
+            flex: 1;
+            padding: 20px;
+            background-color: #f0fff4;
+            position: relative;
+        }
+        
+        .example-label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 5px 15px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .example-bad .example-label {
+            background-color: #ff6b6b;
+        }
+        
+        .example-good .example-label {
+            background-color: #51cf66;
+        }
+        
+        .example-text {
+            margin-top: 30px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .example-text p {
+            margin-bottom: 10px;
+        }
+        
+        .example-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            line-height: 18px;
+            text-align: center;
+            border-radius: 50%;
+            margin-right: 8px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .icon-x {
+            background-color: #ff6b6b;
+        }
+        
+        .icon-check {
+            background-color: #51cf66;
+        }
+        
+        /* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff5c8a, #ff91a7);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255, 92, 138, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(255, 92, 138, 0.4);
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 24px;
+            }
+            
+            .article-hero {
+                padding: 20px 15px;
+            }
+            
+            .article-content h2 {
+                font-size: 22px;
+            }
+            
+            .article-content h3 {
+                font-size: 18px;
+            }
+            
+            .article-content {
+                font-size: 15px;
+            }
+            
+            .article-image-container {
+                margin: 25px 0;
+            }
+            
+            .example-container {
+                flex-direction: column;
+            }
+            
+            .example-bad, .example-good {
+                padding: 20px;
+            }
+            
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="article-app" class="growth-lab-page">
+        <header class="lab-header">
+            <button class="back-button" @click="goBack">
+                <img src="img/back-arrow.svg?v=20250716" alt="返回">
+            </button>
+            <div class="header-title">增长实验室</div>
+        </header>
+        
+        <div class="article-container">
+            <article class="article-main">
+                <header class="article-header">
+                    <h1 class="article-title">内容营销实战：3步写出高转化笔记</h1>
+                    <div class="article-meta">
+                        <span class="article-date">2024年7月22日</span>
+                        <span class="article-read-time">10分钟阅读</span>
+                        <span class="article-views">浏览量 1635</span>
+                    </div>
+                    <div class="article-tags">
+                        <span class="article-tag">方法论</span>
+                        <span class="article-tag">内容营销</span>
+                        <span class="article-tag">转化技巧</span>
+                    </div>
+                    
+                    <!-- 装饰元素 -->
+                    <div class="whitepaper-decoration-dot whitepaper-decoration-1"></div>
+                    <div class="whitepaper-decoration-dot whitepaper-decoration-2"></div>
+                    <div class="whitepaper-decoration-dot whitepaper-decoration-3"></div>
+                </header>
+                
+                <div class="article-hero">
+                    <div class="article-hero-inner">
+                        <p>随着用户注意力越来越分散，如何写出能够吸引用户并实现高转化率的内容成为品牌营销的关键。本文拆解用户痛点、真实场景描述和有效下单引导三大关键步骤，帮你提升内容转化率。</p>
+                        
+                        <div class="article-highlight">
+                            <p><strong>核心洞察：</strong>高转化内容的本质不是直接推销产品，而是深入理解用户真实痛点，通过场景化描述引发共鸣，最后在恰当时机给予明确的行动引导。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="article-content">
+                    <h2>为什么大多数营销内容难以转化？</h2>
+                    
+                    <p>在内容爆炸的时代，品牌每天都在生产大量内容，但真正能产生转化的却寥寥无几。根据我们的研究，90%的内容营销失败是因为没有抓住用户真正的痛点，而是基于品牌自身的臆想。</p>
+                    
+                    <p>大多数营销内容失败的原因主要有三点：</p>
+                    
+                    <ul>
+                        <li><strong>用户痛点识别错误</strong> - 往往是品牌以为的痛点，而非用户真实面临的问题</li>
+                        <li><strong>内容缺乏真实感</strong> - 过于理想化或抽象化的描述无法引起用户共鸣</li>
+                        <li><strong>转化路径不清晰</strong> - 内容与实际购买行为之间缺乏明确的引导</li>
+                    </ul>
+                    
+                    <div class="article-image-container">
+                        <div class="article-image">
+                            <img src="img/content-marketing/high-conversion-notes.svg?v=20250716" alt="高转化笔记">
+                        </div>
+                        <p class="article-image-caption">图1：高转化内容的三个关键要素</p>
+                    </div>
+                    
+                    <h2>第一步：抓住用户真实痛点</h2>
+                    
+                    <p>用户的真正痛点并不是你以为的痛点。根据我们对1000+个高转化内容的分析，真正能引起用户共鸣的痛点是"<strong>用户反复尝试却解决不了的问题</strong>"。</p>
+                    
+                    <div class="example-section">
+                        <div class="example-title">痛点表达对比示例</div>
+                        <div class="example-container">
+                            <div class="example-bad">
+                                <div class="example-label">低效表达</div>
+                                <div class="example-text">
+                                    <p><span class="example-icon icon-x">×</span>"换季皮肤干燥怎么办？"</p>
+                                    <p><span class="example-icon icon-x">×</span>"敏感肌如何护肤？"</p>
+                                </div>
+                            </div>
+                            <div class="example-good">
+                                <div class="example-label">高效表达</div>
+                                <div class="example-text">
+                                    <p><span class="example-icon icon-check">✓</span>"为什么每天敷面膜，鼻翼还是疯狂爆皮？"</p>
+                                    <p><span class="example-icon icon-check">✓</span>"为什么面霜用空3瓶，泛红反而更不好了？"</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p>高效痛点表达的特点：明确指出用户<strong>已经尝试过的方法</strong>和<strong>依然存在的问题</strong>，形成反差。</p>
+                    </div>
+                    
+                    <p>要找到真实痛点，可以通过以下途径：</p>
+                    
+                    <ul>
+                        <li>分析用户评论区的详细问题和反馈</li>
+                        <li>研究竞品内容下的用户互动</li>
+                        <li>挖掘搜索平台上的长尾关键词</li>
+                        <li>直接与目标用户进行深度访谈</li>
+                    </ul>
+                    
+                    <h2>第二步：构建真实场景</h2>
+                    
+                    <p>场景化≠虚构体验。真正有效的场景描述应该具有足够的真实感和细节，让用户能够产生"这就是我遇到的问题"的共鸣。</p>
+                    
+                    <p>高效的场景构建公式为：<strong>时间 + 地点 + 行为 + 感受</strong>，并加入具体数字、感官描述（视觉/触觉/气味），让用户能自动在脑中补充画面。</p>
+                    
+                    <div class="example-section">
+                        <div class="example-title">场景描述对比示例</div>
+                        <div class="example-container">
+                            <div class="example-bad">
+                                <div class="example-label">低效场景</div>
+                                <div class="example-text">
+                                    <p>场景化≠虚构体验。我用了这个产品后效果很好，皮肤变得很水润。</p>
+                                </div>
+                            </div>
+                            <div class="example-good">
+                                <div class="example-label">高效场景</div>
+                                <div class="example-text">
+                                    <p>"上周赶项目连熬3天夜，早上用粉底时发现脸颧居然搓泥！对着办公室窗户反光看，毛孔里全是小白屑"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p>真实场景的关键要素：</p>
+                    <ul>
+                        <li>具体的时间点（上周、早上）</li>
+                        <li>明确的地点（办公室）</li>
+                        <li>描述具体行为（赶项目、用粉底）</li>
+                        <li>添加感官细节（搓泥、小白屑）</li>
+                        <li>情绪表达（惊讶、担忧）</li>
+                    </ul>
+                    
+                    <h2>第三步：设计有效的下单引导</h2>
+                    
+                    <p>即使内容再好，没有清晰的引导也很难转化为实际购买。优秀的下单引导不是简单地喊出"点击购买"，而是降低用户行动门槛，增强安全感并制造期待感。</p>
+                    
+                    <div class="article-highlight">
+                        <p>研究表明，内容营销的转化率与行动引导的明确度高度相关，清晰具体的引导语可以使转化率提高3-5倍。</p>
+                    </div>
+                    
+                    <div class="example-section">
+                        <div class="example-title">下单引导对比示例</div>
+                        <div class="example-container">
+                            <div class="example-bad">
+                                <div class="example-label">低效引导</div>
+                                <div class="example-text">
+                                    <p><span class="example-icon icon-x">×</span>"点击购买商品"</p>
+                                </div>
+                            </div>
+                            <div class="example-good">
+                                <div class="example-label">高效引导</div>
+                                <div class="example-text">
+                                    <p><span class="example-icon icon-check">✓</span>"油痘肌姐妹可以先拍张素颜照，用完这瓶再对比，你会回来抱我"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p>高效引导包含三个核心要素：</p>
+                    
+                    <ul>
+                        <li><strong>降低行动门槛</strong>：例如"免费使用试用装"</li>
+                        <li><strong>给出安心承诺</strong>：例如"坚持28天看看效果"</li>
+                        <li><strong>制造期待感</strong>：例如"下周有粉丝隐藏福利"</li>
+                    </ul>
+                    
+                    <div class="whitepaper-divider"></div>
+                    
+                    <h2>如何将三步法应用到不同平台</h2>
+                    
+                    <p>不同内容平台有其独特的内容生态和用户习惯，高转化内容的基本原理相同，但具体执行需要有所调整：</p>
+                    
+                    <h3>小红书平台</h3>
+                    <p>小红书用户更注重真实体验和细节展示，可以重点放在图文结合的场景描述上，通过前后对比图增强可信度，评论区互动要积极回应用户提问。</p>
+                    
+                    <h3>抖音/快手平台</h3>
+                    <p>短视频平台首5秒极为关键，应将痛点放在开头，中间展示解决过程，结尾给出清晰引导。视频内容应简短直接，避免过多铺垫。</p>
+                    
+                    <h3>微信公众号</h3>
+                    <p>公众号适合深度内容，可以通过详细案例分析和数据支撑来增强可信度，文章结构应清晰，关键信息可用加粗或彩色字体突出。</p>
+                    
+                    <div class="article-highlight">
+                        <p><strong>实践建议：</strong>无论使用哪个平台，高转化内容的本质是同理心。只有真正理解用户面临的问题，提供切实可行的解决方案，并在恰当时机给予引导，才能建立信任并促成转化。</p>
+                    </div>
+                    
+                    <h2>转化提升案例分析</h2>
+                    
+                    <p>我们通过对一家护肤品牌的内容优化，将其小红书账号的平均转化率从1.2%提升至4.8%，主要优化点包括：</p>
+                    
+                    <ul>
+                        <li>将笼统的产品功效描述改为具体痛点场景</li>
+                        <li>增加了用户使用前后的真实对比图</li>
+                        <li>添加了明确的使用步骤和预期效果</li>
+                        <li>设计了"先试后买"的低门槛转化路径</li>
+                    </ul>
+                    
+                    <p>通过系统应用这三步方法，品牌可以显著提高内容的转化率，建立起更稳定的内容营销体系。记住，高转化内容的核心不是华丽的辞藻或者完美的设计，而是对用户真实需求的准确把握和解决。</p>
+                </div>
+                
+                <div class="article-cta">
+                    <h3>想了解更多内容营销转化技巧？</h3>
+                    <p>我们的增长顾问团队可以为您提供免费诊断，帮助您建立高效的内容营销策略，提升转化率。</p>
+                    <a href="ai-marketing.html" class="article-cta-button">预约免费诊断</a>
+                </div>
+                
+                <footer class="article-footer">
+                    <div class="article-share">
+                        <span>分享文章：</span>
+                        <a class="share-button" title="微信分享">
+                            <img src="img/wechat-icon.svg?v=20250716" alt="微信">
+                        </a>
+                        <a class="share-button" title="微博分享">
+                            <img src="img/weibo-icon.svg?v=20250716" alt="微博">
+                        </a>
+                        <a class="share-button" title="复制链接">
+                            <img src="img/link-icon.svg?v=20250716" alt="复制链接">
+                        </a>
+                    </div>
+                </footer>
+            </article>
+            
+            <section class="related-articles">
+                <h2 class="related-title">相关阅读</h2>
+                <div class="related-list">
+                    <div class="related-item">
+                        <div class="related-image">
+                            <img src="img/content-marketing/redbook-steps.svg?v=20250716" alt="小红书爆款内容">
+                        </div>
+                        <div class="related-info">
+                            <div class="related-tag">方法论</div>
+                            <h3 class="related-item-title">5个步骤打造小红书爆款内容</h3>
+                            <p class="related-item-excerpt">揭秘小红书平台的内容规律与爆款机制，从需求挖掘到热点把握，全流程指导打造爆款笔记。</p>
+                        </div>
+                    </div>
+                    <div class="related-item">
+                        <div class="related-image">
+                            <img src="img/method-comments.svg?v=20250716" alt="评论分析">
+                        </div>
+                        <div class="related-info">
+                            <div class="related-tag">方法论</div>
+                            <h3 class="related-item-title">AI分析千条评论提炼爆款话术</h3>
+                            <p class="related-item-excerpt">详解我们如何使用自然语言处理技术，从大量用户评论中挖掘情感倾向、核心诉求和潜在痛点，从而构建高转化的营销话术。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- 回到顶部按钮 -->
+        <div class="back-to-top" id="backToTop">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 5L5 12H9V19H15V12H19L12 5Z" fill="white"/>
+            </svg>
+        </div>
+    </div>
+    
+    <script>
+    const articleApp = new Vue({
+        el: '#article-app',
+        mounted() {
+            // 监听滚动，实现渐入动画
+            this.handleScrollAnimations();
+            window.addEventListener('scroll', this.handleScrollAnimations);
+            window.addEventListener('scroll', this.toggleBackToTopButton);
+            
+            // 初始显示图片
+            this.initImageAnimations();
+            
+            // 回到顶部按钮点击事件
+            document.getElementById('backToTop').addEventListener('click', this.scrollToTop);
+        },
+        beforeDestroy() {
+            window.removeEventListener('scroll', this.handleScrollAnimations);
+            window.removeEventListener('scroll', this.toggleBackToTopButton);
+            document.getElementById('backToTop').removeEventListener('click', this.scrollToTop);
+        },
+        methods: {
+            goBack() {
+                window.location.href = 'growth-lab.html';
+            },
+            initImageAnimations() {
+                // 设置图片容器的动画延迟
+                const imageContainers = document.querySelectorAll('.article-image-container');
+                imageContainers.forEach((container, index) => {
+                    container.style.animationDelay = `${index * 0.2}s`;
+                });
+                
+                // 添加淡入类
+                const contentElements = document.querySelectorAll('.article-content p, .article-content ul, .article-content h3');
+                contentElements.forEach(element => {
+                    element.classList.add('fade-in-section');
+                });
+            },
+            handleScrollAnimations() {
+                const sections = document.querySelectorAll('.fade-in-section');
+                
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (sectionTop < windowHeight * 0.85) {
+                        section.classList.add('is-visible');
+                    }
+                });
+            },
+            toggleBackToTopButton() {
+                const backToTopBtn = document.getElementById('backToTop');
+                if (window.scrollY > 500) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            },
+            scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    });
+    </script>
+</body>
+</html> 

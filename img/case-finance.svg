@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">
+  <style>
+    .bg {
+      fill: #1a1a2e;
+    }
+    .chart {
+      fill: none;
+      stroke: #00b4d8;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .chart-dot {
+      fill: #00b4d8;
+    }
+    .digital-human {
+      fill: #ffffff;
+      opacity: 0.9;
+    }
+    .digital-human-feature {
+      fill: #1a1a2e;
+      opacity: 0.8;
+    }
+    .device {
+      fill: #2a2a4e;
+      stroke: #00b4d8;
+      stroke-width: 1;
+    }
+    .device-screen {
+      fill: #0f3460;
+    }
+    .icon {
+      fill: #5ce1e6;
+    }
+  </style>
+  
+  <!-- 背景 -->
+  <rect class="bg" x="0" y="0" width="200" height="150" rx="10"/>
+  
+  <!-- 金融图表 -->
+  <polyline class="chart" points="30,120 50,100 70,110 90,80 110,85 130,60 150,50 170,30"/>
+  <circle class="chart-dot" cx="30" cy="120" r="3"/>
+  <circle class="chart-dot" cx="50" cy="100" r="3"/>
+  <circle class="chart-dot" cx="70" cy="110" r="3"/>
+  <circle class="chart-dot" cx="90" cy="80" r="3"/>
+  <circle class="chart-dot" cx="110" cy="85" r="3"/>
+  <circle class="chart-dot" cx="130" cy="60" r="3"/>
+  <circle class="chart-dot" cx="150" cy="50" r="3"/>
+  <circle class="chart-dot" cx="170" cy="30" r="3"/>
+  
+  <!-- 数字人轮廓 -->
+  <circle class="digital-human" cx="50" cy="50" r="20"/>
+  <rect class="digital-human" x="35" y="70" width="30" height="40" rx="5"/>
+  
+  <!-- 数字人特征 -->
+  <circle class="digital-human-feature" cx="45" cy="45" r="3"/>
+  <circle class="digital-human-feature" cx="55" cy="45" r="3"/>
+  <path class="digital-human-feature" d="M45,60 Q50,65 55,60"/>
+  
+  <!-- 设备 -->
+  <rect class="device" x="120" y="80" width="60" height="40" rx="5"/>
+  <rect class="device-screen" x="125" y="85" width="50" height="30" rx="2"/>
+  
+  <!-- 设备图标 -->
+  <circle class="icon" cx="150" cy="100" r="10"/>
+  <text style="font-family: Arial; font-size: 10px; font-weight: bold; fill: #1a1a2e; text-anchor: middle;" x="150" y="103">¥</text>
+</svg> 

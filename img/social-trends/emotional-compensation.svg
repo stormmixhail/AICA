@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景渐变 -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff2f0" />
+      <stop offset="100%" stop-color="#ffe6e0" />
+    </linearGradient>
+    <linearGradient id="title-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff9f5a" />
+      <stop offset="100%" stop-color="#ff7f3f" />
+    </linearGradient>
+    <linearGradient id="emotion1-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff9f8d" />
+      <stop offset="100%" stop-color="#ff7f6d" />
+    </linearGradient>
+    <linearGradient id="emotion2-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8da9ff" />
+      <stop offset="100%" stop-color="#748bff" />
+    </linearGradient>
+    <linearGradient id="emotion3-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9e8dff" />
+      <stop offset="100%" stop-color="#8370ff" />
+    </linearGradient>
+    <linearGradient id="emotion4-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffb88d" />
+      <stop offset="100%" stop-color="#ff9d6d" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="10" flood-color="#ff7f3f" flood-opacity="0.2"/>
+    </filter>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="800" height="600" rx="20" fill="url(#bg-gradient)" />
+  
+  <!-- 标题区 -->
+  <g filter="url(#shadow)">
+    <rect x="100" y="40" width="600" height="70" rx="10" fill="white" opacity="0.9"/>
+    <text x="400" y="80" font-family="PingFang SC, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="url(#title-gradient)">情感代偿：情绪缺口触发社交代偿机制</text>
+  </g>
+  
+  <!-- 副标题 -->
+  <text x="400" y="140" font-family="PingFang SC, sans-serif" font-size="18" text-anchor="middle" fill="#666">年轻人的情绪缺口与消费行为关联图谱</text>
+
+  <!-- 情感1：压抑 -->
+  <g filter="url(#shadow)">
+    <rect x="100" y="170" width="600" height="90" rx="15" fill="white" opacity="0.95"/>
+    
+    <!-- 左侧情绪状态 -->
+    <rect x="120" y="195" width="100" height="40" rx="20" fill="url(#emotion1-gradient)"/>
+    <text x="170" y="220" font-family="PingFang SC, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">压抑</text>
+    
+    <!-- 中间箭头 -->
+    <path d="M240,215 L280,215" stroke="#ff9f8d" stroke-width="2" stroke-dasharray="4"/>
+    <polygon points="280,215 275,210 275,220" fill="#ff9f8d"/>
+    
+    <!-- 中间情绪缺口 -->
+    <rect x="300" y="195" width="100" height="40" rx="10" fill="#f8f8f8" stroke="#ff9f8d" stroke-width="2"/>
+    <text x="350" y="220" font-family="PingFang SC, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#666">松弛感</text>
+    
+    <!-- 右侧箭头 -->
+    <path d="M420,215 L460,215" stroke="#ff9f8d" stroke-width="2" stroke-dasharray="4"/>
+    <polygon points="460,215 455,210 455,220" fill="#ff9f8d"/>
+    
+    <!-- 右侧代偿行为 -->
+    <rect x="480" y="180" width="200" height="70" rx="10" fill="#fff8f6" stroke="#ff9f8d" stroke-width="1.5"/>
+    <text x="580" y="205" font-family="PingFang SC, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#666">社媒表达</text>
+    <text x="580" y="230" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="middle" fill="#888">发疯工牌、上班恶心穿搭、公园20分钟效应</text>
+  </g>
+  
+  <!-- 情感2：孤独 -->
+  <g filter="url(#shadow)">
+    <rect x="100" y="270" width="600" height="90" rx="15" fill="white" opacity="0.95"/>
+    
+    <!-- 左侧情绪状态 -->
+    <rect x="120" y="295" width="100" height="40" rx="20" fill="url(#emotion2-gradient)"/>
+    <text x="170" y="320" font-family="PingFang SC, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">孤独</text>
+    
+    <!-- 中间箭头 -->
+    <path d="M240,315 L280,315" stroke="#8da9ff" stroke-width="2" stroke-dasharray="4"/>
+    <polygon points="280,315 275,310 275,320" fill="#8da9ff"/>
+    
+    <!-- 中间情绪缺口 -->
+    <rect x="300" y="295" width="100" height="40" rx="10" fill="#f8f8f8" stroke="#8da9ff" stroke-width="2"/>
+    <text x="350" y="320" font-family="PingFang SC, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#666">陪伴感</text>
+    
+    <!-- 右侧箭头 -->
+    <path d="M420,315 L460,315" stroke="#8da9ff" stroke-width="2" stroke-dasharray="4"/>
+    <polygon points="460,315 455,310 455,320" fill="#8da9ff"/>
+    
+    <!-- 右侧代偿行为 -->
+    <rect x="480" y="280" width="200" height="70" rx="10" fill="#f6f8ff" stroke="#8da9ff" stroke-width="1.5"/>
+    <text x="580" y="305" font-family="PingFang SC, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#666">社交表达</text>
+    <text x="580" y="330" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="middle" fill="#888">搭子文化、赛博相亲、无边抱枕</text>
+  </g>
+  
+  <!-- 情感3：焦虑 -->
+  <g filter="url(#shadow)">
+    <rect x="100" y="370" width="600" height="90" rx="15" fill="white" opacity="0.95"/>
+    
+    <!-- 左侧情绪状态 -->
+    <rect x="120" y="395" width="100" height="40" rx="20" fill="url(#emotion3-gradient)"/>
+    <text x="170" y="420" font-family="PingFang SC, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">焦虑</text>
+    
+    <!-- 中间箭头 -->
+    <path d="M240,415 L280,415" stroke="#9e8dff" stroke-width="2" stroke-dasharray="4"/>
+    <polygon points="280,415 275,410 275,420" fill="#9e8dff"/>
+    
+    <!-- 中间情绪缺口 -->
+    <rect x="300" y="395" width="100" height="40" rx="10" fill="#f8f8f8" stroke="#9e8dff" stroke-width="2"/>
+    <text x="350" y="420" font-family="PingFang SC, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#666">确定感</text>
+    
+    <!-- 右侧箭头 -->
+    <path d="M420,415 L460,415" stroke="#9e8dff" stroke-width="2" stroke-dasharray="4"/>
+    <polygon points="460,415 455,410 455,420" fill="#9e8dff"/>
+    
+    <!-- 右侧代偿行为 -->
+    <rect x="480" y="380" width="200" height="70" rx="10" fill="#f6f6ff" stroke="#9e8dff" stroke-width="1.5"/>
+    <text x="580" y="405" font-family="PingFang SC, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#666">精神寄托</text>
+    <text x="580" y="430" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="middle" fill="#888">电子木鱼/电子佛珠、玄学上香</text>
+  </g>
+  
+  <!-- 情感4：审慎 -->
+  <g filter="url(#shadow)">
+    <rect x="100" y="470" width="600" height="90" rx="15" fill="white" opacity="0.95"/>
+    
+    <!-- 左侧情绪状态 -->
+    <rect x="120" y="495" width="100" height="40" rx="20" fill="url(#emotion4-gradient)"/>
+    <text x="170" y="520" font-family="PingFang SC, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">审慎</text>
+    
+    <!-- 中间箭头 -->
+    <path d="M240,515 L280,515" stroke="#ffb88d" stroke-width="2" stroke-dasharray="4"/>
+    <polygon points="280,515 275,510 275,520" fill="#ffb88d"/>
+    
+    <!-- 中间情绪缺口 -->
+    <rect x="300" y="495" width="100" height="40" rx="10" fill="#f8f8f8" stroke="#ffb88d" stroke-width="2"/>
+    <text x="350" y="520" font-family="PingFang SC, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#666">新奇感</text>
+    
+    <!-- 右侧箭头 -->
+    <path d="M420,515 L460,515" stroke="#ffb88d" stroke-width="2" stroke-dasharray="4"/>
+    <polygon points="460,515 455,510 455,520" fill="#ffb88d"/>
+    
+    <!-- 右侧代偿行为 -->
+    <rect x="480" y="480" width="200" height="70" rx="10" fill="#fffaf6" stroke="#ffb88d" stroke-width="1.5"/>
+    <text x="580" y="505" font-family="PingFang SC, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#666">社群互动</text>
+    <text x="580" y="530" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="middle" fill="#888">穷鬼套餐、社区食堂、寻找平替</text>
+  </g>
+  
+  <!-- 图例说明 -->
+  <g>
+    <circle cx="130" cy="590" r="8" fill="url(#emotion1-gradient)"/>
+    <text x="145" y="594" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="start" fill="#333">情绪表现</text>
+    
+    <rect x="210" y="582" width="16" height="16" rx="4" fill="#f8f8f8" stroke="#ff9f8d" stroke-width="2"/>
+    <text x="235" y="594" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="start" fill="#333">情绪缺口</text>
+    
+    <rect x="320" y="582" width="16" height="16" rx="4" fill="#fff8f6" stroke="#ff9f8d" stroke-width="1.5"/>
+    <text x="345" y="594" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="start" fill="#333">社会表达与消费行为</text>
+    
+    <text x="550" y="594" font-family="PingFang SC, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#666">情感营销关键：对位情绪价值</text>
+  </g>
+</svg> 

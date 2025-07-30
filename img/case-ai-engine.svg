@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e91e63" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#f48fb1" stop-opacity="0.2"/>
+    </linearGradient>
+    
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  
+  <!-- 背景矩形 -->
+  <rect width="600" height="400" fill="url(#bgGradient)"/>
+  
+  <!-- 中心引擎 -->
+  <g transform="translate(300, 200)">
+    <!-- 引擎主体 -->
+    <circle cx="0" cy="0" r="80" fill="#f5f5f5" stroke="#e91e63" stroke-width="3"/>
+    <circle cx="0" cy="0" r="60" fill="#e91e63" opacity="0.2"/>
+    <circle cx="0" cy="0" r="40" fill="#e91e63" opacity="0.4"/>
+    
+    <!-- AI标识 -->
+    <text x="0" y="10" font-family="Arial, sans-serif" font-size="30" font-weight="bold" text-anchor="middle" fill="#e91e63">AI</text>
+    
+    <!-- 旋转齿轮效果 -->
+    <g filter="url(#glow)">
+      <circle cx="0" cy="0" r="90" fill="none" stroke="#e91e63" stroke-width="2" stroke-dasharray="10,15"/>
+      <circle cx="0" cy="0" r="100" fill="none" stroke="#e91e63" stroke-width="1" stroke-dasharray="5,10"/>
+    </g>
+  </g>
+  
+  <!-- 输入数据流 -->
+  <g transform="translate(100, 100)">
+    <!-- 数据源框 -->
+    <rect x="0" y="0" width="100" height="80" fill="white" stroke="#e91e63" stroke-width="2" rx="10" ry="10"/>
+    <text x="50" y="30" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e91e63">数据源</text>
+    <text x="50" y="50" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333">用户行为</text>
+    <text x="50" y="65" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333">市场反馈</text>
+    
+    <!-- 数据流向引擎 -->
+    <path d="M100,40 L190,170" stroke="#e91e63" stroke-width="2" stroke-dasharray="5,3"/>
+    <polygon points="190,170 180,155 195,155" fill="#e91e63"/>
+  </g>
+  
+  <!-- 算法模块 -->
+  <g transform="translate(100, 250)">
+    <!-- 算法框 -->
+    <rect x="0" y="0" width="100" height="80" fill="white" stroke="#e91e63" stroke-width="2" rx="10" ry="10"/>
+    <text x="50" y="30" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e91e63">算法模型</text>
+    <text x="50" y="50" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333">机器学习</text>
+    <text x="50" y="65" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333">预测分析</text>
+    
+    <!-- 算法流向引擎 -->
+    <path d="M100,40 L190,200" stroke="#e91e63" stroke-width="2" stroke-dasharray="5,3"/>
+    <polygon points="190,200 180,190 190,180" fill="#e91e63"/>
+  </g>
+  
+  <!-- 输出结果 -->
+  <g transform="translate(400, 100)">
+    <!-- 结果框1：获客策略 -->
+    <rect x="0" y="0" width="120" height="50" fill="white" stroke="#e91e63" stroke-width="2" rx="10" ry="10"/>
+    <text x="60" y="30" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e91e63">获客策略</text>
+    
+    <!-- 引擎到结果1 -->
+    <path d="M-80,75 L0,25" stroke="#e91e63" stroke-width="2" stroke-dasharray="5,3"/>
+    <polygon points="0,25 -15,25 -10,15" fill="#e91e63"/>
+  </g>
+  
+  <!-- 结果框2：内容优化 -->
+  <g transform="translate(400, 170)">
+    <!-- 结果框 -->
+    <rect x="0" y="0" width="120" height="50" fill="white" stroke="#e91e63" stroke-width="2" rx="10" ry="10"/>
+    <text x="60" y="30" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e91e63">内容优化</text>
+    
+    <!-- 引擎到结果2 -->
+    <path d="M-80,30 L0,25" stroke="#e91e63" stroke-width="2" stroke-dasharray="5,3"/>
+    <polygon points="0,25 -15,20 -15,30" fill="#e91e63"/>
+  </g>
+  
+  <!-- 结果框3：转化提升 -->
+  <g transform="translate(400, 240)">
+    <!-- 结果框 -->
+    <rect x="0" y="0" width="120" height="50" fill="white" stroke="#e91e63" stroke-width="2" rx="10" ry="10"/>
+    <text x="60" y="30" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e91e63">转化提升</text>
+    
+    <!-- 引擎到结果3 -->
+    <path d="M-80,-15 L0,25" stroke="#e91e63" stroke-width="2" stroke-dasharray="5,3"/>
+    <polygon points="0,25 -15,15 -10,25" fill="#e91e63"/>
+  </g>
+  
+  <!-- 增长数据 -->
+  <g transform="translate(450, 320)">
+    <!-- 增长图表 -->
+    <rect x="0" y="0" width="100" height="50" fill="white" stroke="#4caf50" stroke-width="2" rx="5" ry="5"/>
+    <text x="50" y="20" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#4caf50">线索增长</text>
+    <text x="50" y="40" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#4caf50">+120%</text>
+    
+    <!-- 箭头 -->
+    <path d="M-30,-30 L0,25" stroke="#4caf50" stroke-width="2"/>
+    <polygon points="0,25 -10,10 5,10" fill="#4caf50"/>
+  </g>
+  
+  <!-- 标题 -->
+  <text x="300" y="370" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#e91e63">
+    从0到1：打造AI增长引擎
+  </text>
+</svg> 

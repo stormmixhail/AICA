@@ -1,0 +1,2000 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>硅基智能数字人 - 未来商业服务新范式 - AICA</title>
+    
+    <!-- 清除缓存脚本 -->
+    <script>
+        // 添加时间戳参数到资源URL以避免缓存问题
+        function addTimestampToUrl(url) {
+            const timestamp = new Date().getTime();
+            const separator = url.includes('?') ? '&' : '?';
+            return `${url}${separator}t=${timestamp}`;
+        }
+        
+        // 页面加载完成后，为所有资源添加时间戳
+        window.addEventListener('DOMContentLoaded', function() {
+            // 清除页面缓存
+            if (window.performance && window.performance.navigation.type !== 1) {
+                console.log('强制清除缓存...');
+                
+                // 检查并加载JS文件
+                const jsFile = 'js/digital-human-new.js';
+                const script = document.createElement('script');
+                script.src = addTimestampToUrl(jsFile);
+                script.type = 'text/javascript';
+                document.body.appendChild(script);
+                
+                console.log('已添加时间戳到JS文件:', script.src);
+            }
+        });
+    </script>
+    
+    <link rel="stylesheet" href="css/style.css?v=20250717">
+    <link rel="stylesheet" href="css/feature-page.css?v=20250717">
+    <link rel="stylesheet" href="css/digital-human-new.css?v=20250717">
+    <link rel="stylesheet" href="css/digital-human-mobile.css?v=20250717">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/scrolltrigger@1.0.0/dist/ScrollTrigger.min.js"></script>
+    <script>
+        // 提前定义视频预加载辅助函数
+        function preloadVideoFrame(videoElement, time) {
+            return new Promise((resolve, reject) => {
+                if (videoElement.readyState >= 2) {
+                    // 已经有足够数据可以播放
+                    videoElement.currentTime = time || 0.1;
+                    resolve();
+                    return;
+                }
+                
+                const timeupdate = function() {
+                    if (videoElement.currentTime >= (time || 0.1)) {
+                        videoElement.removeEventListener('timeupdate', timeupdate);
+                        videoElement.pause();
+                        resolve();
+                    }
+                };
+                
+                const loadeddata = function() {
+                    videoElement.currentTime = time || 0.1;
+                    videoElement.addEventListener('timeupdate', timeupdate);
+                };
+                
+                const error = function(e) {
+                    videoElement.removeEventListener('loadeddata', loadeddata);
+                    videoElement.removeEventListener('timeupdate', timeupdate);
+                    reject(e);
+                };
+                
+                videoElement.addEventListener('loadeddata', loadeddata);
+                videoElement.addEventListener('error', error);
+            });
+        }
+    </script>
+    
+    <!-- 视频展示区域样式 -->
+    <style>
+        /* 视频展示区域样式 */
+        .video-showcase-section {
+            margin-top: 40px;
+            padding: 20px 0;
+        }
+        
+        .showcase-title {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        
+        .showcase-desc {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #666;
+        }
+        
+        .video-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 400px !important; /* 固定宽度为400px */
+            margin: 0 auto;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .video-item {
+            width: 198px !important; /* 固定宽度 */
+            flex: 0 0 198px;
+            position: relative;
+            margin: 0 0 5px 0 !important;
+            padding: 0 !important;
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1), 0 2px 6px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            aspect-ratio: 9/16; /* 保持移动视频的纵横比 */
+            height: auto;
+            max-height: 260px; /* 进一步减少高度 */
+            background-color: #000;
+            min-height: 220px; /* 进一步减少最小高度 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%; /* 确保填满网格单元格 */
+            margin: 0 auto;
+            overflow: hidden;
+            transform-origin: center;
+            isolation: isolate; /* 创建新的层叠上下文 */
+        }
+        
+        /* 强制设置为固定宽高比 */
+        .video-item .video-thumbnail {
+            position: relative;
+            width: 198px !important;
+            height: 200px !important; /* 更合适的高度 */
+            overflow: hidden;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        .video-item .video-thumbnail video,
+        .video-item .video-thumbnail .play-icon,
+        .video-item .video-thumbnail .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 198px !important;
+            height: 200px !important;
+            object-fit: contain !important;
+        }
+        
+        .video-thumbnail::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            pointer-events: none;
+            z-index: 3;
+        }
+        
+        .video-item {
+            margin-bottom: 10px;
+            position: relative;
+            padding: 0 2px;
+        }
+        
+        .video-item::after {
+            content: attr(data-index);
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 26px;
+            height: 26px;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 10;
+            opacity: 0;
+            transform: scale(0) rotate(-45deg);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+            border: 1.5px solid rgba(255,255,255,0.6);
+        }
+        
+        /* 为不同类别设置不同的编号背景色 */
+        .video-item[data-category="服务"]::after {
+            background: linear-gradient(135deg, #0070F0, #0090FF);
+        }
+        
+        .video-item[data-category="应用"]::after {
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+        }
+        
+        .video-item[data-category="电商"]::after {
+            background: linear-gradient(135deg, #E91E63, #FF4081);
+        }
+        
+        .video-item[data-category="直播"]::after {
+            background: linear-gradient(135deg, #9C27B0, #BA68C8);
+        }
+        
+        .video-item[data-category="自媒体"]::after {
+            background: linear-gradient(135deg, #FF9800, #FFCA28);
+        }
+        
+        .video-item:hover::after {
+            opacity: 1;
+            transform: scale(1) rotate(0);
+        }
+        
+        /* 缩略图视频样式 */
+        .thumbnail-video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* 改为contain确保整个视频内容完整显示 */
+            background: #000;
+            z-index: 1;
+            pointer-events: none; /* 防止直接点击视频 */
+            transition: transform 0.5s ease;
+        }
+        
+        /* 加载中状态 */
+        .video-thumbnail::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.15);
+            border-top-color: #0070F0;
+            animation: spin 1s infinite linear;
+            z-index: 2;
+        }
+        
+        /* 加载完成后移除加载动画 */
+        .video-thumbnail.loaded::before {
+            display: none;
+        }
+        
+        /* 视频播放图标覆盖层 */
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0) 60%);
+            z-index: 2;
+            transition: background 0.4s ease;
+        }
+        
+        .video-thumbnail:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15), 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .video-thumbnail:hover .play-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 70%);
+        }
+        
+        .video-thumbnail:hover .play-overlay i {
+            transform: scale(1.1) translateY(-10px);
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));
+        }
+        
+        .play-overlay i {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0.9;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+        }
+        
+        /* 错误状态 */
+        .video-thumbnail.error::before {
+            display: none;
+        }
+        
+        /* 视频标题增强 */
+        .video-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 10px;
+            margin-bottom: 4px;
+            color: #333;
+            text-align: center;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 6px;
+        }
+        
+        .video-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #0070F0, #00BFFF);
+            transition: width 0.3s ease;
+        }
+        
+        .video-item:hover .video-title {
+            color: #0070F0;
+        }
+        
+        .video-item:hover .video-title::after {
+            width: 40px;
+        }
+        
+        /* 查看更多按钮样式 */
+        .view-more-container {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .view-more-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #0070F0, #00BFFF);
+            color: white;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,112,240,0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .view-more-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0090FF, #00D0FF);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .view-more-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,112,240,0.4);
+        }
+        
+        .view-more-button:hover::before {
+            opacity: 1;
+        }
+        
+        .view-more-button:hover i {
+            transform: translateX(5px);
+        }
+        
+        .view-more-button i {
+            transition: transform 0.3s ease;
+            font-size: 18px;
+        }
+        
+        .view-more-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            pointer-events: none;
+        }
+        
+        .view-more-button:active::after {
+            opacity: 1;
+            transform: scale(1);
+            transition: transform 0s;
+        }
+        
+        /* 数字人新闻库链接样式 */
+        .news-library-section {
+            padding: 40px 0;
+            text-align: center;
+            background: linear-gradient(180deg, #f8f9fa 0%, #fff 100%);
+            margin-top: 60px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .news-library-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #0070F0, #00D0FF, #0070F0);
+        }
+        
+        .news-library-header {
+            margin-bottom: 30px;
+        }
+        
+        .news-library-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            background: linear-gradient(90deg, #333, #000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .news-library-desc {
+            color: #666;
+            max-width: 80%;
+            margin: 0 auto;
+            font-size: 16px;
+        }
+        
+        .news-library-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #0070F0, #00D0FF);
+            color: white;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,112,240,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .news-library-button i {
+            transition: transform 0.3s ease;
+        }
+        
+        .news-library-button i.bi-arrow-right-circle-fill {
+            font-size: 20px;
+        }
+        
+        .news-library-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0,112,240,0.4);
+        }
+        
+        .news-library-button:hover i.bi-arrow-right-circle-fill {
+            transform: translateX(5px);
+        }
+        
+        .news-library-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        
+        .news-library-button:active::after {
+            opacity: 1;
+            transform: scale(1);
+            transition: transform 0s;
+        }
+        
+        @media (max-width: 768px) {
+            .news-library-title {
+                font-size: 22px;
+            }
+            
+            .news-library-desc {
+                font-size: 14px;
+                max-width: 95%;
+            }
+            
+            .news-library-button {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+        }
+        
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        .video-thumbnail:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        
+        .video-thumbnail video.thumbnail-video,
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            pointer-events: none;
+            background-color: #000;
+        }
+        
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 2.5rem;
+            opacity: 0.8;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 3;
+        }
+        
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.15);
+            cursor: pointer;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .video-thumbnail:hover .play-icon {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .video-error {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f8f8;
+            color: #666;
+            font-size: 2rem;
+        }
+        
+        .video-title {
+            margin-top: 6px;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0;
+            width: 198px;
+        }
+        
+        /* 视频弹窗样式 */
+        .video-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            overflow: auto;
+        }
+        
+        .modal-content {
+            position: relative;
+            background-color: #000;
+            margin: 5vh auto;
+            padding: 0;
+            width: 90%;
+            max-width: 350px; /* 调整为更合理的宽度 */
+            border-radius: 12px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4), 0 5px 20px rgba(0,0,0,0.2);
+            animation: modalFadeIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            aspect-ratio: 9/16; /* 保持9:16的比例 */
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* 确保内容不溢出 */
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        
+        @media (max-height: 750px) {
+            .modal-content {
+                max-height: 90vh;
+            }
+        }
+        
+        @keyframes modalFadeIn {
+            from {opacity: 0; transform: scale(0.9) translateY(-30px);}
+            to {opacity: 1; transform: scale(1) translateY(0);}
+        }
+        
+        .modal-header {
+            padding: 15px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 100%);
+            border-bottom: 1px solid rgba(0,112,240,0.3);
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 5;
+            position: relative;
+        }
+        
+        .modal-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0,112,240,0), rgba(0,112,240,0.5), rgba(0,112,240,0));
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 85%;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+        }
+        
+        .modal-header h3::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #0070F0;
+            border-radius: 50%;
+            margin-right: 8px;
+            box-shadow: 0 0 10px #0070F0;
+        }
+        
+        .close-modal {
+            color: #fff;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .close-modal:hover {
+            color: #fff;
+            background-color: rgba(255,255,255,0.2);
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            padding: 0;
+            position: relative;
+            flex-grow: 1;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-body video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* 保持完整显示 */
+            display: block;
+            border-radius: 0 0 8px 8px;
+            background-color: #000;
+            max-height: calc(100% - 10px); /* 留一点空间给控制器 */
+        }
+        
+        .video-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10;
+        }
+        
+        .video-loading .bi-arrow-repeat {
+            animation: spin 1.5s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .unmute-button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 10;
+        }
+        
+        .unmute-button:hover {
+            background: rgba(0,0,0,0.8);
+        }
+        
+        .video-controls-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            display: flex;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .modal-body:hover .video-controls-overlay {
+            opacity: 1;
+        }
+        
+        .video-controls {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .control-button {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .control-button:hover {
+            background: rgba(255,255,255,0.35);
+        }
+        
+        .control-button i {
+            font-size: 1.5rem;
+        }
+        
+        .play-button-large {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .play-button-large i {
+            font-size: 3rem;
+        }
+        
+        .replay-button {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 0.9rem;
+        }
+        
+        .replay-button:hover {
+            background: rgba(255,255,255,0.35);
+        }
+        
+        /* 展示区域标题样式 */
+        .showcase-header {
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .section-decorator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        
+        .decorator-line {
+            display: inline-block;
+            width: 30px;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0,112,240,0.1), rgba(0,112,240,0.8));
+        }
+        
+        .decorator-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: #0070F0;
+            border-radius: 50%;
+            margin: 0 10px;
+        }
+        
+        .decorator-text {
+            font-size: 14px;
+            color: #0070F0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        
+        .showcase-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #333, #000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .showcase-desc {
+            color: #666;
+            max-width: 80%;
+            margin: 0 auto;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        /* 视频网格样式优化 */
+        .video-showcase-section {
+            padding: 30px 0;
+            background: linear-gradient(180deg, #fff 0%, #f8f9fa 100%);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .video-showcase-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(0,112,240,0.1), rgba(0,112,240,0.5), rgba(0,112,240,0.1));
+        }
+        
+        /* 移动端响应式适配 - 强制保持双列布局 */
+        @media (max-width: 768px) {
+            .video-grid {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                justify-content: space-between !important;
+                width: 400px !important; /* 固定宽度 */
+                padding: 0 2px !important;
+                margin: 0 auto !important;
+                box-sizing: border-box !important;
+            }
+            
+            .video-item {
+                width: 198px !important;
+                flex: 0 0 198px !important;
+                margin-bottom: 4px !important;
+                padding: 0 !important;
+            }
+            
+            .video-thumbnail {
+                width: 198px !important;
+                height: 200px !important;
+                min-height: auto !important;
+                max-height: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* 移动端视频编号样式 */
+            .video-item::after {
+                width: 20px;
+                height: 20px;
+                font-size: 11px;
+                top: -5px;
+                left: -5px;
+                border-width: 1px;
+            }
+            
+            /* 移动端视频类别样式 */
+            .video-category {
+                padding: 2px 5px !important;
+                font-size: 9px !important;
+                top: 4px !important;
+                right: 4px !important;
+                border-radius: 10px !important;
+            }
+            
+            .video-category i {
+                font-size: 9px !important;
+            }
+            
+            .modal-content {
+                width: 90%;
+                margin: 15% auto;
+            }
+            
+            .play-icon {
+                font-size: 2rem;
+            }
+            
+            .showcase-title {
+                font-size: 18px;
+            }
+            
+            .showcase-desc {
+                font-size: 12px;
+                max-width: 95%;
+                margin-bottom: 12px;
+            }
+            
+            .view-more-button {
+                padding: 8px 20px;
+                font-size: 14px;
+            }
+            
+            .video-title {
+                font-size: 12px;
+                margin-top: 6px;
+                margin-bottom: 2px;
+                padding-bottom: 4px;
+            }
+            
+            .video-showcase-section {
+                padding: 20px 0 15px;
+                border-radius: 8px;
+            }
+            
+            .showcase-header {
+                margin-bottom: 15px;
+            }
+            
+            /* 强制固定布局尺寸 */
+            .thumbnail-video {
+                width: 198px !important;
+                height: 200px !important;
+                object-fit: contain !important;
+            }
+            
+            /* 超小屏幕强制固定宽度 */
+            @media (max-width: 400px) {
+                .video-grid {
+                    width: 390px !important; /* 小于400px屏幕也保持固定宽度 */
+                    transform: scale(0.95) !important; /* 稍微缩小以适应屏幕 */
+                    transform-origin: center top !important;
+                }
+                
+                .video-title {
+                    font-size: 10px !important;
+                    margin-top: 3px !important;
+                    margin-bottom: 1px !important;
+                }
+                
+                .play-icon {
+                    font-size: 1.8rem !important;
+                }
+            }
+            
+            /* 超级极小屏幕适配 */
+            @media (max-width: 360px) {
+                .video-grid {
+                    width: 360px !important;
+                    transform: scale(0.9) !important;
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="digital-human-app" class="digital-human-page">
+        <!-- 头部导航 -->
+        <header class="feature-header">
+            <button class="back-button" @click="goBack">
+                <img src="img/back-arrow.svg?v=20250717" alt="返回">
+            </button>
+            <div class="feature-title">硅基智能数字人</div>
+        </header>
+        
+        <!-- 第一部分：Hero区域 -->
+        <section id="hero-section" class="section hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="main-title">为什么需要数字人？</h1><br>
+                    <p class="section-title">因为您最宝贵的资产，不该被重复的劳动消耗</h1>
+                    
+                </div>
+
+                <!-- 价值卡片串联设计 -->
+                <div class="value-cards-wrapper">
+                                <!-- 垂直排列的价值卡片 -->
+            <div class="value-cards-container vertical">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="bi bi-cash-stack"></i>
+                    </div>
+                    <div class="value-content-wrapper">
+                        <h3 class="value-title">它解放成本</h3>
+                        <p class="value-content">它让您的服务规模与人力成本彻底<strong>脱钩</strong>。一次投入，获得一个<strong>永不疲倦、永不离职、成本恒定</strong>的超级员工，将您从无休止的招聘和人力消耗中解放出来。</p>
+                    </div>
+                </div>
+                
+                <div class="connector-line"></div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="bi bi-clock"></i>
+                    </div>
+                    <div class="value-content-wrapper">
+                        <h3 class="value-title">它征服时间</h3>
+                        <p class="value-content">它为您抓住每一个深夜的意向和每一个时区的机会，实现真正意义上的<strong>7×24小时全球业务在线</strong>。时间，从此不再是您的敌人，而是您的盟友。</p>
+                    </div>
+                </div>
+                
+                <div class="connector-line"></div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="bi bi-person-check"></i>
+                    </div>
+                    <div class="value-content-wrapper">
+                        <h3 class="value-title">它复刻王牌</h3>
+                        <p class="value-content">它能将您核心专家的大脑和魅力进行<strong>1:1完美复刻</strong>，以100%的最佳状态，同时服务成百上千的客户。将您最顶尖的个人能力，变成可以<strong>无限复制</strong>的生产力。</p>
+                    </div>
+                </div>
+            </div>
+                    
+                    <!-- 背景数字人 -->
+                    <div class="digital-human-background">
+                        <img src="img/profile-avatar.svg?v=20250716" alt="数字人头像" class="bg-avatar">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第二部分：行业趋势与核心痛点 - 田字形布局 -->
+        <section id="industry-section" class="section industry-section">
+            <div class="container">
+                <h2 class="section-title">一场不可逆转的商业变革，正在发生</h2>
+                <!--<p class="section-subtitle">随着元宇宙兴起和企业数字化转型深入，数字人技术从概念走向实用，正在重塑商业服务模式</p>-->
+                
+                <!-- 增强的行业趋势描述 -->
+                <div class="industry-trends-overview">
+                    <p class="trends-description">
+                        您的客户，正在被整个时代<strong>"惯坏"</strong>。<br>
+                        他们习惯了即时满足，期待<strong>7x24小时</strong>的个性化服务<br>渴望更沉浸、更智能的交互体验。<br>
+                        满足他们，<strong>成本极高</strong>;    满足不了，就是将他们<strong>拱手相让</strong>。<br>
+                        与此同时，您赖以增长的传统模式，正在失效。<br>
+                        高达<strong>30% 年增长率</strong>的人工成本像一座大山，压得企业喘不过气。<br>
+                        超过<strong>60% 的企业</strong>虽然已经投身数字化转型，却发现自己陷入了更深的"效率陷阱"。<br><br>
+                        <div class="grid-item-value">用老地图，永远找不到新大陆。</div>
+                    </p>
+                </div>
+                
+                <!-- 改为田字形布局 -->
+                <div class="grid-layout">
+                    <div class="grid-item" v-motion-fade-in>
+                        <div class="grid-item-icon">
+                            <i class="bi bi-currency-dollar"></i>
+                        </div>
+                        <div class="grid-item-title">人力成本正在失控</div>
+                        <div class="grid-item-desc">超过30%的年均人力成本增长，正在各行各业消耗的利润。每一个新员工的入职，都意味着一份不断加码的长期财务负担。</div>
+                    </div>
+                    <div class="grid-item" v-motion-fade-in>
+                        <div class="grid-item-icon">
+                            <i class="bi bi-person-hearts"></i>
+                        </div>
+                        <div class="grid-item-title">客户的耐心正在消失</div>
+                        <div class="grid-item-desc">您的客户，已经被市场教育得只接受7x24小时的即时服务。任何一次等待，都可能成为他们选择竞争对手的理由。</div>
+                    </div>
+                    <div class="grid-item" v-motion-fade-in>
+                        <div class="grid-item-icon">
+                            <i class="bi bi-buildings"></i>
+                        </div>
+                        <div class="grid-item-title">数字化转型陷入泥潭</div>
+                        <div class="grid-item-desc">超过60%的企业虽然尝试数字化，却发现自己只是用新的工具，重复着旧的低效。真正的增长瓶颈并未被打破。</div>
+                    </div>
+                    <div class="grid-item" v-motion-fade-in>
+                        <div class="grid-item-icon">
+                            <i class="bi bi-graph-up-arrow"></i>
+                        </div>
+                        <div class="grid-item-title">一个千亿级的未来已来</div>
+                        <div class="grid-item-desc">预计到2025年，数字人市场规模将突破千亿。这不是遥远的未来，而是您现在就必须抓住的、决定未来十年增长的巨大机遇。</div>
+                    </div>
+                </div>
+
+                <!-- 真实案例视频模块 -->
+                <div class="real-case-section" v-motion-fade-up>
+                    <h3 class="case-title">请看真实案例</h3>
+                    <div class="video-container">
+                        <div class="vertical-video">
+                            <video id="case-video" controls preload="auto" muted playsinline webkit-playsinline
+                                poster="img/videos/case-video-education.jpg" 
+                                onerror="console.error('视频加载失败', event);">
+                                <!--<source src="/mobieaica.mp4" type="video/mp4">
+                                <source src="mobieaica.mp4" type="video/mp4">-->
+                                <source src="../mobieaica.mp4" type="video/mp4">
+                                <p class="fallback-message">您的浏览器不支持视频播放，请升级浏览器</p>
+                            </video>
+                            <div class="video-overlay" id="video-play-button">
+                                <div class="play-button" onclick="document.getElementById('case-video').play();">
+                                    <i class="bi bi-play-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="video-caption">真实客户使用场景演示</p>
+                        
+                        <!-- 创始人介绍文字 -->
+                        <div class="founder-insight">
+                            <h4 class="insight-heading">我们想让您看的，不止是一个案例</h4>
+                            <p class="insight-subheading">更是我们创始人司马华腾正在亲身实践的未来</p>
+                            
+                            <div class="insight-points">
+                                <div class="insight-point">
+                                    <div class="point-marker">
+                                        <div class="point-number">1</div>
+                                    </div>
+                                    <div class="point-content">
+                                        <strong>演讲者本身：</strong> 您在视频中所看到、听到的，并非司马华腾本人，而是由我们技术1:1复刻的创始人数字人。它完美承载了创始人的思想、形象与表达。
+                                    </div>
+                                </div>
+                                
+                                <div class="insight-point">
+                                    <div class="point-marker">
+                                        <div class="point-number">2</div>
+                                    </div>
+                                    <div class="point-content">
+                                        <strong>演讲者所说的内容：</strong> 它亲自向您阐述了公司已获得腾讯、红杉等顶级机构10亿投资的实力见证。
+                                    </div>
+                                </div>
+                                
+                                <div class="insight-point">
+                                    <div class="point-marker">
+                                        <div class="point-number">3</div>
+                                    </div>
+                                    <div class="point-content">
+                                        <strong>这一切的实现方式：</strong> 您所看到的全部视频内容，均由AI自动化完成，这正是我们AIGC内容创世引擎的真实力量。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="value-proposition">
+                                <p>这，就是我们能为您实现的价值：</p>
+                                <div class="value-highlight">将您最核心的思想，变成一个可以无限分发、并能创造巨大商业价值的数字资产。</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 硅基智能公司介绍 -->
+                <div class="company-introduction" v-motion-fade-up>
+                    <h3 class="introduction-title"><i class="bi bi-building-fill"></i> 硅基智能</h3>
+                    
+                    <div class="company-header">
+                        <div class="company-mission">
+                            <div class="mission-icon">
+                                <i class="bi bi-rocket-takeoff"></i>
+                            </div>
+                            <div class="mission-text">
+                                <span class="mission-label">公司使命</span>
+                                <span class="mission-statement">为世界创造1亿硅基生命</span>
+                            </div>
+                        </div>
+                        <div class="company-founding">
+                            <div class="founding-icon">
+                                <i class="bi bi-calendar-check"></i>
+                            </div>
+                            <div class="founding-text">
+                                <span class="founding-year">2017年</span>
+                                <span class="founding-label">成立于南京</span>
+                            </div>
+                        </div>
+                        <div class="company-position">
+                            <div class="position-icon">
+                                <i class="bi bi-globe"></i>
+                            </div>
+                            <div class="position-text">
+                                <span class="position-statement">全球领先的AIGC数字人技术开创者</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="introduction-content">
+                        <div class="introduction-text">
+                            <p>南京硅基智能科技有限公司核心业务聚焦于数字人技术研发与开源生态建设，推动数字人技术在政务、医疗、跨境电商、教育等领域的普惠化应用。</p>
+                            
+                            <p>在大模型+数字人的技术支撑下，公司成为数字人商业应用领域的领航者，在知识生产（视频）、知识传播（直播）、知识创作（文娱）等多个领域，克隆了超过50万的数字人律师、老师、医生、企业家、博主等，实现了AIGC产品在十多个行业数十个商业化场景的落地应用，<strong>数字人市场占有率稳居全国第一</strong>，同时已在海外市场开展多项业务合作。</p>
+                            
+                            <p>成立至今，公司发展迅速，已成为工信部国家专精特新小巨人企业、国家高新技术企业，在我国各大人工智能、AIGC相关品牌榜单名列前茅。公司高度重视技术及创新发展，算法等研发人员占员工总数的70%以上，研发费用持续3年过亿。截至目前已拥有知识产权300余件，其中发明专利授权137件，其中包括数十项全球专利。</p>
+                        </div>
+                        
+                        <div class="company-investors">
+                            <h4 class="investors-title"><i class="bi bi-cash-coin"></i> 投资机构</h4>
+                            <div class="investors-list">
+                                <div class="investor-tag">腾讯</div>
+                                <div class="investor-tag">招银国际</div>
+                                <div class="investor-tag">国新央企</div>
+                                <div class="investor-tag">海松资本</div>
+                                <div class="investor-tag">红杉资本</div>
+                                <div class="investor-tag">浦信资本</div>
+                                <div class="investor-tag">奇虎360</div>
+                                <div class="investor-tag">估值近20亿美元</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="company-achievements">
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="bi bi-people-fill"></i>
+                            </div>
+                            <div class="achievement-value">50万+</div>
+                            <div class="achievement-label">数字人克隆</div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="bi bi-award-fill"></i>
+                            </div>
+                            <div class="achievement-value">300+</div>
+                            <div class="achievement-label">知识产权</div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="bi bi-file-earmark-text-fill"></i>
+                            </div>
+                            <div class="achievement-value">137</div>
+                            <div class="achievement-label">发明专利</div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="bi bi-code-square"></i>
+                            </div>
+                            <div class="achievement-value">70%+</div>
+                            <div class="achievement-label">研发人员占比</div>
+                        </div>
+                    </div>
+                    
+                    <div class="company-certifications">
+                        <div class="certification-item">
+                            <div class="certification-icon">
+                                <i class="bi bi-patch-check-fill"></i>
+                            </div>
+                            <div class="certification-text">国家专精特新小巨人企业</div>
+                        </div>
+                        <div class="certification-item">
+                            <div class="certification-icon">
+                                <i class="bi bi-patch-check-fill"></i>
+                            </div>
+                            <div class="certification-text">国家高新技术企业</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 行业适用范围简介 - 田字形布局 -->
+                <div class="industry-applications" v-motion-fade-up>
+                    <h3 class="application-title">行业应用案例</h3>
+                    <p class="application-desc">我们的硅基智能数字人技术已在多个行业成功应用，带来显著价值</p>
+                    
+                    <div class="grid-layout">
+                        <div class="grid-item" v-motion-fade-in>
+                            <div class="grid-item-icon">
+                                <i class="bi bi-bank"></i>
+                            </div>
+                            <div class="grid-item-title">金融服务</div>
+                            <div class="grid-item-value">+35%</div>
+                            <div class="grid-item-desc">客户转化率提升</div>
+                            <div class="grid-item-detail">
+                                <p>打造合规、专业、不知疲倦的AI理财顾问，规模化传递信任。</p>
+                                <ul class="application-features">
+                                    <li>7×24小时专业金融咨询</li>
+                                    <li>实时解读市场动态与政策</li>
+                                    <li>个性化投资组合推荐</li>
+                                </ul>
+                                <div class="client-logo-container">
+                                    <span class="client-tag">部分客户</span>
+                                    <div class="client-logos">
+                                        <span class="client-name">招商银行</span>
+                                        <span class="client-name">平安保险</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-item" v-motion-fade-in>
+                            <div class="grid-item-icon">
+                                <i class="bi bi-shop"></i>
+                            </div>
+                            <div class="grid-item-title">零售电商</div>
+                            <div class="grid-item-value">24/7</div>
+                            <div class="grid-item-desc">全天候在线</div>
+                            <div class="grid-item-detail">
+                                <p>塑造懂产品、善引导的金牌带货主播，抓住每一个黄金销售时段。</p>
+                                <ul class="application-features">
+                                    <li>不间断直播带货</li>
+                                    <li>精准商品推荐</li>
+                                    <li>多语言跨境电商支持</li>
+                                </ul>
+                                <div class="client-logo-container">
+                                    <span class="client-tag">部分客户</span>
+                                    <div class="client-logos">
+                                        <span class="client-name">完美日记</span>
+                                        <span class="client-name">京东</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-item" v-motion-fade-in>
+                            <div class="grid-item-icon">
+                                <i class="bi bi-book"></i>
+                            </div>
+                            <div class="grid-item-title">教育培训</div>
+                            <div class="grid-item-value">+89%</div>
+                            <div class="grid-item-desc">学习满意度</div>
+                            <div class="grid-item-detail">
+                                <p>复刻名师智慧与耐心，为每位学员配备专属AI助教，提供个性化答疑。</p>
+                                <ul class="application-features">
+                                    <li>全学科知识覆盖</li>
+                                    <li>个性化学习路径规划</li>
+                                    <li>实时解答与反馈</li>
+                                </ul>
+                                <div class="client-logo-container">
+                                    <span class="client-tag">部分客户</span>
+                                    <div class="client-logos">
+                                        <span class="client-name">清华大学</span>
+                                        <span class="client-name">学而思</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-item" v-motion-fade-in>
+                            <div class="grid-item-icon">
+                                <i class="bi bi-buildings"></i>
+                            </div>
+                            <div class="grid-item-title">政务服务</div>
+                            <div class="grid-item-value">-70%</div>
+                            <div class="grid-item-desc">等待时间减少</div>
+                            <div class="grid-item-detail">
+                                <p>构建高效、亲和的虚拟办事窗口，让政务流程更流畅，让服务更有温度。</p>
+                                <ul class="application-features">
+                                    <li>多部门业务咨询</li>
+                                    <li>智能表单填写辅助</li>
+                                    <li>政策解读与指引</li>
+                                </ul>
+                                <div class="client-logo-container">
+                                    <span class="client-tag">部分客户</span>
+                                    <div class="client-logos">
+                                        <span class="client-name">南京市政府</span>
+                                        <span class="client-name">杭州市民中心</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="industry-cta">
+                        <a href="digital-human-news.html#cases" class="industry-cta-button">
+                            <i class="bi bi-collection"></i> 查看更多行业案例
+                        </a>
+                    </div>
+
+                    <!-- 视频案例展示区域 -->
+                    <div id="video-showcase-section" class="video-showcase-section">
+                        <div class="showcase-header">
+                            <div class="section-decorator">
+                                <span class="decorator-line"></span>
+                                <span class="decorator-dot"></span>
+                                <span class="decorator-text">精选案例</span>
+                            </div>
+                            <h3 class="showcase-title">数字人应用场景展示</h3>
+                            <p class="showcase-desc">真实商业环境下的数字人应用实例，点击观看详细演示</p>
+                        </div>
+                        
+                        <div class="video-grid" style="display:flex; flex-wrap:wrap; justify-content:space-between; width:400px; margin:0 auto; padding:0;">
+                            <!-- 第一行: 李彬数字人 和 张琦数字人 -->
+                            <div class="video-item" style="width:198px; flex:0 0 198px; margin:0 0 4px 0; padding:0;">
+                                <div class="video-thumbnail" style="width:198px; height:200px; position:relative; overflow:hidden;" data-video="videos/视频1.mp4" data-title="李彬数字人">
+                                    <video class="thumbnail-video" style="width:198px; height:200px; object-fit:contain;" src="videos/视频1.mp4" poster="videos/视频1.mp4#t=0.1" preload="metadata" muted playsinline></video>
+                                    <div class="play-overlay"></div>
+                                    <div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>
+                                </div>
+                                <p class="video-title">李彬数字人</p>
+                            </div>
+                            
+                            <div class="video-item" style="width:198px; flex:0 0 198px; margin:0 0 4px 0; padding:0;">
+                                <div class="video-thumbnail" style="width:198px; height:200px; position:relative; overflow:hidden;" data-video="videos/视频3.mp4" data-title="张琦数字人">
+                                    <video class="thumbnail-video" style="width:198px; height:200px; object-fit:contain;" src="videos/视频3.mp4" poster="videos/视频3.mp4#t=0.1" preload="metadata" muted playsinline></video>
+                                    <div class="play-overlay"></div>
+                                    <div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>
+                                </div>
+                                <p class="video-title">张琦数字人</p>
+                            </div>
+                            
+                            <!-- 第二行: 京东数字人 和 硅基律师 -->
+                            <div class="video-item">
+                                <div class="video-thumbnail" data-video="videos/视频2.mp4" data-title="京东数字人">
+                                    <video class="thumbnail-video" src="videos/视频2.mp4" poster="videos/视频2.mp4#t=0.1" preload="metadata" muted playsinline></video>
+                                    <div class="play-overlay"></div>
+                                    <div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>
+                                </div>
+                                <p class="video-title">京东数字人</p>
+                            </div>
+                            
+                            <div class="video-item">
+                                <div class="video-thumbnail" data-video="videos/视频12.mp4" data-title="硅基律师">
+                                    <video class="thumbnail-video" src="videos/视频12.mp4" poster="videos/视频12.mp4#t=0.1" preload="metadata" muted playsinline></video>
+                                    <div class="play-overlay"></div>
+                                    <div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>
+                                </div>
+                                <p class="video-title">硅基律师</p>
+                            </div>
+                            
+                            <!-- 第三行: 洪崖洞数字人 和 红豆数字人 -->
+                            <div class="video-item">
+                                <div class="video-thumbnail" data-video="videos/视频4.mp4" data-title="洪崖洞数字人">
+                                    <video class="thumbnail-video" src="videos/视频4.mp4" poster="videos/视频4.mp4#t=0.1" preload="metadata" muted playsinline></video>
+                                    <div class="play-overlay"></div>
+                                    <div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>
+                                </div>
+                                <p class="video-title">洪崖洞数字人</p>
+                            </div>
+                            
+                            <div class="video-item">
+                                <div class="video-thumbnail" data-video="videos/视频5.mp4" data-title="红豆数字人">
+                                    <video class="thumbnail-video" src="videos/视频5.mp4" poster="videos/视频5.mp4#t=0.1" preload="metadata" muted playsinline></video>
+                                    <div class="play-overlay"></div>
+                                    <div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>
+                                </div>
+                                <p class="video-title">红豆数字人</p>
+                            </div>
+                            
+                            <!-- 第四行: 直播数字人 和 女性数字人 -->
+                            <div class="video-item">
+                                <div class="video-thumbnail" data-video="videos/视频6.mp4" data-title="直播数字人">
+                                    <video class="thumbnail-video" src="videos/视频6.mp4" poster="videos/视频6.mp4#t=0.1" preload="metadata" muted playsinline></video>
+                                    <div class="play-overlay"></div>
+                                    <div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>
+                                </div>
+                                <p class="video-title">直播数字人</p>
+                            </div>
+                            
+                            <div class="video-item">
+                                <div class="video-thumbnail" data-video="videos/视频7.mp4" data-title="女性数字人">
+                                    <video class="thumbnail-video" src="videos/视频7.mp4" poster="videos/视频7.mp4#t=0.1" preload="metadata" muted playsinline></video>
+                                    <div class="play-overlay"></div>
+                                    <div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>
+                                </div>
+                                <p class="video-title">女性数字人</p>
+                            </div>
+                            
+                            <!-- 第五行: 直播数字人 和 智能商品介绍 -->
+                            <div class="video-item">
+                                <div class="video-thumbnail" data-video="videos/视频8.mp4" data-title="直播数字人">
+                                    <video class="thumbnail-video" src="videos/视频8.mp4" poster="videos/视频8.mp4#t=0.1" preload="metadata" muted playsinline></video>
+                                    <div class="play-overlay"></div>
+                                    <div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>
+                                </div>
+                                <p class="video-title">直播数字人</p>
+                            </div>
+                            
+                            <div class="video-item">
+                                <div class="video-thumbnail" data-video="videos/视频9.mp4" data-title="智能商品介绍">
+                                    <video class="thumbnail-video" src="videos/视频9.mp4" poster="videos/视频9.mp4#t=0.1" preload="metadata" muted playsinline></video>
+                                    <div class="play-overlay"></div>
+                                    <div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>
+                                </div>
+                                <p class="video-title">智能商品介绍</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 查看更多视频按钮 -->
+                        <div class="view-more-container">
+                            <a href="digital-human-news.html#cases" class="view-more-button">
+                                <span class="view-more-text">查看更多案例视频</span>
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 数字人新闻库链接 -->
+                <div class="news-library-section">
+                    <div class="news-library-header">
+                        <h3 class="news-library-title">数字人技术资讯库</h3>
+                        <p class="news-library-desc">了解最新的数字人技术进展、行业动态和成功案例</p>
+                    </div>
+                    <a href="digital-human-news.html" class="news-library-button">
+                        <i class="bi bi-collection"></i>
+                        <span>浏览数字人资讯库</span>
+                        <i class="bi bi-arrow-right-circle-fill"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 视频弹窗 -->
+        <div id="video-modal" class="video-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-title">视频标题</h3>
+                    <span class="close-modal">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <video id="modal-video" controls preload="metadata"></video>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第三部分：解决方案 -->
+        <section id="solution-section" class="section solution-section">
+            <div class="container">
+                <h2 class="section-title">硅基智能数字人的独特价值</h2>
+                <p class="section-subtitle">不只是普通数字人，我们的硅基智能架构让数字人实现真正的价值创造</p>
+                
+                <!-- 添加专门的技术比较表格 - 优化版 -->
+                <div class="tech-comparison-section" v-motion-fade-up>
+                    <h3 class="comparison-subtitle">硅基智能与其他品牌数字人技术全面对比</h3>
+                    <div class="tech-comparison-table">
+                        <div class="comparison-row header-row">
+                            <div class="comparison-cell">数字人对比</div>
+                            <div class="comparison-cell">硅基智能</div>
+                            <div class="comparison-cell">其他品牌（如商汤、腾讯、百度等）</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-cell">开源能力</div>
+                            <div class="comparison-cell highlight">开源模型HeyGem在GitHub发布，72小时获得1300+星标，支持本地化部署（iOS/安卓/车载系统），无需云端依赖</div>
+                            <div class="comparison-cell">多数为闭源技术，需通过API调用或订阅服务使用，本地部署兼容性受限</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-cell">生成效率</div>
+                            <div class="comparison-cell highlight">视频生成速度达50帧/秒，效率比例1:0.5（生成时间:内容时长），支持实时虚拟直播</div>
+                            <div class="comparison-cell">行业普遍效率为1:1~1:2（如商汤、科大讯飞），实时生成需依赖高带宽云端算力</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-cell">仿真精度</div>
+                            <div class="comparison-cell highlight">采用3D扫描还原技术，实现"口型-表情-动作"同步，支持微表情与唇齿细节呈现（如毛孔、发丝）</div>
+                            <div class="comparison-cell">多数仅实现基础语音交互，表情驱动较僵硬（如固定口型模板），缺乏动态情感表达</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-cell">交互能力</div>
+                            <div class="comparison-cell highlight">支持语音克隆、动作驱动，本地NLP处理实现毫秒级响应，可模拟人类沟通方式（如教育场景互动教学）</div>
+                            <div class="comparison-cell">多数仅支持文本转语音（TTS），交互逻辑简单，缺乏拟人化多模态能力</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-cell">场景适配性</div>
+                            <div class="comparison-cell highlight">提供软硬件一体化解决方案，覆盖线下门店引流（全息投影）、虚拟客服、7×24小时直播、智慧教育等全场景</div>
+                            <div class="comparison-cell">多聚焦单一场景（如客服问答机器人、短视频生成），跨行业适配需重新训练模型</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-cell">技术开放性</div>
+                            <div class="comparison-cell highlight">通过开源模型包持续更新技术，用户可自主优化参数（如调整表情参数、语音风格）</div>
+                            <div class="comparison-cell">技术封闭性强，用户无法深度定制模型参数</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-cell">成本与商业化</div>
+                            <div class="comparison-cell highlight">宣称节省90%人力成本（如替代真人直播），支持按需付费（生成时长/交互次数）</div>
+                            <div class="comparison-cell">高端定制成本超百万级（如虚拟偶像），需长期订阅云端服务费</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-cell">技术创新</div>
+                            <div class="comparison-cell highlight">攻克"声画不同步"难题，采用三维人脸高精度表情迁移技术，提升微表情与唇齿细节呈现</div>
+                            <div class="comparison-cell">多数依赖通用模型，技术创新突破较少被提及</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-cell">部署灵活性</div>
+                            <div class="comparison-cell highlight">支持本地化部署（iOS/安卓/车载系统），无需高性能服务器即可运行</div>
+                            <div class="comparison-cell">多需依赖云端服务器或高性能硬件（如GPU集群）</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 添加移动端滑动提示 -->
+                </div>
+                
+                <!-- 添加跳转到数字人资讯板块的按钮 -->
+                <!-- 删除此区块 -->
+                
+                <!-- 替换"图二"部分 - 品牌记忆点矩阵，改为应用案例视频展示 -->
+
+            
+                    <!-- 添加响应式样式 -->
+                    <style>
+                        /* 标题样式保持一致 */
+                        .brand-memory-section h2.section-title {
+                            text-align: center;
+                            margin-bottom: 20px;
+                            font-size: 1.8rem;
+                            color: #333;
+                        }
+                        
+                        .brand-memory-section .section-subtitle {
+                            text-align: center;
+                            margin-bottom: 30px;
+                            color: #666;
+                            font-size: 1rem;
+                        }
+                        
+                        /* 图片悬停效果 */
+                        .showcase-item .image-container {
+                            transition: transform 0.3s ease, box-shadow 0.3s ease;
+                        }
+                        
+                        .showcase-item:hover .image-container {
+                            transform: translateY(-5px);
+                            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+                        }
+                        
+                        /* 移动端响应式样式 */
+                        @media (max-width: 768px) {
+                            .grid-layout {
+                                grid-template-columns: 1fr !important;
+                            }
+                            
+                            .showcase-item[style*="grid-column: span 2"] {
+                                grid-column: span 1 !important;
+                                max-width: 100% !important;
+                            }
+                            
+                            .section-title {
+                                font-size: 1.5rem !important;
+                            }
+                            
+                            .section-subtitle {
+                                font-size: 0.9rem !important;
+                            }
+                        }
+                    </style>
+
+                    <!-- 注释掉视频播放交互脚本 -->
+                    <!--
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            // 获取所有播放按钮
+                            const playButtons = document.querySelectorAll('.play-button-wrapper');
+                            
+                            // 为每个播放按钮添加点击事件
+                            playButtons.forEach(function(button) {
+                                button.addEventListener('click', function() {
+                                    // 获取包含视频的容器
+                                    const container = this.parentNode;
+                                    // 获取视频元素
+                                    const video = container.querySelector('video');
+                                    
+                                    // 隐藏播放按钮
+                                    this.style.display = 'none';
+                                    
+                                    // 播放视频
+                                    try {
+                                        const playPromise = video.play();
+                                        
+                                        if (playPromise !== undefined) {
+                                            playPromise.then(() => {
+                                                // 播放成功
+                                                console.log('视频播放成功');
+                                            })
+                                            .catch(error => {
+                                                // 播放失败，尝试静音播放
+                                                console.error('视频播放失败，尝试静音播放:', error);
+                                                video.muted = true;
+                                                video.play().then(() => {
+                                                    console.log('静音播放成功');
+                                                }).catch(err => {
+                                                    console.error('静音播放也失败:', err);
+                                                    // 恢复播放按钮显示
+                                                    this.style.display = 'flex';
+                                                });
+                                            });
+                                        }
+                                    } catch (e) {
+                                        console.error('播放视频时发生错误:', e);
+                                        // 恢复播放按钮显示
+                                        this.style.display = 'flex';
+                                    }
+                                });
+                            });
+                            
+                            // 监听视频结束事件
+                            const videos = document.querySelectorAll('.case-video');
+                            videos.forEach(function(video) {
+                                video.addEventListener('ended', function() {
+                                    // 视频播放结束，显示播放按钮
+                                    const playButton = this.parentNode.querySelector('.play-button-wrapper');
+                                    playButton.style.display = 'flex';
+                                });
+                                
+                                video.addEventListener('pause', function() {
+                                    // 视频暂停，显示播放按钮
+                                    const playButton = this.parentNode.querySelector('.play-button-wrapper');
+                                    playButton.style.display = 'flex';
+                                });
+                                
+                                video.addEventListener('error', function(e) {
+                                    console.error('视频加载错误:', e);
+                                    // 视频加载错误，显示播放按钮
+                                    const playButton = this.parentNode.querySelector('.play-button-wrapper');
+                                    playButton.style.display = 'flex';
+                                });
+                            });
+                        });
+                    </script>
+                    -->
+
+                    <!-- 移除原有的品牌记忆度量部分 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 第四部分：客户成功案例 -->
+        <section id="case-section" class="section lab-preview-section">
+            <div class="container">
+                <h2 class="section-title">实证检验：客户成功案例矩阵</h2>
+                <p class="section-subtitle">我们不是凭空讲故事，这里有真实数据支撑的成功案例</p>
+
+                <!-- 案例标签页 -->
+                <div class="case-tabs">
+                    <div class="tab-button" :class="{'active': activeTab === 'education'}" @click="setActiveTab('education')">教育领域</div>
+                    <div class="tab-button" :class="{'active': activeTab === 'finance'}" @click="setActiveTab('finance')">金融行业</div>
+                    <div class="tab-button" :class="{'active': activeTab === 'retail'}" @click="setActiveTab('retail')">零售电商</div>
+                </div>
+
+                <!-- 案例详情 - 移除ROI可视化 -->
+                <div class="case-matrix insight-cards">
+                    <!-- 教育领域案例 -->
+                    <div v-if="activeTab === 'education'" class="case-detail insight-card" v-motion-fade-in>
+                        <div class="insight-image case-image">
+                            <img src="img/case-education.svg?v=20250716" alt="教育领域案例">
+                        </div>
+                        <h3 class="insight-title">某985高校引入李教授课程数字人</h3>
+                        <div class="case-metrics">
+                            <div class="metric">
+                                <span class="before">65%</span>
+                                <i class="bi bi-arrow-right"></i>
+                                <span class="after">89%</span>
+                                <p>学生满意度</p>
+                            </div>
+                        </div>
+                        <div class="case-testimonial">
+                            <p class="insight-desc">"数字人教授能够24小时解答学生疑问，课程互动性显著提升，学生参与度大幅增加。"</p>
+                            <span class="testimonial-author">— 教务处主任</span>
+                        </div>
+                    </div>
+
+                    <!-- 金融行业案例 -->
+                    <div v-if="activeTab === 'finance'" class="case-detail insight-card" v-motion-fade-in>
+                        <div class="insight-image case-image">
+                            <img src="img/case-finance.svg?v=20250716" alt="金融行业案例">
+                        </div>
+                        <h3 class="insight-title">招商银行部署AI金融顾问</h3>
+                        <div class="case-metrics">
+                            <div class="metric">
+                                <span class="after">+35%</span>
+                                <p>理财推荐转化率提升</p>
+                            </div>
+                        </div>
+                        <div class="case-testimonial">
+                            <p class="insight-desc">"AI金融顾问精准分析客户需求，提供个性化理财方案，大幅提升了客户满意度和转化率。"</p>
+                            <span class="testimonial-author">— 零售银行部总经理</span>
+                        </div>
+                    </div>
+
+                    <!-- 零售电商案例 -->
+                    <div v-if="activeTab === 'retail'" class="case-detail insight-card" v-motion-fade-in>
+                        <div class="insight-image case-image">
+                            <img src="img/case-retail.svg?v=20250716" alt="零售电商案例">
+                        </div>
+                        <h3 class="insight-title">完美日记直播间引入数字人主播</h3>
+                        <div class="case-metrics">
+                            <div class="metric">
+                                <span class="after">500万+</span>
+                                <p>单场GMV突破</p>
+                            </div>
+                        </div>
+                        <div class="case-testimonial">
+                            <p class="insight-desc">"数字人主播无需休息，24小时不间断直播带货，极大提升了商品曝光率和销售额。"</p>
+                            <span class="testimonial-author">— 营销总监</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 跳转到数字人新闻库按钮 -->
+            </div>
+        </section>
+        
+        <!-- 联系表单 -->
+        <section id="contact-section" class="section contact-section">
+            <div class="container">
+                <h2 class="section-title">开启数字人之旅</h2>
+                <p class="section-subtitle">填写以下表单，我们的顾问将尽快与您联系，为您提供专属解决方案</p>
+                
+                <div class="contact-form-container">
+                    <form class="contact-form" @submit.prevent="submitForm">
+                        <div class="form-group">
+                            <label for="name">您的姓名</label>
+                            <input type="text" id="name" v-model="contactForm.name" placeholder="请输入您的姓名" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company">公司名称</label>
+                            <input type="text" id="company" v-model="contactForm.company" placeholder="请输入您的公司名称" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">联系电话</label>
+                            <input type="tel" id="phone" v-model="contactForm.phone" placeholder="请输入您的联系电话" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">电子邮箱</label>
+                            <input type="email" id="email" v-model="contactForm.email" placeholder="请输入您的电子邮箱" required>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="message">需求描述</label>
+                            <textarea id="message" v-model="contactForm.message" placeholder="请简要描述您的需求或问题" rows="4"></textarea>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label class="checkbox-label">
+                                <input type="checkbox" v-model="contactForm.agreement" required>
+                                <span>我已阅读并同意<a href="#" @click.prevent>《隐私政策》</a>和<a href="#" @click.prevent>《服务条款》</a></span>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="submit-button">提交需求</button>
+                    </form>
+                    
+                    <!-- 删除"其他联系方式"部分 -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 脚本引用 -->
+    <script src="js/digital-human-new.js?v=20250717"></script>
+    <script>
+        // 视频弹窗和播放控制逻辑
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取弹窗元素和相关DOM节点
+            const modal = document.getElementById('video-modal');
+            const modalVideo = document.getElementById('modal-video');
+            const modalTitle = document.getElementById('modal-title');
+            const closeModal = document.querySelector('.close-modal');
+            const thumbnails = document.querySelectorAll('.video-thumbnail');
+            
+            // 简化视频处理流程，专注于显示首帧
+            const thumbnailVideos = document.querySelectorAll('.thumbnail-video');
+            console.log('找到视频缩略图:', thumbnailVideos.length);
+            
+            // 处理所有视频缩略图
+            thumbnailVideos.forEach(video => {
+                // 设置基础视频属性
+                video.muted = true;
+                video.playsInline = true;
+                video.preload = 'metadata'; // 仅预加载元数据以显示首帧
+                video.controls = false;
+                
+                // 应用基础样式
+                video.style.width = '100%';
+                video.style.height = '100%';
+                video.style.objectFit = 'contain';
+                video.style.position = 'absolute';
+                video.style.top = '0';
+                video.style.left = '0';
+                video.style.zIndex = '1';
+                
+                // 强制加载视频首帧
+                video.addEventListener('loadedmetadata', function() {
+                    try {
+                        // 确保视频定位到首帧
+                        this.currentTime = 0.1;
+                        
+                        // 确保视频暂停以显示首帧
+                        this.pause();
+                    } catch(e) {
+                        console.warn('设置视频首帧失败:', e);
+                    }
+                }, { once: true });
+                
+                // 错误处理 - 显示错误图标
+                video.addEventListener('error', function() {
+                    console.warn('视频加载失败:', this.src);
+                    const errorIcon = document.createElement('div');
+                    errorIcon.className = 'video-error';
+                    errorIcon.innerHTML = '<i class="bi bi-exclamation-triangle"></i>';
+                    if (this.parentElement && !this.parentElement.querySelector('.video-error')) {
+                        this.parentElement.appendChild(errorIcon);
+                    }
+                }, { once: true });
+            });
+            
+            // 不需要创建播放图标覆盖层，因为我们在HTML中已经添加了
+            
+            // 简化的错误处理函数
+            function handleVideoError(videoElem) {
+                console.error('视频加载错误', videoElem.src);
+                
+                // 确保视频元素存在且有父元素
+                if (!videoElem || !videoElem.parentElement) return;
+                
+                // 添加错误类名
+                videoElem.parentElement.classList.add('error');
+                

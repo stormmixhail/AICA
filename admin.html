@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理员控制台 - AICA</title>
+    <link rel="icon" href="img/favicon.svg?v=20250716" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/lib/vue.min.js"></script>
+    <script src="js/config.js"></script>
+    <style>
+        .admin-content {
+            padding: 30px;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .admin-title {
+            font-size: 24px;
+            margin: 0;
+        }
+        .admin-actions {
+            display: flex;
+        }
+        .action-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .user-list {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .user-list th, .user-list td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .user-list th {
+            background-color: #f5f5f5;
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 500px;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .close-button {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="admin-app">
+        <header class="header">
+            <div class="logo">
+                <img src="img/aica-logo.svg?v=20250716" alt="AICA">
+            </div>
+            <div class="header-right">
+                <span v-if="userData" class="user-welcome">欢迎, {{ userData.name }}</span>
+                <button class="logout-button" @click="logout">退出登录</button>
+            </div>
+        </header>
+        
+        <main v-if="isAdmin" class="admin-content">
+            <div class="admin-header">
+                <h1 class="admin-title">用户管理</h1>
+                <div class="admin-actions">
+                    <button class="action-button" @click="showAddUserModal = true">添加用户</button>
+                </div>
+            </div>
+            
+            <div v-if="isLoading">加载中...</div>
+            <div v-else-if="errorMessage" class="error-message">{{ errorMessage }}</div>
+            <table v-else class="user-list">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>用户名</th>
+                        <th>姓名</th>
+                        <th>邮箱</th>
+                        <th>角色</th>
+                        <th>账户类型</th>
+                        <th>创建时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="user in users" :key="user._id">
+                        <td>{{ user._id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.role === 'admin' ? '管理员' : '普通用户' }}</td>
+                        <td>{{ user.accountType }}</td>
+                        <td>{{ formatDate(user.createdAt) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+        
+        <div v-else class="admin-content">
+            <div class="error-message">您没有管理员权限访问此页面。</div>
+            <button class="action-button" @click="goToHome">返回首页</button>
+        </div>
+        
+        <!-- 添加用户模态框 -->
+        <div v-if="showAddUserModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>添加新用户</h2>
+                    <button class="close-button" @click="showAddUserModal = false">&times;</button>
+                </div>
+                
+                <form @submit.prevent="addUser">
+                    <div class="form-group">
+                        <label for="new-username">用户名</label>
+                        <input type="text" id="new-username" v-model="newUser.username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-password">密码</label>
+                        <input type="password" id="new-password" v-model="newUser.password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-name">姓名</label>
+                        <input type="text" id="new-name" v-model="newUser.name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-email">邮箱</label>
+                        <input type="email" id="new-email" v-model="newUser.email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-role">角色</label>
+                        <select id="new-role" v-model="newUser.role" required>
+                            <option value="user">普通用户</option>
+                            <option value="admin">管理员</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-account-type">账户类型</label>
+                        <input type="text" id="new-account-type" v-model="newUser.accountType" required>
+                    </div>
+                    
+                    <div v-if="addUserError" class="error-message">{{ addUserError }}</div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="action-button" style="background-color: #ccc;" @click="showAddUserModal = false">取消</button>
+                        <button type="submit" class="action-button" :disabled="isAddingUser">
+                            {{ isAddingUser ? '添加中...' : '添加' }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/admin.js"></script>
+</body>
+</html> 

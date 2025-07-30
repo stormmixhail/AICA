@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
+  <defs>
+    <linearGradient id="caseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF5722" />
+      <stop offset="100%" stop-color="#FF8A65" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.3" />
+    </filter>
+    <clipPath id="graphClip">
+      <rect x="360" y="200" width="160" height="100" rx="5" ry="5" />
+    </clipPath>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="600" height="400" fill="white" />
+  <rect width="600" height="400" fill="url(#caseGradient)" opacity="0.1" />
+
+  <!-- 装饰元素 -->
+  <g opacity="0.2">
+    <line x1="0" y1="50" x2="600" y2="50" stroke="#FF5722" stroke-width="1" />
+    <line x1="0" y1="100" x2="600" y2="100" stroke="#FF5722" stroke-width="1" />
+    <line x1="0" y1="150" x2="600" y2="150" stroke="#FF5722" stroke-width="1" />
+    <line x1="0" y1="200" x2="600" y2="200" stroke="#FF5722" stroke-width="1" />
+    <line x1="0" y1="250" x2="600" y2="250" stroke="#FF5722" stroke-width="1" />
+    <line x1="0" y1="300" x2="600" y2="300" stroke="#FF5722" stroke-width="1" />
+    <line x1="0" y1="350" x2="600" y2="350" stroke="#FF5722" stroke-width="1" />
+  </g>
+
+  <!-- 边框 -->
+  <rect x="40" y="40" width="520" height="320" rx="5" ry="5" fill="none" stroke="#FF5722" stroke-width="2" stroke-dasharray="5,5" opacity="0.5" />
+
+  <!-- 内容卡片 -->
+  <g filter="url(#shadow)" transform="translate(70, 70)">
+    <!-- 案例卡片 -->
+    <rect x="0" y="0" width="280" height="260" rx="10" ry="10" fill="white" />
+    
+    <!-- 卡片标头 -->
+    <rect x="0" y="0" width="280" height="60" rx="10" ry="10" fill="url(#caseGradient)" />
+    <text x="140" y="38" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">案例分析</text>
+    
+    <!-- 卡片内容 -->
+    <g transform="translate(20, 80)">
+      <text x="0" y="0" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#212121">从0到1：</text>
+      <text x="0" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#212121">打造AI增长引擎</text>
+      
+      <line x1="0" y1="50" x2="240" y2="50" stroke="#FF5722" stroke-width="2" />
+      
+      <text x="0" y="80" font-family="Arial, sans-serif" font-size="14" fill="#757575" width="240">如何让AI为企业带来可测量的</text>
+      <text x="0" y="100" font-family="Arial, sans-serif" font-size="14" fill="#757575" width="240">增长价值</text>
+      
+      <g transform="translate(0, 130)">
+        <text x="20" y="10" font-family="Arial, sans-serif" font-size="12" fill="#757575">90天</text>
+        <text x="100" y="10" font-family="Arial, sans-serif" font-size="12" fill="#757575">+120%</text>
+        <text x="180" y="10" font-family="Arial, sans-serif" font-size="12" fill="#757575">制造业</text>
+        
+        <rect x="0" y="20" width="50" height="4" rx="2" ry="2" fill="#FF5722" opacity="0.6" />
+        <rect x="80" y="20" width="50" height="4" rx="2" ry="2" fill="#FF5722" opacity="0.6" />
+        <rect x="160" y="20" width="50" height="4" rx="2" ry="2" fill="#FF5722" opacity="0.6" />
+      </g>
+    </g>
+  </g>
+
+  <!-- 数据图表装饰 -->
+  <g filter="url(#shadow)">
+    <rect x="360" y="200" width="160" height="100" rx="5" ry="5" fill="white" />
+    
+    <!-- 简单图表 -->
+    <g clip-path="url(#graphClip)">
+      <line x1="370" y1="280" x2="510" y2="280" stroke="#E0E0E0" stroke-width="1" />
+      <line x1="370" y1="250" x2="510" y2="250" stroke="#E0E0E0" stroke-width="1" />
+      <line x1="370" y1="220" x2="510" y2="220" stroke="#E0E0E0" stroke-width="1" />
+      
+      <!-- 增长曲线 -->
+      <path d="M370,270 C390,265 410,260 430,240 C450,220 470,210 510,205" stroke="#FF5722" stroke-width="2" fill="none" />
+      
+      <!-- 数据点 -->
+      <circle cx="370" cy="270" r="3" fill="#FF5722" />
+      <circle cx="410" cy="260" r="3" fill="#FF5722" />
+      <circle cx="450" cy="230" r="3" fill="#FF5722" />
+      <circle cx="510" cy="205" r="3" fill="#FF5722" />
+    </g>
+    
+    <text x="440" y="295" font-family="Arial, sans-serif" font-size="10" fill="#757575" text-anchor="middle">增长趋势</text>
+  </g>
+
+  <!-- 装饰元素 -->
+  <g>
+    <circle cx="500" cy="100" r="25" fill="#FF5722" opacity="0.1" />
+    <text x="500" y="105" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#FF5722" text-anchor="middle">AI</text>
+    
+    <circle cx="460" cy="80" r="10" fill="#FF5722" opacity="0.1" />
+    <circle cx="530" cy="120" r="8" fill="#FF5722" opacity="0.1" />
+    <circle cx="480" cy="135" r="6" fill="#FF5722" opacity="0.1" />
+  </g>
+  
+  <!-- 来源标识 -->
+  <g transform="translate(40, 380)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="12" fill="#757575">阿倜士增长实验室</text>
+  </g>
+  
+  <!-- 年份标识 -->
+  <g transform="translate(540, 380)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="12" fill="#757575" text-anchor="end">2024</text>
+  </g>
+</svg> 

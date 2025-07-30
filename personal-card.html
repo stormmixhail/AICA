@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>个人名片 - AICA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ai-card.css">
+    <script src="js/lib/vue.min.js"></script>
+</head>
+<body>
+    <div id="personal-card-app" class="ai-card-page">
+        <header class="feature-header">
+            <button class="back-button" @click="goBack">
+                <img src="img/jpg/back-arrow.jpg" alt="返回">
+            </button>
+            <div class="feature-title">个人名片</div>
+        </header>
+        
+        <div class="card-content">
+            <!-- 模块1：基本信息模块 -->
+            <section class="card-module card-basic-info">
+                <h2 class="module-title">个人信息</h2>
+                <div class="profile-container">
+                    <div class="profile-avatar">
+                        <img :src="profile.avatar" alt="个人头像">
+                    </div>
+                    <div class="profile-info">
+                        <h1 class="profile-name">{{ profile.name }}</h1>
+                        <div class="dynamic-title">
+                            <span class="current-title">{{ profile.title }}</span>
+                        </div>
+                        <p class="profile-tagline">{{ profile.tagline }}</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 模块2：地址与联系方式模块 -->
+            <section class="card-module card-contact-info">
+                <h2 class="module-title">联系方式</h2>
+                <div class="contact-header">
+                    <div class="contact-title">联系方式</div>
+                    <button class="share-card-button" @click="shareCard" aria-label="分享名片">
+                        <img src="img/jpg/share-card-icon.jpg" alt="分享">
+                        <span>分享名片</span>
+                    </button>
+                </div>
+                <div class="contact-methods">
+                    <!-- 电话 -->
+                    <div class="contact-method" v-if="profile.phone">
+                        <div class="contact-icon">
+                            <img src="img/jpg/phone-icon.jpg" alt="电话">
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-label">电话</div>
+                            <div class="contact-value">{{ profile.phone }}</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 邮箱 -->
+                    <div class="contact-method" v-if="profile.email">
+                        <div class="contact-icon">
+                            <img src="img/jpg/email-icon.jpg" alt="邮箱">
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-label">邮箱</div>
+                            <div class="contact-value">{{ profile.email }}</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 微信 -->
+                    <div class="contact-method" v-if="profile.wechat">
+                        <div class="contact-icon">
+                            <img src="img/jpg/wechat-icon.jpg" alt="微信">
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-label">微信</div>
+                            <div class="contact-value">{{ profile.wechat }}</div>
+                        </div>
+                    </div>
+                    
+                    <!-- WhatsApp -->
+                    <div class="contact-method" v-if="profile.whatsapp">
+                        <div class="contact-icon">
+                            <img src="img/jpg/whatsapp-icon.jpg" alt="WhatsApp">
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-label">WhatsApp</div>
+                            <div class="contact-value">{{ profile.whatsapp }}</div>
+                        </div>
+                    </div>
+                    
+                    <!-- LINE -->
+                    <div class="contact-method" v-if="profile.line">
+                        <div class="contact-icon">
+                            <img src="img/jpg/line-icon.jpg" alt="LINE">
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-label">LINE</div>
+                            <div class="contact-value">{{ profile.line }}</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 地址 -->
+                    <div class="contact-method" v-if="profile.address">
+                        <div class="contact-icon">
+                            <img src="img/jpg/address-icon.jpg" alt="地址">
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-label">地址</div>
+                            <div class="contact-value">{{ profile.address }}</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 模块3：自我介绍模块 -->
+            <section class="card-module" v-if="profile.introduction">
+                <h2 class="module-title">自我介绍</h2>
+                <div class="card-content-text">
+                    {{ profile.introduction }}
+                </div>
+            </section>
+            
+            <!-- 模块4：智能体对话模块 -->
+            <section class="card-module card-chat-module">
+                <h2 class="module-title">与{{ profile.name }}对话</h2>
+                <p class="module-description">点击下方按钮，开始与{{ profile.name }}进行专业对话</p>
+                <div class="chat-action">
+                    <button class="primary-button" @click="startPersonalChat">
+                        <img src="img/jpg/chat-icon.jpg" alt="对话">
+                        <span>开始对话</span>
+                    </button>
+                </div>
+            </section>
+            
+            <!-- 模块5：文件模块 -->
+            <section class="card-module" v-if="files && files.length > 0">
+                <h2 class="module-title">文件</h2>
+                <div class="files-container">
+                    <div v-for="file in files" :key="file.id" class="file-item" @click="openFile(file)">
+                        <div class="file-icon">
+                            <img :src="getFileIcon(file.type)" :alt="file.type">
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">{{ file.name }}</div>
+                            <div class="file-meta">{{ file.size }} · {{ file.updated }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="!files || files.length === 0" class="empty-state">
+                    <div class="empty-icon">
+                        <img src="img/empty-file-icon.svg?v=20250716" alt="无文件">
+                    </div>
+                    <div class="empty-message">暂无文件</div>
+                </div>
+            </section>
+            
+            <!-- 模块6：视频模块 -->
+            <section class="card-module" v-if="videos && videos.length > 0">
+                <h2 class="module-title">视频</h2>
+                <div class="videos-container">
+                    <div v-for="video in videos" :key="video.id" class="video-item" @click="playVideo(video)">
+                        <div class="video-thumbnail">
+                            <img :src="video.thumbnail" alt="视频缩略图">
+                            <div class="play-button">
+                                <img src="img/jpg/play-button.jpg" alt="播放">
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">{{ video.title }}</div>
+                            <div class="video-duration">{{ video.duration }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="!videos || videos.length === 0" class="empty-state">
+                    <div class="empty-icon">
+                        <img src="img/empty-video-icon.svg?v=20250716" alt="无视频">
+                    </div>
+                    <div class="empty-message">暂无视频</div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 聊天弹窗 -->
+        <div class="personal-chat-modal" v-if="showChatModal" @touchmove.prevent>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>与{{ profile.name }}对话</h3>
+                    <button class="close-button" @click="closeChatModal">×</button>
+                </div>
+                <div class="chat-modal-body">
+                    <div class="personal-chat-messages">
+                        <div v-for="(msg, index) in chatMessages" :key="index" 
+                            :class="['message', msg.type]">
+                            {{ msg.text }}
+                        </div>
+                        <div v-if="isAgentTyping" class="typing-indicator">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <textarea class="message-input" placeholder="输入消息..." v-model="userMessage" 
+                            @keydown.enter.prevent="sendMessage"></textarea>
+                        <button class="send-button" @click="sendMessage">
+                            <img src="img/jpg/send-icon.jpg" alt="发送">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 视频播放弹窗 -->
+        <div class="video-player-modal" v-if="showVideoPlayer" @touchmove.prevent>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>{{ currentVideo.title }}</h3>
+                    <button class="close-button" @click="closeVideoPlayer">×</button>
+                </div>
+                <div class="modal-body">
+                    <video class="video-player" controls autoplay>
+                        <source :src="currentVideo.url" :type="currentVideo.type">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 交换名片按钮 -->
+        <div class="chat-button" @click="exchangeCard">
+            <img src="img/jpg/exchange-icon.jpg" alt="交换名片">
+            <span>交换名片</span>
+        </div>
+        
+        <!-- 分享名片弹窗 -->
+        <div class="share-card-modal" v-if="showShareCardModal" @touchmove.prevent>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>分享名片</h3>
+                    <button class="close-button" @click="closeShareCardModal" aria-label="关闭">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="share-card-preview">
+                        <div class="share-card-image-container">
+                            <canvas ref="shareCardCanvas" class="share-card-canvas"></canvas>
+                            <img v-if="shareCardImageUrl" :src="shareCardImageUrl" alt="名片分享图片" class="share-card-image">
+                        </div>
+                        <p class="share-card-tip">长按图片保存到相册</p>
+                    </div>
+                    <div class="share-card-actions">
+                        <button class="primary-button" @click="downloadShareCardImage">
+                            <span>下载图片</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        /* 个人名片特定样式 */
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+            border: 3px solid #0070ff;
+            box-shadow: 0 4px 10px rgba(0, 112, 255, 0.2);
+        }
+        
+        .profile-name {
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+        
+        .dynamic-title {
+            background-color: rgba(0, 112, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .dynamic-title .current-title {
+            color: #0070ff;
+            font-weight: 500;
+        }
+        
+        .card-content-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #444;
+            padding: 5px 0;
+        }
+        
+        .contact-method {
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .contact-method:hover {
+            background-color: #f0f7ff;
+            border-color: #d0e3ff;
+            transform: translateY(-2px);
+        }
+        
+        .file-item {
+            border: 1px solid #eee;
+            transition: all 0.3s ease;
+        }
+        
+        .file-item:hover {
+            border-color: #b3d7ff;
+            box-shadow: 0 3px 10px rgba(0, 112, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .video-item {
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .video-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-thumbnail {
+            border-radius: 10px;
+        }
+        
+        .play-button {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .video-item:hover .play-button {
+            background-color: rgba(0, 112, 255, 0.8);
+            transform: scale(1.1);
+        }
+        
+        .primary-button {
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 28px;
+            box-shadow: 0 4px 12px rgba(0, 112, 255, 0.25);
+            transition: all 0.3s ease;
+        }
+        
+        .primary-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 112, 255, 0.35);
+        }
+        
+        .chat-button {
+            border-radius: 28px;
+            padding: 14px 24px;
+            font-weight: 500;
+            box-shadow: 0 4px 16px rgba(0, 112, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .chat-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 112, 255, 0.4);
+        }
+        
+        .message {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .message:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        }
+        
+        .message.agent {
+            border-left: 3px solid #0070ff;
+        }
+        
+        .message.user {
+            border-right: 3px solid #00c8ff;
+        }
+        
+        .send-button {
+            background: linear-gradient(135deg, #0070ff, #00c8ff);
+            transition: all 0.3s ease;
+        }
+        
+        .send-button:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+        
+        /* 分享名片按钮样式 */
+        .contact-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .share-card-button {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #0070ff, #00c8ff);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 2px 6px rgba(0, 112, 255, 0.2);
+        }
+        
+        .share-card-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 112, 255, 0.3);
+        }
+        
+        .share-card-button img {
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+            filter: brightness(0) invert(1);
+        }
+        
+        /* 分享名片弹窗样式 */
+        .share-card-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .share-card-preview {
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .share-card-image-container {
+            width: 100%;
+            max-width: 320px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .share-card-canvas {
+            display: none;
+        }
+        
+        .share-card-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .share-card-tip {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 10px 0;
+        }
+        
+        .share-card-actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        /* 适配不同设备尺寸 */
+        @media (max-width: 480px) {
+            .contact-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .share-card-button {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .share-card-image-container {
+                max-width: 280px;
+            }
+        }
+    </style>
+    
+    <script>
+        new Vue({
+            el: '#personal-card-app',
+            data: {
+                profile: {
+                    id: null,
+                    name: '',
+                    title: '',
+                    tagline: '',
+                    avatar: '',
+                    phone: '',
+                    email: '',
+                    wechat: '',
+                    whatsapp: '',
+                    line: '',
+                    address: '',
+                    introduction: ''
+                },
+                files: [],
+                videos: [],
+                showChatModal: false,
+                showVideoPlayer: false,
+                currentVideo: {},
+                chatMessages: [],
+                userMessage: '',
+                isAgentTyping: false,
+                showShareCardModal: false,
+                shareCardImageUrl: null
+            },
+            created() {
+                // 从URL获取用户ID
+                const urlParams = new URLSearchParams(window.location.search);
+                const userId = urlParams.get('id');
+                
+                // 使用ID加载用户数据
+                this.loadUserProfile(userId);
+            },
+            methods: {
+                // 加载用户个人资料
+                loadUserProfile(userId) {
+                    // 这里应该是一个API调用，加载用户资料
+                    // 临时使用示例数据
+                    const exampleData = {
+                        id: userId || '123',
+                        name: '谭云杰',
+                        title: '深圳营销负责人',
+                        tagline: '连接未来，共享商机',
+                        avatar: 'img/jpg/profile-avatar.jpg',
+                        phone: '+86 13800138000',
+                        email: 'zhang@example.com',
+                        wechat: 'zhangdalian',
+                        whatsapp: '+86 13800138000',
+                        line: 'zhangdalian',
+                        address: '深圳市福田区新一代产业园1栋30楼',
+                        introduction: '专注于AI营销策略与执行十年，帮助超过50家企业提升营销效率。擅长将技术与营销完美结合，让数据驱动决策，让智能赋能业务。'
+                    };
+                    
+                    this.profile = exampleData;
+                    
+                    // 加载文件
+                    this.files = [
+                        {
+                            id: '1',
+                            name: 'Jiatui Saleskits.pdf',
+                            type: 'pdf',
+                            size: '2.5MB',
+                            updated: '2023-06-15',
+                            url: 'files/Jiatui_Saleskits.pdf'
+                        },
+                        {
+                            id: '2',
+                            name: 'Jiatui产品介绍.pdf',
+                            type: 'pdf',
+                            size: '1.8MB',
+                            updated: '2023-07-20',
+                            url: 'files/Jiatui_Product_Intro.pdf'
+                        }
+                    ];
+                    
+                    // 加载视频
+                    this.videos = [
+                        {
+                            id: '1',
+                            title: '产品演示视频',
+                            thumbnail: 'img/video-thumbnail1.jpg',
+                            duration: '3:45',
+                            url: 'videos/product-demo.mp4',
+                            type: 'video/mp4'
+                        },
+                        {
+                            id: '2',
+                            title: '客户案例分享',
+                            thumbnail: 'img/video-thumbnail2.jpg',
+                            duration: '5:20',
+                            url: 'videos/customer-case.mp4',
+                            type: 'video/mp4'
+                        }
+                    ];
+                },
+                
+                // 返回上一页
+                goBack() {
+                    window.history.back();
+                },
+                
+                // 获取文件图标
+                getFileIcon(fileType) {
+                    const iconMap = {
+                        'pdf': 'img/pdf-icon.svg',
+                        'doc': 'img/doc-icon.svg',
+                        'docx': 'img/doc-icon.svg',
+                        'xls': 'img/xls-icon.svg',
+                        'xlsx': 'img/xls-icon.svg',
+                        'ppt': 'img/ppt-icon.svg',
+                        'pptx': 'img/ppt-icon.svg',
+                        'jpg': 'img/img-icon.svg',
+                        'jpeg': 'img/img-icon.svg',
+                        'png': 'img/img-icon.svg',
+                        'default': 'img/file-icon.svg'
+                    };
+                    
+                    return iconMap[fileType] || iconMap.default;
+                },
+                
+                // 打开文件
+                openFile(file) {
+                    window.open(file.url, '_blank');
+                },
+                
+                // 播放视频
+                playVideo(video) {
+                    this.currentVideo = video;
+                    this.showVideoPlayer = true;
+                },
+                
+                // 关闭视频播放器
+                closeVideoPlayer() {
+                    this.showVideoPlayer = false;
+                    this.currentVideo = {};
+                },
+                
+                // 开始个人对话
+                startPersonalChat() {
+                    this.showChatModal = true;
+                    
+                    // 初始化欢迎消息
+                    this.chatMessages = [
+                        {
+                            type: 'agent',
+                            text: `您好，我是${this.profile.name}的智能助手。有什么我可以帮您的吗？`
+                        }
+                    ];
+                },
+                
+                // 关闭聊天窗口
+                closeChatModal() {
+                    this.showChatModal = false;
+                    this.chatMessages = [];
+                    this.userMessage = '';
+                },
+                
+                // 发送消息
+                sendMessage() {
+                    if (!this.userMessage.trim()) return;
+                    
+                    // 添加用户消息
+                    this.chatMessages.push({
+                        type: 'user',
+                        text: this.userMessage
+                    });
+                    
+                    // 清空输入框
+                    const message = this.userMessage;
+                    this.userMessage = '';
+                    
+                    // 模拟智能体思考
+                    this.isAgentTyping = true;
+                    
+                    // 模拟回复（实际应该是API调用）
+                    setTimeout(() => {
+                        this.isAgentTyping = false;
+                        this.chatMessages.push({
+                            type: 'agent',
+                            text: this.getAIResponse(message)
+                        });
+                        
+                        // 滚动到底部
+                        this.$nextTick(() => {
+                            const chatContainer = document.querySelector('.personal-chat-messages');
+                            chatContainer.scrollTop = chatContainer.scrollHeight;
+                        });
+                    }, 1500);
+                },
+                
+                // 模拟AI回复（实际应用中应替换为API调用）
+                getAIResponse(message) {
+                    const responses = [
+                        `感谢您的咨询。作为${this.profile.name}的助手，我可以提供相关的产品信息和服务介绍。`,
+                        `您好，这是一个很好的问题。我们的产品确实能解决您提到的问题，主要优势在于系统的灵活性和强大的AI能力。`,
+                        `您提到的需求我们非常了解，${this.profile.name}曾经成功帮助类似的客户解决过这个问题，效果非常显著。`,
+                        `这个问题比较复杂，建议您与${this.profile.name}进行一次详细沟通。我可以帮您安排时间，您方便的话可以留下联系方式。`,
+                        `根据您的描述，我推荐您查看我们的案例研究，那里有类似场景的成功案例。您可以在文件区找到相关PDF资料。`,
+                        `嘉推科技的解决方案确实能满足您提到的这些需求，尤其是在数据分析和智能营销方面有着显著优势。`,
+                        `${this.profile.name}是这个领域的专家，有超过10年的经验，对您提到的问题有深入的理解和解决方案。`
+                    ];
+                    
+                    return responses[Math.floor(Math.random() * responses.length)];
+                },
+                
+                // 交换名片
+                exchangeCard() {
+                    // 这里应该打开一个表单让用户填写信息
+                    alert('交换名片功能即将上线，敬请期待！');
+                },
+
+                // 分享名片
+                shareCard() {
+                    // 打开分享名片弹窗并生成图片
+                    this.showShareCardModal = true;
+                    
+                    // 延迟一下确保DOM已更新
+                    this.$nextTick(() => {
+                        // 生成分享图片
+                        this.generateShareCardImage();
+                    });
+                },
+                
+                // 生成分享名片图片
+                generateShareCardImage() {
+                    const canvas = this.$refs.shareCardCanvas;
+                    if (!canvas) return;
+                    
+                    const ctx = canvas.getContext('2d');
+                    
+                    // 设置画布大小 - 标准名片尺寸
+                    canvas.width = 640;
+                    canvas.height = 1000;
+                    
+                    // 绘制背景
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // 绘制顶部渐变背景
+                    const gradient = ctx.createLinearGradient(0, 0, canvas.width, 200);
+                    gradient.addColorStop(0, '#0070ff');
+                    gradient.addColorStop(1, '#00c8ff');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, canvas.width, 200);
+                    
+                    // 加载头像图片
+                    const avatar = new Image();
+                    avatar.crossOrigin = 'Anonymous';
+                    avatar.src = this.profile.avatar || 'img/jpg/profile-avatar.jpg';
+                    
+                    avatar.onload = () => {
+                        // 在中央上部绘制圆形头像
+                        const avatarSize = 120;
+                        const avatarX = canvas.width / 2 - avatarSize / 2;
+                        const avatarY = 140; // 头像中心点位于顶部背景下方一点
+                        
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.arc(avatarX + avatarSize / 2, avatarY + avatarSize / 2, avatarSize / 2, 0, Math.PI * 2, true);
+                        ctx.closePath();
+                        ctx.clip();
+                        
+                        // 绘制头像
+                        ctx.drawImage(avatar, avatarX, avatarY, avatarSize, avatarSize);
+                        ctx.restore();
+                        
+                        // 添加白色圆形边框
+                        ctx.strokeStyle = '#ffffff';
+                        ctx.lineWidth = 4;
+                        ctx.beginPath();
+                        ctx.arc(avatarX + avatarSize / 2, avatarY + avatarSize / 2, avatarSize / 2 + 2, 0, Math.PI * 2, true);
+                        ctx.closePath();
+                        ctx.stroke();
+                        
+                        // 绘制姓名文本
+                        ctx.fillStyle = '#333333';
+                        ctx.font = 'bold 36px Arial, sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(this.profile.name, canvas.width / 2, avatarY + avatarSize + 60);
+                        
+                        // 绘制职位文本
+                        ctx.fillStyle = '#666666';
+                        ctx.font = '24px Arial, sans-serif';
+                        ctx.fillText(this.profile.title, canvas.width / 2, avatarY + avatarSize + 100);
+                        
+                        // 绘制口号文本
+                        ctx.fillStyle = '#0070ff';
+                        ctx.font = 'italic 22px Arial, sans-serif';
+                        ctx.fillText(this.profile.tagline, canvas.width / 2, avatarY + avatarSize + 140);
+                        
+                        // 绘制简介文本
+                        if (this.profile.introduction) {
+                            ctx.fillStyle = '#333333';
+                            ctx.font = '18px Arial, sans-serif';
+                            ctx.textAlign = 'left';
+                            
+                            // 优化的中文文本换行处理
+                            const maxLineWidth = canvas.width - 80;
+                            const lineHeight = 30;
+                            const text = this.profile.introduction;
+                            let y = avatarY + avatarSize + 200;
+                            
+                            // 每次取一个字符进行换行检查
+                            let line = '';
+                            let currentIndex = 0;
+                            
+                            while (currentIndex < text.length) {
+                                const char = text.charAt(currentIndex);
+                                const testLine = line + char;
+                                const metrics = ctx.measureText(testLine);
+                                
+                                if (metrics.width > maxLineWidth) {
+                                    ctx.fillText(line, 40, y);
+                                    line = char;
+                                    y += lineHeight;
+                                } else {
+                                    line = testLine;
+                                }
+                                
+                                currentIndex++;
+                            }
+                            
+                            // 绘制最后一行
+                            if (line) {
+                                ctx.fillText(line, 40, y);
+                            }
+                        }
+                        
+                        // 绘制底部信息
+                        ctx.fillStyle = '#0070ff';
+                        ctx.font = 'bold 22px Arial, sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('联系方式', canvas.width / 2, canvas.height - 200);
+                        
+                        // 绘制联系方式
+                        ctx.fillStyle = '#333333';
+                        ctx.font = '18px Arial, sans-serif';
+                        ctx.textAlign = 'center';
+                        let contactY = canvas.height - 160;
+                        
+                        if (this.profile.phone) {
+                            ctx.fillText(`电话: ${this.profile.phone}`, canvas.width / 2, contactY);
+                            contactY += 30;
+                        }
+                        
+                        if (this.profile.email) {
+                            ctx.fillText(`邮箱: ${this.profile.email}`, canvas.width / 2, contactY);
+                            contactY += 30;
+                        }
+                        
+                        if (this.profile.wechat) {
+                            ctx.fillText(`微信: ${this.profile.wechat}`, canvas.width / 2, contactY);
+                        }
+                        
+                        // 绘制底部标识
+                        ctx.fillStyle = '#999999';
+                        ctx.font = '16px Arial, sans-serif';
+                        ctx.fillText('联享名片 - AICA', canvas.width / 2, canvas.height - 30);
+                        
+                        // 将Canvas转换为图片URL
+                        this.shareCardImageUrl = canvas.toDataURL('image/jpeg', 0.9);
+                    };
+                    
+                    avatar.onerror = () => {
+                        console.error('加载头像失败，使用默认图像');
+                        avatar.src = 'img/jpg/profile-avatar.jpg';
+                    };
+                },
+
+                // 关闭分享名片弹窗
+                closeShareCardModal() {
+                    this.showShareCardModal = false;
+                    this.shareCardImageUrl = null;
+                },
+
+                // 下载分享名片图片
+                downloadShareCardImage() {
+                    if (!this.shareCardImageUrl) return;
+                    
+                    const link = document.createElement('a');
+                    link.href = this.shareCardImageUrl;
+                    link.download = `${this.profile.name}-联享名片.jpg`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- SEO优化元标签 -->
+    <title>VUCA时代社交用户五大特征: AI里AI气、即时满足、圈层分化等新趋势 | AICA增长实验室</title>
+    <meta name="description" content="深度解析VUCA时代社交用户五大特征:AI里AI气、即时满足、圈层分化、情感代偿、虚实消融,及品牌如何制定相应的营销策略。">
+    <meta name="keywords" content="VUCA,社交媒体趋势,用户洞察,AI营销,品牌策略,社交用户特征,数字营销">
+    <link rel="stylesheet" href="css/style.css?v=20250728">
+    <link rel="stylesheet" href="css/feature-page.css?v=20250728">
+    <link rel="stylesheet" href="css/article.css?v=20250728">
+    <link rel="stylesheet" href="css/whitepaper-theme.css?v=20250728">
+    <link rel="icon" href="img/favicon.svg?v=20250728" type="image/svg+xml">
+    <style>
+        /* 增强文章视觉表现 */
+        :root {
+            --primary-blue: #4a80ff;
+            --primary-pink: #ff3366;
+            --primary-purple: #6351e8;
+            --primary-orange: #ff7f3f;
+            --primary-teal: #39a0ff;
+        }
+        
+        .article-main {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .article-header {
+            position: relative;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .article-title {
+            font-size: 42px;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: #1a1a1a;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .article-title::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple));
+            border-radius: 2px;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .article-date, .article-read-time, .article-views {
+            position: relative;
+            padding-left: 24px;
+        }
+        
+        .article-date::before, .article-read-time::before, .article-views::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: 0.6;
+        }
+        
+        .article-date::before {
+            background-image: url('img/calendar-icon.svg?v=20250728');
+        }
+        
+        .article-read-time::before {
+            background-image: url('img/clock-icon.svg?v=20250728');
+        }
+        
+        .article-views::before {
+            background-image: url('img/eye-icon.svg?v=20250728');
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .article-tag {
+            padding: 6px 14px;
+            background-color: #f0f7ff;
+            color: var(--primary-blue);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .article-tag:hover {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        
+        .article-hero {
+            position: relative;
+            margin: 40px 0;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(120deg, #f0f7ff 0%, #f5f0ff 100%);
+        }
+        
+        .article-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 180px;
+            height: 180px;
+            background-image: url('img/pattern-dots.svg?v=20250728');
+            background-repeat: no-repeat;
+            background-size: contain;
+            opacity: 0.08;
+        }
+        
+        .article-hero-inner {
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .article-hero p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 20px;
+        }
+        
+        .article-highlight {
+            background: white;
+            border-left: 4px solid var(--primary-blue);
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            margin: 30px 0;
+        }
+        
+        .article-highlight p {
+            margin: 0;
+            font-size: 17px;
+            line-height: 1.7;
+            color: #333;
+        }
+        
+        .article-highlight strong {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+        
+        .article-image {
+            max-width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin: 30px 0;
+            background-color: #f9f9ff;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+        }
+        
+        .article-image.fade-in {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .article-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .article-image-caption {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        /* 社交趋势卡片增强 */
+        .trend-card {
+            border-radius: 16px;
+            padding: 30px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+            border: none;
+        }
+        
+        .trend-card.fade-in {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .trend-card.blue {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e0efff 100%);
+            border-left: 6px solid var(--primary-blue);
+        }
+        
+        .trend-card.pink {
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe6f0 100%);
+            border-left: 6px solid var(--primary-pink);
+        }
+        
+        .trend-card.purple {
+            background: linear-gradient(135deg, #f5f0ff 0%, #efe0ff 100%);
+            border-left: 6px solid var(--primary-purple);
+        }
+        
+        .trend-card.orange {
+            background: linear-gradient(135deg, #fff7f0 0%, #ffede0 100%);
+            border-left: 6px solid var(--primary-orange);
+        }
+        
+        .trend-card.teal {
+            background: linear-gradient(135deg, #f0faff 0%, #e0f5ff 100%);
+            border-left: 6px solid var(--primary-teal);
+        }
+        
+        .trend-card h3 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #1a1a1a;
+            margin-bottom: 18px;
+            padding-right: 60px;
+            line-height: 1.4;
+        }
+        
+        .trend-card-number {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 56px;
+            font-weight: 800;
+            opacity: 0.12;
+            font-family: 'Arial', sans-serif;
+            line-height: 1;
+        }
+        
+        .trend-card.blue .trend-card-number { color: var(--primary-blue); }
+        .trend-card.pink .trend-card-number { color: var(--primary-pink); }
+        .trend-card.purple .trend-card-number { color: var(--primary-purple); }
+        .trend-card.orange .trend-card-number { color: var(--primary-orange); }
+        .trend-card.teal .trend-card-number { color: var(--primary-teal); }
+        
+        /* 数据统计展示增强 */
+        .trend-data {
+            display: flex;
+            gap: 20px;
+            margin: 24px 0;
+            flex-wrap: wrap;
+        }
+        
+        .trend-data-item {
+            background: rgba(255,255,255,0.8);
+            padding: 20px;
+            border-radius: 12px;
+            flex: 1;
+            min-width: 150px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+        
+        .trend-data-item:hover {
+            transform: translateY(-4px);
+        }
+        
+        .trend-data-number {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        
+        .trend-data.blue .trend-data-number { color: var(--primary-blue); }
+        .trend-data.pink .trend-data-number { color: var(--primary-pink); }
+        .trend-data.purple .trend-data-number { color: var(--primary-purple); }
+        .trend-data.orange .trend-data-number { color: var(--primary-orange); }
+        .trend-data.teal .trend-data-number { color: var(--primary-teal); }
+        
+        .trend-data-label {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        .marketing-strategy {
+            background-color: rgba(255,255,255,0.9);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+            border-top: 3px solid #333;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+        }
+        
+        .marketing-strategy h4 {
+            margin-top: 0;
+            color: #1a1a1a;
+            font-size: 18px;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 24px;
+        }
+        
+        .marketing-strategy h4:before {
+            content: '💡';
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .back-to-top img {
+            width: 20px;
+            height: 20px;
+            transform: rotate(-90deg);
+        }
+        
+        /* 阅读进度指示器 */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple));
+            z-index: 9999;
+            transition: width 0.1s linear;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 32px;
+            }
+            
+            .article-hero-inner {
+                padding: 30px 20px;
+            }
+            
+            .trend-data {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .trend-data-item {
+                min-width: auto;
+            }
+            
+            .trend-card {
+                padding: 25px 20px;
+            }
+            
+            .trend-card h3 {
+                padding-right: 40px;
+                font-size: 20px;
+            }
+            
+            .trend-card-number {
+                font-size: 40px;
+                right: 10px;
+            }
+        }
+
+        /* 添加额外的样式 */
+        /* 信息表格样式 */
+        .info-table {
+            margin: 30px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+        
+        .info-table-title {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e0efff 100%);
+            padding: 16px 20px;
+            margin: 0;
+            color: #1a1a1a;
+            font-size: 20px;
+        }
+        
+        .info-table-row {
+            display: flex;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .info-table-row:last-child {
+            border-bottom: none;
+        }
+        
+        .info-table-cell {
+            padding: 16px 20px;
+        }
+        
+        .info-table-cell.header {
+            background-color: #f9f9ff;
+            width: 160px;
+            border-right: 1px solid #eee;
+            font-weight: bold;
+        }
+        
+        .header-title {
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+        
+        .header-subtitle {
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+        }
+        
+        .info-table-cell.content {
+            flex: 1;
+            background-color: white;
+            line-height: 1.6;
+        }
+        
+        /* 圈层网格样式 */
+        .circles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .circle-item {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .circle-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .circle-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-bottom: 16px;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .circle-icon.potplay {
+            background-color: #FFE0F0;
+            background-image: url('img/category-retail.svg?v=20250728');
+        }
+        
+        .circle-icon.national {
+            background-color: #E0F0FF;
+            background-image: url('img/founder-media.svg?v=20250728');
+        }
+        
+        .circle-icon.acg {
+            background-color: #F0E0FF;
+            background-image: url('img/digital-human-icon.svg?v=20250728');
+        }
+        
+        .circle-icon.culture {
+            background-color: #FFF0E0;
+            background-image: url('img/doc-icon.svg?v=20250728');
+        }
+        
+        .circle-icon.outdoor {
+            background-color: #E0FFF0;
+            background-image: url('img/build-icon.svg?v=20250728');
+        }
+        
+        .circle-item h4 {
+            font-size: 18px;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+        
+        .circle-desc {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .circle-group {
+            margin-bottom: 6px;
+        }
+        
+        .group-label {
+            color: #888;
+            margin-right: 4px;
+        }
+        
+        .group-text {
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .circle-case {
+            margin-top: 12px;
+            background-color: #f9f9ff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+        
+        /* 情感表格样式 */
+        .emotion-table {
+            margin: 30px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+        
+        .emotion-row {
+            display: flex;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .emotion-row:last-child {
+            border-bottom: none;
+        }
+        
+        .emotion-row.header {
+            background-color: #f9f9ff;
+            font-weight: 600;
+        }
+        
+        .emotion-cell {
+            padding: 16px;
+            border-right: 1px solid #eee;
+        }
+        
+        .emotion-cell:last-child {
+            border-right: none;
+        }
+        
+        .emotion-row.header .emotion-cell {
+            text-align: center;
+            color: #333;
+        }
+        
+        .emotion-cell.negative {
+            width: 100px;
+            background-color: #FFF0F5;
+            color: var(--primary-pink);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .emotion-cell.positive {
+            width: 100px;
+            background-color: #F0F7FF;
+            color: var(--primary-blue);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .emotion-cell.examples {
+            flex: 1;
+            line-height: 1.5;
+        }
+        
+        /* 数字身份示例样式 */
+        .digital-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .digital-example {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .digital-example:hover {
+            transform: translateY(-5px);
+        }
+        
+        .example-icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+        
+        .example-icon.emoji {
+            background-color: var(--primary-pink);
+            background-image: url('img/like-icon.svg?v=20250728');
+            background-position: center;
+            background-size: 60%;
+            background-repeat: no-repeat;
+        }
+        
+        .example-icon.grill {
+            background-color: var(--primary-orange);
+            content: "🔥";
+        }
+        
+        .example-icon.acg {
+            background-color: var(--primary-purple);
+            background-image: url('img/digital-human-icon.svg?v=20250728');
+            background-position: center;
+            background-size: 60%;
+            background-repeat: no-repeat;
+        }
+        
+        .example-icon.ai {
+            background-color: var(--primary-blue);
+            background-image: url('img/ai-icon.svg?v=20250728');
+            background-position: center;
+            background-size: 60%;
+            background-repeat: no-repeat;
+        }
+        
+        .example-content h5 {
+            margin: 0 0 8px 0;
+            font-size: 16px;
+            color: #1a1a1a;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        
+        .example-content p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        /* 营销框架样式 */
+        .strategy-framework {
+            margin: 40px 0;
+            background-color: #f9f9ff;
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .framework-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #1a1a1a;
+            font-size: 24px;
+            position: relative;
+        }
+        
+        .framework-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple));
+            border-radius: 3px;
+        }
+        
+        .framework-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        
+        .framework-item {
+            background-color: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .framework-number {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: linear-gradient(135deg, rgba(74, 128, 255, 0.1), rgba(99, 81, 232, 0.1));
+            color: var(--primary-blue);
+            font-size: 20px;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-bottom-left-radius: 12px;
+            opacity: 0.9;
+        }
+        
+        .framework-item h4 {
+            margin-top: 0;
+            margin-bottom: 16px;
+            padding-right: 40px;
+            color: #1a1a1a;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+        
+        .framework-item ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .framework-item li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+            color: #444;
+        }
+        
+        .framework-item li:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* 结论样式 */
+        .article-highlight.conclusion {
+            background: linear-gradient(135deg, #f0f7ff 0%, #f5f0ff 100%);
+            border-left: none;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+        
+        .article-highlight.conclusion h3 {
+            margin-top: 0;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+            font-size: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .article-highlight.conclusion h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-blue);
+        }
+        
+        .article-highlight.conclusion p {
+            font-size: 16px;
+            line-height: 1.7;
+            text-align: center;
+            color: #333;
+        }
+        
+        @media (max-width: 768px) {
+            .info-table-row {
+                flex-direction: column;
+            }
+            
+            .info-table-cell.header {
+                width: auto;
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .emotion-row {
+                flex-direction: column;
+            }
+            
+            .emotion-cell {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .emotion-cell:last-child {
+                border-bottom: none;
+            }
+            
+            .circles-grid,
+            .digital-examples {
+                grid-template-columns: 1fr;
+            }
+            
+            .framework-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 阅读进度指示器 -->
+    <div class="reading-progress" id="reading-progress"></div>
+    
+    <div class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <a href="index.html"><img src="img/aica-logo.svg?v=20250728" alt="AICA"></a>
+            </div>
+            <div class="navbar-menu">
+                <a href="ai-marketing.html">AI营销</a>
+                <a href="growth-lab.html" class="active">增长实验室</a>
+                <a href="digital-human.html">数字人</a>
+                <a href="marketplace.html">AI生态</a>
+                <a href="ai-company.html">关于我们</a>
+            </div>
+            <div class="navbar-mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mobile-menu">
+        <a href="index.html">首页</a>
+        <a href="ai-marketing.html">AI营销</a>
+        <a href="growth-lab.html">增长实验室</a>
+        <a href="digital-human.html">数字人</a>
+        <a href="marketplace.html">AI生态</a>
+        <a href="ai-company.html">关于我们</a>
+    </div>
+    
+    <main class="content">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">首页</a>
+                <span>/</span>
+                <a href="growth-lab.html">增长实验室</a>
+                <span>/</span>
+                <span>VUCA时代社交用户五大特征</span>
+            </div>
+            
+            <article class="article-main" id="article-content">
+                <header class="article-header">
+                    <h1 class="article-title">VUCA时代社交用户五大特征</h1>
+                    <div class="article-meta">
+                        <span class="article-date">2024年7月28日</span>
+                        <span class="article-read-time">15分钟阅读</span>
+                        <span class="article-views">浏览量 2342</span>
+                    </div>
+                    <div class="article-tags">
+                        <span class="article-tag">趋势洞察</span>
+                        <span class="article-tag">社交趋势</span>
+                        <span class="article-tag">用户洞察</span>
+                        <span class="article-tag">营销策略</span>
+                    </div>
+                    
+                    <!-- 装饰元素 -->
+                    <div class="whitepaper-decoration-dot whitepaper-decoration-1"></div>
+                    <div class="whitepaper-decoration-dot whitepaper-decoration-2"></div>
+                    <div class="whitepaper-decoration-dot whitepaper-decoration-3"></div>
+                </header>
+                
+                <div class="article-hero">
+                    <div class="article-hero-inner">
+                        <p>在"VUCA"（易变性、不确定性、复杂性、模糊性）时代背景下，社交用户行为呈现出前所未有的新特征，品牌如何把握这些变化趋势并优化营销策略成为关键。本文深度解析五大社交用户特征及其对品牌营销的启示。</p>
+                        
+                        <div class="article-highlight">
+                            <p><strong>核心洞察：</strong>VUCA环境催生了社交用户五大新特征：AI里AI气、即时满足、圈层分化、情感代偿、虚实消融。品牌需要从技术赋能、内容形态、人群细分、情感价值和数字体验五个维度重构营销体系，建立更具韧性的品牌增长模型。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="article-content">
+                    <h2>VUCA时代：市场大环境特征解析</h2>
+                    
+                    <p>VUCA一词最早源于军事领域，用来描述冷战后的复杂战略环境，如今被广泛应用于商业领域，特别是在描述当前快速变化的市场环境时尤为贴切。</p>
+                    
+                    <div class="article-image-container">
+                        <div class="article-image">
+                            <img src="img/social-trends/vuca-social-trends.svg?v=20250728" alt="VUCA时代社交用户五大特征">
+                        </div>
+                        <p class="article-image-caption">图1：VUCA环境下催生的社交用户五大特征</p>
+                    </div>
+                    
+                    <div class="info-table">
+                        <h3 class="info-table-title">VUCA四大特征</h3>
+                        <div class="info-table-row">
+                            <div class="info-table-cell header">
+                                <div class="header-title">易变性</div>
+                                <div class="header-subtitle">Volatility</div>
+                            </div>
+                            <div class="info-table-cell content">
+                                市场变化迅速，消费者需求、竞争格局、技术趋势等快速变化，突发事件（如疫情）可能扰乱市场秩序
+                            </div>
+                        </div>
+                        <div class="info-table-row">
+                            <div class="info-table-cell header">
+                                <div class="header-title">不确定性</div>
+                                <div class="header-subtitle">Uncertainty</div>
+                            </div>
+                            <div class="info-table-cell content">
+                                市场前景不明朗，难以预测市场需求和竞争对手行动，技术迭代迅速，营销效果预测困难
+                            </div>
+                        </div>
+                        <div class="info-table-row">
+                            <div class="info-table-cell header">
+                                <div class="header-title">复杂性</div>
+                                <div class="header-subtitle">Complexity</div>
+                            </div>
+                            <div class="info-table-cell content">
+                                消费动机分层，同一商品需满足功能性、情感性、象征性等多重需求，渠道碎片化加剧
+                            </div>
+                        </div>
+                        <div class="info-table-row">
+                            <div class="info-table-cell header">
+                                <div class="header-title">模糊性</div>
+                                <div class="header-subtitle">Ambiguity</div>
+                            </div>
+                            <div class="info-table-cell content">
+                                品牌信任不足，消费者难以判断信息真实性，数据失真风险增加，社媒数据未必反映真实购买意愿
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p>在这种环境下，传统的营销模式和用户洞察方法正面临前所未有的挑战。品牌需要更敏捷的市场反应机制和更精准的用户洞察能力，才能在VUCA时代保持竞争力。</p>
+                    
+                    <div class="whitepaper-divider"></div>
+                    
+                    <h2>社交用户五大特征解析</h2>
+                    
+                    <p>基于对海量社交数据的分析和对典型用户群体的深入观察，我们发现VUCA环境正在催生社交用户的五大显著特征：</p>
+                    
+                    <div class="trend-card blue">
+                        <div class="trend-card-number">01</div>
+                        <h3>AI里AI气：AI全面渗入、影响年轻人生活</h3>
+                        <p>人工智能技术已从专业工具演变为影响年轻人日常生活的关键因素。AI不仅是生产工具，更成为朋友、精神导师甚至是博恋人，满足用户多层次的情感需求。</p>
+                        
+                        <div class="trend-data blue">
+                            <div class="trend-data-item">
+                                <div class="trend-data-number">95.2%</div>
+                                <div class="trend-data-label">年轻人使用过AI产品</div>
+                            </div>
+                            <div class="trend-data-item">
+                                <div class="trend-data-number">132.8</div>
+                                <div class="trend-data-label">月人均使用分钟</div>
+                            </div>
+                            <div class="trend-data-item">
+                                <div class="trend-data-number">49.6</div>
+                                <div class="trend-data-label">月人均使用次数</div>
+                            </div>
+                        </div>
+                        
+                        <p>AI正以三种方式影响年轻人的消费行为：</p>
+                        <ul>
+                            <li><strong>主动消费者用AI</strong> - AI成为生产工具、朋友和精神导师，用户向AI倾诉生活中的烦恼，AI能够及时回应用户的情绪需求</li>
+                            <li><strong>被动消费者看AI</strong> - 抖音等平台内容约30%涉及AI生成，60%的内容创作者采用生成式AI技术</li>
+                            <li><strong>决策消费者信AI</strong> - 68%消费者在购买决策中参考AI推荐，中国消费者对AI的信任度比美国欧洲高出40%以上</li>
+                        </ul>
+                        
+                        <div class="marketing-strategy">
+                            <h4>营销策略启示：AI超级入口</h4>
+                            <p>消费者决策范式正在从"搜索+比价"演变为"AI对话"。品牌需要重构"AI友好"的数字基因，在主流AI大模型中赢得品牌曝光。同时，构建自有AI应用，为用户提供个性化体验和服务，建立新型品牌互动渠道。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="trend-card pink">
+                        <div class="trend-card-number">02</div>
+                        <h3>即时满足：消费者要快，更要爽</h3>
+                        <p>年轻人生活在"倍速模式"下，追求"时间性能"最大化，内容消费和生活节奏快速化，短剧情绪价值拉满成为主流，盲盒直播间带来新鲜感和社交互动。</p>
+                        
+                        <p>即时满足的需求主要体现在三个方面：</p>
+                        
+                        <ul>
+                            <li><strong>硬拼年轻人的盲盒直播间</strong> - 盲盒包括"乌龟对对碰"、"摆件对对碰"等直播间吸引年轻人，"乌龟对对碰"一夜爆火，单场直播点赞量近五万</li>
+                            <li><strong>有质有瘾的短剧情绪价值拉满</strong> - 年轻人对短剧消费呈现"低成本、高效率、强互动、重品质"特征，短剧推动行业向精品化、多元化和技术创新转型</li>
+                            <li><strong>倍速文化与速食文化盛行</strong> - "三分钟看完一部电影"、"五分钟读完一本书"满足碎片化信息获取需求</li>
+                        </ul>
+                        
+                        <div class="marketing-strategy">
+                            <h4>营销策略启示：KOL+短剧营销</h4>
+                            <p>短剧正在成为社交整合营销新锚点，KOL+短剧成为品牌深度种草的有效手段。品牌应考虑将产品自然融入短剧情境，打造"种草短剧"，同时设计沉浸式互动体验，如盲盒式抽奖、互动挑战等增强用户参与感。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="trend-card purple">
+                        <div class="trend-card-number">03</div>
+                        <h3>圈层分化：小众即大众，兴趣定消费</h3>
+                        <p>小众圈层正在成为消费新引擎，兴趣社群驱动消费决策。不同兴趣圈层用户在核心与泛圈层的交叉覆盖创造了巨大的品牌机会。</p>
+                        
+                        <div class="article-image-container">
+                            <div class="article-image">
+                                <img src="img/social-trends/circle-fragmentation.svg?v=20250728" alt="圈层分化图">
+                            </div>
+                            <p class="article-image-caption">图2：社交用户圈层分化与消费特征</p>
+                        </div>
+                        
+                        <div class="circles-grid">
+                            <div class="circle-item">
+                                <div class="circle-icon potplay"></div>
+                                <h4>潮玩圈层</h4>
+                                <div class="circle-desc">
+                                    <div class="circle-group">
+                                        <span class="group-label">核心圈层：</span>
+                                        <span class="group-text">潮玩收藏者</span>
+                                    </div>
+                                    <div class="circle-group">
+                                        <span class="group-label">泛圈层：</span>
+                                        <span class="group-text">大众娱乐消费者</span>
+                                    </div>
+                                    <div class="circle-case">
+                                        <span>DORA联名茶饮</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="circle-item">
+                                <div class="circle-icon national"></div>
+                                <h4>国潮圈层</h4>
+                                <div class="circle-desc">
+                                    <div class="circle-group">
+                                        <span class="group-label">核心圈层：</span>
+                                        <span class="group-text">汉服爱好者</span>
+                                    </div>
+                                    <div class="circle-group">
+                                        <span class="group-label">泛圈层：</span>
+                                        <span class="group-text">文艺青年</span>
+                                    </div>
+                                    <div class="circle-case">
+                                        <span>汉服主题景区</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="circle-item">
+                                <div class="circle-icon acg"></div>
+                                <h4>二次元圈层</h4>
+                                <div class="circle-desc">
+                                    <div class="circle-group">
+                                        <span class="group-label">核心圈层：</span>
+                                        <span class="group-text">二次元玩家</span>
+                                    </div>
+                                    <div class="circle-group">
+                                        <span class="group-label">泛圈层：</span>
+                                        <span class="group-text">都市年轻人</span>
+                                    </div>
+                                    <div class="circle-case">
+                                        <span>游戏角色联名产品</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="circle-item">
+                                <div class="circle-icon culture"></div>
+                                <h4>文创圈层</h4>
+                                <div class="circle-desc">
+                                    <div class="circle-group">
+                                        <span class="group-label">核心圈层：</span>
+                                        <span class="group-text">历史文化爱好者</span>
+                                    </div>
+                                    <div class="circle-group">
+                                        <span class="group-label">泛圈层：</span>
+                                        <span class="group-text">美食、生活消费者</span>
+                                    </div>
+                                    <div class="circle-case">
+                                        <span>中国文字博物馆主题咖啡</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="circle-item">
+                                <div class="circle-icon outdoor"></div>
+                                <h4>户外运动圈层</h4>
+                                <div class="circle-desc">
+                                    <div class="circle-group">
+                                        <span class="group-label">核心圈层：</span>
+                                        <span class="group-text">硬核露营玩家</span>
+                                    </div>
+                                    <div class="circle-group">
+                                        <span class="group-label">泛圈层：</span>
+                                        <span class="group-text">宠物主、中产家庭</span>
+                                    </div>
+                                    <div class="circle-case">
+                                        <span>宠物露营产品</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="marketing-strategy">
+                            <h4>营销策略启示：人群需求回应</h4>
+                            <p>用户价值深挖，拓宽品牌新人群与新机会；品牌全面拥抱AI，借助易创+易投，从内容创意到投放提效回应人群需求。品牌需要精准定位目标圈层，设计兼顾核心圈层专业性和泛圈层通俗性的产品和营销内容。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="trend-card orange">
+                        <div class="trend-card-number">04</div>
+                        <h3>情感代偿：情绪缺口触发社交代偿机制</h3>
+                        <p>现代社会压力与孤独感催生了情感代偿需求，年轻人通过社交表达和消费行为寻找情绪出口和心理平衡。</p>
+                        
+                        <div class="article-image-container">
+                            <div class="article-image">
+                                <img src="img/social-trends/emotional-compensation.svg?v=20250728" alt="情感代偿机制">
+                            </div>
+                            <p class="article-image-caption">图3：情绪缺口与社交代偿机制</p>
+                        </div>
+                        
+                        <div class="emotion-table">
+                            <div class="emotion-row header">
+                                <div class="emotion-cell">情绪缺口</div>
+                                <div class="emotion-cell">代偿需求</div>
+                                <div class="emotion-cell">社交表达</div>
+                            </div>
+                            <div class="emotion-row">
+                                <div class="emotion-cell negative">压抑</div>
+                                <div class="emotion-cell positive">松弛感</div>
+                                <div class="emotion-cell examples">发疯工牌、上班恶心穿搭、公园20分钟效应</div>
+                            </div>
+                            <div class="emotion-row">
+                                <div class="emotion-cell negative">孤独</div>
+                                <div class="emotion-cell positive">陪伴感</div>
+                                <div class="emotion-cell examples">搭子文化、赛博相亲、无边抱枕</div>
+                            </div>
+                            <div class="emotion-row">
+                                <div class="emotion-cell negative">焦虑</div>
+                                <div class="emotion-cell positive">确定感</div>
+                                <div class="emotion-cell examples">电子木鱼/电子佛珠、玄学上香</div>
+                            </div>
+                            <div class="emotion-row">
+                                <div class="emotion-cell negative">审慎</div>
+                                <div class="emotion-cell positive">新奇感</div>
+                                <div class="emotion-cell examples">穷鬼套餐、社区食堂、寻找平替</div>
+                            </div>
+                        </div>
+                        
+                        <div class="marketing-strategy">
+                            <h4>营销策略启示：情绪价值对位</h4>
+                            <p>年轻人为情绪消费，懂得情绪营销的品牌才能击中年轻人。内容依旧为王，差异化稀缺的精质内容消费者乐于为此买单。品牌需要理解用户情绪缺口，提供能够填补这些缺口的产品体验和情感价值，而非简单的功能销售。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="trend-card teal">
+                        <div class="trend-card-number">05</div>
+                        <h3>虚实消融：消费者数字身份即消费身份</h3>
+                        <p>数字化身份已成为年轻人社交和消费的核心，虚拟与现实边界日益模糊，用户在数字世界中的身份和行为直接影响现实消费决策。</p>
+                        
+                        <div class="digital-examples">
+                            <div class="digital-example">
+                                <div class="example-icon emoji"></div>
+                                <div class="example-content">
+                                    <h5>互换表情包成为年轻人电子社交礼仪</h5>
+                                    <p>网上聊天开启容易结束难，表情包发挥"微信不失礼貌"的作用，成为年轻人社交礼仪</p>
+                                </div>
+                            </div>
+                            
+                            <div class="digital-example">
+                                <div class="example-icon grill"></div>
+                                <div class="example-content">
+                                    <h5>年轻人超级下饭的"电子烤架"</h5>
+                                    <p>"电子烤架"没有统一标准，越来越多年轻人分享不同口味的电子烤架，帮助年轻人赛博吃光</p>
+                                </div>
+                            </div>
+                            
+                            <div class="digital-example">
+                                <div class="example-icon acg"></div>
+                                <div class="example-content">
+                                    <h5>一代人有一代人的"谷子"</h5>
+                                    <p>"吃谷"就是购买游戏、动漫、小说等二次元周边产品</p>
+                                </div>
+                            </div>
+                            
+                            <div class="digital-example">
+                                <div class="example-icon ai"></div>
+                                <div class="example-content">
+                                    <h5>从AI陪聊到乙女游戏与角色建立情感联结</h5>
+                                    <p>在星野App创建角色、开启对话，AI能让用户感受超越真实体验的开放剧情</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="marketing-strategy">
+                            <h4>营销策略启示：精准整合营销</h4>
+                            <p>精准把握消费者数字身份，构建全场景、沉浸式、情感化的营销体验。品牌应打造虚实结合的营销活动，如AR/VR体验、数字收藏品、虚拟角色互动等，并注重线上社交身份与线下消费行为的无缝连接。</p>
+                        </div>
+                    </div>
+                    
+                    <h2>品牌应对策略：构建VUCA时代的营销新框架</h2>
+                    
+                    <div class="strategy-framework">
+                        <h3 class="framework-title">VUCA时代五维营销框架</h3>
+                        <div class="framework-container">
+                            <div class="framework-item">
+                                <div class="framework-number">01</div>
+                                <h4>技术赋能：AI友好型品牌建设</h4>
+                                <ul>
+                                    <li>优化品牌在AI生态中的呈现方式，确保被AI模型正确"理解"和推荐</li>
+                                    <li>将AI工具整合到用户体验中，提供个性化服务和解决方案</li>
+                                    <li>利用AI分析用户行为和偏好，实现实时营销策略调整</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="framework-item">
+                                <div class="framework-number">02</div>
+                                <h4>内容创新：即时满足与短剧营销</h4>
+                                <ul>
+                                    <li>开发沉浸式、互动性强的短视频和短剧内容</li>
+                                    <li>设计"惊喜机制"，如盲盒式营销活动，满足用户对新鲜感和即时反馈的需求</li>
+                                    <li>优化内容节奏和信息密度，适应用户碎片化、高效率的信息获取习惯</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="framework-item">
+                                <div class="framework-number">03</div>
+                                <h4>精准分层：圈层化营销策略</h4>
+                                <ul>
+                                    <li>识别并细分目标用户的兴趣圈层，针对核心圈层和泛圈层设计差异化内容</li>
+                                    <li>与圈层KOL合作，增强品牌在特定圈层的影响力和可信度</li>
+                                    <li>通过"小众联名"策略，借助圈层文化符号增强品牌吸引力</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="framework-item">
+                                <div class="framework-number">04</div>
+                                <h4>情感共鸣：情绪价值对位</h4>
+                                <ul>
+                                    <li>识别目标用户的情绪缺口，提供能够填补这些缺口的产品体验</li>
+                                    <li>建立情感营销框架，将品牌与特定情绪价值建立联系</li>
+                                    <li>设计"情绪释放"类营销活动，如社交互动、共创活动等</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="framework-item">
+                                <div class="framework-number">05</div>
+                                <h4>虚实融合：数字身份营销</h4>
+                                <ul>
+                                    <li>创建跨越虚拟和现实的品牌体验，如AR互动、虚拟试用等</li>
+                                    <li>开发数字收藏品或虚拟资产，增强用户与品牌的数字化连接</li>
+                                    <li>设计支持用户数字身份表达的产品或服务，如可定制、可分享的内容</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="article-highlight conclusion">
+                        <h3>结论与展望</h3>
+                        <p>VUCA时代的社交用户特征正在深刻改变品牌与消费者的互动方式。成功的品牌将不再是简单地适应变化，而是主动拥抱不确定性，将AI技术、情感连接、圈层思维、即时体验和虚实融合整合到品牌DNA中，构建更具韧性和前瞻性的营销生态系统。未来的品牌增长将是技术与人文的完美结合，是对消费者多维需求的全方位满足。</p>
+                    </div>
+                </div>
+                
+                <div class="article-cta">
+                    <h3>想了解更多社交媒体营销趋势？</h3>
+                    <p>我们的增长顾问团队可以为您提供免费诊断，帮助您把握VUCA时代的社交媒体营销机会。</p>
+                    <a href="ai-marketing.html" class="article-cta-button">预约免费诊断</a>
+                </div>
+                
+                <footer class="article-footer">
+                    <div class="article-share">
+                        <span>分享文章：</span>
+                        <a class="share-button" title="微信分享" id="wechat-share">
+                            <img src="img/wechat-icon.svg?v=20250728" alt="微信">
+                        </a>
+                        <a class="share-button" title="微博分享" id="weibo-share">
+                            <img src="img/weibo-icon.svg?v=20250728" alt="微博">
+                        </a>
+                        <a class="share-button" title="复制链接" id="copy-link">
+                            <img src="img/link-icon.svg?v=20250728" alt="复制链接">
+                        </a>
+                    </div>
+                </footer>
+            </article>
+            
+            <section class="related-articles">
+                <h2 class="related-title">相关阅读</h2>
+                <div class="related-list">
+                    <div class="related-item">
+                        <div class="related-image">
+                            <img src="img/content-marketing/high-conversion-notes.svg?v=20250728" alt="高转化笔记">
+                        </div>
+                        <div class="related-info">
+                            <div class="related-tag">方法论</div>
+                            <h3 class="related-item-title">内容营销实战：3步写出高转化笔记</h3>
+                            <p class="related-item-excerpt">深度解析高转化内容的核心要素，从用户痛点把握、真实场景构建到有效转化引导，全方位提升内容创作的商业价值。</p>
+                        </div>
+                    </div>
+                    <div class="related-item">
+                        <div class="related-image">
+                            <img src="img/content-marketing/redbook-steps.svg?v=20250728" alt="小红书爆款内容">
+                        </div>
+                        <div class="related-info">
+                            <div class="related-tag">方法论</div>
+                            <h3 class="related-item-title">5个步骤打造小红书爆款内容</h3>
+                            <p class="related-item-excerpt">揭秘小红书平台的内容规律与爆款机制，从需求挖掘到热点把握，全流程指导打造爆款笔记。</p>
+                        </div>
+                    </div>
+                    <div class="related-item">
+                        <div class="related-image">
+                            <img src="img/insight-user-profile.svg?v=20250728" alt="用户画像双驱动">
+                        </div>
+                        <div class="related-info">
+                            <div class="related-tag">行业洞察</div>
+                            <h3 class="related-item-title">用户画像双驱动模型：打造精准营销新范式</h3>
+                            <p class="related-item-excerpt">剖析"年龄×兴趣"深度融合的用户画像新模式，探讨AI内容创作如何重塑企业媒体运营策略与效率提升路径。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <div class="back-to-top">
+        <img src="img/back-arrow.svg?v=20250728" alt="回到顶部">
+    </div>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">
+                <img src="img/aica-logo.svg?v=20230703" alt="AICA">
+            </div>
+            <div class="footer-links">
+                <div class="footer-links-column">
+                    <h3>解决方案</h3>
+                    <a href="ai-marketing.html">AI营销</a>
+                    <a href="digital-human.html">数字人</a>
+                    <a href="growth-lab.html">增长实验室</a>
+                </div>
+                <div class="footer-links-column">
+                    <h3>资源</h3>
+                    <a href="ai-company.html">关于我们</a>
+                    <a href="marketplace.html">AI生态</a>
+                </div>
+                <div class="footer-links-column">
+                    <h3>联系我们</h3>
+                    <a href="mailto:contact@aica.com">contact@aica.com</a>
+                    <p>北京市朝阳区建国路93号院万达广场8号楼</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 AICA. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // 初始化
+            initReadingProgress();
+            
+            // 导航栏效果
+            $('.navbar-mobile-toggle').click(function() {
+                $(this).toggleClass('active');
+                $('.mobile-menu').toggleClass('active');
+            });
+            
+            // 阅读进度指示器
+            function initReadingProgress() {
+                const readingProgress = document.getElementById('reading-progress');
+                const articleContent = document.getElementById('article-content');
+                
+                if (!readingProgress || !articleContent) return;
+                
+                const articleHeight = articleContent.offsetHeight;
+                const windowHeight = window.innerHeight;
+                
+                window.addEventListener('scroll', () => {
+                    const scrollTop = window.scrollY;
+                    const articleTop = articleContent.offsetTop;
+                    const currentPosition = scrollTop - articleTop;
+                    
+                    if (currentPosition <= 0) {
+                        readingProgress.style.width = '0%';
+                        return;
+                    }
+                    
+                    const maxScroll = articleHeight - windowHeight;
+                    const scrollPercentage = (currentPosition / maxScroll) * 100;
+                    
+                    readingProgress.style.width = Math.min(scrollPercentage, 100) + '%';
+                });
+            }
+            
+            // 滚动效果
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 100) {
+                    $('.navbar').addClass('scrolled');
+                    $('.back-to-top').addClass('visible');
+                } else {
+                    $('.navbar').removeClass('scrolled');
+                    $('.back-to-top').removeClass('visible');
+                }
+                
+                // 渐入动画
+                $('.trend-card, .article-image-container, .article-highlight, .info-table, .circles-grid, .emotion-table, .digital-examples, .framework-item').each(function() {
+                    var bottom_of_object = $(this).offset().top + $(this).outerHeight() / 3;
+                    var bottom_of_window = $(window).scrollTop() + $(window).height();
+                    
+                    if (bottom_of_window > bottom_of_object) {
+                        $(this).addClass('fade-in');
+                    }
+                });
+            });
+            
+            // 回到顶部
+            $('.back-to-top').click(function() {
+                $('html, body').animate({scrollTop: 0}, 800);
+                return false;
+            });
+            
+            // 分享按钮功能
+            $('#wechat-share').click(function() {
+                alert('微信分享功能即将上线');
+            });
+            
+            $('#weibo-share').click(function() {
+                const text = '【VUCA时代社交用户五大特征】' + document.title;
+                const url = encodeURIComponent(window.location.href);
+                window.open('http://service.weibo.com/share/share.php?title=' + encodeURIComponent(text) + '&url=' + url);
+            });
+            
+            $('#copy-link').click(function() {
+                const tempInput = document.createElement('input');
+                tempInput.value = window.location.href;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                
+                alert('链接已复制到剪贴板');
+            });
+            
+            // 为文章标签添加点击事件
+            $('.article-tag').click(function() {
+                const tagText = $(this).text();
+                window.location.href = 'growth-lab.html?filter=all&tag=' + encodeURIComponent(tagText);
+            });
+        });
+        
+        // 设置表情包和AI图标
+        document.addEventListener("DOMContentLoaded", function() {
+            const grill = document.querySelector('.example-icon.grill');
+            if (grill) {
+                grill.innerHTML = '🔥';
+            }
+        });
+    </script>
+</body>
+</html> 

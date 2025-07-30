@@ -1,0 +1,327 @@
+/* 竖版视频瀑布流布局样式 */
+:root {
+  --video-grid-gap: 15px;
+  --video-thumb-border-radius: 12px;
+  --video-card-bg: rgba(15, 15, 30, 0.8);
+  --video-overlay-bg: rgba(10, 10, 25, 0.6);
+  --video-info-bg: rgba(10, 10, 25, 0.9);
+  --video-accent-color: #00b4d8;
+  --video-accent-hover: #5ce1e6;
+  --video-transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --video-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* 视频瀑布流容器 */
+.video-waterfall-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.video-waterfall-title {
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.video-waterfall-subtitle {
+  font-size: 16px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 30px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 视频瀑布流网格 */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--video-grid-gap);
+  width: 100%;
+}
+
+/* 视频卡片 */
+.video-card {
+  position: relative;
+  border-radius: var(--video-thumb-border-radius);
+  overflow: hidden;
+  background-color: var(--video-card-bg);
+  box-shadow: var(--video-shadow);
+  cursor: pointer;
+  transition: all var(--video-transition);
+  margin-bottom: var(--video-grid-gap);
+  /* 竖版视频比例 9:16 */
+  aspect-ratio: 9/16;
+}
+
+.video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 180, 216, 0.3);
+}
+
+.video-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--video-transition);
+}
+
+.video-card:hover .video-thumbnail {
+  transform: scale(1.05);
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, 
+    transparent 50%, 
+    var(--video-overlay-bg) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 15px;
+  transition: background var(--video-transition);
+}
+
+.video-card:hover .video-overlay {
+  background: linear-gradient(to bottom, 
+    rgba(0, 180, 216, 0.2) 0%, 
+    var(--video-overlay-bg) 100%);
+}
+
+.video-info {
+  padding: 10px 0;
+}
+
+.video-title {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 5px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.video-description {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: rgba(0, 180, 216, 0.2);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all var(--video-transition);
+  opacity: 0;
+  z-index: 2;
+}
+
+.video-card:hover .play-icon {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  background-color: rgba(0, 180, 216, 0.5);
+}
+
+.play-icon i {
+  color: white;
+  font-size: 30px;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.5));
+}
+
+.video-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  background-color: rgba(0, 180, 216, 0.8);
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 50px;
+  z-index: 2;
+}
+
+/* 视频模态框 */
+.video-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.video-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 480px; /* 适合 9:16 竖版视频 */
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-video-container {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #000;
+  /* 保持 9:16 的比例 */
+  aspect-ratio: 9/16;
+}
+
+.modal-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.modal-close i {
+  color: white;
+  font-size: 24px;
+}
+
+.modal-info {
+  margin-top: 15px;
+  padding: 0 5px;
+}
+
+.modal-title {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.modal-desc {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* 标签过滤器 */
+.video-filter {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-btn {
+  padding: 8px 15px;
+  background-color: rgba(10, 10, 25, 0.7);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 180, 216, 0.3);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all var(--video-transition);
+  font-size: 14px;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background-color: rgba(0, 180, 216, 0.2);
+  color: #fff;
+  border-color: rgba(0, 180, 216, 0.8);
+}
+
+/* 响应式设计 */
+@media (max-width: 767px) {
+  .video-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  
+  .video-title {
+    font-size: 14px;
+  }
+  
+  .video-description {
+    font-size: 12px;
+  }
+  
+  .play-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .play-icon i {
+    font-size: 24px;
+  }
+  
+  .modal-content {
+    max-width: 90%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .video-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .video-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .video-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+} 

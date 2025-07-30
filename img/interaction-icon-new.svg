@@ -1,0 +1,48 @@
+<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="interactionGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3366FF">
+        <animate attributeName="stop-color" values="#3366FF;#5c83ff;#3366FF" dur="4s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="100%" stop-color="#FF5722">
+        <animate attributeName="stop-color" values="#FF5722;#ff7a52;#FF5722" dur="4s" repeatCount="indefinite" />
+      </stop>
+    </linearGradient>
+  </defs>
+  
+  <path d="M14 18C14 12.4772 18.4772 8 24 8H32C37.5228 8 42 12.4772 42 18V18C42 23.5228 37.5228 28 32 28H24C18.4772 28 14 23.5228 14 18V18Z" fill="#E0E0FF" stroke="#3366FF" stroke-width="2">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" repeatCount="indefinite"/>
+  </path>
+  
+  <path d="M14 38C14 32.4772 18.4772 28 24 28H32C37.5228 28 42 32.4772 42 38V38C42 43.5228 37.5228 48 32 48H24C18.4772 48 14 43.5228 14 38V38Z" fill="#E0E0FF" stroke="#3366FF" stroke-width="2">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" begin="1s" repeatCount="indefinite"/>
+  </path>
+  
+  <circle cx="24" cy="18" r="3.5" fill="#3366FF">
+    <animate attributeName="r" values="3;4;3" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="32" cy="18" r="3.5" fill="#3366FF">
+    <animate attributeName="r" values="3;4;3" dur="2s" begin="0.3s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="24" cy="38" r="3.5" fill="#3366FF">
+    <animate attributeName="r" values="3;4;3" dur="2s" begin="0.6s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="32" cy="38" r="3.5" fill="#3366FF">
+    <animate attributeName="r" values="3;4;3" dur="2s" begin="0.9s" repeatCount="indefinite"/>
+  </circle>
+  
+  <path d="M28 24L28 32" stroke="#FF5722" stroke-width="2.5" stroke-dasharray="3 3">
+    <animate attributeName="stroke-dashoffset" values="6;0;6" dur="3s" repeatCount="indefinite"/>
+  </path>
+  
+  <path d="M22 24C22 24 22 32 28 32" stroke="#FF5722" stroke-width="2">
+    <animate attributeName="stroke-width" values="1.5;2.5;1.5" dur="2s" repeatCount="indefinite"/>
+  </path>
+  
+  <path d="M34 24C34 24 34 32 28 32" stroke="#FF5722" stroke-width="2">
+    <animate attributeName="stroke-width" values="1.5;2.5;1.5" dur="2s" begin="1s" repeatCount="indefinite"/>
+  </path>
+</svg>

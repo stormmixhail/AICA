@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工信部人工智能运营师培训计划启动 - AICA</title>
+    <link rel="icon" href="img/favicon.svg?v=20250716" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css?v=20250713">
+    <link rel="stylesheet" href="css/article.css?v=20250713">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* 增强页面排版和视觉效果的额外样式 */
+        .article-hero {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .article-hero-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        
+        .article-highlight {
+            background-color: #f0f7ff;
+            border-left: 4px solid #0066cc;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .section-header-content {
+            margin-bottom: 1.5rem;
+        }
+        
+        .organization-info {
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        
+        .organization-info p {
+            margin-bottom: 0.8rem;
+        }
+        
+        .training-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .detail-item {
+            background-color: #f5f9ff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .detail-item h4 {
+            color: #0066cc;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 0.5rem;
+        }
+        
+        .certificate-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .benefit-item {
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .benefit-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .benefit-item h4 {
+            color: #0066cc;
+            margin-bottom: 0.8rem;
+        }
+        
+        .certificate-image-container, 
+        .training-schedule-container,
+        .training-photo-container {
+            margin: 2rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .full-width-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .image-caption {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-top: 0.8rem;
+            padding: 0 1rem;
+        }
+        
+        .training-value {
+            margin: 1.5rem 0;
+        }
+        
+        .value-item {
+            background: #f5f9ff;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #0066cc;
+        }
+        
+        .value-item h4 {
+            margin: 0;
+        }
+        
+        .training-outcome {
+            background: #eef7f2;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        
+        .training-outcome ul {
+            margin-top: 1rem;
+            padding-left: 1.5rem;
+        }
+        
+        .training-outcome li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 0.5rem;
+        }
+        
+        .course-content {
+            margin: 1.5rem 0;
+        }
+        
+        .course-content ul {
+            background: #f9f9f9;
+            padding: 1.5rem 1.5rem 1.5rem 3rem;
+            border-radius: 8px;
+            list-style-type: none;
+        }
+        
+        .course-content li {
+            position: relative;
+            margin-bottom: 0.8rem;
+        }
+        
+        .course-content li:before {
+            content: '✓';
+            position: absolute;
+            left: -1.5rem;
+            color: #0066cc;
+        }
+        
+        .target-audience {
+            background: #fff8e8;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #ffbb00;
+        }
+        
+        .case-examples {
+            margin: 1.5rem 0;
+        }
+        
+        .case {
+            background: #f5f9ff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .case h4 {
+            color: #0066cc;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .conclusion {
+            font-weight: bold;
+            text-align: center;
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        
+        .enrollment-info {
+            background: #f0f7ff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            text-align: center;
+            border: 1px dashed #0066cc;
+        }
+        
+        .enrollment-info h3 {
+            color: #0066cc;
+            margin-bottom: 1.5rem;
+        }
+        
+        .enrollment-info h4 {
+            margin: 1rem 0;
+        }
+        
+        .section-divider {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .section-divider span {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 50%;
+            background: #0066cc;
+            color: white;
+        }
+        
+        .animated-heading {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+        }
+        
+        .animated-heading:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, #0066cc, #66ccff);
+        }
+        
+        .article-section {
+            margin-bottom: 3rem;
+        }
+        
+        .article-section h3 {
+            margin-bottom: 1.5rem;
+            color: #0066cc;
+            position: relative;
+            padding-left: 1rem;
+        }
+        
+        .article-section h3:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background-color: #0066cc;
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        
+        /* 新增动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes highlight {
+            0% { background-position: -100% 0; }
+            100% { background-position: 100% 0; }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            animation: slideInLeft 0.8s ease forwards;
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            animation: slideInRight 0.8s ease forwards;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        .highlight-text {
+            background: linear-gradient(90deg, rgba(0,102,204,0) 0%, rgba(0,102,204,0.2) 50%, rgba(0,102,204,0) 100%);
+            background-size: 200% 100%;
+            animation: highlight 2s linear infinite;
+        }
+        
+        .article-hero {
+            animation: fadeIn 1s ease;
+        }
+        
+        .benefit-item {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+            animation-delay: calc(var(--item-index) * 0.2s);
+        }
+        
+        .value-item {
+            opacity: 0;
+            animation: slideInLeft 0.6s ease forwards;
+            animation-delay: calc(var(--item-index) * 0.15s);
+        }
+        
+        .enrollment-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            text-align: left;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #0066cc;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+        
+        .submit-btn {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .submit-btn:hover {
+            background-color: #0055aa;
+            transform: translateY(-2px);
+        }
+        
+        .training-photo-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* 响应式设计优化 */
+        @media screen and (max-width: 768px) {
+            .certificate-benefits,
+            .training-details {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* 添加联系按钮样式 */
+        .contact-button-container {
+            text-align: center;
+            margin: 2.5rem auto;
+            max-width: 350px;
+        }
+        
+        .contact-button {
+            display: inline-block;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .contact-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .contact-button img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header class="article-header">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <img src="img/back-arrow.svg" alt="返回">
+                返回首页
+            </a>
+            <h1>工信部人工智能应用工程师培训计划正式启动</h1>
+            <div class="article-meta">
+                <span class="article-category">AI技能培训</span>
+                <span class="article-date">发布时间：2025年7月18日</span>
+            
+                    </div>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="article-content container">
+        <div class="article-hero">
+            <img src="pth/2421753430295_.pic.jpg" alt="工信部人工智能培训" class="article-hero-image">
+            <div class="hero-overlay">
+                <div class="hero-badge">
+                    <span>官方认证</span>
+                </div>
+            </div>
+        </div>
+
+        <article class="article-body">
+            <h2 class="fade-in">工信部力推人工智能运营师人才培养计划</h2>
+            
+            <div class="article-highlight fade-in" style="animation-delay: 0.2s;">
+                <p>面对这一人才缺口，我们推出人工智能应用实训营，在工信人才培养工程标准指导下进行"人工智能运营师"培训及考证，旨在培养能够满足时代需求的AI应用人才。</p>
+            </div>
+            
+            <div class="article-section fade-in" style="animation-delay: 0.4s;">
+                <div class="section-header-content">
+                    <h3>组织机构</h3>
+                    <img src="pth/2321753430244_.pic.jpg" alt="工信部文件通知" class="full-width-image">
+                    <div class="organization-info">
+                        <p><strong>01 组织机构</strong></p>
+                        <p><strong>主办单位：</strong>智启时代教育</p>
+                        <p><strong>承办单位：</strong>重庆硅基智能科技有限公司</p>
+                        <p><strong>执行标准：</strong>工业和信息化人才培养工程"人工智能运营师"标准</p>
+                        <p><strong>发证单位：</strong>工信部教育与考试中心</p>
+                        <p><strong>证书类型：</strong>职业技术证书</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-divider">
+                <span><i class="fas fa-calendar-alt"></i></span>
+            </div>
+
+            <h2 class="animated-heading fade-in">培训详情</h2>
+            
+            <div class="training-details">
+                <div class="detail-item slide-in-left" style="--item-index: 1;">
+                    <h4>02 培训时间</h4>
+                    <p>以重庆硅基智能科技有限公司通知为准</p>
+                </div>
+                
+                <div class="detail-item slide-in-left" style="--item-index: 2;">
+                    <h4>03 培训地点</h4>
+                    <p>以重庆硅基智能科技有限公司通知为准</p>
+                </div>
+                
+                <div class="detail-item slide-in-left" style="--item-index: 3;">
+                    <h4>04 培训费用</h4>
+                    <p>2980元/人（培训费+考试费+赠送数字大礼包+合作推广权）</p>
+                </div>
+            </div>
+
+            <div class="section-divider">
+                <span><i class="fas fa-rocket"></i></span>
+            </div>
+
+            <div class="article-section">
+                <h3 class="fade-in">证书价值</h3>
+                <p class="section-subtitle fade-in" style="animation-delay: 0.2s;">考取《人工智能运营师职业技术证书》对我有什么实际用处？</p>
+                
+                <div class="certificate-benefits">
+                    <div class="benefit-item" style="--item-index: 1;">
+                        <h4>1. 提升个人技能</h4>
+                        <p>通过系统的学习，可以掌握主流大厂的AI工具，提高AI专业应用能力。</p>
+                    </div>
+                    
+                    <div class="benefit-item" style="--item-index: 2;">
+                        <h4>2. 职业发展</h4>
+                        <p>证书可以作为个人职业资格的证明，有助于在求职或职场竞争中脱颖而出，尤其是在人工智能行业快速发展、运营人才供应缺乏之时，相关技能的持有者会显著增加。</p>
+                    </div>
+                    
+                    <div class="benefit-item" style="--item-index: 3;">
+                        <h4>3. 薪资优势</h4>
+                        <p>根据相关报道，人工智能领域的薪资水平普遍较高，拥有专业证书可能意味着更高的薪资待遇和更好的职业发展前景。</p>
+                    </div>
+                    
+                    <div class="benefit-item" style="--item-index: 4;">
+                        <h4>4. 行业认可</h4>
+                        <p>由工信部教考中心颁发的证书具较高的权威性和认可度，有助于个人在行业内建立专业形象。</p>
+                    </div>
+                    
+                    <div class="benefit-item" style="--item-index: 5;">
+                        <h4>5. 政策支持</h4>
+                        <p>随着国家对人工智能行业的重视，拥有相关证书的人才可能会享受到更多的政策支持和优惠措施。</p>
+                    </div>
+                    
+                    <div class="benefit-item" style="--item-index: 6;">
+                        <h4>6. 跨行业应用</h4>
+                        <p>人工智能技术正逐渐渗透到各个行业中，拥有相关证书的个人可以在多个领域内发挥自己的专业技能，增加就业选择，尤其对于数字化转型的人士更为重要！</p>
+                    </div>
+                </div>
+                
+                <div class="certificate-image-container fade-in" style="animation-delay: 1s;">
+                    <img src="pth/2341753430244_.pic.jpg" alt="AI应用实训营目标受众" class="full-width-image">
+                    <p class="image-caption">AI应用实训营目标受众与价值</p>
+                </div>
+                
+                <div class="career-insight fade-in" style="animation-delay: 1.2s;">
+                    <p>未来，在商业企业当中，最重要的两个岗位就是开发和运营，开发就是对产品技术性能进行研究，而运营就是对于产品的市场化，商业化落地推广，二者是一个研究是商业变现，两者缺一不可，对于非专业技术人员，想要更好的职业发展，很重要的课程就是学习运营。</p>
+                </div>
+            </div>
+
+            <div class="section-divider">
+                <span><i class="fas fa-graduation-cap"></i></span>
+            </div>
+            
+            <div class="article-section">
+                <h3 class="fade-in">培训价值</h3>
+                <p class="section-subtitle fade-in" style="animation-delay: 0.2s;">参加重庆硅基智能主办的《人工智能运营师》实训营有什么用？</p>
+                
+                <img src="pth/2361753430244_.pic.jpg" alt="AI运营师认证与培训体系" class="full-width-image fade-in" style="animation-delay: 0.4s;">
+                <p class="image-caption fade-in" style="animation-delay: 0.5s;">AI运营师认证体系与行业标准</p>
+                
+                <div class="training-value">
+                    <div class="value-item" style="--item-index: 1;">
+                        <h4>1. 执行工信部教考中心"人工智能运营师"职业技术培训标准</h4>
+                    </div>
+                    
+                    <div class="value-item" style="--item-index: 2;">
+                        <h4>2. 参加培训后可报考工信部教考中心"人工智能运营师"职业技术证书</h4>
+                    </div>
+                    
+                    <div class="value-item" style="--item-index: 3;">
+                        <h4>3. 通过考试后可通过工信部教考中心官方网站查询证书</h4>
+                    </div>
+                    
+                    <div class="value-item" style="--item-index: 4;">
+                        <h4>4. 取得"人工智能运营师"职业技术证书后可免费进入工业和信息化技术技能人才数据库</h4>
+                    </div>
+                </div>
+                
+                <div class="training-outcome fade-in" style="animation-delay: 1.2s;">
+                    <p><strong>通过本次培训，您将：</strong></p>
+                    <ul>
+                        <li>掌握AI人工智能的核心技能与知识</li>
+                        <li>提升在智能运营领域的实战能力</li>
+                        <li>拓展人脉资源，与行业精英共成长</li>
+                        <li>紧跟国家政策导向，把握未来发展趋势</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section-divider">
+                <span><i class="fas fa-list-alt"></i></span>
+            </div>
+
+            <div class="article-section">
+                <h3 class="fade-in">课程内容</h3>
+                <p class="fade-in" style="animation-delay: 0.2s;">我们的课程涵盖了人工智能的基础理论、核心技术、实战应用等多个方面。</p>
+                
+                <div class="training-schedule-container fade-in" style="animation-delay: 0.4s;">
+                    <img src="pth/2401753430295_.pic.jpg" alt="AI运营师培训日程安排" class="full-width-image">
+                    <p class="image-caption">项目独特优势</p>
+                </div>
+                
+                <div class="course-content fade-in" style="animation-delay: 0.6s;">
+                    <p><strong>具体包括：</strong></p>
+                    <ul>
+                        <li>AI人工智能基础原理</li>
+                        <li>企业数字化升级</li>
+                        <li>智能运营策略与实战案例</li>
+                        <li>AI项目管理与团队协作</li>
+                        <li>智能交互与人机交互</li>
+                    </ul>
+                </div>
+                
+                <div class="target-audience fade-in" style="animation-delay: 0.8s;">
+                    <p>本次培训面向广大对AI人工智能运营感兴趣的人群，无论您是初学者还是具有一定经验的从业者，都能在这里找到适合自己的内容。</p>
+                </div>
+            </div>
+
+            <div class="article-section">
+                <h3 class="fade-in">实例：AI运营师能带来的价值</h3>
+                <div class="case-examples">
+                    <div class="case slide-in-left" style="animation-delay: 0.2s;">
+                        <h4>案例一：人力成本节约</h4>
+                        <p>一名资深AI运营师可以轻松完成3-5人甚至5-10人的工作，可以为企业降本增效。</p>
+                        <p>一个企业部门10人，原本需要10人，现在只需要1名资深AI运营师。假如原10个人的工资是5000元/人/月，10人就是5万元，如果把其中的2万元给到AI运营师，还可以节省3万元。</p>
+                    </div>
+                    
+                    <div class="case slide-in-right" style="animation-delay: 0.4s;">
+                        <h4>案例二：提升企业价值</h4>
+                        <p>一名资深AI运营师还可以帮助企业赚钱。企业研发出来的产品需要推广，需要品牌宣传，AI运营师运用AI生产文案，图片、视频，PPT等优质内容，发布到新媒体平台，或帮助企业老板打造个人IP，实现精准获客引流，落地变现。</p>
+                    </div>
+                    
+                    <p class="conclusion pulse">试问一名既能省钱又能赚钱的AI运营师，哪家企业老板不喜欢呢？</p>
+                </div>
+                
+                <div class="training-photo-container fade-in" style="animation-delay: 0.8s;">
+                    <img src="pth/1000.jpg" alt="AI运营师培训现场" class="full-width-image">
+                    <p class="image-caption">人工智能运营师实训课程现场</p>
+                </div>
+            </div>
+            
+            <div class="article-section fade-in" style="animation-delay: 0.6s;">
+                <h3>背景与目的</h3>
+                <p>随着2024年人工智能应用的爆发式发展，AI技术已在教育、政务和各商业场景中被广泛应用，并已引起深刻性的变革。政府在统筹工作报告中提出了"人工智能+行动"，九部门联合印发了"加快数字人才培养行动计划"，工信部发布了"新一代人工智能产业创新重点任务"（2024-2026）三年行动计划，其中重点提到大数据、人工智能、区块链等技术为核心的数字人才培养。</p>
+                
+                <p>为积极响应国家政策，推动人工智能应用型人才的培养，工业和信息化人才部教育与考试中心印发《人工智能人才培养行动计划（2024-2026）》。</p>
+            </div>
+            
+            <div class="enrollment-info">
+                <h3 class="highlight-text">人工智能运营师报名入口</h3>
+                <form class="enrollment-form fade-in">
+                    <div class="form-group">
+                        <label for="name">姓名</label>
+                        <input type="text" id="name" placeholder="请输入您的姓名" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">联系电话</label>
+                        <input type="tel" id="phone" placeholder="请输入您的联系电话" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">电子邮箱</label>
+                        <input type="email" id="email" placeholder="请输入您的电子邮箱">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company">公司/单位</label>
+                        <input type="text" id="company" placeholder="请输入您的公司或单位名称">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="position">职位</label>
+                        <input type="text" id="position" placeholder="请输入您的职位">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">留言</label>
+                        <textarea id="message" rows="3" placeholder="如有特殊需求，请在此留言"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn pulse">立即报名</button>
+                </form>
+                
+                <!-- 添加联系按钮 -->
+                <div class="contact-button-container fade-in" style="animation-delay: 0.5s;">
+                    <p>或直接联系我们：</p>
+                    <a href="https://wa.me/qr/VGA7ETRJQ6LXD1" class="contact-button">
+                        <img src="pth/WechatIMG247.jpg" alt="联系我们" class="full-width-image">
+                    </a>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p>&copy; 2025 AICA. 保留所有权利。</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 分享功能
+            const shareBtn = document.querySelector('.article-share');
+            if (shareBtn) {
+                shareBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                });
+                
+                document.addEventListener('click', function() {
+                    shareBtn.classList.remove('active');
+                });
+            }
+            
+            // 显示动画效果处理
+            const animateElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animateElements.forEach(el => {
+                el.style.animationPlayState = 'paused';
+                observer.observe(el);
+            });
+            
+            // 表单提交处理
+            const enrollmentForm = document.querySelector('.enrollment-form');
+            if (enrollmentForm) {
+                enrollmentForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('提交成功！我们将尽快与您联系，确认报名信息。');
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

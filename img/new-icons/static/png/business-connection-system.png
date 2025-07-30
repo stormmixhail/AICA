@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>商务连接操作系统图标</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: white;
+        }
+        
+        .icon {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .outer-circle {
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            border: 2px dashed #2196F3;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+        
+        .middle-circle {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border: 2px dashed #00BCD4;
+            border-radius: 50%;
+            opacity: 0.4;
+        }
+        
+        .inner-circle {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border: 2px dashed #4CAF50;
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+        
+        .center-node {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2196F3, #00BCD4);
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            z-index: 10;
+        }
+        
+        .node {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2196F3, #00BCD4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            z-index: 5;
+        }
+        
+        .node-1 {
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .node-2 {
+            top: 35%;
+            right: 20px;
+        }
+        
+        .node-3 {
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .node-4 {
+            top: 35%;
+            left: 20px;
+        }
+        
+        .node-5 {
+            top: 35%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+        
+        .node-6 {
+            bottom: 35%;
+            left: 50%;
+            transform: translateX(-50%) translateY(50%);
+        }
+        
+        .connection {
+            position: absolute;
+            background: linear-gradient(to right, #2196F3, #00BCD4);
+            height: 2px;
+            z-index: 1;
+        }
+        
+        .connection-1 {
+            width: 80px;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .connection-2 {
+            width: 80px;
+            top: 50%;
+            right: 35px;
+            transform: translateY(-50%) rotate(90deg);
+        }
+        
+        .connection-3 {
+            width: 80px;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .connection-4 {
+            width: 80px;
+            top: 50%;
+            left: 35px;
+            transform: translateY(-50%) rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="icon">
+        <div class="outer-circle"></div>
+        <div class="middle-circle"></div>
+        <div class="inner-circle"></div>
+        
+        <div class="center-node">AI</div>
+        
+        <div class="node node-1">商机</div>
+        <div class="connection connection-1"></div>
+        
+        <div class="node node-2">对话</div>
+        <div class="connection connection-2"></div>
+        
+        <div class="node node-3">分发</div>
+        <div class="connection connection-3"></div>
+        
+        <div class="node node-4">连接</div>
+        <div class="connection connection-4"></div>
+        
+        <div class="node node-5">价值</div>
+        <div class="node node-6">信息</div>
+    </div>
+</body>
+</html>

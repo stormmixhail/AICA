@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>《新榜2024线上获客白皮书》- AICA增长实验室</title>
+    <link rel="stylesheet" href="css/style.css?v=20230703">
+    <link rel="stylesheet" href="css/feature-page.css?v=20230703">
+    <link rel="stylesheet" href="css/growth-lab.css?v=20230703">
+    <link rel="stylesheet" href="css/whitepaper-theme.css?v=20230703">
+    <script src="js/lib/vue.min.js"></script>
+    <style>
+        /* 文章页面特有样式 */
+        .article-container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            font-family: "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        .article-header {
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .article-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            background: linear-gradient(120deg, #2D7BF6, #5E5CE6);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .article-meta {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .article-meta span {
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .article-meta span:before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background-color: #2D7BF6;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .article-tags {
+            margin-bottom: 30px;
+        }
+        
+        .article-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 16px;
+            background-color: #f0f6ff;
+            color: #2D7BF6;
+            font-size: 12px;
+            margin: 0 5px 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(45, 123, 246, 0.1);
+            cursor: pointer;
+        }
+        
+        .article-tag:hover {
+            background-color: #e0efff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(45, 123, 246, 0.2);
+        }
+        
+        /* 顶部主视觉区域 */
+        .article-hero {
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #F6FAFF 0%, #E6F0FF 100%);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+        }
+        
+        .article-hero-inner {
+            max-width: 90%;
+            margin: 0 auto;
+        }
+        
+        .article-cover {
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+        
+        .article-cover img {
+            max-width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            transition: all 0.5s ease;
+            transform-origin: center;
+        }
+        
+        .article-cover:hover img {
+            transform: scale(1.03);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 图片渐入动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .article-content {
+            line-height: 1.8;
+            color: #333;
+            font-size: 16px;
+            position: relative;
+        }
+        
+        .article-content p {
+            margin-bottom: 24px;
+        }
+        
+        .article-content h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 45px 0 24px;
+            color: #222;
+            border-left: 4px solid #2D7BF6;
+            padding-left: 16px;
+            background: linear-gradient(to right, rgba(45, 123, 246, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+            padding: 10px 16px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .article-content h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 35px 0 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        
+        .article-content h3::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #2D7BF6;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+        
+        .article-content ul {
+            margin-bottom: 24px;
+            padding-left: 20px;
+        }
+        
+        .article-content li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .article-content li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #2D7BF6;
+        }
+        
+        .article-image-container {
+            margin: 35px 0;
+            text-align: center;
+            position: relative;
+            perspective: 1000px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .article-image {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transform: translateY(0);
+        }
+        
+        .article-image::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            z-index: -1;
+        }
+        
+        .article-image:hover {
+            transform: translateY(-10px) rotateX(3deg);
+        }
+        
+        .article-image:hover::after {
+            opacity: 1;
+        }
+        
+        .article-image img {
+            max-width: 100%;
+            display: block;
+            transition: all 0.5s ease;
+        }
+        
+        .article-image-caption {
+            font-size: 14px;
+            color: #777;
+            text-align: center;
+            margin-top: 15px;
+            font-style: italic;
+            opacity: 0.8;
+        }
+        
+        .article-highlight {
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f6ff 100%);
+            border-left: 4px solid #2D7BF6;
+            padding: 24px 30px;
+            margin: 35px 0;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .article-highlight::before {
+            content: "";
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            font-size: 120px;
+            color: rgba(45, 123, 246, 0.1);
+            font-family: serif;
+        }
+        
+        .article-highlight p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* 内容区块动画 */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 数据可视化部分 */
+        .data-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f6ff 100%);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+        
+        .data-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 24px;
+            }
+            
+            .article-hero {
+                padding: 20px 15px;
+            }
+            
+            .article-content h2 {
+                font-size: 22px;
+            }
+            
+            .article-content h3 {
+                font-size: 18px;
+            }
+            
+            .article-content {
+                font-size: 15px;
+            }
+            
+            .article-image-container {
+                margin: 25px 0;
+            }
+        }
+        
+        /* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2D7BF6, #5E5CE6);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(45, 123, 246, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(45, 123, 246, 0.4);
+        }
+        
+        /* 移动端优化 */
+        @media (max-width: 768px) {
+            .article-header {
+                padding: 0 10px;
+            }
+            
+            .article-content {
+                padding: 0 15px;
+            }
+            
+            .whitepaper-table {
+                font-size: 14px;
+                overflow-x: auto;
+                display: block;
+            }
+            
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="article-app" class="growth-lab-page">
+        <header class="lab-header">
+            <button class="back-button" @click="goBack">
+                <img src="img/back-arrow.svg?v=20250716" alt="返回">
+            </button>
+            <div class="header-title">增长实验室</div>
+        </header>
+        
+        <div class="article-container">
+            <article class="article-main">
+                <header class="article-header">
+                    <h1 class="article-title">《新榜2024线上获客白皮书》</h1>
+                    <div class="article-meta">
+                        <span class="article-date">2024年7月20日</span>
+                        <span class="article-read-time">18分钟阅读</span>
+                        <span class="article-views">浏览量 3156</span>
+                    </div>
+                    <div class="article-tags">
+                        <span class="article-tag">白皮书</span>
+                        <span class="article-tag">线上获客</span>
+                        <span class="article-tag">消费行业</span>
+                        <span class="article-tag">内容营销</span>
+                    </div>
+                    
+                    <!-- 装饰元素 -->
+                    <div class="whitepaper-decoration-dot whitepaper-decoration-1"></div>
+                    <div class="whitepaper-decoration-dot whitepaper-decoration-2"></div>
+                    <div class="whitepaper-decoration-dot whitepaper-decoration-3"></div>
+                </header>
+                
+                <div class="article-hero">
+                    <div class="article-hero-inner">
+                        <p>随着2024年企业新媒体运营进入"精准圈层运营"时代，线上获客模式正在经历深刻变革。本白皮书基于28个行业的实践数据，揭示了消费频次与客单价对行业获客策略的影响，以及不同行业在平台选择、内容策略和转化路径上的差异化需求。</p>
+                        
+                        <div class="article-highlight">
+                            <p><strong>核心洞察：</strong>线上获客正从流量思维转向留量思维，企业需针对行业特性构建消费频次×客单价的双维度策略，并在内容创作中从人力驱动逐步转向AI协同模式。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="article-content">
+                    <h2>一、消费频次×客单价双维透视：三类行业特征与运营锚点</h2>
+                    
+                    <p>基于消费频次与客单价的交叉分析，我们将28个行业分为三大类型，每类行业具有独特的用户决策特征和运营要点：</p>
+                    
+                    <div class="article-image-container">
+                        <div class="article-image">
+                            <img src="img/insight-industry-matrix.svg?v=20250716" alt="消费频次×客单价双维透视图">
+                        </div>
+                        <p class="article-image-caption">图1：基于消费频次与客单价的行业特征图谱</p>
+                    </div>
+                    
+                    <h3>1. 低频高客单行业：深耕信任，构建长期价值</h3>
+                    
+                    <p><strong>典型行业：</strong>汽车/地产、财经楼市、商业办公、家装建材、珠宝文玩等</p>
+                    
+                    <div class="whitepaper-card-group">
+                        <div class="whitepaper-card animate-fadeInUp" style="animation-delay: 0.1s;">
+                            <div class="whitepaper-card-title">决策周期</div>
+                            <div class="whitepaper-data-value">3-6个月</div>
+                            <div class="whitepaper-card-content">用户平均决策时间较长，需要品牌持续陪伴</div>
+                        </div>
+                        <div class="whitepaper-card animate-fadeInUp" style="animation-delay: 0.2s;">
+                            <div class="whitepaper-card-title">信息密度</div>
+                            <div class="whitepaper-data-value">高</div>
+                            <div class="whitepaper-card-content">需要大量专业内容建立深度信任</div>
+                        </div>
+                        <div class="whitepaper-card animate-fadeInUp" style="animation-delay: 0.3s;">
+                            <div class="whitepaper-card-title">转化核心</div>
+                            <div class="whitepaper-card-content">品牌信任建设，用户需通过认知→兴趣→决策全链路</div>
+                        </div>
+                    </div>
+                    
+                    <h3>2. 中频中客单行业：场景化内容聚焦痛点，爆款加速转化</h3>
+                    
+                    <p><strong>典型行业：</strong>3C数码、家居生活、家用电器、运动户外、旅游出行等</p>
+                    
+                    <p><strong>特征分析：</strong></p>
+                    <ul>
+                        <li>决策中度化：平均决策周期2-4周</li>
+                        <li>产品可视化要求高：需展示低理性决策门槛</li>
+                        <li>依赖爆款破圈：通过场景化内容+爆款加速转化</li>
+                    </ul>
+                    
+                    <p><strong>运营锚点：</strong></p>
+                    <ul>
+                        <li>兴趣标签渗透：按兴趣标签进行分群运营</li>
+                        <li>场景化需求触发：用户需求隐性→显性转化</li>
+                        <li>强化功能/效果展示：结合情感共鸣增强转化率</li>
+                    </ul>
+                    
+                    <h3>3. 高频低客单行业：规模流量获取，直播场景促转化</h3>
+                    
+                    <p><strong>典型行业：</strong>食品饮料、个护家清、母婴用品、服饰鞋帽、宠物生活等</p>
+                    
+                    <p><strong>特征分析：</strong></p>
+                    <ul>
+                        <li>决策路径极短：平均决策周期＜1周</li>
+                        <li>用户留存率低：次月留存率＜30%</li>
+                        <li>产品同质化严重：竞品替代率＞60%</li>
+                    </ul>
+                    
+                    <p><strong>运营锚点：</strong></p>
+                    <ul>
+                        <li>即时冲动触发：需规模冲击、限时抢购刺激消费</li>
+                        <li>流量规模压制：通过IP化人设/情感共鸣建立差异化认知</li>
+                        <li>高频内容分发：单个账号发布频率高、直播活动频繁</li>
+                    </ul>
+                    
+                    <div class="whitepaper-divider"></div>
+                    
+                    <h2>二、用户运营目标：从"流量"到"留量"</h2>
+                    
+                    <p>公域获客成本攀升正驱动企业新媒体运营向"线索价值"聚焦。2024年"内容即渠道"模式加速成型，数据显示，公域线索量激增，超16.4万条/月线索源于评论、弹幕等互动场景，用户通过"如何购买"等咨询行为直接释放消费意向，互动区已成企业核心线索来源。</p>
+                    
+                    <div class="article-image-container">
+                        <div class="article-image">
+                            <img src="img/insight-leads-source.svg?v=20250716" alt="平台线索管理与转化赋能">
+                        </div>
+                        <p class="article-image-caption">图2：新榜矩阵通过域内容中挖掘线索情况</p>
+                    </div>
+                    
+                    <p>企业借助短视频评论区、直播弹幕，敏锐捕捉用户的产品咨询和购买意向。同时，各平台提供的工具也为企业线索获取提供便利：</p>
+                    
+                    <ul>
+                        <li><strong>抖音企业号后台：</strong>支持配置在线咨询、预约电话、团购表单等线索收集工具，提供线索看板与数据洞察</li>
+                        <li><strong>小红书聚光平台：</strong>提供"一跳表单"和"二跳表单"组件，用户可直接在信息流广告页面完成留资</li>
+                        <li><strong>公众号菜单栏：</strong>嵌入H5表单、智能客服入口，结合用户分层自动推送差异化内容</li>
+                        <li><strong>视频号直播间：</strong>通过"企业微信导流组件"一键跳转私域，结合优惠券发放激发留资意愿</li>
+                        <li><strong>快手"快接单"：</strong>达人合作支持线索收集组件，商家可定制留资页面（如汽车试驾预约）</li>
+                    </ul>
+                    
+                    <div class="whitepaper-quote">
+                        公域获客成本持续攀升，使企业新媒体运营重心从"流量导向"转为"线索价值"聚焦。互动区已成为企业捕捉精准用户意向的核心场景。
+                    </div>
+                    
+                    <h2>三、平台内容主题分布与形式趋势</h2>
+                    
+                    <p>不同平台在内容主题分布上呈现明显差异，企业应根据平台特性调整内容策略：</p>
+                    
+                    <div class="article-image-container">
+                        <div class="article-image">
+                            <img src="img/insight-content-platforms.svg?v=20250716" alt="各平台内容主题分布情况">
+                        </div>
+                        <p class="article-image-caption">图3：2024年各平台内容主题分布情况</p>
+                    </div>
+                    
+                    <h3>1. 内容形式：从单一类型到复合表达</h3>
+                    
+                    <p>2024年企业新媒体内容形态加速向复合表达进阶，各平台复合形式内容占比已突破20%，抖音上复合内容尤为突出。企业应结合平台特色，采用"内容形式组合拳"生成内容，在降低用户认知成本的同时，以形式创新突破内容同质化困局，实现"内容即体验"的传播升维。</p>
+                    
+                    <p><strong>平台内容形式特点：</strong></p>
+                    <ul>
+                        <li><strong>抖音：</strong>主持/口播(47.3%)、剧情演绎(11.3%)、深度内容(6.38%)</li>
+                        <li><strong>公众号：</strong>深度内容(88.3%)、投票互动(5.1%)、主持/口播(3.6%)</li>
+                        <li><strong>小红书：</strong>主持/口播(47%)、深度内容(26.8%)、生活VLOG(19.1%)</li>
+                        <li><strong>视频号：</strong>主持/口播(84.8%)、生活VLOG(6.5%)、深度内容(2.9%)</li>
+                        <li><strong>快手：</strong>主持/口播(71.8%)、生活VLOG(11.4%)、短剧/微电影(5.1%)</li>
+                        <li><strong>微博：</strong>主持/口播(64.8%)、深度内容(30.4%)、生活VLOG(1.9%)</li>
+                        <li><strong>B站：</strong>深度内容(34.2%)、动画/特效(13.7%)、短剧/微电影(10%)</li>
+                    </ul>
+                    
+                    <h3>平台内容形式特点对比：</h3>
+                    
+                    <table class="whitepaper-table">
+                        <thead>
+                            <tr>
+                                <th>平台</th>
+                                <th>主要内容形式</th>
+                                <th>单一/复合比例</th>
+                                <th>特点</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>抖音</td>
+                                <td>主持/口播(47.3%)、剧情演绎(11.3%)</td>
+                                <td>71.9% : 28.1%</td>
+                                <td>转化导向，主打口播+剧情+深度内容</td>
+                            </tr>
+                            <tr>
+                                <td>公众号</td>
+                                <td>深度内容(88.3%)、投票互动(5.1%)</td>
+                                <td>83.0% : 17.0%</td>
+                                <td>形象塑造，打造深度内容</td>
+                            </tr>
+                            <tr>
+                                <td>小红书</td>
+                                <td>主持/口播(47%)、深度内容(26.8%)</td>
+                                <td>77.4% : 22.6%</td>
+                                <td>种草逻辑，口播+深度测评+生活VLOG</td>
+                            </tr>
+                            <tr>
+                                <td>B站</td>
+                                <td>深度内容(34.2%)、动画/特效(13.7%)</td>
+                                <td>74.1% : 25.9%</td>
+                                <td>技术普及导向，以深度内容+动画效果</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h3>2. 内容传播策略：从粗放式传播转向精细化助推</h3>
+                    
+                    <p>2024年企业正通过矩阵内容与智能投放工具的深度协同，构建起"付费流量筛选内容→优质内容撬动自然流量→自然流量反哺账号权重"的增长飞轮。这种策略不仅实现流量规模的指数级增长，更通过多圈层内容覆盖构建用户心智的立体认知网络，将短期流量势能转化为长效品牌资产。</p>
+                    
+                    <p><strong>策略方向：</strong></p>
+                    <ul>
+                        <li><strong>冷启动策略：</strong>通过付费流量生成用户行为数据，辅助平台建立账号内容模型</li>
+                        <li><strong>促转化策略：</strong>通过精准流量筛选、内容优化与数据驱动，将曝光量有效转化为用户行为</li>
+                        <li><strong>内容助推案例：</strong>新东方通过账号矩阵化运营，实现月销近2000单，转化率超过200%</li>
+                    </ul>
+                    
+                    <h2>四、行业矩阵运营效果评估</h2>
+                    
+                    <p>为实现跨行业矩阵运营效果的科学评估，我们基于前期行业分类框架与策略路径，整合了五大核心维度：规模、活跃、内容、直播、涨粉，构建了完整的品牌矩阵运营效果评估模型。该模型通过数据标准化处理与平台差异化校准，将企业号运营效果量化，既可跨行业进行横向对比，又可跨周期进行纵向对比。</p>
+                    
+                    <p><strong>五维评估模型要素：</strong></p>
+                    <ul>
+                        <li><strong>规模指数：</strong>评估品牌矩阵的整体规模和粉丝覆盖范围</li>
+                        <li><strong>活跃指数：</strong>综合合作品质、直播频次和活跃健康度</li>
+                        <li><strong>内容指数：</strong>评估内容吸引力、用户参与度及传播效果</li>
+                        <li><strong>直播指数：</strong>衡量品牌直播的即时影响力与长效价值</li>
+                        <li><strong>涨粉指数：</strong>聚焦品牌定位与用户距离感</li>
+                    </ul>
+                    
+                    <p>评估结果显示，不同类型行业的矩阵运营表现差异显著：</p>
+                    
+                    <ul>
+                        <li>低频高客单行业突出用户价值，在规模、活跃和内容效果方面整体表现较好</li>
+                        <li>中频中客单行业表现规模均衡</li>
+                        <li>高频低客单行业在直播效果方面表现突出</li>
+                    </ul>
+                    
+                    <p>从规模布局来看，服务链路长、决策门槛高的行业（如教育、汽车、旅游）矩阵规模布局优势显著；而从活跃程度来看，用户服务周期长、场景多元的行业（如汽车、教育、家装）活跃度优势突出。</p>
+                    
+                    <div class="article-highlight">
+                        <p><strong>结论：</strong>企业应依据行业特性、消费路径特征，融合矩阵运营指数表现，筛选具备典型性与标杆价值的品牌案例，展开系统性分析。当前主流品牌多采用复合型消费渠道策略，以线下+线上服务的闭环形式，实现用户全生命周期价值挖掘。</p>
+                    </div>
+                    
+                    <h2>五、内容营销策略总结</h2>
+                    
+                    <div class="data-section">
+                        <div class="data-title">行业矩阵运营评估关键指标</div>
+                        
+                        <div class="whitepaper-progress">
+                            <div class="whitepaper-progress-bar" style="width: 85%;"></div>
+                        </div>
+                        <p class="text-center">低频高客单行业用户价值评分：85/100</p>
+                        
+                        <div class="whitepaper-progress">
+                            <div class="whitepaper-progress-bar" style="width: 72%;"></div>
+                        </div>
+                        <p class="text-center">中频中客单行业规模均衡评分：72/100</p>
+                        
+                        <div class="whitepaper-progress">
+                            <div class="whitepaper-progress-bar" style="width: 88%;"></div>
+                        </div>
+                        <p class="text-center">高频低客单行业直播效果评分：88/100</p>
+                    </div>
+                </div>
+                
+                <div class="article-cta">
+                    <h3>想了解如何将新榜白皮书洞察应用到您的业务中？</h3>
+                    <p>我们的增长顾问团队可以为您提供免费诊断，帮助您制定符合行业特性的线上获客策略。</p>
+                    <a href="ai-marketing.html" class="article-cta-button">预约免费诊断</a>
+                </div>
+            </article>
+        </div>
+        
+        <!-- 回到顶部按钮 -->
+        <div class="back-to-top" id="backToTop">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 5L5 12H9V19H15V12H19L12 5Z" fill="white"/>
+            </svg>
+        </div>
+    </div>
+    
+    <script>
+    const articleApp = new Vue({
+        el: '#article-app',
+        mounted() {
+            // 监听滚动，实现渐入动画
+            this.handleScrollAnimations();
+            window.addEventListener('scroll', this.handleScrollAnimations);
+            window.addEventListener('scroll', this.toggleBackToTopButton);
+            
+            // 初始显示图片
+            this.initImageAnimations();
+            
+            // 回到顶部按钮点击事件
+            document.getElementById('backToTop').addEventListener('click', this.scrollToTop);
+        },
+        beforeDestroy() {
+            window.removeEventListener('scroll', this.handleScrollAnimations);
+            window.removeEventListener('scroll', this.toggleBackToTopButton);
+            document.getElementById('backToTop').removeEventListener('click', this.scrollToTop);
+        },
+        methods: {
+            goBack() {
+                window.location.href = 'growth-lab.html';
+            },
+            initImageAnimations() {
+                // 设置图片容器的动画延迟
+                const imageContainers = document.querySelectorAll('.article-image-container');
+                imageContainers.forEach((container, index) => {
+                    container.style.animationDelay = `${index * 0.2}s`;
+                });
+            },
+            handleScrollAnimations() {
+                const sections = document.querySelectorAll('.fade-in-section');
+                
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (sectionTop < windowHeight * 0.8) {
+                        section.classList.add('is-visible');
+                    }
+                });
+            },
+            toggleBackToTopButton() {
+                const backToTopBtn = document.getElementById('backToTop');
+                if (window.scrollY > 500) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            },
+            scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    });
+    
+    // 页面加载后添加渐入效果类
+    document.addEventListener('DOMContentLoaded', function() {
+        // 给段落和列表添加淡入效果类
+        const contentElements = document.querySelectorAll('.article-content p, .article-content ul, .article-content h3');
+        contentElements.forEach(element => {
+            element.classList.add('fade-in-section');
+        });
+    });
+
+    // 进度条动画
+    document.addEventListener('DOMContentLoaded', function() {
+        const progressBars = document.querySelectorAll('.whitepaper-progress-bar');
+        
+        // 设置初始宽度为0
+        progressBars.forEach(bar => {
+            const finalWidth = bar.style.width;
+            bar.style.width = '0';
+            
+            // 延迟一小段时间后执行动画
+            setTimeout(() => {
+                bar.style.width = finalWidth;
+            }, 500);
+        });
+    });
+    </script>
+</body>
+</html> 

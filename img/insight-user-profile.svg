@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="240" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="400" height="240" rx="12" fill="url(#paint0_linear)"/>
+  
+  <!-- 左侧年龄圆环 -->
+  <circle cx="120" cy="120" r="70" fill="white" filter="url(#shadow1)" stroke="url(#paint1_linear)" stroke-width="3"/>
+  <path d="M120 50 A70 70 0 0 1 190 120" stroke="url(#paint2_linear)" stroke-width="18" stroke-linecap="round" opacity="0.8"/>
+  <path d="M120 50 A70 70 0 0 0 50 120" stroke="url(#paint3_linear)" stroke-width="18" stroke-linecap="round" opacity="0.8"/>
+  
+  <!-- 右侧兴趣圆环 -->
+  <circle cx="280" cy="120" r="70" fill="white" filter="url(#shadow1)" stroke="url(#paint4_linear)" stroke-width="3"/>
+  <path d="M280 50 A70 70 0 0 1 350 120" stroke="url(#paint5_linear)" stroke-width="18" stroke-linecap="round" opacity="0.8"/>
+  <path d="M280 50 A70 70 0 0 0 210 120" stroke="url(#paint6_linear)" stroke-width="18" stroke-linecap="round" opacity="0.8"/>
+  
+  <!-- 连接线 -->
+  <line x1="190" y1="120" x2="210" y2="120" stroke="#333" stroke-width="3" stroke-dasharray="5 3"/>
+  <circle cx="200" cy="120" r="8" fill="url(#paint7_linear)" filter="url(#shadow2)"/>
+  
+  <!-- 文字标签 -->
+  <text x="120" y="110" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">年龄维度</text>
+  <text x="120" y="130" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#555">18-35岁占比80%</text>
+  <text x="120" y="148" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666" opacity="0.8">精准分层触达</text>
+  
+  <text x="280" y="110" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">兴趣维度</text>
+  <text x="280" y="130" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#555">内容金三角</text>
+  <text x="280" y="148" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666" opacity="0.8">圈层化运营</text>
+  
+  <text x="200" y="30" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">用户画像双驱动模型</text>
+  
+  <!-- 底部标签 -->
+  <rect x="100" y="190" width="200" height="30" rx="15" fill="url(#paint8_linear)" filter="url(#shadow3)"/>
+  <text x="200" y="210" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="white">"年龄×兴趣"深度融合</text>
+  
+  <!-- 平台标签 -->
+  <circle cx="80" cy="85" r="12" fill="url(#paint9_linear)"/>
+  <text x="80" y="89" font-family="Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="white">B</text>
+  
+  <circle cx="240" cy="85" r="12" fill="url(#paint10_linear)"/>
+  <text x="240" y="89" font-family="Arial, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="white">抖</text>
+  
+  <circle cx="320" cy="85" r="12" fill="url(#paint11_linear)"/>
+  <text x="320" y="89" font-family="Arial, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="white">书</text>
+  
+  <!-- 定义渐变 -->
+  <defs>
+    <linearGradient id="paint0_linear" x1="0" y1="0" x2="400" y2="240" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FBFF"/>
+      <stop offset="1" stop-color="#E6F0FF"/>
+    </linearGradient>
+    
+    <linearGradient id="paint1_linear" x1="120" y1="50" x2="120" y2="190" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2D7BF6"/>
+      <stop offset="1" stop-color="#5433FF"/>
+    </linearGradient>
+    
+    <linearGradient id="paint2_linear" x1="120" y1="50" x2="190" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2D7BF6"/>
+      <stop offset="1" stop-color="#1A56C5"/>
+    </linearGradient>
+    
+    <linearGradient id="paint3_linear" x1="120" y1="50" x2="50" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8E44FF"/>
+      <stop offset="1" stop-color="#6236BD"/>
+    </linearGradient>
+    
+    <linearGradient id="paint4_linear" x1="280" y1="50" x2="280" y2="190" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF6D4A"/>
+      <stop offset="1" stop-color="#FF9F2E"/>
+    </linearGradient>
+    
+    <linearGradient id="paint5_linear" x1="280" y1="50" x2="350" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF6D4A"/>
+      <stop offset="1" stop-color="#FF4A1F"/>
+    </linearGradient>
+    
+    <linearGradient id="paint6_linear" x1="280" y1="50" x2="210" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFB341"/>
+      <stop offset="1" stop-color="#FFAA00"/>
+    </linearGradient>
+    
+    <linearGradient id="paint7_linear" x1="200" y1="112" x2="200" y2="128" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2D7BF6"/>
+      <stop offset="1" stop-color="#2563EB"/>
+    </linearGradient>
+    
+    <linearGradient id="paint8_linear" x1="100" y1="190" x2="300" y2="220" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#1E40AF"/>
+    </linearGradient>
+    
+    <linearGradient id="paint9_linear" x1="80" y1="73" x2="80" y2="97" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00A1D6"/>
+      <stop offset="1" stop-color="#0086B3"/>
+    </linearGradient>
+    
+    <linearGradient id="paint10_linear" x1="240" y1="73" x2="240" y2="97" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FE2C55"/>
+      <stop offset="1" stop-color="#E61C41"/>
+    </linearGradient>
+    
+    <linearGradient id="paint11_linear" x1="320" y1="73" x2="320" y2="97" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF2E4D"/>
+      <stop offset="1" stop-color="#D01C3A"/>
+    </linearGradient>
+    
+    <filter id="shadow1" x="-10" y="-10" width="420" height="260" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+      <feOffset dy="4"/>
+      <feGaussianBlur stdDeviation="8"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.1 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+    
+    <filter id="shadow2" x="188" y="108" width="24" height="24" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+      <feOffset/>
+      <feGaussianBlur stdDeviation="2"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.3 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+    
+    <filter id="shadow3" x="90" y="184" width="220" height="42" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+      <feOffset dy="2"/>
+      <feGaussianBlur stdDeviation="2"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.2 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+  </defs>
+</svg> 

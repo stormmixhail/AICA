@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页示例 - AICA</title>
+    <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 基础样式 */
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        /* 新闻轮播区域 */
+        .news-carousel {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .carousel-container {
+            position: relative;
+            height: 320px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .carousel-items {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+        
+        .carousel-item {
+            min-width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .carousel-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+        }
+        
+        .carousel-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .carousel-description {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .carousel-nav {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+        }
+        
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.5);
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        .carousel-dot.active {
+            background-color: white;
+        }
+        
+        /* 智能名片区域 */
+        .business-card {
+            background-color: #e1f5fe;
+            text-align: center;
+        }
+        
+        .card-features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .card-feature {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            width: calc(25% - 20px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 36px;
+            color: #409EFF;
+            margin-bottom: 15px;
+        }
+        
+        .feature-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #409EFF;
+            color: white;
+            border-radius: 4px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: #3a8ee6;
+        }
+        
+        /* 四大功能按钮 */
+        .main-features {
+            text-align: center;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        
+        .feature-button {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: #333;
+        }
+        
+        .feature-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .feature-button.highlight {
+            background-color: #409EFF;
+            color: white;
+        }
+        
+        .feature-icon-large {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        /* 新闻资讯区域 */
+        .news-library {
+            background-color: #f5f5f5;
+        }
+        
+        .news-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .news-category {
+            padding: 8px 15px;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        
+        .news-category.active {
+            background-color: #409EFF;
+            color: white;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .news-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .news-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .news-content {
+            padding: 15px;
+        }
+        
+        .news-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .news-meta {
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        /* 增长实验室资源区域 */
+        .growth-resources {
+            background-color: #f8f8f8;
+        }
+        
+        .resources-sections {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .resource-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .section-icon {
+            font-size: 24px;
+            color: #409EFF;
+            margin-right: 10px;
+        }
+        
+        .resource-list {
+            margin-top: 15px;
+        }
+        
+        .resource-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .resource-thumbnail {
+            width: 60px;
+            height: 60px;
+            background-color: #f0f0f0;
+            margin-right: 10px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .resource-info {
+            flex-grow: 1;
+        }
+        
+        .resource-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .resource-type {
+            font-size: 12px;
+            color: #666;
+            padding: 2px 6px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            display: inline-block;
+        }
+    </style>
+    <script src="js/config.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="img/aica-logo.svg" alt="AICA">
+        </div>
+        <div class="header-right">
+            <a href="index.html" class="nav-link">首页</a>
+            <a href="about.html" class="nav-link">关于我们</a>
+            <a href="login.html" class="nav-link">登录</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- 新闻轮播区 -->
+        <section id="news-carousel-section" class="section news-carousel">
+            <h2 class="section-title">加载中...</h2>
+            <div class="carousel-container">
+                <div class="carousel-items" id="carousel-items">
+                    <!-- 轮播项目将由JS动态生成 -->
+                    <div class="carousel-item">
+                        <div class="carousel-content">
+                            <h3 class="carousel-title">加载中...</h3>
+                            <p class="carousel-description">正在加载轮播内容</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-nav" id="carousel-nav">
+                    <!-- 导航点将由JS动态生成 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 联享智能名片区 -->
+        <section id="business-card-section" class="section business-card">
+            <h2 class="section-title">加载中...</h2>
+            <p class="section-description">正在加载名片功能区内容</p>
+            <div class="card-features" id="card-features">
+                <!-- 名片功能将由JS动态生成 -->
+            </div>
+            <div>
+                <a href="#" class="cta-button" id="card-cta">立即创建</a>
+            </div>
+        </section>
+
+        <!-- 四大功能按钮区 -->
+        <section id="main-features-section" class="section main-features">
+            <h2 class="section-title">产品功能</h2>
+            <div class="features-grid" id="features-grid">
+                <!-- 功能按钮将由JS动态生成 -->
+                <div class="feature-button">
+                    <div class="feature-icon-large">...</div>
+                    <h3>加载中</h3>
+                    <p>正在加载功能按钮</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 新闻资讯库区 -->
+        <section id="news-library-section" class="section news-library">
+            <h2 class="section-title">新闻资讯</h2>
+            <div class="news-categories" id="news-categories">
+                <!-- 新闻分类将由JS动态生成 -->
+            </div>
+            <div class="news-grid" id="news-grid">
+                <!-- 新闻条目将由JS动态生成 -->
+            </div>
+        </section>
+
+        <!-- 增长实验室资源区 -->
+        <section id="growth-resources-section" class="section growth-resources">
+            <h2 class="section-title">增长实验室</h2>
+            <div class="resources-sections" id="resources-sections">
+                <!-- 资源部分将由JS动态生成 -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="img/aica-logo.svg" alt="AICA" height="40">
+            </div>
+            <div class="footer-links">
+                <a href="index.html">首页</a>
+                <a href="about.html">关于我们</a>
+                <a href="contact.html">联系我们</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2023 AICA 示例页面
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/functional-area-client.js"></script>
+    <script>
+        // 初始化功能区客户端
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 创建功能区客户端实例
+            const functionalAreaClient = new FunctionalAreaClient({
+                // 模拟配置，使页面在API不可用时也能展示
+                defaultConfig: {
+                    home_news_carousel: {
+                        name: '首页轮播新闻模块',
+                        isEnabled: true,
+                        config: {
+                            title: '最新动态',
+                            autoplay: true,
+                            interval: 5000,
+                            items: [
+                                {
+                                    id: '1',
+                                    title: '人工智能技术发展进入快车道',
+                                    description: 'AI技术在过去一年里取得了突破性进展',
+                                    image: 'img/news/application-banner1.jpg',
+                                    link: '/news-detail.html?id=1'
+                                },
+                                {
+                                    id: '2',
+                                    title: '数字人技术打造全新客户体验',
+                                    description: '数字人助力企业客户服务进入智能交互新时代',
+                                    image: 'img/news/application-banner2.jpg',
+                                    link: '/news-detail.html?id=2'
+                                }
+                            ]
+                        }
+                    }
+                }
+            });
+            
+            await functionalAreaClient.init();
+            
+            // 初始化各个功能区
+            initNewsCarousel(functionalAreaClient);
+            initBusinessCard(functionalAreaClient);
+            initMainFeatureButtons(functionalAreaClient);
+            initNewsLibrary(functionalAreaClient);
+            initGrowthResources(functionalAreaClient);
+        });
+        
+        // 初始化新闻轮播区
+        async function initNewsCarousel(client) {
+            const carouselSection = document.getElementById('news-carousel-section');
+            const carouselItems = document.getElementById('carousel-items');
+            const carouselNav = document.getElementById('carousel-nav');
+            
+            const area = await client.getAreaByCode('home_news_carousel');
+            
+            if (!area || !area.isEnabled || !area.config || !area.config.items || area.config.items.length === 0) {
+                carouselSection.style.display = 'none';
+                return;
+            }
+            
+            // 更新标题
+            const sectionTitle = carouselSection.querySelector('.section-title');
+            sectionTitle.textContent = area.config.title || '最新动态';
+            
+            // 清空现有内容
+            carouselItems.innerHTML = '';
+            carouselNav.innerHTML = '';
+            
+            // 添加轮播项目
+            area.config.items.forEach((item, index) => {
+                // 创建轮播项
+                const carouselItem = document.createElement('div');
+                carouselItem.className = 'carousel-item';
+                carouselItem.style.backgroundImage = `url(${item.image})`;
+                
+                // 创建内容
+                const content = document.createElement('div');
+                content.className = 'carousel-content';
+                
+                const title = document.createElement('h3');
+                title.className = 'carousel-title';
+                title.textContent = item.title;
+                
+                const description = document.createElement('p');
+                description.className = 'carousel-description';
+                description.textContent = item.description;
+                
+                content.appendChild(title);
+                content.appendChild(description);
+                carouselItem.appendChild(content);
+                carouselItems.appendChild(carouselItem);
+                
+                // 创建导航点
+                const dot = document.createElement('div');
+                dot.className = 'carousel-dot';
+                if (index === 0) dot.classList.add('active');
+                dot.dataset.index = index;
+                dot.addEventListener('click', () => {
+                    goToSlide(index);
+                });
+                carouselNav.appendChild(dot);
+            });
+            
+            // 轮播逻辑
+            let currentSlide = 0;
+            const slideCount = area.config.items.length;
+            
+            function goToSlide(index) {
+                carouselItems.style.transform = `translateX(-${index * 100}%)`;
+                
+                // 更新导航点
+                document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+                    if (i === index) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+                
+                currentSlide = index;
+            }
+            
+            // 自动轮播
+            if (area.config.autoplay) {
+                setInterval(() => {
+                    currentSlide = (currentSlide + 1) % slideCount;
+                    goToSlide(currentSlide);
+                }, area.config.interval || 5000);
+            }
+        }
+        
+        // 初始化智能名片区
+        async function initBusinessCard(client) {
+            const cardSection = document.getElementById('business-card-section');
+            const cardFeatures = document.getElementById('card-features');
+            const cardCta = document.getElementById('card-cta');
+            
+            const area = await client.getAreaByCode('business_card');
+            
+            if (!area || !area.isEnabled || !area.config) {
+                cardSection.style.display = 'none';
+                return;
+            }
+            
+            // 更新标题和描述
+            const sectionTitle = cardSection.querySelector('.section-title');
+            sectionTitle.textContent = area.config.title || '联享智能名片';
+            
+            const sectionDescription = cardSection.querySelector('.section-description');
+            sectionDescription.textContent = area.config.description || '';
+            
+            // 清空现有内容
+            cardFeatures.innerHTML = '';
+            
+            // 添加功能特点
+            if (area.config.features) {
+                area.config.features.forEach(feature => {
+                    const featureDiv = document.createElement('div');
+                    featureDiv.className = 'card-feature';
+                    
+                    const iconDiv = document.createElement('div');
+                    iconDiv.className = 'feature-icon';
+                    iconDiv.innerHTML = `<i class="${feature.icon || 'icon-default'}"></i>`;
+                    
+                    const titleDiv = document.createElement('div');
+                    titleDiv.className = 'feature-title';
+                    titleDiv.textContent = feature.title;
+                    
+                    const descDiv = document.createElement('div');
+                    descDiv.className = 'feature-description';
+                    descDiv.textContent = feature.description;
+                    
+                    featureDiv.appendChild(iconDiv);
+                    featureDiv.appendChild(titleDiv);
+                    featureDiv.appendChild(descDiv);
+                    
+                    cardFeatures.appendChild(featureDiv);
+                });
+            }
+            
+            // 更新CTA按钮
+            if (area.config.ctaButton) {
+                cardCta.textContent = area.config.ctaButton.text || '立即创建';
+                cardCta.href = area.config.ctaButton.link || '#';
+            }
+        }
+        
+        // 初始化四大功能按钮
+        async function initMainFeatureButtons(client) {
+            const featuresSection = document.getElementById('main-features-section');
+            const featuresGrid = document.getElementById('features-grid');
+            
+            const area = await client.getAreaByCode('main_feature_buttons');
+            
+            if (!area || !area.isEnabled || !area.config || !area.config.buttons) {
+                featuresSection.style.display = 'none';
+                return;
+            }
+            
+            // 清空现有内容
+            featuresGrid.innerHTML = '';
+            
+            // 添加功能按钮
+            area.config.buttons.forEach(button => {
+                const buttonLink = document.createElement('a');
+                buttonLink.className = 'feature-button';
+                if (button.highlight) buttonLink.classList.add('highlight');
+                buttonLink.href = button.link || '#';
+                
+                const iconDiv = document.createElement('div');
+                iconDiv.className = 'feature-icon-large';
+                iconDiv.innerHTML = `<i class="${button.icon || 'icon-default'}"></i>`;
+                
+                const title = document.createElement('h3');
+                title.textContent = button.title;
+                
+                const description = document.createElement('p');
+                description.textContent = button.description;
+                
+                buttonLink.appendChild(iconDiv);
+                buttonLink.appendChild(title);
+                buttonLink.appendChild(description);
+                
+                featuresGrid.appendChild(buttonLink);
+            });
+            
+            // 应用自定义样式
+            if (area.config.style) {
+                featuresSection.style.backgroundColor = area.config.style.backgroundColor || '';
+                
+                // 应用按钮样式
+                document.querySelectorAll('.feature-button:not(.highlight)').forEach(button => {
+                    button.style.backgroundColor = area.config.style.buttonColor || '';
+                });
+                
+                document.querySelectorAll('.feature-button.highlight').forEach(button => {
+                    button.style.backgroundColor = area.config.style.highlightColor || '';
+                });
+            }
+        }
+        
+        // 初始化新闻资讯库
+        async function initNewsLibrary(client) {
+            const newsSection = document.getElementById('news-library-section');
+            const newsCategories = document.getElementById('news-categories');
+            const newsGrid = document.getElementById('news-grid');
+            
+            const area = await client.getAreaByCode('news_library');
+            
+            if (!area || !area.isEnabled || !area.config) {
+                newsSection.style.display = 'none';
+                return;
+            }
+            
+            // 清空现有内容
+            newsCategories.innerHTML = '';
+            newsGrid.innerHTML = '';
+            
+            // 添加分类
+            if (area.config.categories && area.config.categories.length > 0) {
+                // 添加"全部"分类
+                const allCategory = document.createElement('div');
+                allCategory.className = 'news-category active';
+                allCategory.dataset.category = 'all';
+                allCategory.textContent = '全部';
+                newsCategories.appendChild(allCategory);
+                
+                area.config.categories.forEach(category => {
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'news-category';
+                    categoryDiv.dataset.category = category.id;
+                    categoryDiv.textContent = category.name;
+                    newsCategories.appendChild(categoryDiv);
+                });
+                
+                // 添加分类点击事件
+                document.querySelectorAll('.news-category').forEach(cat => {
+                    cat.addEventListener('click', () => {
+                        document.querySelectorAll('.news-category').forEach(c => c.classList.remove('active'));
+                        cat.classList.add('active');
+                        
+                        const categoryId = cat.dataset.category;
+                        filterNewsByCategory(categoryId, area.config.featuredNews);
+                    });
+                });
+            }
+            
+            // 添加新闻条目
+            if (area.config.featuredNews && area.config.featuredNews.length > 0) {
+                renderNews(area.config.featuredNews);
+            }
+            
+            // 渲染新闻列表
+            function renderNews(newsList) {
+                newsGrid.innerHTML = '';
+                
+                newsList.forEach(news => {
+                    const newsItem = document.createElement('div');
+                    newsItem.className = 'news-item';
+                    newsItem.dataset.category = news.category;
+                    
+                    const newsImage = document.createElement('div');
+                    newsImage.className = 'news-image';
+                    newsImage.style.backgroundImage = `url(${news.image})`;
+                    
+                    const newsContent = document.createElement('div');
+                    newsContent.className = 'news-content';
+                    
+                    const newsTitle = document.createElement('h3');
+                    newsTitle.className = 'news-title';
+                    newsTitle.textContent = news.title;
+                    
+                    const newsSummary = document.createElement('p');
+                    newsSummary.textContent = news.summary;
+                    
+                    const newsMeta = document.createElement('div');
+                    newsMeta.className = 'news-meta';
+                    
+                    const newsDate = document.createElement('span');
+                    newsDate.textContent = news.publishDate;
+                    
+                    const newsAuthor = document.createElement('span');
+                    newsAuthor.textContent = news.author;
+                    
+                    newsMeta.appendChild(newsDate);
+                    newsMeta.appendChild(newsAuthor);
+                    
+                    newsContent.appendChild(newsTitle);
+                    newsContent.appendChild(newsSummary);
+                    newsContent.appendChild(newsMeta);
+                    
+                    newsItem.appendChild(newsImage);
+                    newsItem.appendChild(newsContent);
+                    
+                    newsGrid.appendChild(newsItem);
+                });
+            }
+            
+            // 按分类筛选新闻
+            function filterNewsByCategory(categoryId, newsList) {
+                if (categoryId === 'all') {
+                    renderNews(newsList);
+                } else {
+                    const filtered = newsList.filter(news => news.category === categoryId);
+                    renderNews(filtered);
+                }
+            }
+        }
+        
+        // 初始化增长实验室资源
+        async function initGrowthResources(client) {
+            const resourcesSection = document.getElementById('growth-resources-section');
+            const resourcesSections = document.getElementById('resources-sections');
+            
+            const area = await client.getAreaByCode('growth_lab_resources');
+            
+            if (!area || !area.isEnabled || !area.config || !area.config.sections) {
+                resourcesSection.style.display = 'none';
+                return;
+            }
+            
+            // 清空现有内容
+            resourcesSections.innerHTML = '';
+            
+            // 添加资源部分
+            area.config.sections.forEach(section => {
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'resource-section';
+                
+                const header = document.createElement('div');
+                header.className = 'section-header';
+                
+                const icon = document.createElement('div');
+                icon.className = 'section-icon';
+                icon.innerHTML = `<i class="${section.icon || 'icon-default'}"></i>`;
+                
+                const title = document.createElement('h3');
+                title.textContent = section.title;
+                
+                header.appendChild(icon);
+                header.appendChild(title);
+                
+                const description = document.createElement('p');
+                description.textContent = section.description;
+                
+                const resourceList = document.createElement('div');
+                resourceList.className = 'resource-list';
+                
+                // 添加资源项
+                if (section.resources && section.resources.length > 0) {
+                    section.resources.forEach(resource => {
+                        const item = document.createElement('div');
+                        item.className = 'resource-item';
+                        
+                        const thumbnail = document.createElement('div');
+                        thumbnail.className = 'resource-thumbnail';
+                        thumbnail.style.backgroundImage = `url(${resource.thumbnail})`;
+                        
+                        const info = document.createElement('div');
+                        info.className = 'resource-info';
+                        
+                        const resourceTitle = document.createElement('div');
+                        resourceTitle.className = 'resource-title';
+                        resourceTitle.textContent = resource.title;
+                        
+                        const resourceType = document.createElement('div');
+                        resourceType.className = 'resource-type';
+                        resourceType.textContent = getResourceTypeLabel(resource.type);
+                        
+                        info.appendChild(resourceTitle);
+                        info.appendChild(resourceType);
+                        
+                        item.appendChild(thumbnail);
+                        item.appendChild(info);
+                        
+                        resourceList.appendChild(item);
+                    });
+                }
+                
+                sectionDiv.appendChild(header);
+                sectionDiv.appendChild(description);
+                sectionDiv.appendChild(resourceList);
+                
+                resourcesSections.appendChild(sectionDiv);
+            });
+            
+            // 获取资源类型标签
+            function getResourceTypeLabel(type) {
+                const typeMap = {
+                    'guide': '指南',
+                    'template': '模板',
+                    'tool': '工具',
+                    'case-study': '案例'
+                };
+                return typeMap[type] || type;
+            }
+        }
+    </script>
+</body>
+</html> 

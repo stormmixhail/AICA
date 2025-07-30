@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景渐变 -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0f7ff" />
+      <stop offset="100%" stop-color="#e0efff" />
+    </linearGradient>
+    <linearGradient id="vuca-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3a7bff" />
+      <stop offset="100%" stop-color="#5e6ce6" />
+    </linearGradient>
+    <linearGradient id="card-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a80ff" />
+      <stop offset="100%" stop-color="#2D5EFF" />
+    </linearGradient>
+    <linearGradient id="card-gradient-2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff5e84" />
+      <stop offset="100%" stop-color="#ff3366" />
+    </linearGradient>
+    <linearGradient id="card-gradient-3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7a6bff" />
+      <stop offset="100%" stop-color="#6351e8" />
+    </linearGradient>
+    <linearGradient id="card-gradient-4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff9f5a" />
+      <stop offset="100%" stop-color="#ff7f3f" />
+    </linearGradient>
+    <linearGradient id="card-gradient-5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5ebaff" />
+      <stop offset="100%" stop-color="#39a0ff" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="10" flood-color="#3a7bff" flood-opacity="0.2"/>
+    </filter>
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="800" height="600" rx="20" fill="url(#bg-gradient)" />
+  
+  <!-- VUCA标题区 -->
+  <g filter="url(#shadow)">
+    <rect x="100" y="40" width="600" height="80" rx="10" fill="white" opacity="0.9"/>
+    <text x="400" y="85" font-family="PingFang SC, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="url(#vuca-gradient)">当前市场大环境"VUCA化"凸显</text>
+    <text x="400" y="115" font-family="PingFang SC, sans-serif" font-size="18" text-anchor="middle" fill="#666">易变性(Volatility) · 不确定性(Uncertainty) · 复杂性(Complexity) · 模糊性(Ambiguity)</text>
+  </g>
+  
+  <!-- 五大特征标题 -->
+  <text x="400" y="160" font-family="PingFang SC, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">催生社交用户五大特征</text>
+  
+  <!-- 特征卡片：AI里AI气 -->
+  <g filter="url(#card-shadow)">
+    <rect x="75" y="190" width="130" height="130" rx="20" fill="url(#card-gradient-1)"/>
+    <text x="140" y="255" font-family="PingFang SC, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="white">AI里AI气</text>
+    <circle cx="140" cy="215" r="25" fill="white" opacity="0.2"/>
+    <text x="140" y="222" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="white">01</text>
+  </g>
+  
+  <!-- 特征卡片：即时满足 -->
+  <g filter="url(#card-shadow)">
+    <rect x="215" y="190" width="130" height="130" rx="20" fill="url(#card-gradient-2)"/>
+    <text x="280" y="255" font-family="PingFang SC, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="white">即时满足</text>
+    <circle cx="280" cy="215" r="25" fill="white" opacity="0.2"/>
+    <text x="280" y="222" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="white">02</text>
+  </g>
+  
+  <!-- 特征卡片：圈层分化 -->
+  <g filter="url(#card-shadow)">
+    <rect x="355" y="190" width="130" height="130" rx="20" fill="url(#card-gradient-3)"/>
+    <text x="420" y="255" font-family="PingFang SC, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="white">圈层分化</text>
+    <circle cx="420" cy="215" r="25" fill="white" opacity="0.2"/>
+    <text x="420" y="222" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="white">03</text>
+  </g>
+  
+  <!-- 特征卡片：情感代偿 -->
+  <g filter="url(#card-shadow)">
+    <rect x="495" y="190" width="130" height="130" rx="20" fill="url(#card-gradient-4)"/>
+    <text x="560" y="255" font-family="PingFang SC, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="white">情感代偿</text>
+    <circle cx="560" cy="215" r="25" fill="white" opacity="0.2"/>
+    <text x="560" y="222" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="white">04</text>
+  </g>
+  
+  <!-- 特征卡片：虚实消融 -->
+  <g filter="url(#card-shadow)">
+    <rect x="635" y="190" width="130" height="130" rx="20" fill="url(#card-gradient-5)"/>
+    <text x="700" y="255" font-family="PingFang SC, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="white">虚实消融</text>
+    <circle cx="700" cy="215" r="25" fill="white" opacity="0.2"/>
+    <text x="700" y="222" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="white">05</text>
+  </g>
+
+  <!-- 内容图表：AI里AI气 -->
+  <g filter="url(#shadow)">
+    <rect x="80" y="340" width="300" height="240" rx="15" fill="white" opacity="0.95"/>
+    <text x="230" y="370" font-family="PingFang SC, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">AI全面渗入年轻人生活</text>
+    
+    <circle cx="130" cy="420" r="40" fill="#f0f7ff" stroke="#4a80ff" stroke-width="2"/>
+    <text x="130" y="415" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#4a80ff">95.2%</text>
+    <text x="130" y="435" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="middle" fill="#666">年轻人使用AI</text>
+    
+    <circle cx="230" cy="420" r="40" fill="#f0f7ff" stroke="#4a80ff" stroke-width="2"/>
+    <text x="230" y="415" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#4a80ff">132.8</text>
+    <text x="230" y="435" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="middle" fill="#666">月均使用分钟</text>
+    
+    <circle cx="330" cy="420" r="40" fill="#f0f7ff" stroke="#4a80ff" stroke-width="2"/>
+    <text x="330" y="415" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#4a80ff">49.6</text>
+    <text x="330" y="435" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="middle" fill="#666">月均使用次数</text>
+    
+    <g>
+      <rect x="100" y="480" width="80" height="80" rx="10" fill="#e6eeff"/>
+      <text x="140" y="525" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="middle" fill="#333">主动消费</text>
+    </g>
+    
+    <g>
+      <rect x="190" y="480" width="80" height="80" rx="10" fill="#e6eeff"/>
+      <text x="230" y="525" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="middle" fill="#333">被动消费</text>
+    </g>
+    
+    <g>
+      <rect x="280" y="480" width="80" height="80" rx="10" fill="#e6eeff"/>
+      <text x="320" y="525" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="middle" fill="#333">决策影响</text>
+    </g>
+  </g>
+  
+  <!-- 内容图表：社交特征与营销方向 -->
+  <g filter="url(#shadow)">
+    <rect x="400" y="340" width="320" height="240" rx="15" fill="white" opacity="0.95"/>
+    <text x="560" y="370" font-family="PingFang SC, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">社媒营销新方向</text>
+    
+    <line x1="420" y1="400" x2="700" y2="400" stroke="#eee" stroke-width="1"/>
+    <text x="440" y="395" font-family="PingFang SC, sans-serif" font-size="14" text-anchor="start" fill="#4a80ff" font-weight="bold">AI超级入口</text>
+    <text x="440" y="425" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="start" fill="#666">品牌重构"AI友好"的数字基因</text>
+    
+    <line x1="420" y1="440" x2="700" y2="440" stroke="#eee" stroke-width="1"/>
+    <text x="440" y="435" font-family="PingFang SC, sans-serif" font-size="14" text-anchor="start" fill="#ff3366" font-weight="bold">KOL+短剧营销</text>
+    <text x="440" y="465" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="start" fill="#666">短剧成为社交整合营销新锚点</text>
+    
+    <line x1="420" y1="480" x2="700" y2="480" stroke="#eee" stroke-width="1"/>
+    <text x="440" y="475" font-family="PingFang SC, sans-serif" font-size="14" text-anchor="start" fill="#6351e8" font-weight="bold">人群需求回应</text>
+    <text x="440" y="505" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="start" fill="#666">从内容创意到投放精准响应需求</text>
+    
+    <line x1="420" y1="520" x2="700" y2="520" stroke="#eee" stroke-width="1"/>
+    <text x="440" y="515" font-family="PingFang SC, sans-serif" font-size="14" text-anchor="start" fill="#ff7f3f" font-weight="bold">情绪价值对位</text>
+    <text x="440" y="545" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="start" fill="#666">理解情绪缺口，创造差异化内容</text>
+    
+    <line x1="420" y1="560" x2="700" y2="560" stroke="#eee" stroke-width="1"/>
+    <text x="440" y="555" font-family="PingFang SC, sans-serif" font-size="14" text-anchor="start" fill="#39a0ff" font-weight="bold">精准整合营销</text>
+    <text x="440" y="570" font-family="PingFang SC, sans-serif" font-size="12" text-anchor="start" fill="#666">构建全场景、沉浸式营销体验</text>
+  </g>
+</svg> 

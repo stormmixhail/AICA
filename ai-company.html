@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI一人公司 - AICA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/feature-page.css">
+    <script src="js/lib/vue.min.js"></script>
+    <script>
+        // 页面加载后立即重定向到AI一人公司Dashboard
+        window.onload = function() {
+            // 使用同级目录中的文件
+            window.location.href = 'ai-company-dashboard.html';
+        }
+    </script>
+</head>
+<body>
+    <div id="feature-app" class="feature-page">
+        <header class="feature-header">
+            <button class="back-button" @click="goBack">
+                <img src="img/back-arrow.svg?v=20250716" alt="返回">
+            </button>
+            <div class="feature-title">AI一人公司</div>
+        </header>
+        
+        <div class="feature-content">
+            <section class="feature-intro">
+                <div class="feature-intro-header">
+                    <h2 class="feature-intro-title">AI一人公司</h2>
+                    <button class="try-button" @click="scrollToFunction">马上试试</button>
+                </div>
+                
+                <div class="feature-details" :class="{ 'expanded': detailsExpanded, 'collapsed': !detailsExpanded }">
+                    <p class="feature-description">
+                        AI一人公司是一套完整的创业工具集，让个人创业者能够凭借AI技术的力量，实现小团队甚至一人运营一家企业的目标，大幅降低创业门槛和运营成本。
+                    </p>
+                    
+                    <div class="feature-highlights">
+                        <div class="highlight-item">
+                            <img src="img/scale-icon.svg?v=20250716" alt="规模" class="highlight-icon">
+                            <span class="highlight-text">一人企业，十人效能</span>
+                        </div>
+                        <div class="highlight-item">
+                            <img src="img/resource-icon.svg?v=20250716" alt="资源" class="highlight-icon">
+                            <span class="highlight-text">全套创业工具集成</span>
+                        </div>
+                        <div class="highlight-item">
+                            <img src="img/question-icon.svg?v=20250716" alt="问题" class="highlight-icon">
+                            <span class="highlight-text">专业创业问题解答</span>
+                        </div>
+                        <div class="highlight-item">
+                            <img src="img/data-icon.svg?v=20250716" alt="数据" class="highlight-icon">
+                            <span class="highlight-text">数据驱动业务决策</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="collapse-button" :class="{ 'collapsed': !detailsExpanded }" @click="toggleDetails">
+                    {{ detailsExpanded ? '收起' : '展开' }}
+                </button>
+            </section>
+            
+            <section class="function-area">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="chat-avatar">
+                            <img src="img/company-icon.svg?v=20250716" alt="一人公司助手">
+                        </div>
+                        <span>一人公司助手</span>
+                    </div>
+                    
+                    <div class="chat-messages">
+                        <!-- 消息组 -->
+                        <div v-for="(messageGroup, index) in messages" :key="index" 
+                             :class="['message-group', messageGroup.type]">
+                            <div v-for="(text, i) in messageGroup.texts" :key="i" class="message">
+                                {{ text }}
+                            </div>
+                        </div>
+                        
+                        <!-- 正在输入指示器 -->
+                        <div v-if="isTyping" class="typing-indicator">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input">
+                        <textarea class="message-input" v-model="userInput" placeholder="输入您的问题..." @keyup.enter="sendMessage"></textarea>
+                        <button class="send-button" @click="sendMessage">
+                            <img src="img/send-icon.svg?v=20250716" alt="发送">
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="js/feature-page.js"></script>
+</body>
+</html> 

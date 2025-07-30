@@ -1,0 +1,1934 @@
+/* AI战略名片页面样式 */
+/* 基础结构与布局 */
+.ai-card-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f5f7fa;
+}
+
+.feature-header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-button:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+
+.feature-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    flex-grow: 1;
+    text-align: center;
+    margin-right: 32px; /* 平衡左侧返回按钮的宽度 */
+    color: #333;
+}
+
+.card-content {
+    flex-grow: 1;
+    padding: 16px;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* 模块公共样式 */
+.card-module {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.module-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 16px;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.module-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, #0070ff, #00c8ff);
+    border-radius: 3px;
+}
+
+.module-description {
+    color: #666;
+    margin: 0 0 16px;
+    font-size: 0.9rem;
+}
+
+/* 基本信息模块 */
+.card-basic-info {
+    padding-bottom: 24px;
+}
+
+.profile-container {
+    display: flex;
+    align-items: center;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    margin-right: 16px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #0070ff;
+    flex-shrink: 0;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info {
+    flex-grow: 1;
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 4px;
+}
+
+.dynamic-title {
+    position: relative;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #0070ff;
+    padding: 4px 20px 4px 0;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.dynamic-title::after {
+    content: '▼';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+}
+
+.title-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 5;
+}
+
+.title-option {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.title-option:hover {
+    background-color: #f0f7ff;
+}
+
+.profile-tagline {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+    font-style: italic;
+}
+
+/* 自我介绍文本样式 */
+.card-content-text {
+    color: #333;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    white-space: pre-line;
+}
+
+/* 联系方式模块 */
+.contact-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 12px;
+}
+
+.contact-method {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f8f9fb;
+}
+
+.contact-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.contact-icon img {
+    width: 24px;
+    height: 24px;
+}
+
+.contact-details {
+    flex-grow: 1;
+}
+
+.contact-label {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 2px;
+}
+
+.contact-value {
+    font-size: 0.95rem;
+    color: #333;
+    font-weight: 500;
+}
+
+/* 与人对话模块 */
+.card-chat-module {
+    text-align: center;
+    padding: 24px;
+}
+
+.chat-action {
+    margin-top: 16px;
+}
+
+.primary-button {
+    background: linear-gradient(90deg, #0070ff, #00c8ff);
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,112,255,0.2);
+}
+
+.primary-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,112,255,0.3);
+}
+
+.primary-button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+/* 核心价值模块 */
+.value-cubes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.value-cube {
+    flex: 1 1 calc(33.333% - 8px);
+    min-width: 100px;
+    background: #f8f9fb;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.value-cube:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.cube-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 12px;
+}
+
+.cube-icon img {
+    width: 100%;
+    height: 100%;
+}
+
+.cube-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 0;
+    color: #333;
+}
+
+/* 文件模块 */
+.files-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #f8f9fb;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.file-item:hover {
+    background-color: #f0f7ff;
+}
+
+.file-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.file-icon img {
+    width: 24px;
+    height: 24px;
+}
+
+.file-info {
+    flex-grow: 1;
+}
+
+.file-name {
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.file-meta {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 30px 0;
+    color: #999;
+}
+
+.empty-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 12px;
+    opacity: 0.5;
+}
+
+.empty-icon img {
+    width: 100%;
+    height: 100%;
+}
+
+.empty-message {
+    font-size: 0.9rem;
+}
+
+/* 视频模块 */
+.videos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+}
+
+.video-item {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.video-item:hover {
+    transform: translateY(-2px);
+}
+
+.video-thumbnail {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 比例 */
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.video-thumbnail img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+.video-item:hover .play-button {
+    opacity: 1;
+}
+
+.video-info {
+    padding: 0 4px;
+}
+
+.video-title {
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 4px;
+    line-height: 1.3;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.video-duration {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+/* 行业案例模块 */
+.showcase-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.showcase-item {
+    flex: 1 1 calc(50% - 8px);
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    background-color: #f8f9fb;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.showcase-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.item-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
+}
+
+.item-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.item-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+    text-align: center;
+}
+
+/* 弹窗样式 */
+.value-details-modal,
+.contact-modal,
+.video-player-modal,
+.personal-chat-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #999;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.close-button:hover {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.modal-body {
+    padding: 16px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+/* 聊天相关样式 */
+.chat-button {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: linear-gradient(90deg, #0070ff, #00c8ff);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border-radius: 24px;
+    font-weight: 500;
+    box-shadow: 0 4px 16px rgba(0,112,255,0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 20;
+}
+
+.chat-button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.chat-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,112,255,0.4);
+}
+
+.chat-container {
+    position: fixed;
+    right: 20px;
+    bottom: 80px;
+    width: 90%;
+    max-width: 350px;
+    height: 450px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    z-index: 20;
+    overflow: hidden;
+}
+
+.chat-header {
+    padding: 16px;
+    background: linear-gradient(90deg, #0070ff, #00c8ff);
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.chat-avatar {
+    width: 36px;
+    height: 36px;
+    margin-right: 12px;
+    border-radius: 50%;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.chat-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.chat-messages,
+.personal-chat-messages {
+    flex-grow: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message {
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.message.ai,
+.message.agent {
+    background-color: #f1f1f1;
+    color: #333;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+}
+
+.message.user {
+    background: linear-gradient(90deg, #0070ff, #00c8ff);
+    color: #fff;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    background-color: #f1f1f1;
+    border-radius: 18px;
+    width: 60px;
+    align-self: flex-start;
+}
+
+.typing-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #999;
+    border-radius: 50%;
+    margin-right: 4px;
+    animation: typing-dot 1.4s infinite ease-in-out both;
+}
+
+.typing-dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.typing-dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes typing-dot {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+.chat-input {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-top: 1px solid #eee;
+    background-color: #fff;
+}
+
+.message-input {
+    flex-grow: 1;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 10px 16px;
+    margin-right: 8px;
+    resize: none;
+    max-height: 100px;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.message-input:focus {
+    outline: none;
+    border-color: #0070ff;
+}
+
+.send-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #0070ff, #00c8ff);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.send-button:hover {
+    transform: scale(1.05);
+}
+
+.send-button img {
+    width: 20px;
+    height: 20px;
+}
+
+/* 表单样式 */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #0070ff;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(90deg, #0070ff, #00c8ff);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.submit-button:hover {
+    transform: translateY(-2px);
+}
+
+/* 个人对话弹窗 */
+.chat-modal-body {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 视频播放器 */
+.video-player {
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+    border-radius: 8px;
+}
+
+/* 适配不同设备 */
+@media (max-width: 480px) {
+    .card-content {
+        padding: 12px;
+    }
+    
+    .profile-avatar {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .value-cube {
+        flex: 1 1 calc(50% - 6px);
+    }
+    
+    .contact-methods {
+        grid-template-columns: 1fr;
+    }
+    
+    .videos-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .showcase-item {
+        flex: 1 1 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-content {
+        padding: 24px;
+    }
+    
+    .card-module {
+        padding: 24px;
+        margin-bottom: 24px;
+    }
+    
+    .chat-container {
+        height: 500px;
+        max-width: 400px;
+    }
+}
+
+/* 弹窗内容样式 */
+.case-study,
+.system-showcase,
+.capital-showcase {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.case-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.case-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.case-title h4 {
+    margin: 0 0 4px;
+    font-size: 1.1rem;
+}
+
+.case-subtitle {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.case-stats {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    margin: 8px 0;
+}
+
+.stat-item {
+    flex: 1;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0070ff;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.case-description {
+    line-height: 1.6;
+    color: #333;
+}
+
+.system-animation {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.system-gif {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+}
+
+.system-benefits {
+    padding-left: 20px;
+}
+
+.system-benefits li {
+    margin-bottom: 8px;
+}
+
+.capital-vision {
+    margin-bottom: 16px;
+}
+
+.capital-vision h4 {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+}
+
+.capital-model {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 16px 0;
+}
+
+.model-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 60px;
+}
+
+.stage-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 4px;
+}
+
+.stage-icon img {
+    width: 100%;
+    height: 100%;
+}
+
+.stage-text {
+    font-size: 0.7rem;
+    color: #666;
+}
+
+.model-arrow {
+    color: #999;
+    font-size: 1.2rem;
+    margin: 0 4px;
+    display: flex;
+    align-items: center;
+}
+
+.capital-cta {
+    text-align: center;
+    margin-top: 16px;
+    font-weight: 500;
+} 
+
+/* 名片使用说明模块 */
+.usage-guide-content {
+    padding: 5px 0;
+}
+
+.guide-description {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    text-align: justify;
+}
+
+/* 名片展示内容解读模块 */
+.content-explanation {
+    padding: 10px 0;
+}
+
+.explanation-placeholder {
+    background-color: #f8f9fb;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 3px solid #0070ff;
+}
+
+.explanation-text {
+    color: #555;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.explanation-note {
+    color: #888;
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+/* 发现商机广场模块 */
+.plaza-description {
+    margin-bottom: 16px;
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.opportunity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.opportunity-item {
+    display: flex;
+    background-color: #f8f9fb;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.opportunity-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.opportunity-thumbnail {
+    width: 120px;
+    height: 90px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.opportunity-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.opportunity-info {
+    padding: 10px 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.opportunity-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 5px;
+    color: #333;
+}
+
+.opportunity-summary {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0 0 8px;
+    line-height: 1.4;
+    flex-grow: 1;
+}
+
+.opportunity-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+}
+
+.opportunity-industry {
+    color: #0070ff;
+    padding: 2px 8px;
+    background-color: rgba(0, 112, 255, 0.1);
+    border-radius: 12px;
+}
+
+.opportunity-cards {
+    color: #666;
+}
+
+.view-more-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.secondary-button {
+    background-color: #fff;
+    color: #0070ff;
+    border: 1px solid #0070ff;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.secondary-button:hover {
+    background-color: rgba(0, 112, 255, 0.05);
+}
+
+/* 使用指南模块 */
+.instruction-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.instruction-step {
+    display: flex;
+    align-items: flex-start;
+    padding: 5px 0;
+}
+
+.step-number {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0070ff, #00c8ff);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex-grow: 1;
+}
+
+.step-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 5px;
+    color: #333;
+}
+
+.step-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.instruction-cta {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* 商机展示模块 */
+.business-categories {
+    margin-bottom: 15px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    padding-bottom: 5px;
+}
+
+.category-tabs {
+    display: flex;
+    gap: 10px;
+}
+
+.category-tab {
+    padding: 6px 16px;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    color: #666;
+    transition: all 0.2s ease;
+}
+
+.category-tab.active {
+    background-color: #0070ff;
+    color: #fff;
+}
+
+.business-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.business-item {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.business-item:hover {
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.business-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.business-item-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    color: #333;
+}
+
+.business-item-tag {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    color: #fff;
+}
+
+.business-item-description {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0 0 12px;
+    line-height: 1.5;
+}
+
+.business-item-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.empty-business {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 0;
+    color: #999;
+}
+
+/* 响应式调整 */
+@media (max-width: 480px) {
+    .opportunity-item {
+        flex-direction: column;
+    }
+    
+    .opportunity-thumbnail {
+        width: 100%;
+        height: 140px;
+    }
+    
+    .opportunity-info {
+        padding: 12px;
+    }
+    
+    .step-number {
+        width: 24px;
+        height: 24px;
+        font-size: 0.85rem;
+    }
+    
+    .business-item-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .business-item-footer {
+        flex-direction: column;
+        gap: 5px;
+    }
+} 
+
+/* 商机详情弹窗 */
+.opportunity-detail-modal,
+.business-detail-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.opportunity-detail-modal .modal-content,
+.business-detail-modal .modal-content {
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.opportunity-video {
+    margin-bottom: 20px;
+}
+
+.opportunity-video .video-player {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.opportunity-info-detail {
+    padding: 0 10px;
+}
+
+.opportunity-industry-tag {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.industry-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-right: 8px;
+}
+
+.industry-value {
+    color: #0070ff;
+    padding: 2px 10px;
+    background-color: rgba(0, 112, 255, 0.1);
+    border-radius: 12px;
+    font-size: 0.9rem;
+}
+
+.opportunity-description {
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+.related-cards-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 15px;
+    color: #333;
+}
+
+.related-cards-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.related-card-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    background-color: #f8f9fb;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.related-card-item:hover {
+    background-color: #f0f7ff;
+}
+
+.card-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 8px;
+}
+
+.card-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-name {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.opportunity-actions {
+    display: flex;
+    justify-content: center;
+}
+
+/* 商业项目详情弹窗样式 */
+.business-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.business-detail-tag {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: white;
+}
+
+.business-detail-date {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.business-detail-description {
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+.business-contact-info {
+    background-color: #f8f9fb;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.contact-label {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.contact-value {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.business-detail-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* 响应式调整 */
+@media (max-width: 480px) {
+    .related-cards-list {
+        gap: 10px;
+    }
+    
+    .related-card-item {
+        padding: 6px 12px;
+    }
+    
+    .business-detail-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+} 
+
+/* 个人信息模块样式 */
+.personal-info-module .module-content {
+    padding: 5px 0;
+}
+
+.personal-info-main {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.avatar-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.avatar-container {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #0070ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f7ff;
+    box-shadow: 0 2px 10px rgba(0, 112, 255, 0.2);
+    margin-bottom: 10px;
+}
+
+.card-avatar, .default-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.qr-code-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.qr-code-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+}
+
+.qr-code-label {
+    font-size: 0.7rem;
+    color: #666;
+    margin-top: 3px;
+}
+
+.info-details {
+    flex: 1;
+}
+
+.card-name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 5px;
+}
+
+.card-title-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.card-title {
+    font-size: 1rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.company-badge {
+    font-weight: 500;
+}
+
+.verification-badge {
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 112, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.verification-icon {
+    width: 12px;
+    height: 12px;
+    margin-right: 4px;
+}
+
+.verification-text {
+    font-size: 0.75rem;
+    color: #0070ff;
+    font-weight: 500;
+}
+
+.card-slogan {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 0 0 8px;
+    font-style: italic;
+}
+
+.card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.card-tag {
+    background-color: #f0f7ff;
+    color: #0070ff;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+.personal-info-bio {
+    margin-bottom: 15px;
+}
+
+.personal-stats {
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-value {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #0070ff;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #777;
+}
+
+/* 联系方式模块样式 */
+.contact-module .module-content {
+    padding: 5px 0;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fb;
+    border-radius: 10px;
+    padding: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.contact-item:hover {
+    background-color: #f0f7ff;
+    transform: translateY(-2px);
+}
+
+.contact-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin-right: 12px;
+}
+
+.contact-icon img {
+    width: 24px;
+    height: 24px;
+}
+
+.contact-info {
+    flex: 1;
+}
+
+.contact-label {
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 3px;
+}
+
+.contact-value {
+    font-size: 0.95rem;
+    color: #333;
+    font-weight: 500;
+    word-break: break-all;
+}
+
+.address-item {
+    grid-column: span 2;
+}
+
+/* 创建我的名片模块样式 */
+.create-card-module {
+    margin-top: 20px;
+}
+
+.create-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.create-card-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.preview-qrcode {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.qrcode-image {
+    width: 150px;
+    height: 150px;
+}
+
+.preview-description {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    max-width: 200px;
+    margin: 0;
+}
+
+.create-card-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+}
+
+.benefit-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0070ff, #00a3ff);
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.benefit-icon img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+}
+
+.benefit-text {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.create-card-button {
+    background: linear-gradient(135deg, #0070ff, #00a3ff);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 112, 255, 0.3);
+    width: 100%;
+    max-width: 280px;
+}
+
+.create-card-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 112, 255, 0.4);
+}
+
+/* 响应式调整 */
+@media (max-width: 480px) {
+    .personal-info-main {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .avatar-section {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .address-item {
+        grid-column: span 1;
+    }
+} 
+
+/* 分享名片按钮样式 */
+.contact-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.contact-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.share-card-button {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #0070ff, #00a3ff);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(0, 112, 255, 0.2);
+}
+
+.share-card-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 112, 255, 0.3);
+}
+
+.share-card-button img {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    filter: brightness(0) invert(1);
+}
+
+/* 分享名片弹窗样式 */
+.share-card-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.share-card-preview {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.share-card-image-container {
+    width: 100%;
+    max-width: 320px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.share-card-canvas {
+    display: none;
+}
+
+.share-card-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.share-card-tip {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 10px 0;
+}
+
+.share-card-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* 适配不同设备尺寸 */
+@media (max-width: 480px) {
+    .contact-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .share-card-button {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .share-card-image-container {
+        max-width: 280px;
+    }
+} 

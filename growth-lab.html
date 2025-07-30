@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>增长实验室 - AICA</title>
+    <link rel="stylesheet" href="css/style.css?v=20230703">
+    <link rel="stylesheet" href="css/feature-page.css?v=20230703">
+    <link rel="stylesheet" href="css/growth-lab.css?v=20250728">
+    <script src="js/lib/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+</head>
+<body>
+    <div id="growth-lab-app" class="growth-lab-page">
+        <header class="lab-header">
+            <button class="back-button" @click="goBack">
+                <img src="img/back-arrow.svg?v=20250728" alt="返回">
+            </button>
+            <div class="header-title">增长实验室</div>
+        </header>
+        
+        <!-- 实验室首屏 -->
+        <section class="lab-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 class="lab-title">增长<span class="highlight">实验室</span></h1>
+                        <p class="lab-subtitle">数据驱动的增长洞察与方法论</p>
+                        
+                        <div class="lab-intro">
+                            <p>在这里，我们不仅展示成功案例，更分享我们对增长的深度思考与系统化方法。每一个洞察都来自于真实的市场反馈和数据验证。</p>
+                        </div>
+                        
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">28+</div>
+                                <div class="stat-label">行业数据分析</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">120%</div>
+                                <div class="stat-label">平均增长效果</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">14+</div>
+                                <div class="stat-label">验证方法论</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-visual">
+                        <div class="growth-chart-container">
+                            <canvas id="growthChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 热门话题标签 -->
+        <section class="topic-tags">
+            <div class="container">
+                <div class="tags-container">
+                    <div class="tag-item" v-for="tag in popularTags" :key="tag.id" @click="filterByTag(tag.id)">
+                        {{ tag.name }}
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 内容分类 -->
+        <section class="content-filter">
+            <div class="container">
+                <div class="filter-tabs">
+                    <button class="filter-tab" 
+                            :class="{ active: activeFilter === 'all' }"
+                            @click="setFilter('all')">
+                        全部内容
+                    </button>
+                    <button class="filter-tab" 
+                            :class="{ active: activeFilter === 'case' }"
+                            @click="setFilter('case')">
+                        案例分析
+                    </button>
+                    <button class="filter-tab" 
+                            :class="{ active: activeFilter === 'whitepaper' }"
+                            @click="setFilter('whitepaper')">
+                        白皮书
+                    </button>
+                    <button class="filter-tab" 
+                            :class="{ active: activeFilter === 'method' }"
+                            @click="setFilter('method')">
+                        方法论
+                    </button>
+                    <button class="filter-tab" 
+                            :class="{ active: activeFilter === 'insight' }"
+                            @click="setFilter('insight')">
+                        行业洞察
+                    </button>
+                </div>
+                
+                <div class="search-bar">
+                    <input type="text" v-model="searchQuery" placeholder="搜索增长内容...">
+                    <button class="search-button">
+                        <img src="img/search-icon.svg?v=20250728" alt="搜索">
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 特色内容 -->
+        <section class="featured-content" v-if="activeFilter === 'all'">
+            <div class="container">
+                <h2 class="section-title"><span class="highlight-text">特色</span>内容</h2>
+                
+                <div class="featured-main">
+                    <div class="featured-item">
+                        <div class="featured-image">
+                            <img src="img/social-trends/vuca-social-trends.svg?v=20250728" alt="VUCA时代社交用户趋势">
+                            <div class="content-tag insight-tag">行业洞察</div>
+                        </div>
+                        <div class="featured-info">
+                            <h3 class="featured-title">VUCA时代社交用户五大特征</h3>
+                            <p class="featured-desc">在市场大环境"VUCA化"凸显的背景下，社交用户呈现出AI里AI气、即时满足、圈层分化、情感代偿、虚实消融五大特征，深刻影响着品牌营销策略与消费者互动方式。</p>
+                            <div class="featured-meta">
+                                <span class="featured-date">2024-07-28</span>
+                                <span class="featured-read">15分钟阅读</span>
+                            </div>
+                            <button class="read-button" @click="openArticle('vuca-social-trends')">
+                                阅读全文
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="featured-grid">
+                    <div class="featured-card" v-if="isContentVisible('whitepaper', 'newrank2024-whitepaper')">
+                        <div class="featured-image">
+                            <img src="img/whitepaper-main.svg?v=20250728" alt="白皮书">
+                            <div class="featured-tag whitepaper-tag">白皮书</div>
+                        </div>
+                        <div class="featured-content">
+                            <h3>《新榜2024线上获客白皮书》</h3>
+                            <p>深入剖析了当下线上获客的最新趋势与挑战，基于大量实操案例，提出了获客效率、质量与可持续性的系统性思考。</p>
+                            <button class="featured-btn" @click="openArticle('newrank2024-whitepaper')">阅读全文</button>
+                        </div>
+                    </div>
+                    
+                    <div class="featured-card" v-if="isContentVisible('insight', 'insight-user-profile-ai')">
+                        <div class="featured-image">
+                            <img src="img/insight-user-profile.svg?v=20250728" alt="用户画像双驱动">
+                            <div class="featured-tag insight-tag">行业洞察</div>
+                        </div>
+                        <div class="featured-content">
+                            <h3>用户画像双驱动模型：打造精准营销新范式</h3>
+                            <p>2024年企业新媒体运营进入"精准圈层运营"时代，用户画像的构建已经从单一维度的用户触达转变为"年龄分层+兴趣圈层"的双驱动模式。</p>
+                            <button class="featured-btn" @click="openArticle('insight-user-profile-ai')">阅读全文</button>
+                        </div>
+                    </div>
+                    
+                    <div class="featured-card" v-if="isContentVisible('method', 'method-high-conversion-notes')">
+                        <div class="featured-image">
+                            <img src="img/content-marketing/high-conversion-notes.svg?v=20250728" alt="高转化笔记">
+                            <div class="featured-tag method-tag">方法论</div>
+                        </div>
+                        <div class="featured-content">
+                            <h3>内容营销实战：3步写出高转化笔记</h3>
+                            <p>本文拆解用户痛点、真实场景描述和有效下单引导三大关键步骤，帮你提升内容转化率，适应当今碎片化的注意力经济。</p>
+                            <button class="featured-btn" @click="openArticle('method-high-conversion-notes')">阅读全文</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 最新洞察 -->
+        <section class="latest-insights" v-if="activeFilter === 'all'">
+            <div class="container">
+                <h2 class="section-title"><span class="highlight-text">最新</span>洞察</h2>
+                
+                <div class="insights-slider">
+                    <div class="insight-card" @click="openArticle('method-redbook-content')">
+                        <div class="insight-image">
+                            <img src="img/content-marketing/redbook-steps.svg?v=20250728" alt="小红书爆款内容">
+                        </div>
+                        <div class="insight-content">
+                            <div class="insight-tag method-tag">方法论</div>
+                            <h3>5个步骤打造小红书爆款内容</h3>
+                            <p>揭秘小红书平台的内容规律与爆款机制，全流程指导高转化笔记创作。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-card" @click="openArticle('case-education')">
+                        <div class="insight-image">
+                            <img src="img/case-education.svg?v=20250728" alt="教育案例">
+                        </div>
+                        <div class="insight-content">
+                            <div class="insight-tag case-tag">案例分析</div>
+                            <h3>如何为教育机构节省60%广告预算？</h3>
+                            <p>通过AI驱动的精准用户画像和内容匹配，重构获客渠道组合，显著降低获客成本。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-card" @click="openArticle('method-comment-analysis')">
+                        <div class="insight-image">
+                            <img src="img/method-comments.svg?v=20250728" alt="评论分析">
+                        </div>
+                        <div class="insight-content">
+                            <div class="insight-tag method-tag">方法论</div>
+                            <h3>AI分析千条评论提炼爆款话术</h3>
+                            <p>详解如何使用自然语言处理技术，从用户评论中挖掘情感倾向与核心诉求。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="insights-nav">
+                    <button class="nav-btn prev" @click="prevSlide">&lt;</button>
+                    <button class="nav-btn next" @click="nextSlide">&gt;</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 行业数据 -->
+        <section class="industry-data" v-if="activeFilter === 'all'">
+            <div class="container">
+                <h2 class="section-title"><span class="highlight-text">行业</span>数据</h2>
+                
+                <div class="data-visualization">
+                    <div class="data-card">
+                        <h3 class="data-title">2024年获客成本趋势</h3>
+                        <div class="chart-container">
+                            <canvas id="acquisitionCostChart"></canvas>
+                        </div>
+                        <p class="data-insight">AI驱动的精准获客策略平均可降低40%的客户获取成本</p>
+                    </div>
+                    
+                    <div class="data-metrics">
+                        <div class="metric-card">
+                            <div class="metric-value">127%</div>
+                            <div class="metric-label">内容营销ROI提升</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-value">3.8×</div>
+                            <div class="metric-label">转化率倍数增长</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-value">-45%</div>
+                            <div class="metric-label">客户流失率下降</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-value">62%</div>
+                            <div class="metric-label">品牌认知度提升</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 内容列表 -->
+        <section class="content-grid">
+            <div class="container">
+                <h2 class="section-title" v-if="filteredContent.length > 0"><span class="highlight-text">{{ filterTitle }}</span></h2>
+                <p class="empty-message" v-if="filteredContent.length === 0">暂无相关内容，请尝试其他筛选条件</p>
+                
+                <div class="content-list">
+                    <!-- VUCA时代社交用户五大特征 -->
+                    <div class="content-card" v-if="isContentVisible('insight', 'article-vuca-social-trends')">
+                        <div class="card-image">
+                            <img src="img/social-trends/vuca-social-trends.svg?v=20250728" alt="VUCA社交趋势">
+                            <div class="content-tag insight-tag">行业洞察</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">VUCA时代社交用户五大特征</h3>
+                            <p class="card-excerpt">深入解析当前市场环境下社交用户的变化趋势：AI里AI气、即时满足、圈层分化、情感代偿、虚实消融，及其对品牌营销的深远影响。</p>
+                            <div class="card-meta">
+                                <span class="publish-date">2024-07-28</span>
+                                <span class="read-time">15分钟阅读</span>
+                            </div>
+                            <button class="read-more-btn" @click="openArticle('vuca-social-trends')">查看详情</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 新榜2024线上获客白皮书 -->
+                    <div class="content-card" v-if="isContentVisible('whitepaper', 'newrank2024-whitepaper')">
+                        <div class="card-image">
+                            <img src="img/whitepaper-main.svg?v=20250728" alt="线上获客白皮书">
+                            <div class="content-tag whitepaper-tag">白皮书</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">《新榜2024线上获客白皮书》</h3>
+                            <p class="card-excerpt">基于28个行业数据分析消费频次×客单价双维透视，深度解析线上获客从流量到留量的转变，以及AI内容创作对效率提升的影响。</p>
+                            <div class="card-meta">
+                                <span class="publish-date">2024-07-20</span>
+                                <span class="read-time">18分钟阅读</span>
+                            </div>
+                            <button class="read-more-btn" @click="openArticle('newrank2024-whitepaper')">查看详情</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 用户画像与AI内容创作趋势分析 -->
+                    <div class="content-card" v-if="isContentVisible('insight', 'insight-user-profile-ai')">
+                        <div class="card-image">
+                            <img src="img/insight-user-profile.svg?v=20250728" alt="用户画像双驱动">
+                            <div class="content-tag insight-tag">行业洞察</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">用户画像双驱动模型：打造精准营销新范式</h3>
+                            <p class="card-excerpt">剖析"年龄×兴趣"深度融合的用户画像新模式，探讨AI内容创作如何重塑企业媒体运营策略与效率提升路径。</p>
+                            <div class="card-meta">
+                                <span class="publish-date">2024-07-15</span>
+                                <span class="read-time">15分钟阅读</span>
+                            </div>
+                            <button class="read-more-btn" @click="openArticle('insight-user-profile-ai')">查看详情</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 案例分析：教育机构节省广告预算 -->
+                    <div class="content-card" v-if="isContentVisible('case', 'case-education')">
+                        <div class="card-image">
+                            <img src="img/case-education.svg?v=20250728" alt="教育案例">
+                            <div class="content-tag case-tag">案例分析</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">如何为教育机构节省60%广告预算？</h3>
+                            <p class="card-excerpt">通过AI驱动的精准用户画像和内容匹配，帮助一家教育机构重构获客渠道组合，在保持转化率的前提下显著降低获客成本。</p>
+                            <div class="card-meta">
+                                <span class="publish-date">2024-04-15</span>
+                                <span class="read-time">8分钟阅读</span>
+                            </div>
+                            <button class="read-more-btn" @click="openArticle('case-education')">查看详情</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 方法论：AI分析评论提炼话术 -->
+                    <div class="content-card" v-if="isContentVisible('method', 'method-comment-analysis')">
+                        <div class="card-image">
+                            <img src="img/method-comments.svg?v=20250728" alt="评论分析">
+                            <div class="content-tag method-tag">方法论</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">AI分析千条评论提炼爆款话术</h3>
+                            <p class="card-excerpt">详解我们如何使用自然语言处理技术，从大量用户评论中挖掘情感倾向、核心诉求和潜在痛点，从而构建高转化的营销话术。</p>
+                            <div class="card-meta">
+                                <span class="publish-date">2024-03-28</span>
+                                <span class="read-time">12分钟阅读</span>
+                            </div>
+                            <button class="read-more-btn" @click="openArticle('method-comment-analysis')">查看详情</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 案例：从0到1打造AI增长引擎 -->
+                    <div class="content-card" v-if="isContentVisible('case', 'case-ai-engine')">
+                        <div class="card-image">
+                            <img src="img/case-ai-engine.svg?v=20250728" alt="AI引擎">
+                            <div class="content-tag case-tag">案例分析</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">从0到1：打造AI增长引擎</h3>
+                            <p class="card-excerpt">完整还原一家传统制造业企业如何在90天内构建完整的AI获客系统，实现线索增长120%的全过程。</p>
+                            <div class="card-meta">
+                                <span class="publish-date">2024-02-19</span>
+                                <span class="read-time">15分钟阅读</span>
+                            </div>
+                            <button class="read-more-btn" @click="openArticle('case-ai-engine')">查看详情</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 行业洞察：获客内卷时代 -->
+                    <div class="content-card" v-if="isContentVisible('insight', 'insight-competition')">
+                        <div class="card-image">
+                            <img src="img/insight-competition.svg?v=20250728" alt="获客内卷">
+                            <div class="content-tag insight-tag">行业洞察</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">获客内卷时代，企业应如何应对？</h3>
+                            <p class="card-excerpt">剖析当前获客内卷的根本原因，探讨在流量红利见顶的环境下，企业如何通过系统化方法与差异化定位脱颖而出。</p>
+                            <div class="card-meta">
+                                <span class="publish-date">2024-01-25</span>
+                                <span class="read-time">10分钟阅读</span>
+                            </div>
+                            <button class="read-more-btn" @click="openArticle('insight-competition')">查看详情</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 白皮书：增长飞轮 -->
+                    <div class="content-card" v-if="isContentVisible('whitepaper', 'whitepaper-flywheel')">
+                        <div class="card-image">
+                            <img src="img/whitepaper-flywheel.svg?v=20250728" alt="增长飞轮">
+                            <div class="content-tag whitepaper-tag">白皮书</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">《增长飞轮：从获客到价值倍增》</h3>
+                            <p class="card-excerpt">探讨如何构建自循环增长系统，将获客、转化、留存、复购和口碑传播整合成一个相互促进的价值放大器。</p>
+                            <div class="card-meta">
+                                <span class="publish-date">2023-12-10</span>
+                                <span class="read-time">20分钟阅读</span>
+                            </div>
+                            <button class="read-more-btn" @click="openArticle('whitepaper-flywheel')">查看详情</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 方法论：资本视角下的获客系统 -->
+                    <div class="content-card" v-if="isContentVisible('method', 'method-capital-view')">
+                        <div class="card-image">
+                            <img src="img/method-capital.svg?v=20250728" alt="资本视角">
+                            <div class="content-tag method-tag">方法论</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">资本视角下的获客系统构建法</h3>
+                            <p class="card-excerpt">从市值管理角度审视企业获客体系，探讨如何构建既能满足短期增长需求，又能提升企业长期价值的获客策略。</p>
+                            <div class="card-meta">
+                                <span class="publish-date">2023-11-18</span>
+                                <span class="read-time">14分钟阅读</span>
+                            </div>
+                            <button class="read-more-btn" @click="openArticle('method-capital-view')">查看详情</button>
+                        </div>
+                    </div>
+
+                    <!-- 内容营销实战：高转化笔记 -->
+                    <div class="content-card" v-if="isContentVisible('method', 'method-high-conversion-notes')">
+                        <div class="card-image">
+                            <img src="img/content-marketing/high-conversion-notes.svg?v=20250728" alt="高转化笔记">
+                            <div class="content-tag method-tag">方法论</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">内容营销实战：3步写出高转化笔记</h3>
+                            <p class="card-excerpt">深度解析高转化内容的核心要素，从用户痛点把握、真实场景构建到有效转化引导，全方位提升内容创作的商业价值。</p>
+                            <div class="card-meta">
+                                <span class="publish-date">2024-07-22</span>
+                                <span class="read-time">10分钟阅读</span>
+                            </div>
+                            <button class="read-more-btn" @click="openArticle('method-high-conversion-notes')">查看详情</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 5个步骤打造小红书爆款内容 -->
+                    <div class="content-card" v-if="isContentVisible('method', 'method-redbook-content')">
+                        <div class="card-image">
+                            <img src="img/content-marketing/redbook-steps.svg?v=20250728" alt="小红书爆款内容">
+                            <div class="content-tag method-tag">方法论</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">5个步骤打造小红书爆款内容</h3>
+                            <p class="card-excerpt">揭秘小红书平台的内容规律与爆款机制，从需求挖掘、场景构建到内容优化、热点把握与爆款复制，全流程指导创作高转化笔记。</p>
+                            <div class="card-meta">
+                                <span class="publish-date">2024-07-18</span>
+                                <span class="read-time">12分钟阅读</span>
+                            </div>
+                            <button class="read-more-btn" @click="openArticle('method-redbook-content')">查看详情</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pagination" v-if="totalPages > 1">
+                    <button class="page-btn prev" :disabled="currentPage === 1" @click="prevPage">上一页</button>
+                    <div class="page-numbers">
+                        <span class="page-current">{{ currentPage }}</span> / <span class="page-total">{{ totalPages }}</span>
+                    </div>
+                    <button class="page-btn next" :disabled="currentPage === totalPages" @click="nextPage">下一页</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 订阅模块 -->
+        <section class="subscribe-section">
+            <div class="container">
+                <div class="subscribe-card">
+                    <div class="subscribe-content">
+                        <h2 class="subscribe-title">订阅增长实验室</h2>
+                        <p class="subscribe-desc">定期获取最新的增长洞察、方法论和案例分析，让您的企业始终保持领先</p>
+                    </div>
+                    
+                    <div class="subscribe-form">
+                        <input type="email" v-model="email" placeholder="请输入您的邮箱">
+                        <button class="subscribe-btn" @click="subscribe">订阅</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 专家团队 -->
+        <section class="experts-section">
+            <div class="container">
+                <h2 class="section-title"><span class="highlight-text">专家</span>团队</h2>
+                
+                <div class="experts-grid">
+                    <div class="expert-card">
+                        <div class="expert-avatar">
+                            <img src="img/expert-1.svg?v=20250728" alt="增长专家">
+                        </div>
+                        <h3 class="expert-name">李明</h3>
+                        <p class="expert-title">首席增长顾问</p>
+                        <p class="expert-desc">前阿里巴巴增长团队负责人，擅长B2B SaaS产品的获客与留存策略</p>
+                    </div>
+                    
+                    <div class="expert-card">
+                        <div class="expert-avatar">
+                            <img src="img/expert-2.svg?v=20250728" alt="内容专家">
+                        </div>
+                        <h3 class="expert-name">张婷</h3>
+                        <p class="expert-title">内容营销总监</p>
+                        <p class="expert-desc">10年内容营销经验，曾服务超过50家企业，专注高转化内容策略</p>
+                    </div>
+                    
+                    <div class="expert-card">
+                        <div class="expert-avatar">
+                            <img src="img/expert-3.svg?v=20250728" alt="数据专家">
+                        </div>
+                        <h3 class="expert-name">王辉</h3>
+                        <p class="expert-title">数据分析总监</p>
+                        <p class="expert-desc">前腾讯数据科学家，专注用户行为分析与增长模型构建</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 联系咨询 -->
+        <section class="contact-cta">
+            <div class="container">
+                <div class="cta-content">
+                    <h2 class="cta-title">希望将这些方法应用到您的业务中？</h2>
+                    <p class="cta-desc">我们的增长顾问团队随时准备为您提供定制化的解决方案</p>
+                    <button class="cta-button" @click="navigateTo('ai-marketing')">预约免费诊断</button>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script src="js/growth-lab.js?v=20250728"></script>
+</body>
+</html> 

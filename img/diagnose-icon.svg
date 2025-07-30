@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="diagnoseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2196F3" />
+      <stop offset="100%" stop-color="#0D47A1" />
+    </linearGradient>
+  </defs>
+
+  <!-- 背景圆 -->
+  <circle cx="32" cy="32" r="30" fill="url(#diagnoseGradient)" opacity="0.1" />
+  <circle cx="32" cy="32" r="28" stroke="#2196F3" stroke-width="2" fill="none" />
+
+  <!-- 放大镜 -->
+  <g transform="translate(32, 32) scale(0.9) translate(-32, -32)">
+    <!-- 放大镜手柄 -->
+    <line x1="42" y1="42" x2="54" y2="54" stroke="#2196F3" stroke-width="6" stroke-linecap="round" />
+
+    <!-- 放大镜框 -->
+    <circle cx="30" cy="30" r="16" fill="white" stroke="#2196F3" stroke-width="4" />
+
+    <!-- 放大镜中的数据 -->
+    <line x1="24" y1="30" x2="36" y2="30" stroke="#2196F3" stroke-width="2" />
+    <line x1="30" y1="24" x2="30" y2="36" stroke="#2196F3" stroke-width="2" />
+    
+    <!-- 图表元素 -->
+    <path d="M22,34 L26,30 L30,32 L34,28" stroke="#2196F3" stroke-width="1.5" fill="none" />
+  </g>
+
+  <!-- 数据指示器 -->
+  <g transform="translate(12, 12)">
+    <rect x="0" y="0" width="8" height="8" fill="#2196F3" rx="2" ry="2" opacity="0.7" />
+  </g>
+  <g transform="translate(12, 44)">
+    <rect x="0" y="0" width="8" height="8" fill="#2196F3" rx="2" ry="2" opacity="0.7" />
+  </g>
+  <g transform="translate(44, 12)">
+    <rect x="0" y="0" width="8" height="8" fill="#2196F3" rx="2" ry="2" opacity="0.7" />
+  </g>
+  <g transform="translate(44, 44)">
+    <circle cx="4" cy="4" r="4" fill="#2196F3" opacity="0.7" />
+  </g>
+
+  <!-- 扫描线 -->
+  <line x1="16" y1="20" x2="48" y2="20" stroke="#2196F3" stroke-width="1" stroke-dasharray="2,2" opacity="0.7" />
+  <line x1="16" y1="32" x2="48" y2="32" stroke="#2196F3" stroke-width="1" stroke-dasharray="2,2" opacity="0.7" />
+  <line x1="16" y1="44" x2="48" y2="44" stroke="#2196F3" stroke-width="1" stroke-dasharray="2,2" opacity="0.7" />
+</svg> 

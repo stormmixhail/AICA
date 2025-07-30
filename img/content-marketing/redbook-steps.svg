@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景渐变 -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff2f4" />
+      <stop offset="100%" stop-color="#ffcdd3" />
+    </linearGradient>
+    <linearGradient id="arrow-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff3e68" />
+      <stop offset="100%" stop-color="#ff9aa6" />
+    </linearGradient>
+    <linearGradient id="step-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff5e84" />
+      <stop offset="100%" stop-color="#ff8fa2" />
+    </linearGradient>
+    <filter id="shadow" x="-2%" y="-2%" width="104%" height="104%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#ff5c8a" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="800" height="600" rx="20" fill="url(#bg-gradient)" />
+  
+  <!-- 标题 -->
+  <g filter="url(#shadow)">
+    <text x="400" y="70" font-family="PingFang SC, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#ff3e68">5个步骤产出小红书高转化的笔记</text>
+  </g>
+  
+  <!-- 流程箭头背景 -->
+  <path d="M100,220 L700,220 L600,380 L100,380 Z" fill="#fff" opacity="0.8" filter="url(#shadow)"/>
+  
+  <!-- 步骤圆圈 -->
+  <g>
+    <circle cx="180" cy="300" r="65" fill="url(#step-gradient)" filter="url(#shadow)"/>
+    <text x="180" y="290" font-family="PingFang SC, sans-serif" font-size="16" fill="white" text-anchor="middle">需求</text>
+    <text x="180" y="315" font-family="PingFang SC, sans-serif" font-size="16" fill="white" text-anchor="middle">挖掘</text>
+  </g>
+  
+  <g>
+    <circle cx="295" cy="300" r="65" fill="url(#step-gradient)" filter="url(#shadow)"/>
+    <text x="295" y="290" font-family="PingFang SC, sans-serif" font-size="16" fill="white" text-anchor="middle">场景</text>
+    <text x="295" y="315" font-family="PingFang SC, sans-serif" font-size="16" fill="white" text-anchor="middle">构建</text>
+  </g>
+  
+  <g>
+    <circle cx="410" cy="300" r="65" fill="url(#step-gradient)" filter="url(#shadow)"/>
+    <text x="410" y="290" font-family="PingFang SC, sans-serif" font-size="16" fill="white" text-anchor="middle">结构</text>
+    <text x="410" y="315" font-family="PingFang SC, sans-serif" font-size="16" fill="white" text-anchor="middle">优化</text>
+  </g>
+  
+  <g>
+    <circle cx="525" cy="300" r="65" fill="url(#step-gradient)" filter="url(#shadow)"/>
+    <text x="525" y="290" font-family="PingFang SC, sans-serif" font-size="16" fill="white" text-anchor="middle">紧跟</text>
+    <text x="525" y="315" font-family="PingFang SC, sans-serif" font-size="16" fill="white" text-anchor="middle">热点</text>
+  </g>
+  
+  <g>
+    <circle cx="640" cy="300" r="65" fill="url(#step-gradient)" filter="url(#shadow)"/>
+    <text x="640" y="290" font-family="PingFang SC, sans-serif" font-size="16" fill="white" text-anchor="middle">复制</text>
+    <text x="640" y="315" font-family="PingFang SC, sans-serif" font-size="16" fill="white" text-anchor="middle">爆文</text>
+  </g>
+  
+  <!-- 底部步骤说明 -->
+  <g>
+    <rect x="150" y="420" width="150" height="35" rx="17.5" fill="#fff" stroke="#ff5e84" stroke-width="1.5"/>
+    <text x="225" y="443" font-family="PingFang SC, sans-serif" font-size="14" fill="#333" text-anchor="middle">拆解用户画像</text>
+  </g>
+  
+  <g>
+    <rect x="150" y="465" width="150" height="35" rx="17.5" fill="#fff" stroke="#ff5e84" stroke-width="1.5"/>
+    <text x="225" y="488" font-family="PingFang SC, sans-serif" font-size="14" fill="#333" text-anchor="middle">挖掘用户需求</text>
+  </g>
+  
+  <g>
+    <rect x="325" y="420" width="150" height="35" rx="17.5" fill="#fff" stroke="#ff5e84" stroke-width="1.5"/>
+    <text x="400" y="443" font-family="PingFang SC, sans-serif" font-size="14" fill="#333" text-anchor="middle">视频笔记</text>
+  </g>
+  
+  <g>
+    <rect x="325" y="465" width="150" height="35" rx="17.5" fill="#fff" stroke="#ff5e84" stroke-width="1.5"/>
+    <text x="400" y="488" font-family="PingFang SC, sans-serif" font-size="14" fill="#333" text-anchor="middle">图文笔记</text>
+  </g>
+  
+  <g>
+    <rect x="500" y="420" width="150" height="35" rx="17.5" fill="#fff" stroke="#ff5e84" stroke-width="1.5"/>
+    <text x="575" y="443" font-family="PingFang SC, sans-serif" font-size="14" fill="#333" text-anchor="middle">引出痛点</text>
+  </g>
+  
+  <g>
+    <rect x="500" y="465" width="150" height="35" rx="17.5" fill="#fff" stroke="#ff5e84" stroke-width="1.5"/>
+    <text x="575" y="488" font-family="PingFang SC, sans-serif" font-size="14" fill="#333" text-anchor="middle">真实场景</text>
+  </g>
+  
+  <g>
+    <rect x="325" y="510" width="150" height="35" rx="17.5" fill="#fff" stroke="#ff5e84" stroke-width="1.5"/>
+    <text x="400" y="533" font-family="PingFang SC, sans-serif" font-size="14" fill="#333" text-anchor="middle">介绍产品</text>
+  </g>
+  
+  <g>
+    <rect x="325" y="555" width="150" height="35" rx="17.5" fill="#fff" stroke="#ff5e84" stroke-width="1.5"/>
+    <text x="400" y="578" font-family="PingFang SC, sans-serif" font-size="14" fill="#333" text-anchor="middle">展示效果</text>
+  </g>
+  
+  <!-- 小红书Logo示意 -->
+  <g filter="url(#shadow)">
+    <rect x="660" y="130" width="80" height="80" rx="20" fill="#ff3e68"/>
+    <text x="700" y="186" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="white" text-anchor="middle">R</text>
+  </g>
+  
+  <!-- 装饰线条 -->
+  <path d="M237.5,300 L252.5,300" stroke="#fff" stroke-width="2"/>
+  <path d="M352.5,300 L367.5,300" stroke="#fff" stroke-width="2"/>
+  <path d="M467.5,300 L482.5,300" stroke="#fff" stroke-width="2"/>
+  <path d="M582.5,300 L597.5,300" stroke="#fff" stroke-width="2"/>
+</svg> 

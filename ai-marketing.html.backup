@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>AI获客引擎 - AICA</title>
+    <link rel="stylesheet" href="css/style.css?v=20230703">
+    <link rel="stylesheet" href="css/feature-page.css?v=20230703">
+    <link rel="stylesheet" href="css/ai-marketing.css?v=20230703">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/scrolltrigger@1.0.0/dist/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <div id="marketing-app" class="marketing-page">
+        <header class="marketing-header">
+            <button class="back-button" @click="goBack">
+                <img src="img/back-arrow.svg?v=20250716" alt="返回">
+            </button>
+            <div class="feature-title">AI获客引擎</div>
+        </header>
+        
+        <!-- 第一屏：价值主张 -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="main-title">不只是获客，我们用AI构建真正'值钱'的增长系统</h1>
+                <p class="subtitle">从媒体到资本，从数据到AI，我们用系统化方法，让每一次增长都推动公司价值上升。</p>
+                <button class="primary-cta" @click="scrollToContact">获取一份专属的增长健康评估</button>
+                
+                <!-- 视觉元素：抽象的飞轮或数据流 -->
+                <div class="hero-visual">
+                    <div class="hero-graphic"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 第二屏：问题与共鸣 -->
+        <section class="problem-section">
+            <div class="container">
+                <h2 class="section-title">您的获客，是否正陷入这三大'增长陷阱'？</h2>
+                
+                <div class="problem-grid">
+                    <div class="problem-card">
+                        <div class="problem-icon">
+                            <img src="img/money-burn.svg?v=20250716" alt="成本高昂">
+                        </div>
+                        <h3 class="problem-title">流量内卷，成本高昂</h3>
+                        <p class="problem-desc">您是否发现：花的钱越来越多，客户却越来越少？</p>
+                    </div>
+                    
+                    <div class="problem-card">
+                        <div class="problem-icon">
+                            <img src="img/tangled-process.svg?v=20250716" alt="流程混乱">
+                        </div>
+                        <h3 class="problem-title">流程混乱，无法复制</h3>
+                        <p class="problem-desc">每次尝试新渠道，都像重新发明轮子？</p>
+                    </div>
+                    
+                    <div class="problem-card">
+                        <div class="problem-icon">
+                            <img src="img/value-disconnect.svg?v=20250716" alt="价值脱节">
+                        </div>
+                        <h3 class="problem-title">增长与价值脱节</h3>
+                        <p class="problem-desc">数据好看，但公司估值或现金流却不见增长？</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 第三屏：阿倜士增长飞轮 -->
+        <section class="solution-section">
+            <div class="container">
+                <h2 class="section-title">阿倜士增长飞轮：价值驱动的获客系统</h2>
+                <p class="section-subtitle">我们不只是做获客，而是构建能持续产生价值的增长引擎</p>
+                
+                <div class="flywheel-container">
+                    <div class="flywheel-visual">
+                        <!-- 这里可以是SVG飞轮图或静态图片 -->
+                        <img src="img/growth-flywheel.svg?v=20250716" alt="阿倜士增长飞轮" class="flywheel-image">
+                    </div>
+                    
+                    <div class="flywheel-stages">
+                        <div class="stage" data-stage="diagnose">
+                            <div class="stage-icon">
+                                <img src="img/diagnose-icon.svg?v=20250716" alt="诊断">
+                            </div>
+                            <h3 class="stage-title">精准诊断<br><span>(Diagnose)</span></h3>
+                            <p class="stage-desc">看清增长机会与潜在风险</p>
+                        </div>
+                        
+                        <div class="stage" data-stage="build">
+                            <div class="stage-icon">
+                                <img src="img/build-icon.svg?v=20250716" alt="构建">
+                            </div>
+                            <h3 class="stage-title">系统构建<br><span>(Build)</span></h3>
+                            <p class="stage-desc">打造标准化获客流程，告别无序执行</p>
+                        </div>
+                        
+                        <div class="stage" data-stage="accelerate">
+                            <div class="stage-icon">
+                                <img src="img/accelerate-icon.svg?v=20250716" alt="加速">
+                            </div>
+                            <h3 class="stage-title">AI加速<br><span>(Accelerate)</span></h3>
+                            <p class="stage-desc">AI赋能，让增长规模化、自动化</p>
+                        </div>
+                        
+                        <div class="stage" data-stage="amplify">
+                            <div class="stage-icon">
+                                <img src="img/amplify-icon.svg?v=20250716" alt="放大">
+                            </div>
+                            <h3 class="stage-title">价值放大<br><span>(Amplify)</span></h3>
+                            <p class="stage-desc">连接增长与市值，让每一次投入都有回报</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 第四屏：实力展示（增长实验室预览） -->
+        <section class="lab-preview-section">
+            <div class="container">
+                <h2 class="section-title">来自增长实验室的洞察</h2>
+                <p class="section-subtitle">我们不只是空谈理论，这里有真实案例和实战经验</p>
+                
+                <div class="insight-cards">
+                    <div class="insight-card" @click="navigateTo('growth-lab')">
+                        <div class="insight-image">
+                            <img src="img/whitepaper-cover.svg?v=20250716" alt="白皮书封面">
+                        </div>
+                        <h3 class="insight-title">《新榜2024线上获客白皮书》</h3>
+                        <p class="insight-desc">我们是如何为一家教育机构节省60%广告预算的？</p>
+                        <span class="read-more">阅读详情 →</span>
+                    </div>
+                    
+                    <div class="insight-card" @click="navigateTo('growth-lab')">
+                        <div class="insight-image">
+                            <img src="img/method-cover.svg?v=20250716" alt="方法论封面">
+                        </div>
+                        <h3 class="insight-title">AI分析千条评论提炼爆款话术</h3>
+                        <p class="insight-desc">AI如何帮我们从1000条评论中提炼出爆款话术？</p>
+                        <span class="read-more">阅读详情 →</span>
+                    </div>
+                    
+                    <div class="insight-card" @click="navigateTo('growth-lab')">
+                        <div class="insight-image">
+                            <img src="img/case-study-cover.svg?v=20250716" alt="案例封面">
+                        </div>
+                        <h3 class="insight-title">从0到1：打造AI增长引擎</h3>
+                        <p class="insight-desc">如何让AI为企业带来可测量的增长价值</p>
+                        <span class="read-more">阅读详情 →</span>
+                    </div>
+                </div>
+                
+                <div class="more-insights">
+                    <a href="growth-lab.html" class="view-all-btn">查看更多增长洞察</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 第五屏：为何选择我们 (Why Atticus) -->
+        <section class="why-us-section" id="why-atticus">
+            <div class="container">
+                <h2 class="section-title">为何选择我们？</h2>
+                <p class="section-subtitle">传递品牌灵魂，展示团队基因优势，解答您的疑问</p>
+                
+                <!-- 创始人故事：三幕式结构 -->
+                <div class="founder-story">
+                    <h3 class="story-title">从官媒到上市公司咨询：我的'增长与价值'顿悟之旅</h3>
+                    
+                    <div class="story-act">
+                        <div class="act-marker">第一幕：顶层视野</div>
+                        <div class="act-content">
+                            <div class="act-image">
+                                <img src="img/founder-media.svg?v=20250716" alt="官媒经历">
+                            </div>
+                            <div class="act-text">
+                                <p>"我曾在人民日报财经平台工作，后来为多家拟IPO企业提供市值管理咨询。那段时间，我深刻理解了'价值'是如何被定义的——它不是财务报表上的数字，而是企业战略、品牌、用户关系的综合体现。"</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="story-act">
+                        <div class="act-marker">第二幕：发现断层</div>
+                        <div class="act-content">
+                            <div class="act-image">
+                                <img src="img/founder-insight.svg?v=20250716" alt="顿悟时刻">
+                            </div>
+                            <div class="act-text">
+                                <p>"当我为一家拟上市教育公司做增长诊断时，发现了一个惊人的现象：前端市场部拼命拉流量，后端资本部却无法解释这些增长对估值的影响。流量成了成本，而不是资产。"</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="story-act">
+                        <div class="act-marker">第三幕：创立初心</div>
+                        <div class="act-content">
+                            <div class="act-image">
+                                <img src="img/founder-startup.svg?v=20250716" alt="创立初心">
+                            </div>
+                            <div class="act-text">
+                                <p>"阿倜士的诞生，就是为了解决这个断层。我们不是只关注流量，而是用AI和系统化方法，让每一次增长都成为公司价值的基石。"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 品牌理念：增长是市值的因，市值是增长的果 -->
+                <div class="brand-philosophy">
+                    <h3 class="philosophy-title">品牌理念：终局视角下的增长价值观</h3>
+                    
+                    <div class="philosophy-core">
+                        <p class="philosophy-statement">"增长不是终点，而是通往价值的路径。我们相信：<br>
+                        <strong>增长是市值的因，市值是增长的果。</strong><br>
+                        所以我们用终局的视角，来设计当下的每一步。"</p>
+                    </div>
+                    
+                    <div class="philosophy-details">
+                        <div class="philosophy-point">
+                            <div class="point-icon"><span>1</span></div>
+                            <div class="point-text">我们不只做增长，更做价值投资</div>
+                        </div>
+                        <div class="philosophy-point">
+                            <div class="point-icon"><span>2</span></div>
+                            <div class="point-text">每一次投放、每一篇内容，都服务于长期价值</div>
+                        </div>
+                        <div class="philosophy-point">
+                            <div class="point-icon"><span>3</span></div>
+                            <div class="point-text">AI不是工具，而是让增长可复制、可预测的引擎</div>
+                        </div>
+                    </div>
+                    
+                    <div class="philosophy-visual">
+                        <img src="img/growth-value-flywheel.svg?v=20250716" alt="增长与价值飞轮">
+                    </div>
+                </div>
+                
+                <!-- 团队介绍：跨界复合型团队 -->
+                <div class="team-intro">
+                    <h3 class="team-title">我们是谁？一群用资本视角做增长的人</h3>
+                    
+                    <div class="team-expertise">
+                        <div class="expertise-card">
+                            <div class="expertise-icon">
+                                <img src="img/media-icon.svg?v=20250716" alt="媒体背景">
+                            </div>
+                            <h4 class="expertise-title">媒体背景</h4>
+                            <p class="expertise-desc">懂内容、懂传播，从信息价值的角度设计增长</p>
+                        </div>
+                        
+                        <div class="expertise-card">
+                            <div class="expertise-icon">
+                                <img src="img/capital-icon.svg?v=20250716" alt="金融思维">
+                            </div>
+                            <h4 class="expertise-title">金融思维</h4>
+                            <p class="expertise-desc">看终局、重ROI，量化每一步增长的价值贡献</p>
+                        </div>
+                        
+                        <div class="expertise-card">
+                            <div class="expertise-icon">
+                                <img src="img/consulting-icon.svg?v=20250716" alt="咨询经验">
+                            </div>
+                            <h4 class="expertise-title">咨询经验</h4>
+                            <p class="expertise-desc">系统化、可复制，构建标准化的增长模型</p>
+                        </div>
+                        
+                        <div class="expertise-card">
+                            <div class="expertise-icon">
+                                <img src="img/ai-icon.svg?v=20250716" alt="AI能力">
+                            </div>
+                            <h4 class="expertise-title">AI能力</h4>
+                            <p class="expertise-desc">规模化、自动化，用技术撬动无限增长可能</p>
+                        </div>
+                    </div>
+                    
+                    <div class="team-unique-value">
+                        <div class="unique-badge">市场上唯一用"市值管理"视角做获客的团队！</div>
+                        <p class="unique-explanation">从资本视角出发，我们做的不是短期获客，而是长期增长战略</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 第六屏：联系我们/预约诊断 -->
+        <section class="contact-section" id="contact">
+            <div class="container">
+                <h2 class="section-title">让您的增长更值钱</h2>
+                <p class="section-subtitle">现在预约，我们将为您提供一份完整的增长健康度评估报告</p>
+                
+                <div class="contact-form">
+                    <div class="form-group">
+                        <label for="company">公司名称</label>
+                        <input type="text" id="company" v-model="contactForm.company" placeholder="请输入您的公司名称">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="name">您的姓名</label>
+                        <input type="text" id="name" v-model="contactForm.name" placeholder="请输入您的姓名">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="position">职位</label>
+                        <input type="text" id="position" v-model="contactForm.position" placeholder="请输入您的职位">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">联系电话</label>
+                        <input type="tel" id="phone" v-model="contactForm.phone" placeholder="请输入您的联系电话">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="problem">您目前面临的主要获客挑战</label>
+                        <textarea id="problem" v-model="contactForm.problem" placeholder="请简要描述您目前面临的获客挑战"></textarea>
+                    </div>
+                    
+                    <div class="form-action">
+                        <button type="button" class="submit-btn" @click="submitForm">预约免费诊断</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 悬浮AI助手 -->
+        <div class="floating-assistant" :class="{ 'active': showAssistant }" @click="toggleAssistant">
+            <div class="assistant-icon">
+                <img src="img/ai-assistant.svg?v=20250716" alt="AI助手">
+            </div>
+            <div class="assistant-label" v-if="!showAssistant">需要帮助？</div>
+        </div>
+        
+        <!-- AI助手对话框 -->
+        <div class="assistant-dialog" :class="{ 'active': showAssistant }">
+            <div class="dialog-header">
+                <h3 class="dialog-title">AI增长顾问</h3>
+                <button class="close-btn" @click="toggleAssistant">×</button>
+            </div>
+            
+            <div class="dialog-content">
+                <div class="dialog-messages">
+                    <div class="message ai-message">
+                        <div class="message-avatar">
+                            <img src="img/ai-assistant.svg?v=20250716" alt="AI助手">
+                        </div>
+                        <div class="message-content">
+                            您好！我是您的AI增长顾问。请问您目前面临哪些获客或增长方面的挑战？我可以为您提供专业建议。
+                        </div>
+                    </div>
+                    
+                    <div v-for="(msg, index) in assistantMessages" :key="index" 
+                         :class="['message', msg.type + '-message']">
+                        <div class="message-avatar" v-if="msg.type === 'ai'">
+                            <img src="img/ai-assistant.svg?v=20250716" alt="AI助手">
+                        </div>
+                        <div class="message-content">
+                            {{ msg.text }}
+                        </div>
+                    </div>
+                    
+                    <div class="typing-indicator" v-if="isTyping">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+                
+                <div class="dialog-input">
+                    <input type="text" v-model="userInput" placeholder="输入您的问题..." 
+                           @keyup.enter="sendAssistantMessage">
+                    <button class="send-btn" @click="sendAssistantMessage">发送</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/ai-marketing.js"></script>
+</body>
+</html> 

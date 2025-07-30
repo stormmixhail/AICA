@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- 货币符号 -->
+  <circle cx="32" cy="28" r="22" fill="#F9A825" stroke="#FBC02D" stroke-width="2"/>
+  <text x="32" y="36" text-anchor="middle" font-size="26" font-weight="bold" fill="#FFF" font-family="Arial, sans-serif">¥</text>
+  
+  <!-- 火焰 -->
+  <g transform="translate(32, 50) scale(1, -0.8)">
+    <!-- 外层火焰 -->
+    <path d="M0,-25 C-10,-15 -15,-5 -12,0 C-15,5 -10,10 0,12 C10,10 15,5 12,0 C15,-5 10,-15 0,-25 Z" 
+          fill="#FF5722" opacity="0.7" />
+    
+    <!-- 中间火焰 -->
+    <path d="M0,-20 C-7,-12 -10,-5 -8,0 C-10,3 -7,7 0,8 C7,7 10,3 8,0 C10,-5 7,-12 0,-20 Z" 
+          fill="#FF7043" opacity="0.8" />
+    
+    <!-- 内层火焰 -->
+    <path d="M0,-15 C-4,-8 -6,-3 -4,0 C-6,3 -4,5 0,6 C4,5 6,3 4,0 C6,-3 4,-8 0,-15 Z" 
+          fill="#FFAB40" opacity="0.9" />
+  </g>
+  
+  <!-- 小火花 -->
+  <circle cx="25" cy="48" r="1.5" fill="#FF7043" opacity="0.8" />
+  <circle cx="39" cy="46" r="1.2" fill="#FF7043" opacity="0.8" />
+  <circle cx="42" cy="52" r="1" fill="#FF7043" opacity="0.8" />
+  <circle cx="22" cy="54" r="1.3" fill="#FF7043" opacity="0.8" />
+  <circle cx="32" cy="56" r="1.1" fill="#FF7043" opacity="0.8" />
+</svg> 

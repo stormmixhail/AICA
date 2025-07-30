@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>行业趋势与挑战 - 表单测试</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/digital-human-new.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="js/lib/vue.min.js"></script>
+</head>
+<body>
+    <div id="test-app" class="digital-human-page">
+        <!-- 头部导航 -->
+        <header class="feature-header">
+            <button class="back-button" @click="goBack">
+                <img src="img/back-arrow.svg?v=20250716" alt="返回">
+            </button>
+            <div class="feature-title">行业趋势与挑战</div>
+        </header>
+        
+        <!-- 行业趋势与核心痛点 -->
+        <section id="industry-section" class="section industry-section">
+            <div class="container">
+                <h2 class="section-title">行业趋势与挑战</h2>
+                <p class="section-subtitle">随着元宇宙兴起和企业数字化转型深入，数字人技术逐渐从概念走向实用</p>
+                
+                <div class="industry-grid">
+                    <div class="industry-trend-card feature-card">
+                        <div class="card-icon">
+                            <i class="bi bi-graph-up-arrow"></i>
+                        </div>
+                        <h2>时代趋势</h2>
+                        <ul class="trend-list">
+                            <li>
+                                <span class="trend-highlight">元宇宙时代来临</span>
+                                <p>虚拟与现实融合加速（市场规模2026年突破500亿）</p>
+                            </li>
+                            <li>
+                                <span class="trend-highlight">企业数字化转型进入深水区</span>
+                                <p>传统服务模式遭遇瓶颈（如人力成本上升、服务时间限制）</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="industry-pain-card feature-card">
+                        <div class="card-icon">
+                            <i class="bi bi-exclamation-triangle"></i>
+                        </div>
+                        <h2>核心痛点</h2>
+                        <ul class="pain-list">
+                            <li>
+                                <span class="pain-highlight">人工服务成本高企</span>
+                                <p>电商客服日均咨询量超500次，人力成本占比30%+</p>
+                            </li>
+                            <li>
+                                <span class="pain-highlight">个性化体验需求爆发</span>
+                                <p>Z世代消费者期待7×24小时即时响应</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 提交需求表单 -->
+                <div class="contact-form">
+                    <div class="form-group">
+                        <label for="name">您的姓名</label>
+                        <input type="text" id="name" v-model="contactForm.name" placeholder="请输入您的姓名">
+                    </div>
+                    <div class="form-group">
+                        <label for="company">公司名称</label>
+                        <input type="text" id="company" v-model="contactForm.company" placeholder="请输入您的公司名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">联系电话</label>
+                        <input type="tel" id="phone" v-model="contactForm.phone" placeholder="请输入您的联系电话">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">电子邮箱</label>
+                        <input type="email" id="email" v-model="contactForm.email" placeholder="请输入您的电子邮箱">
+                    </div>
+                    <div class="form-action">
+                        <button class="submit-btn" @click="submitForm">提交需求</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#test-app',
+            data: {
+                contactForm: {
+                    name: '',
+                    company: '',
+                    phone: '',
+                    email: ''
+                }
+            },
+            methods: {
+                goBack() {
+                    window.history.back();
+                },
+                submitForm() {
+                    alert('您的需求已提交，我们将尽快与您联系！');
+                    this.contactForm = {
+                        name: '',
+                        company: '',
+                        phone: '',
+                        email: ''
+                    };
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

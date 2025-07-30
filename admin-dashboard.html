@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>功能区管理系统 - AICA</title>
+    <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+    <!-- Element Plus UI库 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus@2.3.14/dist/index.css">
+    <link rel="stylesheet" href="css/admin-dashboard.css">
+    <!-- Vue 3 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.js"></script>
+    <!-- Vue Router -->
+    <script src="https://cdn.jsdelivr.net/npm/vue-router@4.2.4/dist/vue-router.global.js"></script>
+    <!-- Element Plus -->
+    <script src="https://cdn.jsdelivr.net/npm/element-plus@2.3.14/dist/index.full.js"></script>
+    <!-- Element Plus 图标 -->
+    <script src="https://cdn.jsdelivr.net/npm/@element-plus/icons-vue@2.1.0/dist/index.iife.min.js"></script>
+    <script src="js/config.js"></script>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <el-container>
+            <!-- 侧边导航栏 -->
+            <el-aside width="220px" :class="{'is-collapsed': collapsed}">
+                <div class="logo-container">
+                    <img src="img/aica-logo.svg" alt="AICA" class="logo">
+                    <h3 class="logo-title">功能区管理</h3>
+                </div>
+                <el-menu 
+                    :default-active="activeMenu"
+                    class="el-menu-vertical"
+                    background-color="#001529"
+                    text-color="#fff"
+                    active-text-color="#409EFF"
+                    :router="true">
+                    
+                    <el-menu-item index="/functional-areas">
+                        <el-icon><i class="el-icon-grid"></i></el-icon>
+                        <span>功能区列表</span>
+                    </el-menu-item>
+
+                    <el-menu-item index="/predefined-areas">
+                        <el-icon><i class="el-icon-magic-stick"></i></el-icon>
+                        <span>预定义功能区</span>
+                    </el-menu-item>
+
+                    <el-menu-item index="/areas-config">
+                        <el-icon><i class="el-icon-setting"></i></el-icon>
+                        <span>功能区配置</span>
+                    </el-menu-item>
+
+                    <el-menu-item index="/areas-preview">
+                        <el-icon><i class="el-icon-view"></i></el-icon>
+                        <span>功能区预览</span>
+                    </el-menu-item>
+                    
+                    <el-menu-item index="/news-editor">
+                        <el-icon><i class="el-icon-document"></i></el-icon>
+                        <span>新闻内容编辑</span>
+                    </el-menu-item>
+                    
+                    <el-menu-item index="/business-card-settings">
+                        <el-icon><i class="el-icon-postcard"></i></el-icon>
+                        <span>联享名片设置</span>
+                    </el-menu-item>
+                    
+                    <el-menu-item index="/dashboard">
+                        <el-icon><i class="el-icon-menu"></i></el-icon>
+                        <span>系统概览</span>
+                    </el-menu-item>
+                </el-menu>
+            </el-aside>
+            
+            <!-- 主内容区域 -->
+            <el-container>
+                <!-- 顶部导航栏 -->
+                <el-header>
+                    <div class="header-left">
+                        <el-icon class="toggle-sidebar" @click="toggleSidebar"><i class="el-icon-menu"></i></el-icon>
+                        <breadcrumb></breadcrumb>
+                    </div>
+                    <div class="header-right">
+                        <el-tooltip content="全屏" placement="bottom">
+                            <el-icon class="header-icon" @click="toggleFullScreen"><i class="el-icon-full-screen"></i></el-icon>
+                        </el-tooltip>
+                        <span class="admin-title">功能区管理控制台</span>
+                    </div>
+                </el-header>
+                
+                <!-- 页面内容 -->
+                <el-main>
+                    <router-view></router-view>
+                </el-main>
+                
+                <!-- 页脚 -->
+                <el-footer>
+                    &copy; {{ new Date().getFullYear() }} AICA 功能区管理系统 v1.0
+                </el-footer>
+            </el-container>
+        </el-container>
+    </div>
+
+    <!-- 组件模板 -->
+    <script type="text/x-template" id="breadcrumb-template">
+        <el-breadcrumb separator="/">
+            <el-breadcrumb-item v-for="(item, index) in breadcrumbs" :key="index">
+                {{ item }}
+            </el-breadcrumb-item>
+        </el-breadcrumb>
+    </script>
+
+    <!-- 功能区列表模板 -->
+    <script type="text/x-template" id="functional-areas-template">
+        <div class="functional-areas-container">
+            <div class="page-header">
+                <h2>功能区管理</h2>
+                <div>
+                    <el-button type="primary" @click="showAddAreaDialog">添加功能区</el-button>
+                    <el-button @click="initPredefinedAreas">初始化预定义功能区</el-button>
+                    <el-dropdown @command="handleCommand">
+                        <el-button>
+                            更多操作 <i class="el-icon-arrow-down el-icon--right"></i>
+                        </el-button>
+                        <template #dropdown>
+                            <el-dropdown-menu>
+                                <el-dropdown-item command="export">导出配置</el-dropdown-item>
+                                <el-dropdown-item command="import">导入配置</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </template>
+                    </el-dropdown>
+                </div>
+            </div>
+
+            <el-table :data="functionalAreas" style="width: 100%" v-loading="loading">
+                <el-table-column prop="name" label="功能区名称" width="180"></el-table-column>
+                <el-table-column prop="code" label="功能区代码" width="180"></el-table-column>
+                <el-table-column prop="description" label="描述"></el-table-column>
+                <el-table-column prop="isEnabled" label="状态" width="100">
+                    <template #default="scope">
+                        <el-switch
+                            v-model="scope.row.isEnabled"
+                            @change="(val) => updateStatus(scope.row._id, val)"
+                            :active-value="true"
+                            :inactive-value="false">
+                        </el-switch>
+                    </template>
+                </el-table-column>
+                <el-table-column label="操作" width="200">
+                    <template #default="scope">
+                        <el-button size="small" @click="editArea(scope.row)">编辑</el-button>
+                        <el-button size="small" type="danger" @click="deleteArea(scope.row)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+
+            <!-- 添加/编辑功能区对话框 -->
+            <el-dialog
+                :title="dialogType === 'add' ? '添加功能区' : '编辑功能区'"
+                v-model="dialogVisible"
+                width="500px">
+                <el-form :model="areaForm" :rules="rules" ref="areaFormRef" label-width="100px">
+                    <el-form-item label="功能区名称" prop="name">
+                        <el-input v-model="areaForm.name"></el-input>
+                    </el-form-item>
+                    <el-form-item label="功能区代码" prop="code">
+                        <el-input v-model="areaForm.code" :disabled="dialogType === 'edit'"></el-input>
+                    </el-form-item>
+                    <el-form-item label="描述" prop="description">
+                        <el-input v-model="areaForm.description" type="textarea" :rows="3"></el-input>
+                    </el-form-item>
+                    <el-form-item label="排序" prop="order">
+                        <el-input-number v-model="areaForm.order" :min="0"></el-input-number>
+                    </el-form-item>
+                    <el-form-item label="状态">
+                        <el-switch v-model="areaForm.isEnabled"></el-switch>
+                    </el-form-item>
+                    <el-form-item label="访问角色">
+                        <el-select v-model="areaForm.accessRoles" multiple placeholder="选择可访问的角色">
+                            <el-option label="管理员" value="admin"></el-option>
+                            <el-option label="普通用户" value="user"></el-option>
+                            <el-option label="访客" value="guest"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="配置" prop="config">
+                        <el-input v-model="areaForm.configJson" type="textarea" :rows="5" placeholder="JSON格式配置"></el-input>
+                    </el-form-item>
+                </el-form>
+                <template #footer>
+                    <el-button @click="dialogVisible = false">取消</el-button>
+                    <el-button type="primary" @click="submitAreaForm">确定</el-button>
+                </template>
+            </el-dialog>
+
+            <!-- 初始化确认对话框 -->
+            <el-dialog
+                title="初始化预定义功能区"
+                v-model="initDialogVisible"
+                width="400px">
+                <div>
+                    <p>此操作将初始化以下预定义功能区：</p>
+                    <ul class="predefined-areas-list">
+                        <li>首页轮播新闻模块</li>
+                        <li>联享名片功能区</li>
+                        <li>首页四大功能按钮</li>
+                        <li>新闻资讯库</li>
+                        <li>增长实验室资源库</li>
+                    </ul>
+                    <p>如果这些功能区已存在，可以选择：</p>
+                    <el-radio-group v-model="overwriteExisting">
+                        <el-radio :label="false">跳过已有功能区</el-radio>
+                        <el-radio :label="true">覆盖已有功能区</el-radio>
+                    </el-radio-group>
+                </div>
+                <template #footer>
+                    <el-button @click="initDialogVisible = false">取消</el-button>
+                    <el-button type="primary" @click="confirmInitPredefinedAreas">确定</el-button>
+                </template>
+            </el-dialog>
+            
+            <!-- 导入配置对话框 -->
+            <el-dialog
+                title="导入功能区配置"
+                v-model="importDialogVisible"
+                width="500px">
+                <div>
+                    <p>请选择要导入的JSON配置文件：</p>
+                    <el-upload
+                        ref="uploadRef"
+                        action="#"
+                        :auto-upload="false"
+                        :limit="1"
+                        :on-change="handleFileChange"
+                        :on-exceed="handleExceed"
+                        accept=".json">
+                        <el-button slot="trigger" size="small" type="primary">选择文件</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传.json文件</div>
+                    </el-upload>
+                    <p style="margin-top: 15px;">如果功能区已存在，可以选择：</p>
+                    <el-radio-group v-model="overwriteExistingImport">
+                        <el-radio :label="false">跳过已有功能区</el-radio>
+                        <el-radio :label="true">覆盖已有功能区</el-radio>
+                    </el-radio-group>
+                </div>
+                <template #footer>
+                    <el-button @click="importDialogVisible = false">取消</el-button>
+                    <el-button type="primary" @click="importConfig" :disabled="!importFile">导入</el-button>
+                </template>
+            </el-dialog>
+            
+            <!-- 隐藏文件下载链接 -->
+            <a ref="downloadLink" style="display: none;"></a>
+        </div>
+    </script>
+
+    <!-- 预定义功能区模板 -->
+    <script type="text/x-template" id="predefined-areas-template">
+        <div class="predefined-areas-container">
+            <div class="page-header">
+                <h2>预定义功能区</h2>
+                <div>
+                    <el-button type="primary" @click="initAllPredefinedAreas">一键初始化全部</el-button>
+                </div>
+            </div>
+            
+            <el-collapse accordion>
+                <!-- 首页轮播新闻模块 -->
+                <el-collapse-item name="home_news_carousel">
+                    <template #title>
+                        <div class="collapse-title">
+                            <span class="title-text">首页轮播新闻模块</span>
+                            <el-tag size="small" type="success" v-if="areaStatus.home_news_carousel">已配置</el-tag>
+                            <el-tag size="small" type="info" v-else>未配置</el-tag>
+                        </div>
+                    </template>
+                    <div class="collapse-content">
+                        <div class="area-description">
+                            <p>网站首页顶部轮播新闻展示区域，可以设置轮播图片、标题、描述和链接等。</p>
+                        </div>
+                        <div class="area-preview">
+                            <img src="img/previews/home-news-carousel.png" alt="首页轮播新闻模块预览">
+                        </div>
+                        <div class="area-actions">
+                            <el-button size="small" type="primary" @click="initPredefinedArea('home_news_carousel')">初始化此功能区</el-button>
+                            <el-button size="small" @click="previewArea('home_news_carousel')">预览效果</el-button>
+                        </div>
+                    </div>
+                </el-collapse-item>
+                
+                <!-- 联享名片功能区 -->
+                <el-collapse-item name="business_card">
+                    <template #title>
+                        <div class="collapse-title">
+                            <span class="title-text">联享名片功能区</span>
+                            <el-tag size="small" type="success" v-if="areaStatus.business_card">已配置</el-tag>
+                            <el-tag size="small" type="info" v-else>未配置</el-tag>
+                        </div>
+                    </template>
+                    <div class="collapse-content">
+                        <div class="area-description">
+                            <p>数字化智能名片功能区域，包含名片特性展示、操作引导和示例展示。</p>
+                        </div>
+                        <div class="area-preview">
+                            <img src="img/previews/business-card.png" alt="联享名片功能区预览">
+                        </div>
+                        <div class="area-actions">
+                            <el-button size="small" type="primary" @click="initPredefinedArea('business_card')">初始化此功能区</el-button>
+                            <el-button size="small" @click="previewArea('business_card')">预览效果</el-button>
+                        </div>
+                    </div>
+                </el-collapse-item>
+                
+                <!-- 首页四大功能按钮 -->
+                <el-collapse-item name="main_feature_buttons">
+                    <template #title>
+                        <div class="collapse-title">
+                            <span class="title-text">首页四大功能按钮</span>
+                            <el-tag size="small" type="success" v-if="areaStatus.main_feature_buttons">已配置</el-tag>
+                            <el-tag size="small" type="info" v-else>未配置</el-tag>
+                        </div>
+                    </template>
+                    <div class="collapse-content">
+                        <div class="area-description">
+                            <p>网站首页主要功能导航按钮，包括AI助理、数字人、AI营销和增长实验室等核心功能入口。</p>
+                        </div>
+                        <div class="area-preview">
+                            <img src="img/previews/main-feature-buttons.png" alt="首页四大功能按钮预览">
+                        </div>
+                        <div class="area-actions">
+                            <el-button size="small" type="primary" @click="initPredefinedArea('main_feature_buttons')">初始化此功能区</el-button>
+                            <el-button size="small" @click="previewArea('main_feature_buttons')">预览效果</el-button>
+                        </div>
+                    </div>
+                </el-collapse-item>
+                
+                <!-- 新闻资讯库 -->
+                <el-collapse-item name="news_library">
+                    <template #title>
+                        <div class="collapse-title">
+                            <span class="title-text">新闻资讯库</span>
+                            <el-tag size="small" type="success" v-if="areaStatus.news_library">已配置</el-tag>
+                            <el-tag size="small" type="info" v-else>未配置</el-tag>
+                        </div>
+                    </template>
+                    <div class="collapse-content">
+                        <div class="area-description">
+                            <p>网站新闻资讯内容库，包含新闻分类、推荐内容和分页显示等功能。</p>
+                        </div>
+                        <div class="area-preview">
+                            <img src="img/previews/news-library.png" alt="新闻资讯库预览">
+                        </div>
+                        <div class="area-actions">
+                            <el-button size="small" type="primary" @click="initPredefinedArea('news_library')">初始化此功能区</el-button>
+                            <el-button size="small" @click="previewArea('news_library')">预览效果</el-button>
+                        </div>
+                    </div>
+                </el-collapse-item>
+                
+                <!-- 增长实验室资源库 -->
+                <el-collapse-item name="growth_lab_resources">
+                    <template #title>
+                        <div class="collapse-title">
+                            <span class="title-text">增长实验室资源库</span>
+                            <el-tag size="small" type="success" v-if="areaStatus.growth_lab_resources">已配置</el-tag>
+                            <el-tag size="small" type="info" v-else>未配置</el-tag>
+                        </div>
+                    </template>
+                    <div class="collapse-content">
+                        <div class="area-description">
+                            <p>增长实验室的方法论、工具和案例资源展示区域，含多种资源类型和访问权限控制。</p>
+                        </div>
+                        <div class="area-preview">
+                            <img src="img/previews/growth-lab-resources.png" alt="增长实验室资源库预览">
+                        </div>
+                        <div class="area-actions">
+                            <el-button size="small" type="primary" @click="initPredefinedArea('growth_lab_resources')">初始化此功能区</el-button>
+                            <el-button size="small" @click="previewArea('growth_lab_resources')">预览效果</el-button>
+                        </div>
+                    </div>
+                </el-collapse-item>
+            </el-collapse>
+        </div>
+    </script>
+
+    <!-- 功能区配置模板 -->
+    <script type="text/x-template" id="areas-config-template">
+        <div class="areas-config-container">
+            <div class="page-header">
+                <h2>功能区配置</h2>
+                <div>
+                    <el-select v-model="selectedArea" placeholder="选择功能区" style="width: 240px;">
+                        <el-option
+                            v-for="area in functionalAreas"
+                            :key="area.code"
+                            :label="area.name"
+                            :value="area.code">
+                        </el-option>
+                    </el-select>
+                </div>
+            </div>
+
+            <div v-if="selectedArea" class="config-editor-container">
+                <div class="config-info">
+                    <h3>{{ currentArea.name }}</h3>
+                    <p>{{ currentArea.description }}</p>
+                    <div class="status-tag">
+                        <el-tag :type="currentArea.isEnabled ? 'success' : 'info'">
+                            {{ currentArea.isEnabled ? '已启用' : '已禁用' }}
+                        </el-tag>
+                    </div>
+                </div>
+
+                <el-tabs v-model="activeTab" class="config-tabs">
+                    <el-tab-pane label="基本设置" name="basic">
+                        <el-form :model="areaForm" label-width="120px">
+                            <el-form-item label="功能区名称">
+                                <el-input v-model="areaForm.name"></el-input>
+                            </el-form-item>
+                            <el-form-item label="功能区描述">
+                                <el-input v-model="areaForm.description" type="textarea" :rows="2"></el-input>
+                            </el-form-item>
+                            <el-form-item label="排序">
+                                <el-input-number v-model="areaForm.order" :min="0"></el-input-number>
+                            </el-form-item>
+                            <el-form-item label="状态">
+                                <el-switch v-model="areaForm.isEnabled"></el-switch>
+                            </el-form-item>
+                            <el-form-item label="访问角色">
+                                <el-select v-model="areaForm.accessRoles" multiple placeholder="选择可访问的角色">
+                                    <el-option label="管理员" value="admin"></el-option>
+                                    <el-option label="普通用户" value="user"></el-option>
+                                    <el-option label="访客" value="guest"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-form>
+                    </el-tab-pane>
+                    
+                    <el-tab-pane label="内容配置" name="content">
+                        <div class="config-json-editor">
+                            <el-alert
+                                title="提示：请按照JSON格式编辑功能区配置"
+                                type="info"
+                                :closable="false">
+                            </el-alert>
+                            <el-input
+                                v-model="areaForm.configJson"
+                                type="textarea"
+                                :rows="20"
+                                placeholder="输入JSON格式配置">
+                            </el-input>
+                        </div>
+                    </el-tab-pane>
+                    
+                    <el-tab-pane label="配置预览" name="preview">
+                        <div class="json-preview">
+                            <pre>{{ formatJSON(areaForm.configJson) }}</pre>
+                        </div>
+                    </el-tab-pane>
+                </el-tabs>
+                
+                <div class="form-actions">
+                    <el-button @click="resetForm">取消</el-button>
+                    <el-button type="primary" @click="saveAreaConfig">保存配置</el-button>
+                </div>
+            </div>
+            
+            <div v-else class="no-area-selected">
+                <el-empty description="请选择要配置的功能区"></el-empty>
+            </div>
+        </div>
+    </script>
+    
+    <!-- 功能区预览模板 -->
+    <script type="text/x-template" id="areas-preview-template">
+        <div class="areas-preview-container">
+            <div class="page-header">
+                <h2>功能区预览</h2>
+                <div>
+                    <el-select v-model="selectedArea" placeholder="选择功能区" style="width: 240px;">
+                        <el-option
+                            v-for="area in functionalAreas"
+                            :key="area.code"
+                            :label="area.name"
+                            :value="area.code">
+                        </el-option>
+                    </el-select>
+                    <el-button @click="refreshPreview" :disabled="!selectedArea">刷新预览</el-button>
+                </div>
+            </div>
+
+            <div v-if="selectedArea" class="preview-container">
+                <div class="preview-header">
+                    <h3>{{ currentArea.name }} 预览</h3>
+                    <el-tag :type="currentArea.isEnabled ? 'success' : 'danger'">
+                        {{ currentArea.isEnabled ? '已启用' : '已禁用' }}
+                    </el-tag>
+                </div>
+                
+                <div class="preview-iframe-container">
+                    <iframe :src="previewUrl" class="preview-iframe"></iframe>
+                </div>
+                
+                <div class="preview-actions">
+                    <el-button type="primary" @click="openInNewWindow">在新窗口打开</el-button>
+                    <el-button @click="editCurrentArea">编辑此功能区</el-button>
+                </div>
+            </div>
+            
+            <div v-else class="no-area-selected">
+                <el-empty description="请选择要预览的功能区"></el-empty>
+            </div>
+        </div>
+    </script>
+
+    <!-- 新闻编辑模板 -->
+    <script type="text/x-template" id="news-editor-template">
+        <div class="news-editor-container">
+            <div class="page-header">
+                <h2>新闻内容编辑</h2>
+                <div>
+                    <el-button type="primary" @click="createNews">新增新闻</el-button>
+                    <el-select v-model="currentCategory" placeholder="选择分类" @change="filterNewsByCategory">
+                        <el-option label="全部新闻" value="all"></el-option>
+                        <el-option label="公司动态" value="company"></el-option>
+                        <el-option label="行业资讯" value="industry"></el-option>
+                        <el-option label="技术前沿" value="tech"></el-option>
+                        <el-option label="案例分析" value="case"></el-option>
+                    </el-select>
+                </div>
+            </div>
+
+            <el-table :data="filteredNews" style="width: 100%" v-loading="loading">
+                <el-table-column prop="title" label="标题" min-width="200">
+                    <template #default="scope">
+                        <el-link @click="editNews(scope.row)" type="primary">{{ scope.row.title }}</el-link>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="publishDate" label="发布日期" width="120"></el-table-column>
+                <el-table-column prop="category" label="分类" width="120">
+                    <template #default="scope">
+                        <el-tag :type="getCategoryType(scope.row.category)">{{ getCategoryName(scope.row.category) }}</el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="author" label="作者" width="120"></el-table-column>
+                <el-table-column prop="isPublished" label="状态" width="100">
+                    <template #default="scope">
+                        <el-switch
+                            v-model="scope.row.isPublished"
+                            @change="(val) => updateNewsStatus(scope.row.id, val)"
+                            :active-value="true"
+                            :inactive-value="false">
+                        </el-switch>
+                    </template>
+                </el-table-column>
+                <el-table-column label="操作" width="200">
+                    <template #default="scope">
+                        <el-button size="small" @click="editNews(scope.row)">编辑</el-button>
+                        <el-button size="small" type="danger" @click="deleteNews(scope.row)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+
+            <!-- 新闻编辑对话框 -->
+            <el-dialog
+                :title="dialogType === 'add' ? '新增新闻' : '编辑新闻'"
+                v-model="dialogVisible"
+                width="70%"
+                destroy-on-close>
+                <el-form :model="newsForm" :rules="rules" ref="newsFormRef" label-width="100px">
+                    <el-form-item label="标题" prop="title">
+                        <el-input v-model="newsForm.title" placeholder="请输入新闻标题"></el-input>
+                    </el-form-item>
+                    <el-form-item label="分类" prop="category">
+                        <el-select v-model="newsForm.category" placeholder="请选择新闻分类">
+                            <el-option label="公司动态" value="company"></el-option>
+                            <el-option label="行业资讯" value="industry"></el-option>
+                            <el-option label="技术前沿" value="tech"></el-option>
+                            <el-option label="案例分析" value="case"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="封面图片" prop="image">
+                        <el-upload
+                            action="#"
+                            :auto-upload="false"
+                            :limit="1"
+                            list-type="picture-card"
+                            :on-change="handleImageChange"
+                            :on-remove="handleImageRemove">
+                            <i class="el-icon-plus"></i>
+                        </el-upload>
+                        <div v-if="newsForm.image" class="image-preview">
+                            <img :src="newsForm.image" class="preview-image">
+                        </div>
+                    </el-form-item>
+                    <el-form-item label="摘要" prop="summary">
+                        <el-input v-model="newsForm.summary" type="textarea" :rows="3" placeholder="请输入新闻摘要"></el-input>
+                    </el-form-item>
+                    <el-form-item label="内容" prop="content">
+                        <div class="editor-container">
+                            <!-- 富文本编辑器将在这里挂载 -->
+                            <div id="news-content-editor" style="height: 300px;"></div>
+                        </div>
+                    </el-form-item>
+                    <el-form-item label="作者" prop="author">
+                        <el-input v-model="newsForm.author" placeholder="请输入作者"></el-input>
+                    </el-form-item>
+                    <el-form-item label="发布日期">
+                        <el-date-picker 
+                            v-model="newsForm.publishDate" 
+                            type="datetime" 
+                            placeholder="选择日期时间">
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="发布状态">
+                        <el-switch v-model="newsForm.isPublished"></el-switch>
+                    </el-form-item>
+                    <el-form-item label="置顶">
+                        <el-switch v-model="newsForm.isTopNews"></el-switch>
+                    </el-form-item>
+                </el-form>
+                <template #footer>
+                    <el-button @click="dialogVisible = false">取消</el-button>
+                    <el-button type="primary" @click="submitNewsForm">保存</el-button>
+                    <el-button type="success" @click="previewNews">预览</el-button>
+                </template>
+            </el-dialog>
+
+            <!-- 新闻预览对话框 -->
+            <el-dialog title="新闻预览" v-model="previewVisible" width="70%">
+                <div class="news-preview-container">
+                    <h2 class="news-preview-title">{{ newsForm.title }}</h2>
+                    <div class="news-preview-meta">
+                        <span class="news-preview-category">{{ getCategoryName(newsForm.category) }}</span>
+                        <span class="news-preview-date">{{ formatDate(newsForm.publishDate) }}</span>
+                        <span class="news-preview-author">作者: {{ newsForm.author }}</span>
+                    </div>
+                    <div class="news-preview-image" v-if="newsForm.image">
+                        <img :src="newsForm.image" alt="新闻封面">
+                    </div>
+                    <div class="news-preview-summary">{{ newsForm.summary }}</div>
+                    <div class="news-preview-content" v-html="newsForm.content"></div>
+                </div>
+            </el-dialog>
+        </div>
+    </script>
+
+    <!-- 联享名片设置模板 -->
+    <script type="text/x-template" id="business-card-settings-template">
+        <div class="business-card-settings-container">
+            <div class="page-header">
+                <h2>联享名片设置</h2>
+                <div>
+                    <el-button type="primary" @click="saveAllSettings">保存所有设置</el-button>
+                    <el-button @click="resetSettings">重置</el-button>
+                </div>
+            </div>
+
+            <el-tabs v-model="activeTab" type="card" class="card-settings-tabs">
+                <el-tab-pane label="基本设置" name="basic">
+                    <el-form :model="cardSettings" label-width="140px">
+                        <el-form-item label="功能区标题">
+                            <el-input v-model="cardSettings.title" placeholder="请输入功能区标题"></el-input>
+                        </el-form-item>
+                        <el-form-item label="功能区副标题">
+                            <el-input v-model="cardSettings.subtitle" placeholder="请输入功能区副标题"></el-input>
+                        </el-form-item>
+                        <el-form-item label="功能区描述">
+                            <el-input v-model="cardSettings.description" type="textarea" :rows="3" placeholder="请输入功能区描述"></el-input>
+                        </el-form-item>
+                        <el-form-item label="按钮文本">
+                            <el-input v-model="cardSettings.ctaButton.text" placeholder="请输入按钮文本"></el-input>
+                        </el-form-item>
+                        <el-form-item label="按钮链接">
+                            <el-input v-model="cardSettings.ctaButton.link" placeholder="请输入按钮链接"></el-input>
+                        </el-form-item>
+                        <el-form-item label="展示图片">
+                            <el-upload
+                                action="#"
+                                :auto-upload="false"
+                                :limit="1"
+                                list-type="picture-card"
+                                :on-change="handleDemoImageChange"
+                                :on-remove="handleDemoImageRemove">
+                                <i class="el-icon-plus"></i>
+                            </el-upload>
+                            <div v-if="cardSettings.demoImage" class="demo-image-preview">
+                                <img :src="cardSettings.demoImage" class="preview-image">
+                            </div>
+                        </el-form-item>
+                    </el-form>
+                </el-tab-pane>
+                
+                <el-tab-pane label="特性设置" name="features">
+                    <div class="features-header">
+                        <h3>名片特性列表</h3>
+                        <el-button type="primary" size="small" @click="addFeature">添加特性</el-button>
+                    </div>
+                    
+                    <el-table :data="cardSettings.features" style="width: 100%">
+                        <el-table-column label="排序" width="80">
+                            <template #default="scope">
+                                <el-button-group>
+                                    <el-button 
+                                        size="small" 
+                                        icon="el-icon-arrow-up" 
+                                        @click="moveFeature(scope.$index, -1)"
+                                        :disabled="scope.$index === 0">
+                                    </el-button>
+                                    <el-button 
+                                        size="small" 
+                                        icon="el-icon-arrow-down" 
+                                        @click="moveFeature(scope.$index, 1)"
+                                        :disabled="scope.$index === cardSettings.features.length - 1">
+                                    </el-button>
+                                </el-button-group>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="icon" label="图标" width="120">
+                            <template #default="scope">
+                                <div class="icon-preview">
+                                    <i :class="scope.row.icon"></i>
+                                    <el-button size="small" @click="openIconSelector(scope.$index)">选择图标</el-button>
+                                </div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="title" label="特性标题">
+                            <template #default="scope">
+                                <el-input v-model="scope.row.title" placeholder="特性标题"></el-input>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="description" label="特性描述">
+                            <template #default="scope">
+                                <el-input v-model="scope.row.description" placeholder="特性描述"></el-input>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="操作" width="120">
+                            <template #default="scope">
+                                <el-button size="small" type="danger" @click="removeFeature(scope.$index)">删除</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </el-tab-pane>
+                
+                <el-tab-pane label="预览" name="preview">
+                    <div class="card-preview-container">
+                        <h3>联享名片预览</h3>
+                        
+                        <div class="business-card-preview">
+                            <div class="card-header">
+                                <h2>{{ cardSettings.title || '联享智能名片' }}</h2>
+                                <h4>{{ cardSettings.subtitle || '数字化您的品牌影响力' }}</h4>
+                                <p>{{ cardSettings.description || '智能AI名片助力您建立专业品牌形象，高效连接客户资源' }}</p>
+                            </div>
+                            
+                            <div class="card-features-preview">
+                                <div 
+                                    v-for="(feature, index) in cardSettings.features" 
+                                    :key="index" 
+                                    class="card-feature-item">
+                                    <div class="feature-icon">
+                                        <i :class="feature.icon || 'el-icon-star-off'"></i>
+                                    </div>
+                                    <div class="feature-title">{{ feature.title }}</div>
+                                    <div class="feature-description">{{ feature.description }}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-cta">
+                                <el-button type="primary">{{ cardSettings.ctaButton.text || '立即创建我的智能名片' }}</el-button>
+                            </div>
+                            
+                            <div class="card-demo-image" v-if="cardSettings.demoImage">
+                                <img :src="cardSettings.demoImage" alt="名片示例">
+                            </div>
+                        </div>
+                    </div>
+                </el-tab-pane>
+            </el-tabs>
+            
+            <!-- 图标选择器对话框 -->
+            <el-dialog title="选择图标" v-model="iconDialogVisible" width="600px">
+                <div class="icon-selector-container">
+                    <div class="icon-search">
+                        <el-input v-model="iconSearchQuery" placeholder="搜索图标" prefix-icon="el-icon-search"></el-input>
+                    </div>
+                    <div class="icons-grid">
+                        <div 
+                            v-for="icon in filteredIcons" 
+                            :key="icon"
+                            class="icon-item" 
+                            @click="selectIcon(icon)">
+                            <i :class="icon"></i>
+                            <span class="icon-name">{{ icon.replace('el-icon-', '') }}</span>
+                        </div>
+                    </div>
+                </div>
+            </el-dialog>
+
+            <!-- 保存成功提示 -->
+            <el-dialog
+                title="设置保存成功"
+                v-model="saveSuccessVisible"
+                width="400px">
+                <div class="save-success">
+                    <i class="el-icon-success success-icon"></i>
+                    <p>联享名片设置已成功保存</p>
+                </div>
+                <template #footer>
+                    <el-button @click="saveSuccessVisible = false">关闭</el-button>
+                    <el-button type="primary" @click="previewCardPage">预览名片页面</el-button>
+                </template>
+            </el-dialog>
+        </div>
+    </script>
+
+    <!-- 系统概览模板 -->
+    <script type="text/x-template" id="dashboard-template">
+        <div class="dashboard-container">
+            <el-row :gutter="20">
+                <el-col :span="6">
+                    <el-card class="stat-card">
+                        <div class="stat-icon">
+                            <el-icon><i class="el-icon-grid"></i></el-icon>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-title">功能区总数</div>
+                            <div class="stat-value">{{ stats.totalAreas || 0 }}</div>
+                        </div>
+                    </el-card>
+                </el-col>
+                <el-col :span="6">
+                    <el-card class="stat-card">
+                        <div class="stat-icon">
+                            <el-icon><i class="el-icon-check"></i></el-icon>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-title">已启用功能区</div>
+                            <div class="stat-value">{{ stats.enabledAreas || 0 }}</div>
+                        </div>
+                    </el-card>
+                </el-col>
+                <el-col :span="6">
+                    <el-card class="stat-card">
+                        <div class="stat-icon">
+                            <el-icon><i class="el-icon-user"></i></el-icon>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-title">总用户数</div>
+                            <div class="stat-value">{{ stats.totalUsers || 0 }}</div>
+                        </div>
+                    </el-card>
+                </el-col>
+                <el-col :span="6">
+                    <el-card class="stat-card">
+                        <div class="stat-icon">
+                            <el-icon><i class="el-icon-chat-dot-round"></i></el-icon>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-title">总会话数</div>
+                            <div class="stat-value">{{ stats.totalSessions || 0 }}</div>
+                        </div>
+                    </el-card>
+                </el-col>
+            </el-row>
+
+            <el-row :gutter="20" style="margin-top: 20px;">
+                <el-col :span="16">
+                    <el-card class="chart-card">
+                        <template #header>
+                            <div class="card-header">
+                                <span>功能区使用情况</span>
+                                <el-radio-group v-model="chartTimeRange" size="small">
+                                    <el-radio-button label="week">本周</el-radio-button>
+                                    <el-radio-button label="month">本月</el-radio-button>
+                                    <el-radio-button label="year">全年</el-radio-button>
+                                </el-radio-group>
+                            </div>
+                        </template>
+                        <div class="chart-container">
+                            <div class="chart-placeholder">功能区使用统计图表</div>
+                        </div>
+                    </el-card>
+                </el-col>
+                <el-col :span="8">
+                    <el-card class="info-card">
+                        <template #header>
+                            <div class="card-header">
+                                <span>功能区状态</span>
+                            </div>
+                        </template>
+                        <div class="area-status-list">
+                            <div class="area-status-item" v-for="area in areaStatusList" :key="area.code">
+                                <div class="area-status-name">{{ area.name }}</div>
+                                <el-tag :type="area.isEnabled ? 'success' : 'info'" size="small">
+                                    {{ area.isEnabled ? '已启用' : '已禁用' }}
+                                </el-tag>
+                            </div>
+                        </div>
+                    </el-card>
+                </el-col>
+            </el-row>
+
+            <el-row :gutter="20" style="margin-top: 20px;">
+                <el-col :span="24">
+                    <el-card class="recent-logs-card">
+                        <template #header>
+                            <div class="card-header">
+                                <span>最近功能区修改日志</span>
+                                <el-button size="small" type="text">查看全部</el-button>
+                            </div>
+                        </template>
+                        <el-table :data="recentLogs" style="width: 100%" stripe>
+                            <el-table-column prop="time" label="时间" width="160"></el-table-column>
+                            <el-table-column prop="areaName" label="功能区" width="180"></el-table-column>
+                            <el-table-column prop="action" label="操作" width="100">
+                                <template #default="scope">
+                                    <el-tag :type="getActionType(scope.row.action)" size="small">{{ scope.row.action }}</el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="user" label="操作人" width="120"></el-table-column>
+                            <el-table-column prop="description" label="说明"></el-table-column>
+                        </el-table>
+                    </el-card>
+                </el-col>
+            </el-row>
+        </div>
+    </script>
+
+    <script src="js/admin-dashboard.js"></script>
+    <!-- 富文本编辑器 -->
+    <script src="https://cdn.jsdelivr.net/npm/wangeditor@4.7.15/dist/wangEditor.min.js"></script>
+</body>
+</html> 

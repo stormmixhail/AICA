@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AICA - AI智能解决方案</title>
+    <link rel="icon" href="img/favicon.svg?v=20250716" type="image/svg+xml">
+    <!-- 引入Vue -->
+    <script src="js/lib/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/mock-api.js"></script>
+    <!-- 基础样式 -->
+    <link rel="stylesheet" href="css/style.css?v=20250720">
+    <link rel="stylesheet" href="css/blue-card.css?v=20250720">
+    <link rel="stylesheet" href="css/card-module.css?v=20250720">
+    <style>
+        /* 页内样式覆盖，确保优先级 */
+        html, body {
+            scroll-behavior: auto;
+            height: auto;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+        
+        #app {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            padding-bottom: 60px; /* 为页脚预留空间 */
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: var(--spacing-md);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .competition-alert {
+            margin-bottom: 80px !important;
+            z-index: 20;
+            position: relative;
+        }
+        
+        .simple-footer {
+            background-color: #f5f5f5;
+            color: #666;
+            text-align: center;
+            padding: 15px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 5;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .news-container {
+            position: relative;
+            z-index: 15;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <main class="main-content">
+            <section class="hero">
+                <h1 class="hero-title">为您安装一台7x24小时的AI增长引擎</h1>
+                <p class="hero-subtitle">一个人，就是一支军队。我们为您配齐"参谋部"、"军火库"和"工程部"</p>
+            </section>
+            
+            <section class="features">
+                <div class="feature-grid">
+                    <div class="feature-card" @click="navigateTo('ai-marketing')">
+                        <div class="feature-icon">
+                            <img src="img/marketing-icon.svg?v=20250716" alt="AI获客">
+                        </div>
+                        <h2 class="feature-title">AI获客引擎</h2>
+                        <p class="feature-desc">让AI为您带来源源不断的客户线索</p>
+                        <div class="feature-hover-effect"></div>
+                    </div>
+                    
+                    <div class="feature-card" @click="navigateTo('digital-human-new')">
+                        <div class="feature-icon">
+                            <img src="img/digital-human-icon.svg?v=20250716" alt="数字人">
+                        </div>
+                        <h2 class="feature-title">AI数字人分身</h2>
+                        <p class="feature-desc">打造您的专属数字代言人，提升品牌形象</p>
+                        <div class="feature-hover-effect"></div>
+                    </div>
+                    
+                    <div class="feature-card" @click="showFeatureUnavailable('AI一人公司')">
+                        <div class="feature-icon">
+                            <img src="img/company-icon.svg?v=20250716" alt="一人公司">
+                        </div>
+                        <h2 class="feature-title">AI一人公司</h2>
+                        <p class="feature-desc">一整套让您独立创业的商业武器库</p>
+                        <div class="feature-hover-effect"></div>
+                    </div>
+                    
+                    <div class="feature-card" @click="navigateTo('ai-card-new')">
+                        <div class="feature-icon">
+                            <img src="img/card-icon.svg?v=20250716" alt="AI联享名片">
+                        </div>
+                        <h2 class="feature-title">AI联享名片</h2>
+                        <p class="feature-desc">一张名片，链接所有商机</p>
+                        <div class="feature-hover-effect"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 全屏新闻展示模块 -->
+            <section class="fullscreen-news-module">
+                <h2 class="section-title">最新动态</h2>
+                <p class="section-subtitle">了解我们的最新服务与行业资讯</p>
+                <div class="news-container">
+                    <div class="fixed-news-grid">
+                        <!-- 固定新闻按钮1 -->
+                        <div class="fixed-news-item" @click="viewNews('news1')">
+                            <div class="news-image">
+                                <img src="img1.webp" alt="AI培训就业认证">
+                                <div class="news-overlay">
+                                    <div class="news-category">AI就业培训</div>
+                                    <h2 class="news-title">签就业协议：薪资8000+人工智能"全媒体运营师"培训</h2>
+                                    <p class="news-excerpt">AI时代的就业新机遇，定向培训后直接签订就业协议，保障就业前景</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 固定新闻按钮2 -->
+                        <div class="fixed-news-item" @click="navigateTo('article-multimedia-training')">
+                            <div class="news-image" style="position: relative;">
+                                <img src="img/multimedia-course.png" alt="多媒体短片制作课程" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.7)); z-index: 1;"></div>
+                                <div class="news-overlay" style="z-index: 2;">
+                                    <div class="news-category">香港CEF课程</div>
+                                    <h2 class="news-title">政府資助$25000！學拍片做KOL，你都可以！</h2>
+                                    <p class="news-excerpt">B+ 正向教育中心推出《多媒體短片製作與社交媒體發放證書》课程，香港資歷架構認證</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 固定新闻按钮3：工信部培训 -->
+                        <div class="fixed-news-item" @click="viewNews('news3')">
+                            <div class="news-image">
+                                <img src="pth/2421753430295_.pic.jpg" alt="工信部人工智能培训">
+                                <div class="news-overlay">
+                                    <div class="news-category">AI技能培训</div>
+                                    <h2 class="news-title">工信部人工智能应用工程师培训计划启动</h2>
+                                    <p class="news-excerpt">工业和信息化部联合推出人工智能应用工程师培训计划，加速数字人才培养</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 竞争提示区域 -->
+                    <div class="competition-alert">
+                        <h3 class="competition-title">还在等什么？</h3>
+                        <p class="competition-subtitle">您的竞争对手，已经开始用AI提升效率了</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="simple-footer">
+            <p>&copy; 2025 AICA 版权所有</p>
+        </footer>
+    </div>
+    
+    <script>
+    // 直接在页面内实现Vue应用，避免外部脚本依赖
+    new Vue({
+        el: '#app',
+        data: {
+            agents: {
+                'tan-agent': {
+                    name: '谭云杰',
+                    title: '创始人 & CEO',
+                    avatar: 'img/tan-avatar.svg?v=20250716'
+                },
+                'zheng-agent': {
+                    name: '郑明',
+                    title: '联合创始人 & CTO',
+                    avatar: 'img/zheng-avatar.svg?v=20250716'
+                },
+                'product-agent': {
+                    name: '李晓华',
+                    title: '产品总监',
+                    avatar: 'img/ai-avatar.svg?v=20250716'
+                },
+                'marketing-agent': {
+                    name: '营销助手',
+                    title: 'AI营销专家',
+                    avatar: 'img/ai-avatar.svg?v=20250716'
+                },
+                'content-agent': {
+                    name: '内容助手',
+                    title: 'AI内容创作专家',
+                    avatar: 'img/digital-human-avatar.svg?v=20250716'
+                },
+                'crm-agent': {
+                    name: '客户管理助手',
+                    title: 'AI客户关系专家',
+                    avatar: 'img/card-assistant-avatar.svg?v=20250716'
+                },
+                'strategy-agent': {
+                    name: '战略顾问',
+                    title: 'AI战略分析专家',
+                    avatar: 'img/ai-avatar.svg?v=20250716'
+                }
+            },
+            newsList: [
+                {
+                    id: 1,
+                    title: "【签就业协议】薪资8000+人工智能 \"全媒体运营师\" 定向就业培训报名！",
+                    excerpt: "人力资源社会保障部相关负责人表示，此次开展大规模职业技能培训，主要是适应新质生产力发展、就业岗位挖潜扩容等需要，培养更多紧缺技能人才。",
+                    image: "img/news/application-banner1.jpg?v=20250716",
+                    category: "招生就业"
+                },
+                {
+                    id: 2,
+                    title: "AI一人公司：重塑个体创业者的商业模式",
+                    excerpt: "人工智能技术正在为个体创业者提供前所未有的可能性，通过AI工具，一个人可以完成过去需要团队才能实现的任务。了解如何构建和运营AI驱动的一人公司。",
+                    image: "img/news/industry-banner1.jpg?v=20250716",
+                    category: "创业创新"
+                },
+                {
+                    id: 3,
+                    title: "联享名片：打造智能化商业社交新范式",
+                    excerpt: "联享名片正在成为商业社交的新标准，融合AI助手、实时数据分析和智能跟进功能，让每一次商业互动都能产生最大价值。",
+                    image: "img/news/application-banner2.jpg?v=20250716",
+                    category: "产品动态"
+                }
+            ],
+        },
+        mounted() {
+            // 确保滚动正常
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'auto'; // 使用浏览器默认滚动恢复
+            }
+            
+            // 监听滚动，防止异常跳转
+            window.addEventListener('scroll', this.handleScroll);
+        },
+        methods: {
+            // 导航到功能页面
+            navigateTo(page) {
+                switch(page) {
+                    case 'ai-marketing':
+                        window.location.href = 'ai-marketing.html';
+                        break;
+                    case 'digital-human':
+                    case 'digital-human-new':
+                        window.location.href = 'digital-human-new.html';
+                        break;
+                    case 'ai-company':
+                        window.location.href = 'ai-company.html';
+                        break;
+                    case 'ai-card':
+                    case 'ai-card-new':
+                        window.location.href = 'ai-card-new.html';
+                        break;
+                    case 'article-multimedia-training':
+                        window.location.href = 'article-multimedia-training.html';
+                        break;
+                    default:
+                        break;
+                }
+            },
+            
+            // 导航到智能体页面
+            navigateToAgent(agent) {
+                if (this.agents[agent]) {
+                    // 保存智能体信息到本地会话
+                    sessionStorage.setItem('currentAgent', JSON.stringify(this.agents[agent]));
+                    // 跳转到智能体聊天页面
+                    window.location.href = 'agent-chat.html?agent=' + agent;
+                } else {
+                    alert('即将推出：' + agent + ' 功能');
+                }
+            },
+            
+            // 新闻浏览
+            viewNews(newsId) {
+                console.log('查看新闻:', newsId);
+                
+                if (newsId === 'news1') {
+                    window.location.href = 'article-ai-employment-training.html';
+                } else if (newsId === 'news2') {
+                    window.location.href = 'article-multimedia-training.html';
+                } else if (newsId === 'news3') {
+                    window.location.href = 'article-ai-miit-training.html';
+                } else {
+                    const newsItem = this.newsList.find(news => news.id === newsId);
+                    if (newsItem) {
+                        window.location.href = `digital-human-news.html?id=${newsId}`;
+                    }
+                }
+            },
+            
+            // 处理滚动事件
+            handleScroll() {
+                // 不执行任何操作，仅防止默认行为被覆盖
+            },
+            
+            // 显示功能不可用提示
+            showFeatureUnavailable(featureName) {
+                alert(`"${featureName}"功能暂未开放，敬请期待！`);
+            }
+        }
+    });
+    </script>
+</body>
+</html> 

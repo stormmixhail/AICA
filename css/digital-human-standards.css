@@ -1,0 +1,992 @@
+/* 数字人标准对比页面样式 */
+:root {
+  /* 主色调 */
+  --primary-color: #1a1a2e;
+  --primary-light: #16213e;
+  --primary-dark: #0f3460;
+  --accent-color: #00b4d8;
+  --accent-light: #5ce1e6;
+  
+  /* 文本颜色 */
+  --text-light: #ffffff;
+  --text-medium: #eeeeee;
+  --text-dark: #16213e;
+  
+  /* 背景颜色 */
+  --bg-dark: #0f0f1a;
+  --bg-light: #f8f9fa;
+  
+  /* 过渡效果 */
+  --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  
+  /* 阴影 */
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  
+  /* 圆角 */
+  --radius: 8px;
+  
+  /* 表格对比颜色 */
+  --comparison-positive: #00b4d8;
+  --comparison-negative: #ff4757;
+  --comparison-neutral: #ffa502;
+}
+
+/* 基础样式 */
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.section {
+  padding-top: 100px;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* 主导航栏样式 */
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: rgba(10, 10, 20, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000;
+  box-shadow: var(--shadow);
+  transition: all var(--transition);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+  transition: all var(--transition);
+}
+
+.logo:hover img {
+  transform: scale(1.05);
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-link {
+  color: var(--text-medium);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 15px;
+  border-radius: var(--radius);
+  transition: all var(--transition);
+  position: relative;
+  letter-spacing: 0.5px;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 80%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-light));
+  border-radius: 3px;
+  transition: transform 0.3s ease;
+  opacity: 0;
+}
+
+.nav-link:hover {
+  color: var(--text-light);
+}
+
+.nav-link:hover::after {
+  transform: translateX(-50%) scaleX(1);
+  opacity: 1;
+}
+
+.nav-link.active {
+  color: var(--text-light);
+}
+
+.nav-link.active::after {
+  transform: translateX(-50%) scaleX(1);
+  opacity: 1;
+}
+
+/* 主内容区域样式 */
+.standards-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 10px;
+  color: var(--text-light);
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.5px;
+}
+
+.page-subtitle {
+  font-size: 1.1rem;
+  text-align: center;
+  color: var(--text-medium);
+  margin-bottom: 50px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 数字人标准对比表格样式 */
+.digital-standards-comparison {
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 20px;
+  background: rgba(10, 10, 25, 0.7);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(72, 147, 224, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.digital-standards-comparison::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-light), var(--accent-color));
+  opacity: 0.8;
+}
+
+.comparison-title {
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 5px rgba(0, 180, 216, 0.3);
+  letter-spacing: 1px;
+}
+
+.comparison-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 40px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.comparison-table-container {
+  overflow-x: auto;
+  margin: 0 -20px;
+  padding: 0 20px;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 20px;
+  color: #ffffff;
+  position: relative;
+}
+
+.comparison-table::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="none" width="100" height="100"/><rect fill="none" stroke="rgba(0, 180, 216, 0.05)" stroke-width="0.5" x="10" y="10" width="80" height="80" rx="10" ry="10"/></svg>');
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 15px 20px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.comparison-table thead tr {
+  background: linear-gradient(90deg, rgba(15, 52, 96, 0.8), rgba(16, 76, 154, 0.8));
+}
+
+.comparison-table th {
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
+.comparison-table th::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+}
+
+.feature-header {
+  width: 25%;
+  border-radius: 8px 0 0 0;
+  background: linear-gradient(135deg, rgba(15, 52, 96, 0.9), rgba(10, 25, 50, 0.9));
+}
+
+.aica-header {
+  width: 37.5%;
+  text-align: center;
+  background: rgba(0, 180, 216, 0.2);
+  position: relative;
+}
+
+.aica-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><rect fill="none" width="20" height="20"/><circle fill="rgba(0, 180, 216, 0.1)" cx="10" cy="10" r="5"/></svg>');
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.ordinary-header {
+  width: 37.5%;
+  text-align: center;
+  background: rgba(255, 71, 87, 0.1);
+  position: relative;
+  border-radius: 0 8px 0 0;
+}
+
+.category-row {
+  background: linear-gradient(90deg, rgba(10, 20, 35, 0.9), rgba(15, 30, 50, 0.9));
+}
+
+.category-header {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 15px 20px;
+  color: #ffffff;
+  letter-spacing: 1px;
+  border-left: 4px solid var(--accent-color);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(90deg, rgba(0, 180, 216, 0.2), transparent);
+}
+
+.comparison-table tbody tr:not(.category-row):hover {
+  background-color: rgba(0, 180, 216, 0.1);
+}
+
+.aica-cell,
+.ordinary-cell {
+  text-align: center;
+  position: relative;
+}
+
+.aica-cell {
+  background-color: rgba(0, 180, 216, 0.05);
+  font-weight: 500;
+}
+
+.ordinary-cell {
+  background-color: rgba(255, 255, 255, 0.02);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.comparison-table .bi-check-circle-fill {
+  color: var(--comparison-positive);
+  margin-right: 5px;
+  filter: drop-shadow(0 0 3px rgba(0, 180, 216, 0.5));
+}
+
+.comparison-table .bi-x-circle-fill {
+  color: var(--comparison-negative);
+  margin-right: 5px;
+  filter: drop-shadow(0 0 3px rgba(255, 71, 87, 0.5));
+}
+
+/* 增强数据单元格样式 */
+.aica-cell,
+.ordinary-cell {
+  position: relative;
+  overflow: hidden;
+  background-position: center;
+}
+
+.aica-cell::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(0, 180, 216, 0.1), transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.aica-cell:hover::before {
+  opacity: 1;
+}
+
+/* 数据可视化元素 */
+.data-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-light));
+  opacity: 0.8;
+  transition: width 1s ease-in-out;
+}
+
+.aica-cell .data-bar {
+  width: 0;
+}
+
+.ordinary-cell .data-bar {
+  background: linear-gradient(90deg, var(--comparison-negative), #ff6b81);
+  width: 0;
+}
+
+.feature-highlight {
+  display: inline-block;
+  background: linear-gradient(90deg, rgba(0, 180, 216, 0.2), transparent);
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: white;
+  font-weight: 500;
+  box-shadow: 0 0 10px rgba(0, 180, 216, 0.2);
+  margin-right: 5px;
+}
+
+/* CTA 部分样式 */
+.cta-section {
+  text-align: center;
+  padding: 60px 20px;
+  margin: 40px 0;
+  background: rgba(10, 10, 25, 0.5);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(0, 180, 216, 0.1) 0%, transparent 70%);
+  z-index: -1;
+}
+
+.cta-section h2 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--text-light);
+}
+
+.cta-section p {
+  font-size: 16px;
+  color: var(--text-medium);
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition);
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cta-button.primary {
+  background: linear-gradient(45deg, var(--accent-color), var(--accent-light));
+  color: var(--text-light);
+  border: none;
+}
+
+.cta-button.primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 180, 216, 0.4);
+}
+
+.cta-button.secondary {
+  background: transparent;
+  color: var(--text-light);
+  border: 2px solid var(--accent-color);
+}
+
+.cta-button.secondary:hover {
+  background-color: rgba(0, 180, 216, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* 返回按钮样式 */
+.back-to-home {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 44px;
+  height: 44px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.back-to-home:hover {
+  background-color: var(--accent-color);
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.back-to-home img {
+  width: 20px;
+  height: 20px;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+  transition: all 0.2s ease;
+}
+
+.back-to-home:hover img {
+  transform: translateX(-2px);
+}
+
+/* 页脚样式 */
+.footer {
+  background-color: rgba(10, 10, 20, 0.9);
+  color: var(--text-medium);
+  padding: 60px 0 20px;
+  margin-top: 80px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.footer-logo {
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 200px;
+}
+
+.footer-logo img {
+  width: 100%;
+  max-width: 150px;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  width: 100%;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-column h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--text-light);
+}
+
+.footer-column p {
+  margin: 10px 0;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.footer-column i {
+  margin-right: 10px;
+  color: var(--accent-color);
+}
+
+.footer-column a {
+  display: block;
+  margin: 10px 0;
+  color: var(--text-medium);
+  text-decoration: none;
+  font-size: 14px;
+  transition: all var(--transition);
+}
+
+.footer-column a:hover {
+  color: var(--accent-light);
+  transform: translateX(5px);
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 40px;
+  font-size: 14px;
+}
+
+.footer-bottom a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: all var(--transition);
+}
+
+.footer-bottom a:hover {
+  color: var(--accent-light);
+}
+
+/* 技术特色对比区域 */
+.tech-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  max-width: 100%;
+}
+
+.tech-feature-card {
+  background: rgba(10, 10, 25, 0.7);
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(0, 180, 216, 0.1);
+  height: 100%;
+}
+
+.tech-feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top right, rgba(0, 180, 216, 0.1), transparent 70%);
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.tech-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 180, 216, 0.2);
+}
+
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, rgba(0, 180, 216, 0.2), rgba(0, 180, 216, 0.1));
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  position: relative;
+  z-index: 1;
+}
+
+.feature-icon i {
+  font-size: 28px;
+  color: var(--accent-light);
+  filter: drop-shadow(0 0 8px rgba(0, 180, 216, 0.5));
+}
+
+.tech-feature-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.tech-feature-card p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 20px;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+  flex-grow: 1;
+}
+
+.feature-comparison {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+}
+
+.feature-bar {
+  position: relative;
+  height: 40px;
+  background: rgba(10, 10, 20, 0.5);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.aica-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50%;
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-light));
+  border-radius: 6px 6px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  width: 0;
+  transition: width 1.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.ordinary-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 50%;
+  background: linear-gradient(90deg, var(--comparison-negative), rgba(255, 71, 87, 0.7));
+  border-radius: 0 0 6px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  width: 0;
+  transition: width 1.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* 动画效果 */
+@keyframes showBar {
+  from { width: 0; }
+  to { width: var(--target-width); }
+}
+
+/* 响应式调整 */
+@media (max-width: 992px) {
+  .comparison-title {
+    font-size: 24px;
+  }
+  
+  .comparison-subtitle {
+    font-size: 14px;
+  }
+  
+  .comparison-table th,
+  .comparison-table td {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+  
+  .category-header {
+    font-size: 16px;
+  }
+  
+  .cta-section h2 {
+    font-size: 22px;
+  }
+  
+  .cta-section p {
+    font-size: 14px;
+  }
+  
+  .footer-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .footer-logo {
+    margin-bottom: 20px;
+  }
+
+  .tech-features {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .tech-feature-card h3 {
+    font-size: 18px;
+  }
+  
+  .tech-feature-card p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2rem;
+  }
+  
+  .page-subtitle {
+    font-size: 1rem;
+  }
+  
+  .digital-standards-comparison {
+    margin: 40px auto;
+    padding: 15px;
+  }
+  
+  .comparison-title {
+    font-size: 20px;
+  }
+  
+  .comparison-subtitle {
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+  
+  .comparison-table th,
+  .comparison-table td {
+    padding: 10px;
+    font-size: 13px;
+  }
+  
+  .category-header {
+    font-size: 15px;
+  }
+  
+  .cta-section {
+    padding: 30px 20px;
+  }
+  
+  .cta-button {
+    min-width: 140px;
+    padding: 10px 15px;
+  }
+  
+  .footer-links {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .tech-features {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+  }
+  
+  .feature-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .feature-icon i {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 576px) {
+  .nav-container {
+    padding: 0 15px;
+  }
+  
+  .page-title {
+    font-size: 1.8rem;
+  }
+  
+  .digital-standards-comparison {
+    margin: 30px auto;
+    padding: 10px;
+  }
+  
+  .comparison-title {
+    font-size: 18px;
+  }
+  
+  .comparison-subtitle {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  
+  .comparison-table th, 
+  .comparison-table td {
+    padding: 8px 5px;
+    font-size: 12px;
+  }
+  
+  .category-header {
+    font-size: 14px;
+  }
+  
+  .feature-header {
+    width: 30%;
+  }
+  
+  .aica-header,
+  .ordinary-header {
+    width: 35%;
+  }
+  
+  .tech-features {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  /* 小屏幕额外优化 */
+  .back-to-home {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    bottom: 15px;
+    right: 15px;
+    z-index: 1000;
+    border-radius: 50%;
+    background: rgba(0, 180, 216, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  .back-to-home img {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .tech-feature-card {
+    padding: 15px 12px;
+  }
+  
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+  }
+  
+  .feature-icon i {
+    font-size: 20px;
+  }
+  
+  .tech-feature-card h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  .tech-feature-card p {
+    font-size: 12px;
+    margin-bottom: 12px;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .feature-bar {
+    height: 30px;
+  }
+  
+  .aica-bar, .ordinary-bar {
+    font-size: 10px;
+  }
+  
+  .feature-highlight {
+    font-size: 11px;
+    padding: 2px 5px;
+  }
+  
+  /* CTA部分优化 */
+  .cta-section {
+    padding: 25px 15px;
+  }
+  
+  .cta-section h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  .cta-section p {
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
+  
+  .cta-buttons {
+    gap: 10px;
+  }
+} 

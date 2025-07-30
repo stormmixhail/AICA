@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>数字人新闻库管理后台 - AICA</title>
+    <link rel="stylesheet" href="css/style.css?v=20250716">
+    <link rel="stylesheet" href="css/admin.css?v=20250716">
+    <link rel="stylesheet" href="css/digital-human-news-admin.css?v=20250716">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@2.0.0-beta.0/dist/quill.snow.css">
+    <script src="js/lib/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-beta.0/dist/quill.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+</head>
+<body>
+    <div id="news-admin-app" class="admin-panel">
+        <!-- 侧边导航 -->
+        <aside class="sidebar" :class="{'sidebar-collapsed': sidebarCollapsed}">
+            <div class="sidebar-header">
+                <img src="img/aica-logo.svg" alt="AICA Logo" class="logo">
+                <h1 class="sidebar-title">数字人管理</h1>
+                <button class="toggle-sidebar" @click="toggleSidebar">
+                    <i :class="sidebarCollapsed ? 'bi bi-chevron-right' : 'bi bi-chevron-left'"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="#" @click.prevent="setActiveView('dashboard')" :class="{'active': activeView === 'dashboard'}">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>仪表盘</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" @click.prevent="setActiveView('news')" :class="{'active': activeView === 'news'}">
+                            <i class="bi bi-newspaper"></i>
+                            <span>新闻管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" @click.prevent="setActiveView('videos')" :class="{'active': activeView === 'videos'}">
+                            <i class="bi bi-collection-play"></i>
+                            <span>视频管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" @click.prevent="setActiveView('categories')" :class="{'active': activeView === 'categories'}">
+                            <i class="bi bi-tags"></i>
+                            <span>分类管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" @click.prevent="setActiveView('settings')" :class="{'active': activeView === 'settings'}">
+                            <i class="bi bi-gear"></i>
+                            <span>系统设置</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="#" @click.prevent="logout" class="logout-btn">
+                    <i class="bi bi-box-arrow-left"></i>
+                    <span>退出登录</span>
+                </a>
+            </div>
+        </aside>
+        
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <!-- 顶部导航栏 -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2 class="page-title">{{ pageTitles[activeView] }}</h2>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <i class="bi bi-search"></i>
+                        <input type="text" placeholder="搜索..." v-model="searchQuery" @input="handleSearch">
+                        <button v-if="searchQuery" @click="clearSearch" class="clear-search">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    </div>
+                    <div class="user-menu">
+                        <img src="img/profile-avatar.jpg" alt="管理员" class="avatar">
+                        <span class="username">管理员</span>
+                        <i class="bi bi-chevron-down"></i>
+                        <div class="user-dropdown">
+                            <a href="#"><i class="bi bi-person"></i> 个人资料</a>
+                            <a href="#"><i class="bi bi-shield-lock"></i> 修改密码</a>
+                            <a href="#" @click.prevent="logout"><i class="bi bi-box-arrow-right"></i> 退出登录</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- 仪表盘视图 -->
+            <div v-if="activeView === 'dashboard'" class="dashboard-view">
+                <div class="dashboard-grid">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="bi bi-newspaper"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3>{{ totalNews }}</h3>
+                            <p>新闻总数</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="bi bi-collection-play"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3>{{ totalVideos }}</h3>
+                            <p>视频总数</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="bi bi-eye"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3>{{ totalViews }}</h3>
+                            <p>总浏览量</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="bi bi-calendar-check"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3>{{ newItemsThisWeek }}</h3>
+                            <p>本周新增</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-row">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>内容浏览趋势</h3>
+                            <div class="chart-controls">
+                                <button class="chart-control active">周</button>
+                                <button class="chart-control">月</button>
+                                <button class="chart-control">年</button>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <!-- 这里放置图表，实际项目中可以使用ECharts等库 -->
+                            <div class="placeholder-chart">
+                                <div class="chart-bar" style="height: 60%"></div>
+                                <div class="chart-bar" style="height: 80%"></div>
+                                <div class="chart-bar" style="height: 50%"></div>
+                                <div class="chart-bar" style="height: 70%"></div>
+                                <div class="chart-bar" style="height: 90%"></div>
+                                <div class="chart-bar" style="height: 65%"></div>
+                                <div class="chart-bar" style="height: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recent-activity">
+                        <h3>最近活动</h3>
+                        <ul class="activity-list">
+                            <li v-for="(activity, index) in recentActivities" :key="index" class="activity-item">
+                                <div class="activity-icon">
+                                    <i :class="activity.icon"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-text">{{ activity.text }}</p>
+                                    <p class="activity-time">{{ activity.time }}</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 新闻管理视图 -->
+            <div v-if="activeView === 'news'" class="news-view">
+                <div class="view-actions">
+                    <button class="add-btn" @click="openNewsEditor()">
+                        <i class="bi bi-plus-lg"></i> 添加新闻
+                    </button>
+                    <div class="filter-controls">
+                        <div class="filter-group">
+                            <label>分类：</label>
+                            <select v-model="newsFilters.category">
+                                <option value="all">全部分类</option>
+                                <option v-for="category in newsCategories" :value="category.id">{{ category.name }}</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>状态：</label>
+                            <select v-model="newsFilters.status">
+                                <option value="all">全部状态</option>
+                                <option value="published">已发布</option>
+                                <option value="draft">草稿</option>
+                                <option value="archived">已归档</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="data-table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th width="50">
+                                    <input type="checkbox" @change="toggleSelectAll" v-model="selectAllNews">
+                                </th>
+                                <th width="60">ID</th>
+                                <th width="80">缩略图</th>
+                                <th>标题</th>
+                                <th width="120">分类</th>
+                                <th width="100">状态</th>
+                                <th width="150">发布日期</th>
+                                <th width="150">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="news in filteredNews" :key="news.id" :class="{'selected': selectedNews.includes(news.id)}">
+                                <td>
+                                    <input type="checkbox" v-model="selectedNews" :value="news.id">
+                                </td>
+                                <td>{{ news.id }}</td>
+                                <td>
+                                    <img :src="news.image" :alt="news.title" class="thumbnail">
+                                </td>
+                                <td class="title-cell">{{ news.title }}</td>
+                                <td>
+                                    <span class="category-badge" :class="'category-' + news.categoryId">
+                                        {{ getCategoryName(news.categoryId) }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge" :class="'status-' + news.status">
+                                        {{ getStatusText(news.status) }}
+                                    </span>
+                                </td>
+                                <td>{{ news.date }}</td>
+                                <td class="actions-cell">
+                                    <button class="action-btn edit-btn" @click="openNewsEditor(news)">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="action-btn view-btn" @click="previewNews(news)">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" @click="confirmDeleteNews(news)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr v-if="filteredNews.length === 0">
+                                <td colspan="8" class="no-data">
+                                    <i class="bi bi-inbox"></i>
+                                    <p>暂无数据</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="pagination">
+                    <button class="page-btn" :disabled="currentNewsPage === 1" @click="currentNewsPage = 1">
+                        <i class="bi bi-chevron-double-left"></i>
+                    </button>
+                    <button class="page-btn" :disabled="currentNewsPage === 1" @click="currentNewsPage--">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                    <div class="page-info">
+                        {{ currentNewsPage }} / {{ totalNewsPages }}
+                    </div>
+                    <button class="page-btn" :disabled="currentNewsPage === totalNewsPages" @click="currentNewsPage++">
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+                    <button class="page-btn" :disabled="currentNewsPage === totalNewsPages" @click="currentNewsPage = totalNewsPages">
+                        <i class="bi bi-chevron-double-right"></i>
+                    </button>
+                </div>
+                
+                <!-- 批量操作条 -->
+                <div class="bulk-actions" v-if="selectedNews.length > 0">
+                    <span class="selected-count">已选择 {{ selectedNews.length }} 项</span>
+                    <button @click="bulkChangeCategory">修改分类</button>
+                    <button @click="bulkChangeStatus">修改状态</button>
+                    <button @click="confirmBulkDelete" class="danger">删除</button>
+                </div>
+            </div>
+            
+            <!-- 视频管理视图 -->
+            <div v-if="activeView === 'videos'" class="videos-view">
+                <div class="view-actions">
+                    <button class="add-btn" @click="openVideoEditor()">
+                        <i class="bi bi-plus-lg"></i> 添加视频
+                    </button>
+                    <div class="filter-controls">
+                        <div class="filter-group">
+                            <label>分类：</label>
+                            <select v-model="videoFilters.category">
+                                <option value="all">全部分类</option>
+                                <option v-for="category in videoCategories" :value="category.id">{{ category.name }}</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>状态：</label>
+                            <select v-model="videoFilters.status">
+                                <option value="all">全部状态</option>
+                                <option value="published">已发布</option>
+                                <option value="draft">草稿</option>
+                                <option value="archived">已归档</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-grid">
+                    <div class="video-card" v-for="video in filteredVideos" :key="video.id">
+                        <div class="video-thumbnail">
+                            <img :src="video.thumbnail" :alt="video.title">
+                            <div class="video-duration">{{ video.duration }}</div>
+                            <div class="video-actions">
+                                <button class="video-action-btn edit-btn" @click="openVideoEditor(video)">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="video-action-btn view-btn" @click="previewVideo(video)">
+                                    <i class="bi bi-play-circle"></i>
+                                </button>
+                                <button class="video-action-btn delete-btn" @click="confirmDeleteVideo(video)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">{{ video.title }}</h3>
+                            <p class="video-desc">{{ video.description }}</p>
+                            <div class="video-meta">
+                                <span class="category-badge" :class="'category-' + video.categoryId">
+                                    {{ getCategoryName(video.categoryId, 'video') }}
+                                </span>
+                                <span class="status-badge" :class="'status-' + video.status">
+                                    {{ getStatusText(video.status) }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pagination">
+                    <button class="page-btn" :disabled="currentVideoPage === 1" @click="currentVideoPage = 1">
+                        <i class="bi bi-chevron-double-left"></i>
+                    </button>
+                    <button class="page-btn" :disabled="currentVideoPage === 1" @click="currentVideoPage--">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                    <div class="page-info">
+                        {{ currentVideoPage }} / {{ totalVideoPages }}
+                    </div>
+                    <button class="page-btn" :disabled="currentVideoPage === totalVideoPages" @click="currentVideoPage++">
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+                    <button class="page-btn" :disabled="currentVideoPage === totalVideoPages" @click="currentVideoPage = totalVideoPages">
+                        <i class="bi bi-chevron-double-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 分类管理视图 -->
+            <div v-if="activeView === 'categories'" class="categories-view">
+                <div class="categories-container">
+                    <div class="category-section">
+                        <h3>新闻分类</h3>
+                        <div class="category-list-header">
+                            <div class="add-category">
+                                <input type="text" v-model="newsCategoryName" placeholder="输入分类名称">
+                                <button @click="addNewsCategory">添加</button>
+                            </div>
+                        </div>
+                        <div class="category-list sortable-list" ref="newsCategories">
+                            <div v-for="(category, index) in newsCategories" :key="category.id" class="category-item">
+                                <div class="drag-handle">
+                                    <i class="bi bi-grip-vertical"></i>
+                                </div>
+                                <div class="category-name">
+                                    <input v-if="editingCategory === category.id" 
+                                           v-model="editCategoryName" 
+                                           @blur="saveEditedCategory" 
+                                           @keyup.enter="saveEditedCategory"
+                                           ref="editCategoryInput">
+                                    <span v-else>{{ category.name }}</span>
+                                </div>
+                                <div class="category-actions">
+                                    <button @click="startEditingCategory(category)" class="edit-btn">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button @click="confirmDeleteCategory(category, 'news')" class="delete-btn">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category-section">
+                        <h3>视频分类</h3>
+                        <div class="category-list-header">
+                            <div class="add-category">
+                                <input type="text" v-model="videoCategoryName" placeholder="输入分类名称">
+                                <button @click="addVideoCategory">添加</button>
+                            </div>
+                        </div>
+                        <div class="category-list sortable-list" ref="videoCategories">
+                            <div v-for="(category, index) in videoCategories" :key="category.id" class="category-item">
+                                <div class="drag-handle">
+                                    <i class="bi bi-grip-vertical"></i>
+                                </div>
+                                <div class="category-name">
+                                    <input v-if="editingCategory === category.id" 
+                                           v-model="editCategoryName" 
+                                           @blur="saveEditedCategory" 
+                                           @keyup.enter="saveEditedCategory"
+                                           ref="editCategoryInput">
+                                    <span v-else>{{ category.name }}</span>
+                                </div>
+                                <div class="category-actions">
+                                    <button @click="startEditingCategory(category)" class="edit-btn">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button @click="confirmDeleteCategory(category, 'video')" class="delete-btn">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 系统设置视图 -->
+            <div v-if="activeView === 'settings'" class="settings-view">
+                <div class="settings-container">
+                    <div class="settings-section">
+                        <h3>基本设置</h3>
+                        <div class="setting-group">
+                            <label for="siteName">网站名称</label>
+                            <input type="text" id="siteName" v-model="settings.siteName">
+                        </div>
+                        <div class="setting-group">
+                            <label for="siteDesc">网站描述</label>
+                            <textarea id="siteDesc" v-model="settings.siteDescription"></textarea>
+                        </div>
+                        <div class="setting-group">
+                            <label for="logo">网站Logo</label>
+                            <div class="file-upload">
+                                <input type="file" id="logo" @change="handleLogoUpload">
+                                <label for="logo" class="file-upload-label">
+                                    <i class="bi bi-upload"></i> 选择文件
+                                </label>
+                                <span class="file-name">{{ settings.logoFile ? settings.logoFile.name : '未选择文件' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>内容设置</h3>
+                        <div class="setting-group">
+                            <label for="newsPerPage">每页新闻数量</label>
+                            <input type="number" id="newsPerPage" v-model="settings.newsPerPage" min="1" max="50">
+                        </div>
+                        <div class="setting-group">
+                            <label for="videosPerPage">每页视频数量</label>
+                            <input type="number" id="videosPerPage" v-model="settings.videosPerPage" min="1" max="50">
+                        </div>
+                        <div class="setting-group">
+                            <label for="defaultTab">默认标签页</label>
+                            <select id="defaultTab" v-model="settings.defaultTab">
+                                <option value="news">行业新闻</option>
+                                <option value="cases">案例展示</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-actions">
+                        <button class="save-settings-btn" @click="saveSettings">保存设置</button>
+                        <button class="reset-settings-btn" @click="resetSettings">重置</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- 新闻编辑器对话框 -->
+        <div class="modal" v-if="showNewsEditor">
+            <div class="modal-content news-editor-modal">
+                <div class="modal-header">
+                    <h3>{{ editingNews.id ? '编辑新闻' : '添加新闻' }}</h3>
+                    <button class="close-modal" @click="closeNewsEditor">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="newsTitle">标题</label>
+                            <input type="text" id="newsTitle" v-model="editingNews.title" placeholder="输入新闻标题">
+                        </div>
+                        <div class="form-group">
+                            <label for="newsCategory">分类</label>
+                            <select id="newsCategory" v-model="editingNews.categoryId">
+                                <option v-for="category in newsCategories" :value="category.id">{{ category.name }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="newsSummary">摘要</label>
+                            <textarea id="newsSummary" v-model="editingNews.summary" placeholder="输入新闻摘要"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="newsStatus">状态</label>
+                            <select id="newsStatus" v-model="editingNews.status">
+                                <option value="published">已发布</option>
+                                <option value="draft">草稿</option>
+                                <option value="archived">已归档</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="newsDate">发布日期</label>
+                            <input type="date" id="newsDate" v-model="editingNews.date">
+                        </div>
+                        <div class="form-group">
+                            <label for="newsSource">来源</label>
+                            <input type="text" id="newsSource" v-model="editingNews.source" placeholder="输入新闻来源">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>封面图片</label>
+                            <div class="image-upload-container">
+                                <div class="image-preview" v-if="editingNews.image">
+                                    <img :src="editingNews.image" alt="封面预览">
+                                    <button class="remove-image" @click="removeNewsImage">
+                                        <i class="bi bi-x-circle-fill"></i>
+                                    </button>
+                                </div>
+                                <div class="upload-zone" v-else @click="triggerNewsImageUpload">
+                                    <i class="bi bi-cloud-upload"></i>
+                                    <p>点击上传图片</p>
+                                    <input type="file" ref="newsImageInput" style="display: none" accept="image/*" @change="handleNewsImageUpload">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>内容</label>
+                            <div ref="newsContentEditor" class="rich-text-editor"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="cancel-btn" @click="closeNewsEditor">取消</button>
+                    <button class="save-btn" @click="saveNews">保存</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 视频编辑器对话框 -->
+        <div class="modal" v-if="showVideoEditor">
+            <div class="modal-content video-editor-modal">
+                <div class="modal-header">
+                    <h3>{{ editingVideo.id ? '编辑视频' : '添加视频' }}</h3>
+                    <button class="close-modal" @click="closeVideoEditor">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="videoTitle">标题</label>
+                            <input type="text" id="videoTitle" v-model="editingVideo.title" placeholder="输入视频标题">
+                        </div>
+                        <div class="form-group">
+                            <label for="videoCategory">分类</label>
+                            <select id="videoCategory" v-model="editingVideo.categoryId">
+                                <option v-for="category in videoCategories" :value="category.id">{{ category.name }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="videoDescription">描述</label>
+                            <textarea id="videoDescription" v-model="editingVideo.description" placeholder="输入视频描述"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="videoStatus">状态</label>
+                            <select id="videoStatus" v-model="editingVideo.status">
+                                <option value="published">已发布</option>
+                                <option value="draft">草稿</option>
+                                <option value="archived">已归档</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="videoDuration">时长</label>
+                            <input type="text" id="videoDuration" v-model="editingVideo.duration" placeholder="例如: 03:45">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>缩略图</label>
+                            <div class="image-upload-container">
+                                <div class="image-preview" v-if="editingVideo.thumbnail">
+                                    <img :src="editingVideo.thumbnail" alt="缩略图预览">
+                                    <button class="remove-image" @click="removeVideoThumbnail">
+                                        <i class="bi bi-x-circle-fill"></i>
+                                    </button>
+                                </div>
+                                <div class="upload-zone" v-else @click="triggerVideoThumbnailUpload">
+                                    <i class="bi bi-cloud-upload"></i>
+                                    <p>点击上传缩略图</p>
+                                    <input type="file" ref="videoThumbnailInput" style="display: none" accept="image/*" @change="handleVideoThumbnailUpload">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>视频文件</label>
+                            <div class="video-upload-container">
+                                <div class="video-preview" v-if="editingVideo.videoUrl">
+                                    <video controls>
+                                        <source :src="editingVideo.videoUrl" type="video/mp4">
+                                        您的浏览器不支持视频标签。
+                                    </video>
+                                    <button class="remove-video" @click="removeVideoFile">
+                                        <i class="bi bi-x-circle-fill"></i>
+                                    </button>
+                                </div>
+                                <div class="upload-zone" v-else @click="triggerVideoFileUpload">
+                                    <i class="bi bi-cloud-upload"></i>
+                                    <p>点击上传视频</p>
+                                    <input type="file" ref="videoFileInput" style="display: none" accept="video/*" @change="handleVideoFileUpload">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="cancel-btn" @click="closeVideoEditor">取消</button>
+                    <button class="save-btn" @click="saveVideo">保存</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 确认对话框 -->
+        <div class="modal" v-if="showConfirmDialog">
+            <div class="modal-content confirm-dialog">
+                <div class="modal-header">
+                    <h3>{{ confirmDialogTitle }}</h3>
+                    <button class="close-modal" @click="cancelConfirmDialog">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>{{ confirmDialogMessage }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="cancel-btn" @click="cancelConfirmDialog">取消</button>
+                    <button class="confirm-btn" @click="confirmDialogAction">确认</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 批量操作对话框 -->
+        <div class="modal" v-if="showBulkActionDialog">
+            <div class="modal-content bulk-action-dialog">
+                <div class="modal-header">
+                    <h3>{{ bulkActionTitle }}</h3>
+                    <button class="close-modal" @click="closeBulkActionDialog">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div v-if="bulkActionType === 'category'">
+                        <label for="bulkCategory">选择分类</label>
+                        <select id="bulkCategory" v-model="bulkActionValue">
+                            <option v-for="category in newsCategories" :value="category.id">{{ category.name }}</option>
+                        </select>
+                    </div>
+                    <div v-if="bulkActionType === 'status'">
+                        <label for="bulkStatus">选择状态</label>
+                        <select id="bulkStatus" v-model="bulkActionValue">
+                            <option value="published">已发布</option>
+                            <option value="draft">草稿</option>
+                            <option value="archived">已归档</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="cancel-btn" @click="closeBulkActionDialog">取消</button>
+                    <button class="save-btn" @click="applyBulkAction">应用</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 通知提示 -->
+        <div class="notifications">
+            <div v-for="(notification, index) in notifications" 
+                 :key="index" 
+                 class="notification" 
+                 :class="notification.type"
+                 :style="{ top: index * 60 + 'px' }">
+                <i :class="getNotificationIcon(notification.type)"></i>
+                <span class="notification-message">{{ notification.message }}</span>
+                <button class="close-notification" @click="dismissNotification(index)">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/digital-human-news-admin.js"></script>
+</body>
+</html> 

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9c27b0" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#ba68c8" stop-opacity="0.3"/>
+    </linearGradient>
+    
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  
+  <!-- 背景矩形 -->
+  <rect width="600" height="400" fill="url(#bgGradient)"/>
+  
+  <!-- 白皮书封面设计 -->
+  <g transform="translate(50, 50)">
+    <!-- 封面 -->
+    <rect x="0" y="0" width="200" height="300" fill="white" stroke="#9c27b0" stroke-width="2" rx="5" ry="5"/>
+    
+    <!-- 标题区域 -->
+    <rect x="20" y="30" width="160" height="80" fill="#9c27b0" opacity="0.1"/>
+    <text x="100" y="60" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#9c27b0">
+      增长飞轮
+    </text>
+    <text x="100" y="90" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#9c27b0">
+      从获客到价值倍增
+    </text>
+    
+    <!-- 底部信息 -->
+    <text x="100" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#9c27b0">
+      阿倜士增长实验室出品
+    </text>
+  </g>
+  
+  <!-- 飞轮图示 -->
+  <g transform="translate(350, 200)">
+    <!-- 主环 -->
+    <circle cx="0" cy="0" r="120" fill="none" stroke="#9c27b0" stroke-width="3"/>
+    
+    <!-- 中心点 -->
+    <circle cx="0" cy="0" r="20" fill="#9c27b0"/>
+    <text x="0" y="5" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="white">价值</text>
+    
+    <!-- 飞轮阶段 -->
+    <g filter="url(#glow)">
+      <!-- 获客阶段 -->
+      <g transform="rotate(0)">
+        <circle cx="0" cy="-80" r="25" fill="white" stroke="#9c27b0" stroke-width="2"/>
+        <text x="0" y="-75" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#9c27b0">获客</text>
+      </g>
+      
+      <!-- 转化阶段 -->
+      <g transform="rotate(72)">
+        <circle cx="0" cy="-80" r="25" fill="white" stroke="#9c27b0" stroke-width="2"/>
+        <text x="0" y="-75" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#9c27b0">转化</text>
+      </g>
+      
+      <!-- 留存阶段 -->
+      <g transform="rotate(144)">
+        <circle cx="0" cy="-80" r="25" fill="white" stroke="#9c27b0" stroke-width="2"/>
+        <text x="0" y="-75" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#9c27b0">留存</text>
+      </g>
+      
+      <!-- 复购阶段 -->
+      <g transform="rotate(216)">
+        <circle cx="0" cy="-80" r="25" fill="white" stroke="#9c27b0" stroke-width="2"/>
+        <text x="0" y="-75" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#9c27b0">复购</text>
+      </g>
+      
+      <!-- 口碑阶段 -->
+      <g transform="rotate(288)">
+        <circle cx="0" cy="-80" r="25" fill="white" stroke="#9c27b0" stroke-width="2"/>
+        <text x="0" y="-75" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#9c27b0">口碑</text>
+      </g>
+    </g>
+    
+    <!-- 连接线 -->
+    <path d="M0,-20 L0,-55" stroke="#9c27b0" stroke-width="2"/>
+    <path d="M0,-20 L-52,-72" stroke="#9c27b0" stroke-width="2" transform="rotate(72)"/>
+    <path d="M0,-20 L-52,-72" stroke="#9c27b0" stroke-width="2" transform="rotate(144)"/>
+    <path d="M0,-20 L-52,-72" stroke="#9c27b0" stroke-width="2" transform="rotate(216)"/>
+    <path d="M0,-20 L-52,-72" stroke="#9c27b0" stroke-width="2" transform="rotate(288)"/>
+    
+    <!-- 旋转箭头 -->
+    <path d="M-120,0 A120,120 0 0,1 -84.85,-84.85" fill="none" stroke="#9c27b0" stroke-width="2" stroke-dasharray="5,5"/>
+    <polygon points="-84.85,-84.85 -90,-70 -75,-85" fill="#9c27b0"/>
+    
+    <path d="M-84.85,-84.85 A120,120 0 0,1 0,-120" fill="none" stroke="#9c27b0" stroke-width="2" stroke-dasharray="5,5"/>
+    <polygon points="0,-120 -15,-115 -10,-100" fill="#9c27b0"/>
+    
+    <path d="M0,-120 A120,120 0 0,1 84.85,-84.85" fill="none" stroke="#9c27b0" stroke-width="2" stroke-dasharray="5,5"/>
+    <polygon points="84.85,-84.85 75,-90 70,-75" fill="#9c27b0"/>
+    
+    <path d="M84.85,-84.85 A120,120 0 0,1 120,0" fill="none" stroke="#9c27b0" stroke-width="2" stroke-dasharray="5,5"/>
+    <polygon points="120,0 115,-15 100,-10" fill="#9c27b0"/>
+    
+    <path d="M120,0 A120,120 0 0,1 -120,0" fill="none" stroke="#9c27b0" stroke-width="2" stroke-dasharray="5,5" transform="rotate(180)"/>
+    <polygon points="-120,0 -115,15 -100,10" fill="#9c27b0" transform="rotate(180)"/>
+  </g>
+  
+  <!-- 价值倍增指标 -->
+  <g transform="translate(500, 350)">
+    <rect x="-60" y="-30" width="120" height="60" fill="white" stroke="#4caf50" stroke-width="2" rx="10" ry="10"/>
+    <text x="0" y="-5" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4caf50">价值倍增</text>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#4caf50">×2.5</text>
+  </g>
+</svg> 

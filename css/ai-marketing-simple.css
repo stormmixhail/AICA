@@ -1,0 +1,908 @@
+/* AI营销页面样式 - 简化版，无动画 */
+
+/* 重置所有样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto !important;
+    font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* 基础容器 */
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.fixed-width-container {
+    max-width: 560px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* 强制显示所有元素 */
+.problem-card, .flywheel-visual, .stage, .insight-card, .story-act,
+.philosophy-core, .philosophy-point, .expertise-card, .contact-form,
+.hero-section, .value-block, .feature-card, .ecosystem-part, .form-action button,
+.force-visible, .visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    display: block !important;
+}
+
+/* 页头 */
+.marketing-header {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-right: 16px;
+}
+
+.back-button img {
+    width: 20px;
+    height: 20px;
+}
+
+.feature-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* 英雄区块 */
+.hero-section {
+    padding: 60px 0 40px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+    text-align: center;
+    position: relative;
+}
+
+.main-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 24px;
+    color: #1a56db;
+}
+
+.framed-subtitle {
+    max-width: 700px;
+    margin: 0 auto 30px;
+    padding: 24px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    position: relative;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.highlight-text {
+    color: #1a56db;
+    font-size: 20px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.subtitle-decoration {
+    position: absolute;
+    width: 60px;
+    height: 4px;
+    background: #1a56db;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.primary-cta {
+    background-color: #1a56db;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 6px rgba(26, 86, 219, 0.3);
+}
+
+.hero-visual {
+    max-width: 440px;
+    margin: 0 auto;
+    position: relative;
+    height: 340px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-graphic {
+    width: 280px;
+    height: 280px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url('../img/ai-growth-icon.svg');
+}
+
+/* 问题模块 */
+.problem-section {
+    padding: 60px 0;
+    background-color: #f3f4f6;
+}
+
+.section-title {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #111827;
+}
+
+.section-subtitle {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #6b7280;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.problem-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.problem-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    width: 300px;
+    text-align: center;
+}
+
+.problem-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+}
+
+.problem-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.problem-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #111827;
+}
+
+.problem-desc {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #4b5563;
+}
+
+/* 解决方案模块 */
+.solution-section {
+    padding: 60px 0;
+    background-color: white;
+}
+
+.flywheel-container {
+    max-width: 900px;
+    margin: 50px auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flywheel-visual {
+    width: 300px;
+    height: 300px;
+    margin-bottom: 50px;
+}
+
+.flywheel-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.flywheel-stages {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+.stage {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    min-height: 320px;
+    border-top: 4px solid #1a56db;
+}
+
+.stage-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 16px;
+}
+
+.stage-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.stage-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #111827;
+}
+
+.stage-title span {
+    font-size: 16px;
+    color: #6b7280;
+    font-weight: normal;
+}
+
+.stage-desc {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #4b5563;
+    text-align: left;
+}
+
+.stage-desc p {
+    margin-bottom: 10px;
+}
+
+.stage-desc p:last-child {
+    margin-bottom: 0;
+}
+
+/* 实验室预览模块 */
+.lab-preview-section {
+    padding: 60px 0;
+    background-color: #f9fafb;
+}
+
+.insight-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.insight-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 0;
+    width: 300px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.insight-image {
+    height: 180px;
+    overflow: hidden;
+}
+
+.insight-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.insight-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    padding: 20px 20px 10px;
+    color: #111827;
+}
+
+.insight-desc {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #6b7280;
+    padding: 0 20px 15px;
+    margin: 0;
+}
+
+.read-more {
+    display: block;
+    padding: 0 20px 20px;
+    color: #1a56db;
+    font-weight: 500;
+}
+
+.more-insights {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.view-all-btn {
+    display: inline-block;
+    background-color: transparent;
+    color: #1a56db;
+    border: 2px solid #1a56db;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* 为什么选择我们模块 */
+.why-us-section {
+    padding: 60px 0;
+    background-color: white;
+}
+
+.brand-philosophy {
+    margin-bottom: 60px;
+}
+
+.philosophy-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #111827;
+}
+
+.philosophy-core {
+    max-width: 700px;
+    margin: 0 auto 40px;
+    padding: 30px;
+    background-color: rgba(26, 86, 219, 0.05);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.philosophy-statement {
+    font-size: 20px;
+    line-height: 1.5;
+    color: #111827;
+}
+
+.philosophy-details {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.philosophy-point {
+    display: flex;
+    margin-bottom: 24px;
+    align-items: flex-start;
+}
+
+.point-icon {
+    min-width: 36px;
+    height: 36px;
+    background-color: #1a56db;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.point-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #4b5563;
+}
+
+.founder-story {
+    margin-bottom: 60px;
+}
+
+.story-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #111827;
+}
+
+.story-act {
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.act-marker {
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #1a56db;
+    font-size: 18px;
+}
+
+.act-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.act-image {
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.act-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.act-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #4b5563;
+}
+
+.team-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #111827;
+}
+
+.team-expertise {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 700px;
+    margin: 0 auto 40px;
+}
+
+.expertise-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    text-align: center;
+}
+
+.expertise-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 16px;
+}
+
+.expertise-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.expertise-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #111827;
+}
+
+.expertise-desc {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #6b7280;
+}
+
+.team-unique-value {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.unique-badge {
+    display: inline-block;
+    background-color: rgba(26, 86, 219, 0.1);
+    color: #1a56db;
+    padding: 12px 24px;
+    font-weight: bold;
+    border-radius: 30px;
+    font-size: 16px;
+}
+
+/* 联系部分 */
+.contact-section {
+    padding: 60px 0;
+    background-color: #f3f4f6;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 40px auto 0;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #111827;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-action {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.submit-btn {
+    background-color: #1a56db;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.secondary-cta {
+    display: inline-block;
+    color: #6b7280;
+    font-size: 14px;
+    text-decoration: underline;
+    margin-top: 10px;
+}
+
+/* 聊天框样式 */
+.chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 400px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    transform: translateY(110%);
+    opacity: 0;
+}
+
+.chatbot-container.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.chatbot-nav {
+    height: 50px;
+    background-color: #3a86ff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    color: white;
+}
+
+.chatbot-nav h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.chatbot-nav button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.chatbot-frame {
+    flex: 1;
+    border: none;
+    width: 100%;
+    height: calc(100% - 50px);
+}
+
+.chatbot-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #3a86ff;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.chatbot-toggle img {
+    width: 30px;
+    height: 30px;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 28px;
+    }
+    
+    .framed-subtitle {
+        padding: 20px;
+        font-size: 16px;
+    }
+    
+    .highlight-text {
+        font-size: 18px;
+    }
+    
+    .hero-visual {
+        height: 280px;
+    }
+    
+    .hero-graphic {
+        width: 220px;
+        height: 220px;
+    }
+    
+    .section-title {
+        font-size: 26px;
+    }
+    
+    .section-subtitle {
+        font-size: 16px;
+    }
+    
+    .flywheel-stages {
+        grid-template-columns: 1fr;
+    }
+    
+    .stage {
+        min-height: auto;
+    }
+    
+    .chatbot-container {
+        width: 90%;
+        height: 80vh;
+        bottom: 10px;
+        right: 5%;
+    }
+}
+
+@media (max-width: 560px) {
+    .main-title {
+        font-size: 24px;
+    }
+    
+    .framed-subtitle {
+        padding: 16px;
+        font-size: 14px;
+    }
+    
+    .highlight-text {
+        font-size: 16px;
+    }
+    
+    .primary-cta {
+        padding: 12px 20px;
+        font-size: 15px;
+    }
+    
+    .hero-visual {
+        height: 220px;
+    }
+    
+    .hero-graphic {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .section-title {
+        font-size: 22px;
+    }
+    
+    .section-subtitle {
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+    
+    .problem-card {
+        padding: 20px;
+        width: 100%;
+    }
+    
+    .problem-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .problem-title {
+        font-size: 18px;
+    }
+    
+    .problem-desc {
+        font-size: 14px;
+    }
+    
+    /* 蓝色背景的问题卡片区域 */
+    .problem-section {
+        background-color: #1a56db;
+        padding: 40px 0;
+    }
+    
+    .problem-section .section-title {
+        color: white;
+    }
+    
+    .problem-grid {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .problem-card {
+        background-color: white;
+        border-left: 4px solid #4f94ff;
+    }
+    
+    /* 飞轮区域2x2布局 */
+    .flywheel-stages {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .stage {
+        padding: 15px;
+    }
+    
+    .stage-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .stage-title {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    
+    .stage-desc {
+        font-size: 13px;
+    }
+    
+    /* 洞察卡片区域 */
+    .insight-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    /* 创始人故事区域 */
+    .founder-story {
+        position: relative;
+        padding-left: 20px;
+    }
+    
+    .founder-story:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background-color: #1a56db;
+    }
+    
+    .act-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .act-marker {
+        font-size: 16px;
+        margin-left: -20px;
+        padding-left: 20px;
+    }
+    
+    .act-image {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+    }
+    
+    /* 团队专长区域 */
+    .team-expertise {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .expertise-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .expertise-title {
+        font-size: 16px;
+    }
+    
+    .expertise-desc {
+        font-size: 13px;
+    }
+    
+    .unique-badge {
+        font-size: 14px;
+        padding: 10px 16px;
+    }
+} 

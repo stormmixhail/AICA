@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="marketplaceGradient" x1="10%" y1="10%" x2="90%" y2="90%">
+      <stop offset="0%" stop-color="#4285F4"/>
+      <stop offset="100%" stop-color="#34A853"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  
+  <!-- 背景圆 -->
+  <circle cx="28" cy="28" r="25" fill="#ffffff" stroke="#f0f0f0" stroke-width="1"/>
+  
+  <!-- 商务网络图 -->
+  <g transform="translate(28, 28)">
+    <!-- 中心节点 -->
+    <circle cx="0" cy="0" r="6" fill="url(#marketplaceGradient)" filter="url(#glow)">
+      <animate attributeName="r" values="6;6.5;6" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- 连接线和节点 -->
+    <!-- 上方节点 -->
+    <line x1="0" y1="0" x2="0" y2="-12" stroke="url(#marketplaceGradient)" stroke-width="1.5" opacity="0.7">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+    </line>
+    <circle cx="0" cy="-12" r="3" fill="url(#marketplaceGradient)">
+      <animate attributeName="r" values="3;3.5;3" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- 右上节点 -->
+    <line x1="0" y1="0" x2="10" y2="-8" stroke="url(#marketplaceGradient)" stroke-width="1.5" opacity="0.7">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="2.2s" repeatCount="indefinite"/>
+    </line>
+    <circle cx="10" cy="-8" r="3" fill="url(#marketplaceGradient)">
+      <animate attributeName="r" values="3;3.5;3" dur="2.7s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- 右节点 -->
+    <line x1="0" y1="0" x2="12" y2="0" stroke="url(#marketplaceGradient)" stroke-width="1.5" opacity="0.7">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="2.4s" repeatCount="indefinite"/>
+    </line>
+    <circle cx="12" cy="0" r="3" fill="url(#marketplaceGradient)">
+      <animate attributeName="r" values="3;3.5;3" dur="2.9s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- 右下节点 -->
+    <line x1="0" y1="0" x2="10" y2="8" stroke="url(#marketplaceGradient)" stroke-width="1.5" opacity="0.7">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="2.6s" repeatCount="indefinite"/>
+    </line>
+    <circle cx="10" cy="8" r="3" fill="url(#marketplaceGradient)">
+      <animate attributeName="r" values="3;3.5;3" dur="3.1s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- 下方节点 -->
+    <line x1="0" y1="0" x2="0" y2="12" stroke="url(#marketplaceGradient)" stroke-width="1.5" opacity="0.7">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="2.8s" repeatCount="indefinite"/>
+    </line>
+    <circle cx="0" cy="12" r="3" fill="url(#marketplaceGradient)">
+      <animate attributeName="r" values="3;3.5;3" dur="3.3s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- 左下节点 -->
+    <line x1="0" y1="0" x2="-10" y2="8" stroke="url(#marketplaceGradient)" stroke-width="1.5" opacity="0.7">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite"/>
+    </line>
+    <circle cx="-10" cy="8" r="3" fill="url(#marketplaceGradient)">
+      <animate attributeName="r" values="3;3.5;3" dur="3.5s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- 左节点 -->
+    <line x1="0" y1="0" x2="-12" y2="0" stroke="url(#marketplaceGradient)" stroke-width="1.5" opacity="0.7">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="3.2s" repeatCount="indefinite"/>
+    </line>
+    <circle cx="-12" cy="0" r="3" fill="url(#marketplaceGradient)">
+      <animate attributeName="r" values="3;3.5;3" dur="3.7s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- 左上节点 -->
+    <line x1="0" y1="0" x2="-10" y2="-8" stroke="url(#marketplaceGradient)" stroke-width="1.5" opacity="0.7">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="3.4s" repeatCount="indefinite"/>
+    </line>
+    <circle cx="-10" cy="-8" r="3" fill="url(#marketplaceGradient)">
+      <animate attributeName="r" values="3;3.5;3" dur="3.9s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- 数据流动效果 -->
+    <circle r="1.2" fill="#ffffff">
+      <animateMotion path="M0,0 L0,-12" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle r="1.2" fill="#ffffff">
+      <animateMotion path="M-12,0 L0,0" dur="2.3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="2.3s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle r="1.2" fill="#ffffff">
+      <animateMotion path="M0,12 L0,0" dur="2.6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="2.6s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle r="1.2" fill="#ffffff">
+      <animateMotion path="M0,0 L12,0" dur="2.9s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="2.9s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg> 

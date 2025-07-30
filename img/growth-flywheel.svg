@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <!-- 渐变 -->
+    <linearGradient id="gradDiagnose" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2196F3" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#2196F3" stop-opacity="0.3" />
+    </linearGradient>
+    <linearGradient id="gradBuild" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00BCD4" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#00BCD4" stop-opacity="0.3" />
+    </linearGradient>
+    <linearGradient id="gradAccelerate" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF5722" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#FF5722" stop-opacity="0.3" />
+    </linearGradient>
+    <linearGradient id="gradAmplify" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4CAF50" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#4CAF50" stop-opacity="0.3" />
+    </linearGradient>
+    
+    <!-- 箭头标记 -->
+    <marker id="arrowMarker" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L0,10 L10,5 Z" fill="#3366FF" />
+    </marker>
+  </defs>
+  
+  <!-- 中心圆 -->
+  <circle cx="250" cy="250" r="50" fill="#FFF" stroke="#3366FF" stroke-width="3" />
+  <text x="250" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#3366FF">增长飞轮</text>
+  
+  <!-- 诊断阶段 -->
+  <g transform="translate(150, 150)">
+    <circle cx="0" cy="0" r="60" fill="url(#gradDiagnose)" stroke="#2196F3" stroke-width="3" />
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFF">诊断</text>
+    <text x="0" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#FFF">Diagnose</text>
+  </g>
+  
+  <!-- 构建阶段 -->
+  <g transform="translate(350, 150)">
+    <circle cx="0" cy="0" r="60" fill="url(#gradBuild)" stroke="#00BCD4" stroke-width="3" />
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFF">构建</text>
+    <text x="0" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#FFF">Build</text>
+  </g>
+  
+  <!-- 加速阶段 -->
+  <g transform="translate(350, 350)">
+    <circle cx="0" cy="0" r="60" fill="url(#gradAccelerate)" stroke="#FF5722" stroke-width="3" />
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFF">加速</text>
+    <text x="0" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#FFF">Accelerate</text>
+  </g>
+  
+  <!-- 放大阶段 -->
+  <g transform="translate(150, 350)">
+    <circle cx="0" cy="0" r="60" fill="url(#gradAmplify)" stroke="#4CAF50" stroke-width="3" />
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFF">放大</text>
+    <text x="0" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#FFF">Amplify</text>
+  </g>
+  
+  <!-- 连接箭头 -->
+  <g stroke="#3366FF" stroke-width="3" fill="none">
+    <!-- 诊断 -> 构建 -->
+    <path d="M205,150 Q250,120 295,150" stroke="#2196F3" marker-end="url(#arrowMarker)" />
+    
+    <!-- 构建 -> 加速 -->
+    <path d="M350,205 Q380,250 350,295" stroke="#00BCD4" marker-end="url(#arrowMarker)" />
+    
+    <!-- 加速 -> 放大 -->
+    <path d="M295,350 Q250,380 205,350" stroke="#FF5722" marker-end="url(#arrowMarker)" />
+    
+    <!-- 放大 -> 诊断 -->
+    <path d="M150,295 Q120,250 150,205" stroke="#4CAF50" marker-end="url(#arrowMarker)" />
+  </g>
+  
+  <!-- 装饰元素 -->
+  <circle cx="250" cy="250" r="145" stroke="#3366FF" stroke-width="1.5" stroke-dasharray="5,5" fill="none" />
+  <circle cx="250" cy="250" r="180" stroke="#3366FF" stroke-width="1" stroke-dasharray="3,6" fill="none" opacity="0.5" />
+</svg> 

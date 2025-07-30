@@ -1,0 +1,16 @@
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="capital-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a6bff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00c4cc;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <path d="M24,8 L38,16 L24,24 L10,16 L24,8 Z" fill="url(#capital-grad)" opacity="0.8" />
+  <path d="M10,16 L10,32 L24,40 L24,24 L10,16 Z" fill="url(#capital-grad)" opacity="0.6" />
+  <path d="M38,16 L38,32 L24,40 L24,24 L38,16 Z" fill="url(#capital-grad)" opacity="0.4" />
+  <path d="M24,8 L38,16 L24,24 L10,16 L24,8 Z" stroke="#1a1a2e" stroke-width="1" fill="none" />
+  <path d="M10,16 L10,32 L24,40 L24,24 L10,16 Z" stroke="#1a1a2e" stroke-width="1" fill="none" />
+  <path d="M38,16 L38,32 L24,40 L24,24 L38,16 Z" stroke="#1a1a2e" stroke-width="1" fill="none" />
+  <path d="M24,8 L24,24" stroke="#1a1a2e" stroke-width="1" />
+  <text x="21" y="20" font-family="Arial" font-size="10" font-weight="bold" fill="#1a1a2e">$</text>
+</svg> 

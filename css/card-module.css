@@ -1,0 +1,99 @@
+/* 卡片模块化样式 - 水平并列版本 */
+.card-showcase {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 25px;
+    margin-top: 40px;
+    padding: 0 24px;
+    width: 100%;
+    flex-wrap: nowrap; /* 防止换行 */
+}
+
+.card-container {
+    flex: 1;
+    min-width: 0; /* 允许容器缩小到flex-basis以下 */
+    max-width: 30%; /* 更宽的卡片 */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+    margin-bottom: 30px;
+    display: flex;
+}
+
+/* 确保卡片内容填充父容器 */
+.business-card-blue {
+    width: 100%;
+    margin: 0;
+    height: auto !important;
+    min-height: 250px;
+}
+
+/* 调整名片内部样式以适应并排布局 */
+.card-person-info-blue .person-name {
+    font-size: 21px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-person-info-blue .person-title {
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-intro-blue p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* 允许显示3行 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-height: none;
+    min-height: 75px;
+}
+
+.card-buttons {
+    margin-top: auto; /* 将按钮推到底部 */
+    gap: 25px;
+}
+
+/* 响应式调整 */
+@media (max-width: 992px) {
+    .card-showcase {
+        flex-wrap: wrap;
+    }
+    
+    .card-container {
+        flex: 0 0 48%;
+        max-width: 48%;
+    }
+}
+
+@media (max-width: 767px) {
+    .card-showcase {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .card-container {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    
+    /* 在移动端恢复原有样式 */
+    .card-person-info-blue .person-name {
+        font-size: 22px;
+    }
+    
+    .card-person-info-blue .person-title {
+        font-size: 16px;
+    }
+    
+    .card-intro-blue p {
+        max-height: none;
+        -webkit-line-clamp: initial;
+    }
+} 

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0f4ff" />
+      <stop offset="100%" stop-color="#e6ecff" />
+    </linearGradient>
+    
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#3366FF" flood-opacity="0.2"/>
+    </filter>
+    
+    <!-- 添加光晕效果 -->
+    <radialGradient id="glowGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#3366FF" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#3366FF" stop-opacity="0" />
+    </radialGradient>
+    
+    <!-- 添加渐变效果 -->
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3366FF" />
+      <stop offset="100%" stop-color="#5C83FF" />
+    </linearGradient>
+    
+    <linearGradient id="cyanGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00BCD4" />
+      <stop offset="100%" stop-color="#4DD0E1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 光晕背景 -->
+  <circle cx="300" cy="200" r="190" fill="url(#glowGradient)" opacity="0.7"/>
+  
+  <!-- 圆形背景 -->
+  <circle cx="300" cy="200" r="160" fill="url(#bgGradient)" filter="url(#shadow)"/>
+  
+  <!-- 中心环 -->
+  <circle cx="300" cy="200" r="60" fill="#ffffff" stroke="url(#blueGradient)" stroke-width="3"/>
+  <text x="300" y="195" font-family="PingFang SC, Microsoft YaHei, SimHei, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#3366FF">企业价值</text>
+  <text x="300" y="215" font-family="PingFang SC, Microsoft YaHei, SimHei, sans-serif" font-size="12" text-anchor="middle" fill="#3366FF">价值增长核心</text>
+  
+  <!-- 飞轮箭头 -->
+  <g>
+    <!-- 上半环 - 增长 -->
+    <path d="M300,50 A150,150 0 0,1 450,200" fill="none" stroke="url(#blueGradient)" stroke-width="4" stroke-dasharray="6,3"/>
+    <polygon points="450,200 435,180 430,195" fill="#3366FF"/>
+    <text>
+      <textPath href="#growth-text-path" font-family="PingFang SC, Microsoft YaHei, SimHei, sans-serif" font-size="16" font-weight="bold" fill="#3366FF">增长驱动价值</textPath>
+    </text>
+    <path id="growth-text-path" d="M320,90 A120,120 0 0,1 430,180" fill="none" stroke="none"/>
+    
+    <!-- 下半环 - 价值 -->
+    <path d="M450,200 A150,150 0 0,1 300,350" fill="none" stroke="url(#cyanGradient)" stroke-width="4" stroke-dasharray="6,3"/>
+    <polygon points="300,350 315,335 300,330" fill="#00BCD4"/>
+    <text>
+      <textPath href="#value-text-path" font-family="PingFang SC, Microsoft YaHei, SimHei, sans-serif" font-size="16" font-weight="bold" fill="#00BCD4">价值引导增长</textPath>
+    </text>
+    <path id="value-text-path" d="M430,220 A120,120 0 0,1 320,310" fill="none" stroke="none"/>
+    
+    <!-- 完成环 -->
+    <path d="M300,350 A150,150 0 0,1 150,200" fill="none" stroke="url(#cyanGradient)" stroke-width="4" stroke-dasharray="6,3"/>
+    <polygon points="150,200 165,215 170,200" fill="#00BCD4"/>
+    
+    <!-- 完成环 -->
+    <path d="M150,200 A150,150 0 0,1 300,50" fill="none" stroke="url(#blueGradient)" stroke-width="4" stroke-dasharray="6,3"/>
+    <polygon points="300,50 285,70 300,75" fill="#3366FF"/>
+  </g>
+  
+  <!-- 增长因素 -->
+  <g>
+    <circle cx="200" cy="120" r="40" fill="white" stroke="#3366FF" stroke-width="2.5"/>
+    <text x="200" y="115" font-family="PingFang SC, Microsoft YaHei, SimHei, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#3366FF">获客</text>
+    <text x="200" y="135" font-family="PingFang SC, Microsoft YaHei, SimHei, sans-serif" font-size="12" text-anchor="middle" fill="#3366FF">因</text>
+  </g>
+  
+  <!-- 价值因素 -->
+  <g>
+    <circle cx="400" cy="120" r="40" fill="white" stroke="#00BCD4" stroke-width="2.5"/>
+    <text x="400" y="115" font-family="PingFang SC, Microsoft YaHei, SimHei, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#00BCD4">价值</text>
+    <text x="400" y="135" font-family="PingFang SC, Microsoft YaHei, SimHei, sans-serif" font-size="12" text-anchor="middle" fill="#00BCD4">果</text>
+  </g>
+  
+  <!-- 转化元素 -->
+  <g>
+    <circle cx="200" cy="280" r="40" fill="white" stroke="#00BCD4" stroke-width="2.5"/>
+    <text x="200" y="275" font-family="PingFang SC, Microsoft YaHei, SimHei, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#00BCD4">终局视角</text>
+    <text x="200" y="295" font-family="PingFang SC, Microsoft YaHei, SimHei, sans-serif" font-size="12" text-anchor="middle" fill="#00BCD4">战略思维</text>
+  </g>
+  
+  <!-- 回馈元素 -->
+  <g>
+    <circle cx="400" cy="280" r="40" fill="white" stroke="#3366FF" stroke-width="2.5"/>
+    <text x="400" y="275" font-family="PingFang SC, Microsoft YaHei, SimHei, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#3366FF">价值投资</text>
+    <text x="400" y="295" font-family="PingFang SC, Microsoft YaHei, SimHei, sans-serif" font-size="12" text-anchor="middle" fill="#3366FF">长期回报</text>
+  </g>
+  
+  <!-- 连接线 -->
+  <line x1="230" y1="146" x2="270" y2="170" stroke="url(#blueGradient)" stroke-width="2.5" stroke-dasharray="4,2"/>
+  <line x1="370" y1="146" x2="330" y2="170" stroke="url(#cyanGradient)" stroke-width="2.5" stroke-dasharray="4,2"/>
+  <line x1="230" y1="254" x2="270" y2="230" stroke="url(#cyanGradient)" stroke-width="2.5" stroke-dasharray="4,2"/>
+  <line x1="370" y1="254" x2="330" y2="230" stroke="url(#blueGradient)" stroke-width="2.5" stroke-dasharray="4,2"/>
+  
+  <!-- 添加装饰性元素 -->
+  <circle cx="300" cy="200" r="180" fill="none" stroke="#E3F2FD" stroke-width="1" stroke-dasharray="2,4"/>
+</svg> 

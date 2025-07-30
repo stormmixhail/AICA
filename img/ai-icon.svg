@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="aiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9C27B0" />
+      <stop offset="100%" stop-color="#673AB7" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+      <feMerge>
+        <feMergeNode in="coloredBlur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- 背景圆 -->
+  <circle cx="32" cy="32" r="30" fill="white" />
+  <circle cx="32" cy="32" r="28" fill="none" stroke="#EEEEEE" stroke-width="4" />
+
+  <!-- 大脑形状 -->
+  <g transform="translate(32, 32) scale(0.7) translate(-32, -32)" filter="url(#glow)">
+    <!-- 大脑外轮廓 -->
+    <path d="M32,12 C40,12 48,16 48,28 C48,40 40,52 32,52 C24,52 16,40 16,28 C16,16 24,12 32,12 Z" 
+          fill="none" stroke="#9C27B0" stroke-width="2" />
+    
+    <!-- 左脑区域 -->
+    <path d="M16,28 C16,28 20,24 24,24 C28,24 32,32 32,32" 
+          fill="none" stroke="#9C27B0" stroke-width="2" />
+    <path d="M16,36 C16,36 20,40 24,40 C28,40 32,32 32,32" 
+          fill="none" stroke="#9C27B0" stroke-width="2" />
+    
+    <!-- 右脑区域 -->
+    <path d="M48,28 C48,28 44,24 40,24 C36,24 32,32 32,32" 
+          fill="none" stroke="#673AB7" stroke-width="2" />
+    <path d="M48,36 C48,36 44,40 40,40 C36,40 32,32 32,32" 
+          fill="none" stroke="#673AB7" stroke-width="2" />
+  </g>
+  
+  <!-- 电路/神经网络连接 -->
+  <g transform="translate(32, 32) scale(0.7) translate(-32, -32)">
+    <!-- 连接点 -->
+    <circle cx="24" cy="24" r="2" fill="#9C27B0" />
+    <circle cx="40" cy="24" r="2" fill="#673AB7" />
+    <circle cx="24" cy="40" r="2" fill="#9C27B0" />
+    <circle cx="40" cy="40" r="2" fill="#673AB7" />
+    <circle cx="32" cy="32" r="3" fill="url(#aiGradient)" />
+    <circle cx="20" cy="28" r="1.5" fill="#9C27B0" />
+    <circle cx="44" cy="28" r="1.5" fill="#673AB7" />
+    <circle cx="20" cy="36" r="1.5" fill="#9C27B0" />
+    <circle cx="44" cy="36" r="1.5" fill="#673AB7" />
+  </g>
+
+  <!-- AI字母 -->
+  <g transform="translate(32, 30)">
+    <rect x="-16" y="-8" width="32" height="16" rx="4" ry="4" fill="url(#aiGradient)" opacity="0.9" />
+    <text x="0" y="4" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">AI</text>
+  </g>
+
+  <!-- 数据流 -->
+  <g transform="translate(32, 32) scale(0.8) translate(-32, -32)" opacity="0.5">
+    <path d="M8,32 L16,32" stroke="#9C27B0" stroke-width="1" stroke-dasharray="1,1" />
+    <path d="M48,32 L56,32" stroke="#673AB7" stroke-width="1" stroke-dasharray="1,1" />
+    <path d="M32,8 L32,16" stroke="url(#aiGradient)" stroke-width="1" stroke-dasharray="1,1" />
+    <path d="M32,48 L32,56" stroke="url(#aiGradient)" stroke-width="1" stroke-dasharray="1,1" />
+    
+    <!-- 二进制 -->
+    <text x="10" y="28" font-family="Courier, monospace" font-size="3" fill="#9C27B0">10</text>
+    <text x="52" y="28" font-family="Courier, monospace" font-size="3" fill="#673AB7">01</text>
+    <text x="30" y="12" font-family="Courier, monospace" font-size="3" fill="url(#aiGradient)">10</text>
+    <text x="30" y="54" font-family="Courier, monospace" font-size="3" fill="url(#aiGradient)">01</text>
+  </g>
+</svg> 

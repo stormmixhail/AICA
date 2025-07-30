@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">
+  <style>
+    .bg {
+      fill: #1a1a2e;
+    }
+    .livestream-frame {
+      fill: #2a2a4e;
+      stroke: #00b4d8;
+      stroke-width: 1;
+    }
+    .livestream-screen {
+      fill: #0f3460;
+    }
+    .digital-human {
+      fill: #ffffff;
+      opacity: 0.9;
+    }
+    .digital-human-feature {
+      fill: #1a1a2e;
+      opacity: 0.8;
+    }
+    .product {
+      fill: #5ce1e6;
+      opacity: 0.7;
+    }
+    .product-highlight {
+      fill: #00b4d8;
+    }
+    .viewer {
+      fill: #4158D0;
+      opacity: 0.6;
+    }
+    .viewer-feature {
+      fill: #ffffff;
+      opacity: 0.8;
+    }
+    .icon {
+      fill: #00b4d8;
+    }
+    .text {
+      font-family: Arial, sans-serif;
+      font-size: 7px;
+      fill: #ffffff;
+    }
+  </style>
+  
+  <!-- 背景 -->
+  <rect class="bg" x="0" y="0" width="200" height="150" rx="10"/>
+  
+  <!-- 直播框架 -->
+  <rect class="livestream-frame" x="30" y="20" width="140" height="90" rx="5"/>
+  <rect class="livestream-screen" x="35" y="25" width="130" height="80"/>
+  
+  <!-- 数字人 -->
+  <circle class="digital-human" cx="65" cy="55" r="20"/>
+  <rect class="digital-human" x="50" y="75" width="30" height="25" rx="2"/>
+  
+  <!-- 数字人特征 -->
+  <circle class="digital-human-feature" cx="60" cy="50" r="3"/>
+  <circle class="digital-human-feature" cx="70" cy="50" r="3"/>
+  <path class="digital-human-feature" d="M60,65 Q65,70 70,65"/>
+  
+  <!-- 产品展示 -->
+  <rect class="product" x="100" y="40" width="50" height="40" rx="3"/>
+  <circle class="product-highlight" cx="125" cy="60" r="15"/>
+  
+  <!-- 观众 -->
+  <rect class="viewer" x="40" y="120" width="120" height="20" rx="5"/>
+  
+  <!-- 观众图标 -->
+  <circle class="viewer-feature" cx="55" cy="130" r="5"/>
+  <circle class="viewer-feature" cx="70" cy="130" r="5"/>
+  <circle class="viewer-feature" cx="85" cy="130" r="5"/>
+  <circle class="viewer-feature" cx="100" cy="130" r="5"/>
+  <circle class="viewer-feature" cx="115" cy="130" r="5"/>
+  <circle class="viewer-feature" cx="130" cy="130" r="5"/>
+  <circle class="viewer-feature" cx="145" cy="130" r="5"/>
+  
+  <!-- 直播图标 -->
+  <circle class="icon" cx="150" cy="35" r="5"/>
+  <text class="text" x="148" y="37">LIVE</text>
+  
+  <!-- 商品信息 -->
+  <rect class="icon" x="100" y="85" width="50" height="10" rx="2"/>
+  <text class="text" x="110" y="92">¥9999</text>
+</svg> 

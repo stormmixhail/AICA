@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <style>
+    .dna-line {
+      fill: none;
+      stroke: #00b4d8;
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+    .dna-dot {
+      fill: #00b4d8;
+    }
+    .dna-connection {
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 1.5;
+      stroke-dasharray: 2, 2;
+      opacity: 0.7;
+    }
+  </style>
+  
+  <!-- DNA螺旋线 -->
+  <path class="dna-line" d="M30,10 Q50,25 70,10 Q50,40 30,55 Q50,70 70,55 Q50,85 30,100"/>
+  <path class="dna-line" d="M70,10 Q50,25 30,40 Q50,55 70,70 Q50,85 30,100"/>
+  
+  <!-- DNA连接点 -->
+  <circle class="dna-dot" cx="30" cy="10" r="3"/>
+  <circle class="dna-dot" cx="70" cy="10" r="3"/>
+  <circle class="dna-dot" cx="30" cy="40" r="3"/>
+  <circle class="dna-dot" cx="70" cy="40" r="3"/>
+  <circle class="dna-dot" cx="30" cy="70" r="3"/>
+  <circle class="dna-dot" cx="70" cy="70" r="3"/>
+  <circle class="dna-dot" cx="30" cy="100" r="3"/>
+  <circle class="dna-dot" cx="70" cy="100" r="3"/>
+  
+  <!-- DNA连接线 -->
+  <line class="dna-connection" x1="30" y1="10" x2="70" y2="10"/>
+  <line class="dna-connection" x1="30" y1="40" x2="70" y2="40"/>
+  <line class="dna-connection" x1="30" y1="70" x2="70" y2="70"/>
+  <line class="dna-connection" x1="30" y1="100" x2="70" y2="100"/>
+</svg> 

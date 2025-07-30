@@ -1,0 +1,15 @@
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="growth-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a6bff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00c4cc;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect x="8" y="28" width="6" height="12" rx="1" fill="url(#growth-grad)" />
+  <rect x="18" y="22" width="6" height="18" rx="1" fill="url(#growth-grad)" />
+  <rect x="28" y="14" width="6" height="26" rx="1" fill="url(#growth-grad)" />
+  <path d="M12,18 L36,18" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round" />
+  <path d="M38,16 L42,8 L36,10" stroke="url(#growth-grad)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M38,16 L32,8" stroke="url(#growth-grad)" stroke-width="2" fill="none" stroke-linecap="round" />
+  <path d="M38,16 C39.1046,16 40,15.1046 40,14 C40,12.8954 39.1046,12 38,12 C36.8954,12 36,12.8954 36,14 C36,15.1046 36.8954,16 38,16 Z" fill="url(#growth-grad)" />
+</svg> 

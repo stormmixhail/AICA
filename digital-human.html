@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字人 - 沉浸式体验 - AICA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/immersive-video.css">
+    <link rel="stylesheet" href="css/vertical-video-grid.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/digital-human-nav.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/logo.svg?v=20250716" alt="AICA Logo">
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="#news-section" class="nav-link active">新闻</a>
+                <a href="#case-section" class="nav-link">案例</a>
+                <a href="#standard-section" class="nav-link">标准</a>
+                <a href="#experience-section" class="nav-link">体验</a>
+                <a href="digital-human-new.html" class="nav-link new-version">新版 <i class="bi bi-stars"></i></a>
+            </div>
+            <div class="home-button">
+                <a href="index.html" class="home-btn"><i class="bi bi-house-door"></i> <span>返回首页</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 新闻部分 -->
+    <section id="news-section" class="section">
+        <div class="subnav-container">
+            <div class="subnav">
+                <a href="#industry-news" class="subnav-link active" data-category="industry">数字人行业</a>
+                <a href="#silicon-news" class="subnav-link" data-category="silicon">硅基智能</a>
+                <a href="#application-news" class="subnav-link" data-category="application">数字人应用新闻</a>
+                <a href="#scenario-news" class="subnav-link" data-category="scenario">数字人场景</a>
+            </div>
+        </div>
+
+        <div class="news-banner-container">
+            <div class="news-banner-wrapper">
+                <div class="news-banner active" id="industry-news">
+                    <div class="category-intro">
+                        <h2>数字人行业</h2>
+                        <p>聚焦数字人产业动态，为您带来行业前沿资讯与市场趋势分析</p>
+                    </div>
+                    <div class="banner-slider">
+                        <div class="banner-slide active">
+                            <img src="img/news/industry-banner1.jpg" alt="数字人行业新闻1">
+                            <div class="banner-content">
+                                <h2>数字人技术引领新一轮产业变革</h2>
+                                <p>随着AI技术的发展，数字人已成为各行业的新选择</p>
+                                <a href="#" class="banner-btn">了解详情</a>
+                            </div>
+                        </div>
+                        <div class="banner-slide">
+                            <img src="img/news/industry-banner2.jpg" alt="数字人行业新闻2">
+                            <div class="banner-content">
+                                <h2>全球数字人市场规模预计2026年突破500亿</h2>
+                                <p>各国纷纷加大数字人领域投资，市场前景广阔</p>
+                                <a href="#" class="banner-btn">了解详情</a>
+                            </div>
+                        </div>
+                        <div class="banner-slide">
+                            <img src="img/news/industry-banner3.jpg" alt="数字人行业新闻3">
+                            <div class="banner-content">
+                                <h2>数字人标准化进程加速</h2>
+                                <p>行业联盟发布首个数字人技术规范，推动产业健康发展</p>
+                                <a href="#" class="banner-btn">了解详情</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="banner-nav">
+                        <span class="banner-nav-btn prev"><i class="bi bi-chevron-left"></i></span>
+                        <div class="banner-indicators">
+                            <span class="indicator active"></span>
+                            <span class="indicator"></span>
+                            <span class="indicator"></span>
+                        </div>
+                        <span class="banner-nav-btn next"><i class="bi bi-chevron-right"></i></span>
+                    </div>
+                    <div class="news-grid">
+                        <div class="news-item">
+                            <div class="news-image">
+                                <img src="img/news/industry-news1.jpg" alt="行业新闻1">
+                            </div>
+                            <div class="news-content">
+                                <h3>元宇宙时代的数字人技术探索</h3>
+                                <p class="news-excerpt">数字人如何在元宇宙中扮演关键角色</p>
+                                <div class="news-meta">
+                                    <span class="news-date">2025-06-15</span>
+                                    <span class="news-tag">技术前沿</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="news-item">
+                            <div class="news-image">
+                                <img src="img/news/industry-news2.jpg" alt="行业新闻2">
+                            </div>
+                            <div class="news-content">
+                                <h3>数字人产业最新投融资动态</h3>
+                                <p class="news-excerpt">2025年Q2数字人领域获投项目分析</p>
+                                <div class="news-meta">
+                                    <span class="news-date">2025-06-10</span>
+                                    <span class="news-tag">产业资讯</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="news-item">
+                            <div class="news-image">
+                                <img src="img/news/industry-news3.jpg" alt="行业新闻3">
+                            </div>
+                            <div class="news-content">
+                                <h3>数字人伦理与法律问题研究</h3>
+                                <p class="news-excerpt">如何构建数字人发展的法律伦理框架</p>
+                                <div class="news-meta">
+                                    <span class="news-date">2025-06-05</span>
+                                    <span class="news-tag">政策研究</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="news-item">
+                            <div class="news-image">
+                                <img src="img/news/industry-news4.jpg" alt="行业新闻4">
+                            </div>
+                            <div class="news-content">
+                                <h3>数字人技术最新突破与挑战</h3>
+                                <p class="news-excerpt">面部表情自然度和情感共鸣成为新焦点</p>
+                                <div class="news-meta">
+                                    <span class="news-date">2025-06-01</span>
+                                    <span class="news-tag">技术突破</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-banner" id="silicon-news">
+                    <div class="category-intro">
+                        <h2>硅基智能</h2>
+                        <p>探索硅基智能领域的技术突破与创新应用，了解AI未来发展方向</p>
+                    </div>
+                    <div class="banner-slider">
+                        <div class="banner-slide active">
+                            <img src="img/news/silicon-banner1.jpg" alt="硅基智能新闻1">
+                            <div class="banner-content">
+                                <h2>硅基智能突破人类认知极限</h2>
+                                <p>新型神经网络架构实现前所未有的推理能力</p>
+                                <a href="#" class="banner-btn">了解详情</a>
+                            </div>
+                        </div>
+                        <div class="banner-slide">
+                            <img src="img/news/silicon-banner2.jpg" alt="硅基智能新闻2">
+                            <div class="banner-content">
+                                <h2>量子计算驱动的硅基智能取得重大进展</h2>
+                                <p>突破传统计算架构限制，开启AI新纪元</p>
+                                <a href="#" class="banner-btn">了解详情</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="banner-nav">
+                        <span class="banner-nav-btn prev"><i class="bi bi-chevron-left"></i></span>
+                        <div class="banner-indicators">
+                            <span class="indicator active"></span>
+                            <span class="indicator"></span>
+                        </div>
+                        <span class="banner-nav-btn next"><i class="bi bi-chevron-right"></i></span>
+                    </div>
+                    <div class="news-grid">
+                        <div class="news-item">
+                            <div class="news-image">
+                                <img src="img/news/silicon-news1.jpg" alt="硅基智能新闻1">
+                            </div>
+                            <div class="news-content">
+                                <h3>新型AI芯片效能提升300%</h3>
+                                <p class="news-excerpt">专为数字人优化的神经网络处理架构</p>
+                                <div class="news-meta">
+                                    <span class="news-date">2025-06-12</span>
+                                    <span class="news-tag">硬件创新</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="news-item">
+                            <div class="news-image">
+                                <img src="img/news/silicon-news2.jpg" alt="硅基智能新闻2">
+                            </div>
+                            <div class="news-content">
+                                <h3>硅基智能与碳基智能融合研究</h3>
+                                <p class="news-excerpt">仿生神经网络打破AI发展瓶颈</p>
+                                <div class="news-meta">
+                                    <span class="news-date">2025-06-08</span>
+                                    <span class="news-tag">前沿研究</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="news-item">
+                            <div class="news-image">
+                                <img src="img/news/silicon-news3.jpg" alt="硅基智能新闻3">
+                            </div>
+                            <div class="news-content">
+                                <h3>低能耗高性能硅基AI模型发布</h3>
+                                <p class="news-excerpt">能效比提升10倍，适用于边缘设备</p>
+                                <div class="news-meta">
+                                    <span class="news-date">2025-06-03</span>
+                                    <span class="news-tag">模型创新</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="news-item">
+                            <div class="news-image">
+                                <img src="img/news/silicon-news4.jpg" alt="硅基智能新闻4">
+                            </div>
+                            <div class="news-content">
+                                <h3>硅基情感智能取得突破性进展</h3>
+                                <p class="news-excerpt">数字人情感表达真实度提升至85%</p>
+                                <div class="news-meta">
+                                    <span class="news-date">2025-05-28</span>
+                                    <span class="news-tag">情感计算</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-banner" id="application-news">
+                    <div class="category-intro">
+                        <h2>数字人应用新闻</h2>
+                        <p>展示数字人在各行业的实际应用案例与最佳实践，助力企业数字化转型</p>
+                    </div>
+                    <div class="banner-slider">
+                        <div class="banner-slide active">
+                            <img src="img/news/application-banner1.jpg" alt="应用新闻1">
+                            <div class="banner-content">
+                                <h2>数字人在金融领域应用爆发式增长</h2>
+                                <p>智能投顾数字人成为银行业标配</p>
+                                <a href="#" class="banner-btn">了解详情</a>
+                            </div>
+                        </div>
+                        <div class="banner-slide">
+                            <img src="img/news/application-banner2.jpg" alt="应用新闻2">
+                            <div class="banner-content">
+                                <h2>数字人主播引领直播带货新潮流</h2>
+                                <p>24小时不间断直播带货，转化率超人类主播20%</p>
+                                <a href="#" class="banner-btn">了解详情</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="banner-nav">
+                        <span class="banner-nav-btn prev"><i class="bi bi-chevron-left"></i></span>
+                        <div class="banner-indicators">
+                            <span class="indicator active"></span>
+                            <span class="indicator"></span>
+                        </div>
+                        <span class="banner-nav-btn next"><i class="bi bi-chevron-right"></i></span>
+                    </div>
+                    <div class="news-grid">
+                        <div class="news-item">
+                            <div class="news-image">
+                                <img src="img/news/application-news1.jpg" alt="应用新闻1">
+                            </div>
+                            <div class="news-content">
+                                <h3>教育领域数字人应用案例分析</h3>
+                                <p class="news-excerpt">AI导师提升学生学习效率35%</p>
+                                <div class="news-meta">
+                                    <span class="news-date">2025-06-14</span>
+                                    <span class="news-tag">教育应用</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="news-item">
+                            <div class="news-image">
+                                <img src="img/news/application-news2.jpg" alt="应用新闻2">
+                            </div>
+                            <div class="news-content">
+                                <h3>数字人在医疗健康领域的应用实践</h3>
+                                <p class="news-excerpt">24小时AI健康顾问降低慢病管理成本</p>
+                                <div class="news-meta">
+                                    <span class="news-date">2025-06-09</span>
+                                    <span class="news-tag">医疗健康</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="news-item">
+                            <div class="news-image">
+                                <img src="img/news/application-news3.jpg" alt="应用新闻3">
+                            </div>
+                            <div class="news-content">
+                                <h3>企业数字人员工效能分析报告</h3>
+                                <p class="news-excerpt">客服效率提升70%，满意度提升15%</p>
+                                <div class="news-meta">
+                                    <span class="news-date">2025-06-04</span>
+                                    <span class="news-tag">企业应用</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="news-item">
+                            <div class="news-image">
+                                <img src="img/news/application-news4.jpg" alt="应用新闻4">
+                            </div>
+                            <div class="news-content">
+                                <h3>数字人在政务服务中的创新应用</h3>
+                                <p class="news-excerpt">24小时不间断服务，办事效率提升50%</p>
+                                <div class="news-meta">
+                                    <span class="news-date">2025-05-30</span>
+                                    <span class="news-tag">政务创新</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-banner" id="scenario-news">
+                    <div class="category-intro">
+                        <h2>数字人场景</h2>
+                        <p>呈现数字人在不同场景下的应用潜力，开启元宇宙时代的无限可能</p>
+                    </div>
+                    <div class="scenario-container">
+                        <div class="scenario-item">
+                            <img src="img/news/scenario1.jpg" alt="数字人场景1">
+                            <div class="scenario-overlay">
+                                <h3>智能客服场景</h3>
+                                <p>为企业提供24小时不间断的专业客户服务</p>
+                                <a href="#" class="scenario-btn">探索场景</a>
+                            </div>
+                        </div>
+                        <div class="scenario-item">
+                            <img src="img/news/scenario2.jpg" alt="数字人场景2">
+                            <div class="scenario-overlay">
+                                <h3>数字化主播场景</h3>
+                                <p>为内容创作者提供全天候的数字分身直播服务</p>
+                                <a href="#" class="scenario-btn">探索场景</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 案例视频部分 - 更新为瀑布流布局 -->
+    <section id="case-section" class="section">
+        <div class="section-container">
+            <h2 class="section-title">数字人案例展示</h2>
+            <p class="section-subtitle">探索数字人在各行业的实际应用，沉浸式体验数字人带来的价值</p>
+            
+            <div class="video-filter">
+                <button class="filter-btn active" data-filter="all">全部案例</button>
+                <button class="filter-btn" data-filter="silicon">硅基智能</button>
+                <button class="filter-btn" data-filter="customer">客户案例</button>
+                <button class="filter-btn" data-filter="interaction">互动体验</button>
+            </div>
+            
+            <div class="video-waterfall-container">
+                <div class="video-grid">
+                    <!-- 硅基智能案例 -->
+                    <div class="video-card" data-category="silicon" data-video="videos/silicon-video1.mp4" data-title="AI客服数字人" data-desc="24小时在线客服，高效解决客户问题，提供个性化的服务体验">
+                        <img src="img/videos/silicon-thumb1.jpg" alt="AI客服数字人" class="video-thumbnail">
+                        <div class="video-overlay">
+                            <div class="play-icon">
+                                <i class="bi bi-play-fill"></i>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">AI客服数字人</h3>
+                                <p class="video-description">24小时在线客服，高效解决客户问题</p>
+                            </div>
+                        </div>
+                        <span class="video-badge">硅基智能</span>
+                    </div>
+                    
+                    <div class="video-card" data-category="silicon" data-video="videos/silicon-video2.mp4" data-title="AI营销数字人" data-desc="根据用户偏好和行为提供个性化的推荐，提高转化率和用户满意度">
+                        <img src="img/videos/silicon-thumb2.jpg" alt="AI营销数字人" class="video-thumbnail">
+                        <div class="video-overlay">
+                            <div class="play-icon">
+                                <i class="bi bi-play-fill"></i>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">AI营销数字人</h3>
+                                <p class="video-description">根据用户偏好提供个性化推荐</p>
+                            </div>
+                        </div>
+                        <span class="video-badge">硅基智能</span>
+                    </div>
+                    
+                    <div class="video-card" data-category="silicon" data-video="videos/silicon-video3.mp4" data-title="AI教育辅导数字人" data-desc="个性化教学，根据学生学习进度和特点提供定制化的教学内容和方法">
+                        <img src="img/videos/silicon-thumb3.jpg" alt="AI教育辅导数字人" class="video-thumbnail">
+                        <div class="video-overlay">
+                            <div class="play-icon">
+                                <i class="bi bi-play-fill"></i>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">AI教育辅导数字人</h3>
+                                <p class="video-description">根据学生进度提供定制化教学</p>
+                            </div>
+                        </div>
+                        <span class="video-badge">硅基智能</span>
+                    </div>
+                    
+                    <div class="video-card" data-category="silicon" data-video="videos/silicon-video4.mp4" data-title="AI金融顾问数字人" data-desc="提供专业的投资理财建议，帮助用户实现财富增值和资产配置优化">
+                        <img src="img/videos/silicon-thumb4.jpg" alt="AI金融顾问数字人" class="video-thumbnail">
+                        <div class="video-overlay">
+                            <div class="play-icon">
+                                <i class="bi bi-play-fill"></i>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">AI金融顾问数字人</h3>
+                                <p class="video-description">提供专业投资理财建议</p>
+                            </div>
+                        </div>
+                        <span class="video-badge">硅基智能</span>
+                    </div>
+                    
+                    <!-- 客户案例 -->
+                    <div class="video-card" data-category="customer" data-video="videos/customer-video1.mp4" data-title="王小姐的直播数字人" data-desc="时尚博主王小姐的数字分身，24小时为粉丝提供穿搭建议和美妆技巧">
+                        <img src="img/videos/customer-thumb1.jpg" alt="王小姐的直播数字人" class="video-thumbnail">
+                        <div class="video-overlay">
+                            <div class="play-icon">
+                                <i class="bi bi-play-fill"></i>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">王小姐的直播数字人</h3>
+                                <p class="video-description">时尚博主的数字分身，提供穿搭建议</p>
+                            </div>
+                        </div>
+                        <span class="video-badge">客户案例</span>
+                    </div>
+                    
+                    <div class="video-card" data-category="customer" data-video="videos/customer-video2.mp4" data-title="李教授的课程数字人" data-desc="知名大学教授的数字分身，为学生提供随时随地的课程辅导和答疑">
+                        <img src="img/videos/customer-thumb2.jpg" alt="李教授的课程数字人" class="video-thumbnail">
+                        <div class="video-overlay">
+                            <div class="play-icon">
+                                <i class="bi bi-play-fill"></i>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">李教授的课程数字人</h3>
+                                <p class="video-description">为学生提供随时随地的课程辅导</p>
+                            </div>
+                        </div>
+                        <span class="video-badge">客户案例</span>
+                    </div>
+                    
+                    <div class="video-card" data-category="customer" data-video="videos/customer-video3.mp4" data-title="张总的企业数字人" data-desc="企业CEO的数字分身，代表企业进行品牌宣传和产品推广，提升企业形象">
+                        <img src="img/videos/customer-thumb3.jpg" alt="张总的企业数字人" class="video-thumbnail">
+                        <div class="video-overlay">
+                            <div class="play-icon">
+                                <i class="bi bi-play-fill"></i>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">张总的企业数字人</h3>
+                                <p class="video-description">CEO数字分身，进行品牌宣传</p>
+                            </div>
+                        </div>
+                        <span class="video-badge">客户案例</span>
+                    </div>
+                    
+                    <div class="video-card" data-category="customer" data-video="videos/customer-video4.mp4" data-title="赵医生的诊疗数字人" data-desc="著名专家医生的数字分身，为患者提供初步诊断和健康咨询服务">
+                        <img src="img/videos/customer-thumb4.jpg" alt="赵医生的诊疗数字人" class="video-thumbnail">
+                        <div class="video-overlay">
+                            <div class="play-icon">
+                                <i class="bi bi-play-fill"></i>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">赵医生的诊疗数字人</h3>
+                                <p class="video-description">为患者提供初步诊断和健康咨询</p>
+                            </div>
+                        </div>
+                        <span class="video-badge">客户案例</span>
+                    </div>
+                    
+                    <!-- 互动体验 -->
+                    <div class="video-card" data-category="interaction" data-video="videos/interaction-video1.mp4" data-title="商场导购数字人" data-desc="扫码即可与数字导购互动，获取商品信息和购物建议，提升购物体验">
+                        <img src="img/videos/interaction-thumb1.jpg" alt="商场导购数字人" class="video-thumbnail">
+                        <div class="video-overlay">
+                            <div class="play-icon">
+                                <i class="bi bi-play-fill"></i>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">商场导购数字人</h3>
+                                <p class="video-description">获取商品信息和购物建议</p>
+                            </div>
+                        </div>
+                        <span class="video-badge">互动体验</span>
+                    </div>
+                    
+                    <div class="video-card" data-category="interaction" data-video="videos/interaction-video2.mp4" data-title="旅游景点讲解数字人" data-desc="景点二维码扫描后激活数字讲解员，提供沉浸式的景点介绍和历史文化讲解">
+                        <img src="img/videos/interaction-thumb2.jpg" alt="旅游景点讲解数字人" class="video-thumbnail">
+                        <div class="video-overlay">
+                            <div class="play-icon">
+                                <i class="bi bi-play-fill"></i>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">旅游景点讲解数字人</h3>
+                                <p class="video-description">提供沉浸式景点介绍和历史讲解</p>
+                            </div>
+                        </div>
+                        <span class="video-badge">互动体验</span>
+                    </div>
+                    
+                    <div class="video-card" data-category="interaction" data-video="videos/interaction-video3.mp4" data-title="博物馆展品讲解数字人" data-desc="每个展品旁的二维码连接专属数字讲解员，深入浅出讲解展品背后的故事">
+                        <img src="img/videos/interaction-thumb3.jpg" alt="博物馆展品讲解数字人" class="video-thumbnail">
+                        <div class="video-overlay">
+                            <div class="play-icon">
+                                <i class="bi bi-play-fill"></i>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">博物馆展品讲解数字人</h3>
+                                <p class="video-description">讲解展品背后的故事</p>
+                            </div>
+                        </div>
+                        <span class="video-badge">互动体验</span>
+                    </div>
+                    
+                    <div class="video-card" data-category="interaction" data-video="videos/interaction-video4.mp4" data-title="企业形象展示数字人" data-desc="公司宣传册上的二维码可唤起数字企业代表，详细介绍公司文化和产品特点">
+                        <img src="img/videos/interaction-thumb4.jpg" alt="企业形象展示数字人" class="video-thumbnail">
+                        <div class="video-overlay">
+                            <div class="play-icon">
+                                <i class="bi bi-play-fill"></i>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">企业形象展示数字人</h3>
+                                <p class="video-description">介绍公司文化和产品特点</p>
+                            </div>
+                        </div>
+                        <span class="video-badge">互动体验</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 视频模态框 - 弹窗播放视频 -->
+            <div class="video-modal" id="videoModal">
+                <div class="modal-content">
+                    <div class="modal-close">
+                        <i class="bi bi-x"></i>
+                    </div>
+                    <div class="modal-video-container">
+                        <video class="modal-video" controls id="modalVideo">
+                            <source src="" type="video/mp4">
+                            您的浏览器不支持视频播放
+                        </video>
+                    </div>
+                    <div class="modal-info">
+                        <h3 class="modal-title">视频标题</h3>
+                        <p class="modal-desc">视频描述</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 标准部分 -->
+    <section id="standard-section" class="section">
+        <div class="standard-container">
+            <h2 class="section-title">数字人技术标准</h2>
+            <p class="section-subtitle">硅基智能数字人与普通数字人的技术性能对比，展示前沿技术带来的全方位升级体验</p>
+            
+            <div class="standard-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-icon">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                    <h3 class="dimension-title">能否帮你日更</h3>
+                    <div class="dimension-table">
+                        <div class="table-header">
+                            <div class="header-cell">功能</div>
+                            <div class="header-cell">普通数字人</div>
+                            <div class="header-cell">硅基智能数字人</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="row-cell">内容创作</div>
+                            <div class="row-cell"><i class="bi bi-check"></i></div>
+                            <div class="row-cell"><i class="bi bi-check"></i></div>
+                        </div>
+                        <div class="table-row">
+                            <div class="row-cell">自动发布</div>
+                            <div class="row-cell"><i class="bi bi-x"></i></div>
+                            <div class="row-cell"><i class="bi bi-check"></i></div>
+                        </div>
+                        <div class="table-row">
+                            <div class="row-cell">多平台同步</div>
+                            <div class="row-cell"><i class="bi bi-x"></i></div>
+                            <div class="row-cell"><i class="bi bi-check"></i></div>
+                        </div>
+                        <div class="table-row">
+                            <div class="row-cell">内容规划</div>
+                            <div class="row-cell"><i class="bi bi-x"></i></div>
+                            <div class="row-cell"><i class="bi bi-check"></i></div>
+                        </div>
+                        <div class="table-row">
+                            <div class="row-cell">互动回复</div>
+                            <div class="row-cell">简单回复</div>
+                            <div class="row-cell">智能对话</div>
+                        </div>
+                    </div>
+                    <div class="dimension-footer">
+                        <p>硅基智能数字人可实现全自动内容更新，保持账号活跃度和粉丝互动，提升引流效率</p>
+                    </div>
+                </div>
+                
+                <div class="dimension-item">
+                    <div class="dimension-icon">
+                        <i class="bi bi-broadcast"></i>
+                    </div>
+                    <h3 class="dimension-title">能否帮你直播</h3>
+                    <div class="dimension-table">
+                        <div class="table-header">
+                            <div class="header-cell">功能</div>
+                            <div class="header-cell">普通数字人</div>
+                            <div class="header-cell">硅基智能数字人</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="row-cell">视频直播</div>
+                            <div class="row-cell"><i class="bi bi-check"></i></div>
+                            <div class="row-cell"><i class="bi bi-check"></i></div>
+                        </div>
+                        <div class="table-row">
+                            <div class="row-cell">实时互动</div>
+                            <div class="row-cell"><i class="bi bi-x"></i></div>
+                            <div class="row-cell"><i class="bi bi-check"></i></div>
+                        </div>
+                        <div class="table-row">
+                            <div class="row-cell">多平台直播</div>
+                            <div class="row-cell"><i class="bi bi-x"></i></div>
+                            <div class="row-cell"><i class="bi bi-check"></i></div>
+                        </div>
+                        <div class="table-row">
+                            <div class="row-cell">直播带货</div>
+                            <div class="row-cell">基础介绍</div>
+                            <div class="row-cell">智能推荐</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="row-cell">数据分析</div>
+                            <div class="row-cell">基础报表</div>
+                            <div class="row-cell">实时洞察</div>
+                        </div>
+                    </div>
+                    <div class="dimension-footer">
+                        <p>硅基智能数字人支持7×24小时不间断智能直播，自动分析用户行为并调整策略，提高转化率</p>
+                    </div>
+                </div>
+                
+                <div class="dimension-item">
+                    <div class="dimension-icon">
+                        <i class="bi bi-arrow-repeat"></i>
+                    </div>
+                    <h3 class="dimension-title">是否持续迭代</h3>
+                    <div class="dimension-table">
+                        <div class="table-header">
+                            <div class="header-cell">功能</div>
+                            <div class="header-cell">普通数字人</div>
+                            <div class="header-cell">硅基智能数字人</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="row-cell">模型更新</div>
+                            <div class="row-cell">手动更新</div>
+                            <div class="row-cell">自动迭代</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="row-cell">功能升级</div>
+                            <div class="row-cell">季度更新</div>
+                            <div class="row-cell">持续优化</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="row-cell">个性化训练</div>
+                            <div class="row-cell"><i class="bi bi-x"></i></div>
+                            <div class="row-cell"><i class="bi bi-check"></i></div>
+                        </div>
+                        <div class="table-row">
+                            <div class="row-cell">技术支持</div>
+                            <div class="row-cell">基础支持</div>
+                            <div class="row-cell">专属支持</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="row-cell">升级频率</div>
+                            <div class="row-cell">季度</div>
+                            <div class="row-cell">实时学习</div>
+                        </div>
+                    </div>
+                    <div class="dimension-footer">
+                        <p>硅基智能数字人具备自我学习能力，根据用户反馈持续优化表现，保持领先竞争力</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="standard-cta">
+                <a href="#" class="standard-btn">查看完整技术对比</a>
+                <a href="#" class="standard-btn outline">预约技术演示</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 沉浸式体验部分 -->
+    <section id="experience-section" class="section">
+        <div class="immersive-container">
+            <div class="immersive-content">
+                <h2>数字人 - 沉浸式体验</h2>
+                <p>体验数字人的真实感和互动性，感受人工智能的魅力</p>
+                <a href="#" class="immersive-btn">立即体验</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 引入JavaScript文件 -->
+    <script src="js/digital-human-nav.js"></script>
+    <script src="js/vertical-video-grid.js"></script>
+</body>
+</html>

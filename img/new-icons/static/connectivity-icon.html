@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>连接断层图标</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: white;
+        }
+        
+        .icon {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .left-group {
+            position: absolute;
+            left: 30px;
+            height: 120px;
+            width: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .right-group {
+            position: absolute;
+            right: 30px;
+            height: 120px;
+            width: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .node {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #9C27B0, #673AB7);
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .vertical-line {
+            width: 2px;
+            height: 120px;
+            background-color: #9C27B0;
+        }
+        
+        .broken-connection {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 120px;
+        }
+        
+        .broken-line {
+            position: absolute;
+            background-color: #9C27B0;
+            height: 2px;
+            width: 20px;
+            opacity: 0.5;
+        }
+        
+        .broken-top-left {
+            top: 20px;
+            left: 0;
+        }
+        
+        .broken-top-right {
+            top: 20px;
+            right: 0;
+        }
+        
+        .broken-middle-left {
+            top: 60px;
+            left: 0;
+        }
+        
+        .broken-middle-right {
+            top: 60px;
+            right: 0;
+        }
+        
+        .broken-bottom-left {
+            bottom: 20px;
+            left: 0;
+        }
+        
+        .broken-bottom-right {
+            bottom: 20px;
+            right: 0;
+        }
+        
+        .flash {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+        }
+        
+        .flash svg {
+            fill: #FF5722;
+        }
+    </style>
+</head>
+<body>
+    <div class="icon">
+        <div class="left-group">
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="vertical-line"></div>
+        </div>
+        
+        <div class="right-group">
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="vertical-line"></div>
+        </div>
+        
+        <div class="broken-connection">
+            <div class="broken-line broken-top-left"></div>
+            <div class="broken-line broken-top-right"></div>
+            <div class="broken-line broken-middle-left"></div>
+            <div class="broken-line broken-middle-right"></div>
+            <div class="broken-line broken-bottom-left"></div>
+            <div class="broken-line broken-bottom-right"></div>
+        </div>
+        
+        <div class="flash">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M7,2V13H10V22L17,10H13L17,2H7Z" />
+            </svg>
+        </div>
+    </div>
+</body>
+</html>

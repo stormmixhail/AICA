@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="buildGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00BCD4" />
+      <stop offset="100%" stop-color="#006064" />
+    </linearGradient>
+  </defs>
+
+  <!-- 背景圆 -->
+  <circle cx="32" cy="32" r="30" fill="url(#buildGradient)" opacity="0.1" />
+  <circle cx="32" cy="32" r="28" stroke="#00BCD4" stroke-width="2" fill="none" />
+
+  <!-- 图形主体 -->
+  <g transform="translate(32, 32) scale(0.85) translate(-32, -32)">
+    <!-- 底部基础平台 -->
+    <rect x="10" y="44" width="44" height="6" rx="2" ry="2" fill="#00BCD4" />
+    
+    <!-- 支柱/框架 -->
+    <rect x="16" y="28" width="4" height="16" fill="#00BCD4" />
+    <rect x="44" y="28" width="4" height="16" fill="#00BCD4" />
+    <rect x="30" y="20" width="4" height="24" fill="#00BCD4" />
+    
+    <!-- 框架连接 -->
+    <rect x="16" y="28" width="32" height="4" fill="#00BCD4" />
+    <rect x="16" y="36" width="32" height="4" fill="#00BCD4" />
+    
+    <!-- 顶部结构 -->
+    <polygon points="20,20 44,20 38,10 26,10" fill="#00BCD4" />
+    
+    <!-- 施工元素 -->
+    <line x1="12" y1="15" x2="18" y2="21" stroke="#00BCD4" stroke-width="1.5" stroke-dasharray="2,1" />
+    <line x1="52" y1="15" x2="46" y2="21" stroke="#00BCD4" stroke-width="1.5" stroke-dasharray="2,1" />
+  </g>
+
+  <!-- 装饰元素：规划图纸 -->
+  <g transform="translate(10, 8)">
+    <rect x="0" y="0" width="12" height="16" fill="white" stroke="#00BCD4" stroke-width="1" />
+    <line x1="2" y1="4" x2="10" y2="4" stroke="#00BCD4" stroke-width="1" />
+    <line x1="2" y1="8" x2="10" y2="8" stroke="#00BCD4" stroke-width="1" />
+    <line x1="2" y1="12" x2="6" y2="12" stroke="#00BCD4" stroke-width="1" />
+  </g>
+  
+  <!-- 装饰元素：工具 -->
+  <g transform="translate(42, 8)">
+    <path d="M0,8 L8,0 L12,4 L4,12 Z" fill="#00BCD4" />
+    <circle cx="10" cy="2" r="1" fill="white" />
+  </g>
+
+  <!-- 连接点 -->
+  <circle cx="15" cy="32" r="2" fill="#00BCD4" />
+  <circle cx="49" cy="32" r="2" fill="#00BCD4" />
+  <circle cx="32" cy="19" r="2" fill="#00BCD4" />
+</svg> 

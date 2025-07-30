@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="300" fill="white"/>
+  <!-- 二维码图案 - 简化版 -->
+  <rect x="50" y="50" width="200" height="200" fill="white" stroke="black" stroke-width="2"/>
+  <rect x="70" y="70" width="40" height="40" fill="black"/>
+  <rect x="190" y="70" width="40" height="40" fill="black"/>
+  <rect x="70" y="190" width="40" height="40" fill="black"/>
+  <rect x="120" y="70" width="10" height="10" fill="black"/>
+  <rect x="140" y="90" width="10" height="10" fill="black"/>
+  <rect x="170" y="80" width="10" height="10" fill="black"/>
+  <rect x="80" y="120" width="10" height="10" fill="black"/>
+  <rect x="100" y="140" width="10" height="10" fill="black"/>
+  <rect x="120" y="160" width="10" height="10" fill="black"/>
+  <rect x="140" y="130" width="10" height="10" fill="black"/>
+  <rect x="160" y="150" width="10" height="10" fill="black"/>
+  <rect x="180" y="170" width="10" height="10" fill="black"/>
+  <rect x="190" y="120" width="10" height="10" fill="black"/>
+  <rect x="170" y="140" width="10" height="10" fill="black"/>
+  <rect x="150" y="180" width="10" height="10" fill="black"/>
+  <rect x="130" y="200" width="10" height="10" fill="black"/>
+  <rect x="170" y="190" width="10" height="10" fill="black"/>
+  <!-- 定位图案的内部细节 -->
+  <rect x="80" y="80" width="20" height="20" fill="white"/>
+  <rect x="85" y="85" width="10" height="10" fill="black"/>
+  <rect x="200" y="80" width="20" height="20" fill="white"/>
+  <rect x="205" y="85" width="10" height="10" fill="black"/>
+  <rect x="80" y="200" width="20" height="20" fill="white"/>
+  <rect x="85" y="205" width="10" height="10" fill="black"/>
+  <!-- 说明文字 -->
+  <text x="150" y="275" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="black">扫描二维码体验AI名片</text>
+</svg> 

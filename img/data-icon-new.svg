@@ -1,0 +1,56 @@
+<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="dataGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3366FF">
+        <animate attributeName="stop-color" values="#3366FF;#5c83ff;#3366FF" dur="4s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="100%" stop-color="#00BCD4">
+        <animate attributeName="stop-color" values="#00BCD4;#4dd0e1;#00BCD4" dur="4s" repeatCount="indefinite" />
+      </stop>
+    </linearGradient>
+  </defs>
+  
+  <rect x="8" y="10" width="40" height="8" rx="2" fill="#E0E0FF" stroke="#3366FF" stroke-width="2">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  
+  <rect x="8" y="24" width="40" height="8" rx="2" fill="#E0E0FF" stroke="#3366FF" stroke-width="2">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+  </rect>
+  
+  <rect x="8" y="38" width="40" height="8" rx="2" fill="#E0E0FF" stroke="#3366FF" stroke-width="2">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" begin="1s" repeatCount="indefinite"/>
+  </rect>
+  
+  <path d="M18 14H38" stroke="#3366FF" stroke-width="2">
+    <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
+  </path>
+  
+  <path d="M14 28H30" stroke="#3366FF" stroke-width="2">
+    <animate attributeName="opacity" values="0.6;1;0.6" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+  </path>
+  
+  <path d="M24 42H34" stroke="#3366FF" stroke-width="2">
+    <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" begin="1s" repeatCount="indefinite"/>
+  </path>
+  
+  <circle cx="43" cy="14" r="3" fill="#FF5722">
+    <animate attributeName="r" values="2;3;2" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  
+  <path d="M43 18L43 24" stroke="#FF5722" stroke-width="2" stroke-dasharray="2 2">
+    <animate attributeName="stroke-dashoffset" values="4;0;4" dur="1.5s" repeatCount="indefinite"/>
+  </path>
+  
+  <path d="M43 32L43 38" stroke="#FF5722" stroke-width="2" stroke-dasharray="2 2">
+    <animate attributeName="stroke-dashoffset" values="4;0;4" dur="1.5s" repeatCount="indefinite"/>
+  </path>
+  
+  <circle cx="43" cy="28" r="3" fill="#FF5722">
+    <animate attributeName="r" values="2;3;2" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="43" cy="42" r="3" fill="#FF5722">
+    <animate attributeName="r" values="2;3;2" dur="2s" begin="1s" repeatCount="indefinite"/>
+  </circle>
+</svg>

@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>数字人新闻库 - AICA</title>
+    <link rel="stylesheet" href="css/style.css?v=20250716">
+    <link rel="stylesheet" href="css/feature-page.css?v=20250716">
+    <link rel="stylesheet" href="css/digital-human-new.css?v=20250716">
+    <link rel="stylesheet" href="css/digital-human-mobile.css?v=20250716">
+    <link rel="stylesheet" href="css/digital-human-news.css?v=20250716">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/scrolltrigger@1.0.0/dist/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <div id="digital-human-news-app" class="digital-human-news-page">
+        <!-- 头部导航 -->
+        <header class="feature-header">
+            <button class="back-button" @click="goBack">
+                <img src="img/back-arrow.svg?v=20250716" alt="返回">
+            </button>
+            <div class="feature-title">数字人新闻库</div>
+            <button class="theme-toggle" @click="toggleTheme">
+                <i class="bi" :class="isDarkMode ? 'bi-sun' : 'bi-moon'"></i>
+            </button>
+        </header>
+        
+        <!-- 标签页导航 -->
+        <div class="news-tabs">
+            <div class="tab-button" :class="{'active': activeTab === 'news'}" @click="setActiveTab('news')">
+                <i class="bi bi-newspaper"></i> 行业新闻
+            </div>
+            <div class="tab-button" :class="{'active': activeTab === 'cases'}" @click="setActiveTab('cases')">
+                <i class="bi bi-collection-play"></i> 案例展示
+            </div>
+        </div>
+        
+        <!-- 新闻部分 -->
+        <section v-if="activeTab === 'news'" class="news-section">
+            <div class="container">
+                <!-- 新闻分类标签 -->
+                <div class="news-categories">
+                    <div class="category-button" :class="{'active': activeNewsCategory === 'all'}" @click="setNewsCategory('all')">全部</div>
+                    <div class="category-button" :class="{'active': activeNewsCategory === 'industry'}" @click="setNewsCategory('industry')">行业动态</div>
+                    <div class="category-button" :class="{'active': activeNewsCategory === 'tech'}" @click="setNewsCategory('tech')">技术进展</div>
+                    <div class="category-button" :class="{'active': activeNewsCategory === 'application'}" @click="setNewsCategory('application')">应用案例</div>
+                </div>
+                
+                <!-- 新闻列表 -->
+                <div class="news-list">
+                    <!-- 行业动态新闻 -->
+                    <div v-if="activeNewsCategory === 'all' || activeNewsCategory === 'industry'" class="news-item" v-for="(item, index) in industryNews" :key="'industry-'+index" @click="openNewsDetail(item)">
+                        <div class="news-image clear-overlay">
+                            <img :src="getImagePath(item)" :alt="item.title" @error="handleImageError">
+                            <div class="news-tag industry-tag">行业动态</div>
+                        </div>
+                        <div class="news-content">
+                            <h3 class="news-title">{{ item.title }}</h3>
+                            <p class="news-summary">{{ item.summary }}</p>
+                            <div class="news-meta">
+                                <span class="news-date"><i class="bi bi-calendar3"></i> {{ item.date }}</span>
+                                <span class="news-source"><i class="bi bi-building"></i> {{ item.source }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 技术进展新闻 -->
+                    <div v-if="activeNewsCategory === 'all' || activeNewsCategory === 'tech'" class="news-item" v-for="(item, index) in techNews" :key="'tech-'+index" @click="openNewsDetail(item)" :class="{'tech-highlight': isHighlightedTech(item)}">
+                        <div class="news-image clear-overlay">
+                            <img :src="getImagePath(item)" :alt="item.title" @error="handleImageError">
+                            <div class="news-tag tech-tag">技术进展</div>
+                        </div>
+                        <div class="news-content">
+                            <h3 class="news-title">{{ item.title }}</h3>
+                            <p class="news-summary">{{ item.summary }}</p>
+                            <div class="news-meta">
+                                <span class="news-date"><i class="bi bi-calendar3"></i> {{ item.date }}</span>
+                                <span class="news-source"><i class="bi bi-building"></i> {{ item.source }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 应用案例新闻 -->
+                    <div v-if="activeNewsCategory === 'all' || activeNewsCategory === 'application'" class="news-item" v-for="(item, index) in applicationNews" :key="'application-'+index" @click="openNewsDetail(item)">
+                        <div class="news-image clear-overlay">
+                            <img :src="getImagePath(item)" :alt="item.title" @error="handleImageError">
+                            <div class="news-tag application-tag">应用案例</div>
+                        </div>
+                        <div class="news-content">
+                            <h3 class="news-title">{{ item.title }}</h3>
+                            <p class="news-summary">{{ item.summary }}</p>
+                            <div class="news-meta">
+                                <span class="news-date"><i class="bi bi-calendar3"></i> {{ item.date }}</span>
+                                <span class="news-source"><i class="bi bi-building"></i> {{ item.source }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 案例展示部分 -->
+        <section v-if="activeTab === 'cases'" class="cases-section">
+            <div class="container">
+                <!-- 案例分类标签 -->
+                <div class="case-categories">
+                    <div class="category-button" :class="{'active': activeCaseCategory === 'all'}" @click="setCaseCategory('all')">全部</div>
+                    <div class="category-button" :class="{'active': activeCaseCategory === 'finance'}" @click="setCaseCategory('finance')">金融</div>
+                    <div class="category-button" :class="{'active': activeCaseCategory === 'retail'}" @click="setCaseCategory('retail')">零售</div>
+                    <div class="category-button" :class="{'active': activeCaseCategory === 'education'}" @click="setCaseCategory('education')">教育</div>
+                    <div class="category-button" :class="{'active': activeCaseCategory === 'tech'}" @click="setCaseCategory('tech')">技术应用</div>
+                </div>
+                
+                <!-- 案例视频瀑布流 -->
+                <div class="case-waterfall">
+                    <!-- 金融案例 -->
+                    <div v-if="activeCaseCategory === 'all' || activeCaseCategory === 'finance'" class="case-video-container" v-for="(item, index) in financeCases" :key="'finance-'+index">
+                        <div class="case-video-card" @click="playVideo(item)">
+                            <div class="video-thumbnail">
+                                <img :src="item.thumbnail" :alt="item.title">
+                                <div class="play-button">
+                                    <i class="bi bi-play-circle-fill"></i>
+                                </div>
+                                <div class="video-duration">{{ item.duration }}</div>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">{{ item.title }}</h3>
+                                <p class="video-desc">{{ item.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 零售案例 -->
+                    <div v-if="activeCaseCategory === 'all' || activeCaseCategory === 'retail'" class="case-video-container" v-for="(item, index) in retailCases" :key="'retail-'+index">
+                        <div class="case-video-card" @click="playVideo(item)">
+                            <div class="video-thumbnail">
+                                <img :src="item.thumbnail" :alt="item.title">
+                                <div class="play-button">
+                                    <i class="bi bi-play-circle-fill"></i>
+                                </div>
+                                <div class="video-duration">{{ item.duration }}</div>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">{{ item.title }}</h3>
+                                <p class="video-desc">{{ item.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 教育案例 -->
+                    <div v-if="activeCaseCategory === 'all' || activeCaseCategory === 'education'" class="case-video-container" v-for="(item, index) in educationCases" :key="'education-'+index">
+                        <div class="case-video-card" @click="playVideo(item)">
+                            <div class="video-thumbnail">
+                                <img :src="item.thumbnail" :alt="item.title">
+                                <div class="play-button">
+                                    <i class="bi bi-play-circle-fill"></i>
+                                </div>
+                                <div class="video-duration">{{ item.duration }}</div>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">{{ item.title }}</h3>
+                                <p class="video-desc">{{ item.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 技术应用案例 -->
+                    <div v-if="activeCaseCategory === 'all' || activeCaseCategory === 'tech'" class="case-video-container" v-for="(item, index) in techCases" :key="'tech-'+index">
+                        <div class="case-video-card" @click="playVideo(item)">
+                            <div class="video-thumbnail">
+                                <img :src="item.thumbnail" :alt="item.title">
+                                <div class="play-button">
+                                    <i class="bi bi-play-circle-fill"></i>
+                                </div>
+                                <div class="video-duration">{{ item.duration }}</div>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">{{ item.title }}</h3>
+                                <p class="video-desc">{{ item.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 视频播放弹窗 -->
+        <div class="video-modal" v-if="showVideoModal" @click="closeVideoModal">
+            <div class="video-modal-content" @click.stop>
+                <div class="video-modal-header">
+                    <h3>{{ currentVideo.title }}</h3>
+                    <button class="close-button" @click="closeVideoModal">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="video-modal-body">
+                    <video controls autoplay :src="currentVideo.videoUrl" class="video-player"></video>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 新闻详情弹窗 -->
+        <div class="news-modal" v-if="showNewsModal" @click="closeNewsModal">
+            <div class="news-modal-content" @click.stop>
+                <div class="news-modal-header">
+                    <h3>{{ currentNews.title }}</h3>
+                    <button class="close-button" @click="closeNewsModal">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="news-modal-body">
+                    <img :src="getImagePath(currentNews)" :alt="currentNews.title" class="news-detail-image" @error="handleImageError">
+                    <div class="news-meta">
+                        <span class="news-date"><i class="bi bi-calendar3"></i> {{ currentNews.date }}</span>
+                        <span class="news-source"><i class="bi bi-building"></i> {{ currentNews.source }}</span>
+                    </div>
+                    <div class="news-content" v-html="processContent(currentNews)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 脚本引用 -->
+    <script>
+        new Vue({
+            el: '#digital-human-news-app',
+            data: {
+                activeTab: 'news',
+                activeNewsCategory: 'all',
+                activeCaseCategory: 'all',
+                showVideoModal: false,
+                showNewsModal: false,
+                currentVideo: {},
+                currentNews: {},
+                isDarkMode: false, // 新增主题切换状态
+                
+                // 行业动态新闻数据
+                industryNews: [
+                    {
+                        title: "中国数字人核心市场规模预计突破400亿元，产业链加速融合",
+                        summary: "根据中国互联网协会发布的报告，中国数字人核心市场规模预计在2025年超过400亿元，并带动上下游产业链规模持续增长。",
+                        date: "2025-09-15",
+                        source: "中国互联网协会",
+                        image: "img/videos/customer-thumb1.jpg",
+                        content: "<h3>技术驱动与产业发展</h3><div class=\"article-hero-image\"><img src=\"img/videos/silicon-thumb1.jpg\" alt=\"数字人产业发展\" class=\"full-width-image\"></div><p>根据中国互联网协会于 2024 年 9 月发布的《中国数字人发展报告（2024）》，中国数字人核心市场规模预计在 2025 年超过 400 亿元 ，并带动上下游产业链规模持续增长。这一预测基于生成式 AI 和大模型技术的突破性进展，以及数字人在政务、教育、医疗等领域的深度应用。</p><h3>技术驱动：生成式 AI 与大模型的突破</h3><div class=\"article-quote-box\"><div class=\"quote-image\"><img src=\"img/videos/interaction-thumb1.jpg\" alt=\"生成式AI技术突破\" class=\"quote-image\"></div><p class=\"quote-text\">大模型技术成熟是数字人规模化落地的核心动力</p></div><p>报告指出，生成式 AI 和大模型技术的成熟是数字人规模化落地的核心动力。例如，百度、腾讯等企业在大模型领域的研发投入显著提升数字人的交互能力，使其在语音、语义理解和多语言支持方面达到新高度。此外，渲染技术的进步使得数字人的视觉表现更加逼真，进一步降低了应用场景的适配成本。</p><h3>产业链布局：从底层技术到场景应用</h3><div class=\"highlight-container\"><img src=\"img/videos/customer-thumb3.jpg\" alt=\"数字人产业链布局\" class=\"highlight-image\"></div><p>数字人产业链的完整生态已初步形成，涵盖底层技术、平台服务和应用场景三大层级：</p><ul><li><strong>底层技术</strong>：包括 AI 芯片、大模型和渲染引擎。例如，华为昇腾 AI 芯片和百度文心大模型为数字人提供了强大的算力支持。</li><li><strong>平台服务</strong>：腾讯云、阿里云等平台推出的数字人 SaaS 工具，降低了中小企业的开发门槛。</li><li><strong>应用场景</strong>：电子商务、卫生健康与社会保障、教育和金融成为数字人企业最集中的领域。</li></ul><h3>区域政策支持：广州、北京等地率先布局</h3><p>广州市海珠区发布的《数字营销产业发展计划》明确提出，将数字人作为新质生产力的代表，推动其与电商、金融等产业的融合。北京市则依托中关村的技术优势，打造"数字人产业创新中心"，吸引大量企业入驻。</p><h3>挑战与展望</h3><div class=\"article-stat-box\"><img src=\"img/videos/interaction-thumb2.jpg\" alt=\"数字人产业挑战与展望\" class=\"stat-image\"></div><p>尽管市场前景广阔，但行业仍面临数据隐私、伦理规范等挑战。专家建议加快建立数字人技术标准体系，确保其在医疗、金融等敏感领域的合规性。</p>"
+                    },
+                    {
+                        title: "数字人企业数量突破114.4万家，行业集中度显著提升",
+                        summary: "天眼查数据显示，截至2024年7月，中国现存与数字人相关的企业达114.4万家，其中2024年1-5月新增注册企业17.4万家。",
+                        date: "2025-08-20",
+                        source: "天眼查&艾媒咨询",
+                        image: "img/videos/interaction-thumb1.jpg",
+                        content: "<h3>企业数量持续增长</h3><div class=\"article-hero-image\"><img src=\"img/videos/customer-thumb2.jpg\" alt=\"数字人企业数量分布\" class=\"full-width-image\"></div><p>天眼查数据显示，截至 2024 年 7 月，中国现存与数字人相关的企业达 114.4 万家 ，其中 2024 年 1-5 月新增注册企业 17.4 万家 ，同比增长 5.9% 。这一数据表明，数字人行业正进入快速发展阶段，企业数量的快速增长反映了资本和市场的高度关注。</p><h3>区域分布：北上广深领跑</h3><div class=\"article-quote-box\"><div class=\"quote-image\"><img src=\"img/videos/interaction-thumb3.jpg\" alt=\"数字人企业区域分布\" class=\"quote-image\"></div><p class=\"quote-text\">北京、上海、广州、深圳四地的数字人企业数量占据全国半壁江山</p></div><p>从区域分布来看，北京、上海、广州、深圳四地的数字人企业数量占据全国半壁江山。其中，北京市依托中关村的技术优势，聚集了大量数字人研发企业；上海市则聚焦虚拟偶像与元宇宙领域；广州市通过海珠区的政策红利，吸引超 200 家数字人企业落户。</p><h3>行业集中度：四大领域主导市场</h3><div class=\"highlight-container\"><img src=\"img/videos/silicon-thumb4.jpg\" alt=\"数字人企业行业分布\" class=\"highlight-image\"></div><p>艾媒咨询 2025 年报告指出，电子商务、卫生健康与社会保障、教育和金融是目前数字人企业最集中的领域。这些行业的共同特点是标准化服务需求高，且对效率提升有迫切需求。例如，在电子商务领域，数字人已广泛应用于直播带货，显著提升了营销转化率。</p><h3>资本动态：融资热度不减</h3><p>2024 年，数字人赛道融资总额超 200 亿元 ，其中"月之暗面""智谱 AI"等初创企业估值突破 10 亿美元 。红杉资本、IDG 等机构表示，将重点投资具备垂直场景落地能力的数字人企业。</p><h3>未来趋势</h3><div class=\"article-stat-box\"><img src=\"img/videos/customer-thumb4.jpg\" alt=\"数字人企业未来趋势\" class=\"stat-image\"></div><p>专家预测，随着技术标准的逐步完善，数字人将加速渗透到医疗、金融等高门槛领域，并为全球市场输出"中国方案"。</p>"
+                    },
+                    {
+                        title: "数字人应用场景全面拓展，三大方向引领商业化浪潮",
+                        summary: "根据艾媒咨询2025年报告，媒介数字人、服务数字人和行业数字人成为主流发展方向。",
+                        date: "2025-07-30",
+                        source: "艾媒咨询",
+                        image: "img/videos/silicon-thumb1.jpg",
+                        content: "<h3>应用场景多元发展</h3><div class=\"article-hero-image\"><img src=\"img/videos/silicon-thumb3.jpg\" alt=\"数字人应用场景\" class=\"full-width-image\"></div><p>根据艾媒咨询 2025 年报告，电子商务、卫生健康与社会保障、教育和金融是目前数字人企业最集中的领域。这一分布与行业标准化服务需求高度相关。例如，在电子商务领域，数字人已广泛应用于直播带货；在教育领域，AI 导师可根据学生学习数据提供个性化辅导。</p><h3>媒介数字人：虚拟主播与内容生产</h3><div class=\"article-quote-box\"><div class=\"quote-image\"><img src=\"img/videos/customer-thumb2.jpg\" alt=\"媒介数字人应用\" class=\"quote-image\"></div><p class=\"quote-text\">央视推出的 AI 主播"小 C"已实现 24 小时直播，并能根据实时热点生成新闻内容</p></div><p>虚拟主播成为媒介数字人的核心应用。例如，央视推出的 AI 主播"小 C"已实现 24 小时直播，并能根据实时热点生成新闻内容。此外，短视频平台如抖音、快手纷纷推出数字人创作工具，普通用户可通过 AI 生成个性化虚拟形象进行内容创作。</p><h3>服务数字人：从客服到个人助手</h3><div class=\"highlight-container\"><img src=\"img/videos/interaction-thumb2.jpg\" alt=\"服务数字人应用\" class=\"highlight-image\"></div><p>服务数字人正从基础问答转向深度交互。阿里巴巴的虚拟客服"小蜜"已支持复杂业务场景，如跨境交易纠纷调解；而腾讯的"AI 管家"则能协助用户管理日程、健康监测甚至心理疏导。</p><h3>行业数字人：垂直领域深化</h3><p>在医疗领域，数字人"医博士"可通过影像分析辅助医生诊断；教育行业则涌现出如"AI 导师"类产品，根据学生学习数据提供个性化辅导。艾媒咨询数据显示，电子商务、医疗健康、教育和金融领域已成为数字人商业化落地的先锋。</p><h3>未来趋势</h3><div class=\"article-stat-box\"><img src=\"img/videos/customer-thumb3.jpg\" alt=\"数字人未来趋势\" class=\"stat-image\"></div><p>行业分析师认为，2025 年数字人核心市场规模预计突破 400 亿元，带动上下游产业加速融合，场景化应用将成为竞争焦点。</p>"
+                    },
+                    {
+                        title: "数字人技术标准体系建设启动，行业规范化提速",
+                        summary: "中国互联网协会提出建立健全数字人标准体系，涵盖技术、数据、安全等维度。",
+                        date: "2025-07-15",
+                        source: "中国互联网协会",
+                        image: "img/videos/silicon-thumb2.jpg",
+                        content: "<h3>标准体系全面建设</h3><div class=\"article-hero-image\"><img src=\"img/videos/silicon-thumb4.jpg\" alt=\"数字人技术标准体系\" class=\"full-width-image\"></div><p>中国互联网协会在《中国数字人发展报告（2024）》中提出，将建立健全数字人标准体系，涵盖技术、数据、安全等维度。目前，标准体系主要集中在以下领域：</p><ul><li><strong>交互规范</strong>：明确数字人语音、语义、表情的响应延迟与准确率；</li><li><strong>数据安全</strong>：要求企业遵循《个人信息保护法》，对用户数据进行加密与匿名化处理；</li><li><strong>伦理准则</strong>：禁止利用数字人进行虚假宣传或诱导性营销。</li></ul><h3>典型案例：腾讯云的合规实践</h3><div class=\"article-quote-box\"><div class=\"quote-image\"><img src=\"img/videos/interaction-thumb1.jpg\" alt=\"腾讯云合规实践\" class=\"quote-image\"></div><p class=\"quote-text\">腾讯云的虚拟客服产品通过欧盟 GDPR 认证，并在国内率先实现用户数据"可用不可见"</p></div><p>腾讯云在数字人开发中引入"可信 AI"框架，其虚拟客服产品通过欧盟 GDPR 认证，并在国内率先实现用户数据"可用不可见"。</p><h3>行业挑战</h3><div class=\"highlight-container\"><img src=\"img/videos/customer-thumb1.jpg\" alt=\"数字人行业挑战\" class=\"highlight-image\"></div><p>尽管标准体系逐步完善，但中小企业面临技术合规成本高、人才短缺等问题。对此，中国互联网协会建议建立"数字人技术共享平台"，降低中小开发者门槛。</p><h3>未来展望</h3><div class=\"article-stat-box\"><img src=\"img/videos/interaction-thumb3.jpg\" alt=\"数字人未来展望\" class=\"stat-image\"></div><p>专家预测，标准化将加速数字人技术在医疗、金融等高门槛领域的落地，并为全球市场输出"中国方案"。</p>"
+                    },
+                    {
+                        title: "数字人进入"黄金期"，政策与产业协同推进",
+                        summary: "中国互联网协会召开数字人推进工作座谈会，广州市海珠区设立10亿元专项基金支持数字人技术研发。",
+                        date: "2025-06-25",
+                        source: "中国互联网协会",
+                        image: "img/videos/customer-thumb3.jpg",
+                        content: "<h3>数字人产业政策与市场协同发展，进入发展黄金期</h3><div class=\"article-hero-image\"><img src=\"img/videos/silicon-thumb1.jpg\" alt=\"数字人产业发展黄金期\" class=\"full-width-image\"></div><p>2025年开年，中国互联网协会召开「数字人推进工作座谈会」，强调通过技术创新推动数字人功能升级，并探索其在政务、教育、文旅等领域的深度应用。与此同时，广州市海珠区率先发布《数字营销产业发展计划》，明确将数字人作为新质生产力的代表，推动其与电商、金融等产业的融合。</p><h3>政策支持：从地方试点到全国布局</h3><div class=\"article-quote-box\"><div class=\"quote-image\"><img src=\"img/videos/interaction-thumb1.jpg\" alt=\"数字人产业政策支持\" class=\"quote-image\"></div><p class=\"quote-text\">全国已有23个省市出台数字人相关产业政策，十四五期间累计投入资金超过300亿元</p></div><p>广州市海珠区设立10亿元专项基金支持数字人技术研发，重点扶持具有自主知识产权的核心算法和内容生成技术。基金采用「投资+孵化」模式，对入选项目除提供资金支持外，还将配套办公场地、算力资源和产业对接服务。</p><p>北京市推出「数字人进校园」项目，计划在2025年底前覆盖全市80%中小学。该项目将部署AI教学助手，为学生提供个性化学习引导和作业辅导，并辅助教师进行教学管理和评价。项目负责人表示，首批试点校区学生的学科兴趣度提升了32%，教师工作效率提高约25%。</p><p>在国家层面，工信部正研究制定《数字人产业发展三年行动计划》，目标是到2025年使数字人产业规模超过500亿元。该计划将从标准规范、人才培养、应用示范等多维度推动产业高质量发展。同时，国家发改委将数字人技术纳入「新基建」范畴，享受相关税收优惠政策。</p><h3>区域案例：数字人技术的多元化应用</h3><div class=\"highlight-container\"><img src=\"img/videos/customer-thumb4.jpg\" alt=\"海南航空数字人应用\" class=\"highlight-image\"></div><p><strong>海南航空：旅客服务流程全面数字化</strong></p><p>海南航空在2025年率先应用数字人技术优化客户服务流程。其虚拟客服「海小航」可实时解答旅客关于航班、行李的复杂问题，并协助处理疫情期间的退改签需求。与传统客服相比，「海小航」的问题解决效率提高了43%，客户满意度提升了28%。该案例被纳入《中国数字人发展报告（2024）》作为行业标杆。</p><p><strong>杭州亚运会：数字人主持人跨语言直播</strong></p><p>杭州亚运会期间，由浙江大学和阿里云联合开发的数字人主持团队圆满完成了24小时不间断的多语种赛事直播。这些数字人主持人能够实时翻译和解说比赛内容，支持中、英、日、韩等12种语言，观看量累计超过2亿。赛后调查显示，76%的海外观众认为数字人主持人的表现「专业且自然」。</p><p><strong>西安智慧文旅：数字人导游让历史「活」起来</strong></p><p>西安市在2025年初推出的「数字丝路」项目中，部署了50个历史人物数字人导游，覆盖大唐西市、兵马俑等主要景点。游客可通过手机扫码与这些数字人互动，了解相关历史故事。这一创新服务上线三个月，带动文创产品销售增长62%，游客停留时间平均延长1.2小时。</p><h3>企业动态：巨头与初创企业共创生态</h3><div class=\"article-stat-box\"><img src=\"img/videos/interaction-thumb2.jpg\" alt=\"数字人企业分布\" class=\"stat-image\"></div><p>天眼查数据显示，截至2024年7月，中国现存与数字人相关的企业达114.4万家，2024年1-5月新增注册企业17.4万家，同比增长5.9%。其中，70%集中在北京、上海、广州、深圳和杭州五大城市。</p><p><strong>巨头开放平台战略</strong></p><p>百度、腾讯、阿里巴巴等科技巨头纷纷推出数字人开放平台，降低中小企业的技术使用门槛。例如，百度的「数字人工厂」提供一站式数字人创建服务，日均创建量超过2万个；腾讯云的「数实融合平台」则专注于实景与虚拟场景的无缝连接，服务对象覆盖零售、教育、医疗等多个行业。</p><p><strong>初创企业深耕垂直领域</strong></p><p>「硅基智能」等初创企业选择在特定领域深耕。例如，硅基智能推出的金融数字人顾问系统已在30多家银行部署，能够识别100多种金融专业文件，提供专业投资建议。医疗领域的「数医助手」则通过分析病历和医学文献，协助医生进行诊断和治疗方案制定，准确率达到92%。</p><h3>技术趋势：五大方向引领产业升级</h3><div class=\"tech-trend-container\"><img src=\"img/videos/silicon-thumb2.jpg\" alt=\"数字人技术趋势\" class=\"trend-image\"></div><p>根据中国互联网协会最新发布的《数字人技术发展白皮书》，数字人技术正沿着五大方向快速发展：</p><ol><li><strong>多模态大模型融合</strong>：实现视觉、语音、文本等多模态信息的无缝融合，使数字人具备更全面的感知和表达能力。目前行业领先的解决方案已将模型参数量从100亿提升至1000亿。</li><li><strong>情感计算深化</strong>：通过微表情识别和心理学模型，使数字人能够理解和表达更复杂的情感状态，情感识别准确率从65%提高到88%。</li><li><strong>实时渲染提速</strong>：新一代渲染技术将数字人的生成速度提升10倍，同时保持高保真度，支持边缘设备上的实时运算。</li><li><strong>知识图谱扩展</strong>：构建行业专属知识体系，使数字人具备专业领域的深度知识和推理能力。</li><li><strong>个性化定制简化</strong>：通过「一张照片+十秒语音」即可快速克隆个人数字分身，大幅降低个性化门槛。</li></ol><h3>国际视角：中国数字人全球竞争力分析</h3><p>与美国、日本、韩国等数字人技术发达国家相比，中国在以下领域具有独特优势：</p><ul><li><strong>应用场景丰富度</strong>：中国数字人应用覆盖领域最广，从传媒娱乐到政务服务，渗透率远高于其他国家。</li><li><strong>商业化速度</strong>：从技术突破到规模商用的周期最短，平均仅需6-9个月，而美国和欧洲市场通常需要18-24个月。</li><li><strong>用户接受度</strong>：中国消费者对数字人的接受度达83%，显著高于全球平均水平的62%。</li></ul><p>不过，在原创算法研发和基础理论研究方面，中国与美国尚存差距。美国在情感计算、跨模态学习等前沿领域的专利数量是中国的2.3倍。</p><h3>未来展望与挑战</h3><div class=\"future-vision-container\"><img src=\"img/case-donna.jpg\" alt=\"数字人未来展望\" class=\"vision-image\"></div><p>中国互联网协会副秘书长陈某在座谈会上表示，数字人产业正处于「黄金发展期」，未来3-5年将迎来爆发式增长。预计到2027年，数字人将渗透到日常生活的各个方面，成为人机交互的主要入口之一。</p><p>然而，数字人产业的快速发展也面临诸多挑战：</p><ul><li><strong>伦理与监管问题</strong>：数字人的身份认证、知识产权保护、隐私安全等问题尚未建立完善的监管体系。</li><li><strong>同质化竞争</strong>：部分企业盲目追求数量，导致产品同质化严重，缺乏核心竞争力。</li><li><strong>技术泡沫风险</strong>：投资过热可能导致估值泡沫，部分企业研发投入与商业回报不成比例。</li><li><strong>人才缺口扩大</strong>：高端复合型人才稀缺，人才培养速度远落后于市场需求增速。</li></ul><p>对此，专家建议构建「政府引导、企业主体、产学研协同」的发展模式，推动数字人产业健康可持续发展。同时，加强行业自律，建立数字人的伦理准则和技术标准，防范潜在风险。</p><p>总体而言，随着政策与产业的协同推进，数字人技术正从概念验证阶段迈向规模应用阶段，逐步释放出巨大的经济和社会价值。</p>"
+                    },
+                    {
+                        title: "2025年数字人市场规模将突破千亿",
+                        summary: "随着元宇宙概念持续升温，数字人产业迎来爆发式增长，预计2025年市场规模将突破千亿元。",
+                        date: "2025-05-10",
+                        source: "数字经济观察",
+                        image: "img/news/silicon-news2.jpg",
+                        content: "<p>随着元宇宙概念持续升温，数字人产业迎来爆发式增长，预计2025年市场规模将突破千亿元。多家研究机构一致认为，数字人将成为下一代人机交互的重要入口，在金融、零售、教育等多个领域实现规模化应用。</p><p>据悉，目前已有超过60%的头部企业开始布局数字人技术，其中金融行业的数字人应用渗透率最高，达到78%。随着技术成本的降低和应用场景的拓展，中小企业的数字人应用比例也在快速提升。</p><p>专家指出，未来数字人将朝着更加智能化、情感化、个性化的方向发展，真正实现人机共生的智能服务新模式。</p>"
+                    },
+                    {
+                        title: "国家出台数字人产业发展指导意见",
+                        summary: "工信部联合多部门发布《数字人产业发展指导意见》，明确提出到2026年培育100家数字人领域龙头企业。",
+                        date: "2025-04-28",
+                        source: "中国工业报",
+                        image: "img/news/tech-news1.jpg",
+                        content: "<p>工信部联合多部门发布《数字人产业发展指导意见》，明确提出到2026年培育100家数字人领域龙头企业，打造10个数字人产业集群，推动数字人技术在国民经济各领域的深度应用。</p><p>《意见》强调，要加强数字人核心技术攻关，突破多模态交互、情感计算、知识图谱等关键技术瓶颈；同时完善数字人产业标准体系，加强知识产权保护，规范市场秩序。</p><p>此外，《意见》还提出设立数字人产业发展专项资金，对技术创新和应用示范项目给予重点支持，并鼓励金融机构创新金融产品，为数字人企业提供多元化融资服务。</p>"
+                    }
+                ],
+                
+                // 技术进展新闻数据
+                techNews: [
+                    {
+                        title: "Toolwiz：新一代电商广告工具",
+                        summary: "硅基智能推出智能广告生成工具，仅需上传产品图片，10秒内即可生成达人介绍产品的高质量视频，支持20+种语言。",
+                        date: "2025-07-15",
+                        source: "硅基智能",
+                        image: "img/news/tech-news1.jpg",
+                        content: "<h3>新一代电商广告工具</h3><p>硅基智能即将上线的智能广告生成工具，颠覆了传统广告制作模式，仅需上传产品图片，选择人物模板并配上合适的脚本文案，在10秒内即可生成达人介绍产品的高质量视频，帮助品牌商家、内容创作者、带货达人快速打个性化的AI代言人，实现高效、低成本的营销内容生产。</p><h4>主要特点</h4><ul><li><strong>轻松高效，节约成本：</strong>过去制作产品推广视频，常常要耗费数小时甚至数天时间。有了Toolwiz，只需上传产品图片，短短10秒，就能生成一条由虚拟达人介绍产品的高质量视频。</li><li><strong>低门槛，无需专业技能：</strong>无需具备视频制作的专业知识，也无需拥有昂贵的拍摄设备。Toolwiz的设计理念就是简单易用，面向所有人。</li><li><strong>丰富模板与定制选项：</strong>提供手持商品图，以及商品图放在模特周边两种类型的素材模版，还有海量AI生成的人物模版。用户还可以定制并上传人物形象。</li><li><strong>多语言支持：</strong>支持20多种不同语言，重点面向欧美及东南亚市场，轻松打破语言障碍。</li><li><strong>出色算法表现：</strong>先进算法确保在生成的视频中，上传产品图片的图案和字迹清晰，无变形或乱码情况。</li><li><strong>免登录及免费试用：</strong>用户无需先登录即可开始使用服务。选择登录后，每月还将获得免费积分。</li></ul>"
+                    },
+                    {
+                        title: "HeyGem数字人模型：秒级克隆技术",
+                        summary: "硅基智能开源数字人模型HeyGem，实现秒级克隆、无限量使用、全离线推理生成，仅需1秒视频即可完成数字人形象和声音的克隆。",
+                        date: "2025-07-10",
+                        source: "硅基智能研究院",
+                        image: "img/news/tech-news2.jpg",
+                        content: "<h3>全球TOP级数字人模型</h3><p>今年3月硅基智能在GitHub开源全球TOP级数字人模型HeyGem，同时发布基于该模型的同名数字人工具硅基数字人克隆的本地安装包，标志着数字人技术进入秒级克隆、无限量使用、全离线推理生成的新时代。</p><h4>技术突破</h4><p>与传统数字人训练需要数小时甚至数天的模式相比，硅基数字人克隆实现了极限压缩：</p><ul><li>仅需1秒视频即可完成数字人形象和声音的克隆</li><li>30秒内完成数字人克隆</li><li>60秒内合成4K超高清数字人视频</li><li>在复杂光影、侧脸、遮挡等场景下仍能保证100%口型匹配</li><li>输出多表情多肢体动作数字人视频</li></ul><h4>应用场景</h4><p>硅基数字人克隆支持无限时长的4K超高清数字人视频生成，能够通过语音或文字输入驱动，克隆后的数字人音色支持8种语言输出，为跨国企业、在线教育、影视制作、直播营销等多场景提供更高效、更低成本的解决方案。无论是需要批量生产AI虚拟主播、打造个性化智能客服，还是用于品牌代言、广告营销，都能以秒级的响应速度和行业领先的精度，满足不同场景对高质量数字人的需求。</p>"
+                    },
+                    {
+                        title: "DUIX：数字人实时交互平台",
+                        summary: "专为数字人实时交互打造的智能平台，具备\"能听、会说、懂你\"的三重感知能力，可部署于多种终端，实现低延迟、丝滑自然的对话体验。",
+                        date: "2025-07-03",
+                        source: "人工智能前沿",
+                        image: "img/news/tech-news3.jpg",
+                        content: "<h3>数字人实时交互平台</h3><p>DUIX是一个专为\"数字人实时交互\"打造的智能平台，具备\"能听、会说、懂你\"的三重感知能力。不同于传统依赖云端渲染的重型解决方案，DUIX经专利级模型压缩后，可轻松部署于手机、平板、车载等终端，保持50 FPS高帧率运行，实现低延迟、丝滑自然的对话体验。其高精度的动作捕捉、唇形同步与微表情模拟，让交互过程逼真近人，真正打破\"像人但不懂人\"的交互困境。</p><h4>开发者友好</h4><p>DUIX是一套对开发者与企业都极度友好的产品体系：</p><ul><li>开发者只需三行代码，便可将智能数字人嵌入任何产品中</li><li>灵活接入所选的大语言模型、语音识别/合成模块</li><li>自由打造个性化语义与情感交互体验</li><li>支持Android、iOS、网页与嵌入式平台多端部署</li></ul><h4>全球化应用价值</h4><p>对于全球化品牌和出海企业而言，DUIX带来多重价值：</p><ul><li><strong>降低内容创作成本：</strong>快速生成各种营销素材，提升内容产出效率</li><li><strong>解决语言沟通障碍：</strong>支持多国语言输出，打破语言壁垒，增强消费者对品牌的亲近感</li><li><strong>重构运营方式：</strong>企业可以在本地搭建属于自己的AI内容生产体系，实现更自主、高效的运营</li></ul>"
+                    },
+                    {
+                        title: "硅基情感计算技术取得突破性进展",
+                        summary: "清华大学联合微软亚洲研究院开发的硅基情感计算模型准确率达到92%，远超行业平均水平。",
+                        date: "2025-07-05",
+                        source: "科技日报",
+                        image: "img/news/silicon-news1.jpg",
+                        content: "<p>清华大学联合微软亚洲研究院开发的硅基情感计算模型准确率达到92%，远超行业平均水平。该模型采用量子计算架构，能够实时分析人类的微表情、语音语调和文本语义，精准识别和理解复杂情感状态。</p><p>研究团队表示，该技术突破了传统情感计算的瓶颈，使数字人能够理解人类的隐含情感和潜在需求，从而提供更加个性化和精准的服务。目前，该技术已经在金融咨询、心理健康和教育辅导等场景进行了试点应用，效果显著。</p><p>业内专家认为，硅基情感计算技术的突破将大幅提升数字人的交互体验和服务价值，有望成为数字人技术发展的新拐点。</p>"
+                    },
+                    {
+                        title: "多模态知识融合技术实现商业化应用",
+                        summary: "阿里达摩院发布多模态知识融合平台，支持数字人实时学习和知识更新，已在金融、零售等领域落地。",
+                        date: "2025-06-20",
+                        source: "人工智能周刊",
+                        image: "img/news/silicon-news2.jpg",
+                        content: "<p>阿里达摩院发布多模态知识融合平台，支持数字人实时学习和知识更新，已在金融、零售等领域落地。该平台能够自动从文本、图像、视频等多种数据源中提取和融合知识，构建动态知识图谱，使数字人能够持续学习和进化。</p><p>据介绍，该平台采用自监督学习技术，能够在无人工标注的情况下自动发现知识间的关联，并根据业务场景动态调整知识结构。在某银行的应用中，基于该平台的数字人顾问能够实时掌握最新的金融产品和市场动态，准确回答客户的专业咨询，满意度达到92%。</p><p>业内人士表示，多模态知识融合技术的商业化应用，将显著降低数字人的知识获取和更新成本，加速数字人在专业领域的规模化应用。</p>"
+                    }
+                ],
+                
+                // 应用案例新闻数据
+                applicationNews: [
+                    {
+                        title: "招商银行全面部署数字人员工，服务效率提升35%",
+                        summary: "招商银行在全国2000家网点部署数字人员工，覆盖咨询、办理、营销等多个场景，服务效率提升35%。",
+                        date: "2025-07-01",
+                        source: "金融科技报",
+                        image: "img/news/application-news1.jpg",
+                        content: "<p>招商银行在全国2000家网点部署数字人员工，覆盖咨询、办理、营销等多个场景，服务效率提升35%。这些数字人员工不仅能够7×24小时不间断工作，还能根据客户的情绪和需求提供个性化服务，大幅提升了客户体验和业务转化率。</p><p>据招商银行零售金融部负责人介绍，数字人员工已经能够处理80%以上的常规业务咨询和办理，使人类员工能够专注于更复杂的业务和客户关系维护。在理财产品推荐方面，数字人的转化率比传统营销高出28%，主要得益于其精准的客户画像分析和情感互动能力。</p><p>招商银行计划在未来一年内将数字人应用扩展到企业金融和私人银行领域，打造全场景、全业务的数字人服务体系。</p>"
+                    },
+                    {
+                        title: "完美日记数字人主播月销售额破亿",
+                        summary: "完美日记数字人主播\"小完\"单月带货销售额突破1亿元，成为美妆行业数字化转型标杆。",
+                        date: "2025-06-15",
+                        source: "新零售观察",
+                        image: "img/news/application-news2.jpg",
+                        content: "<p>完美日记数字人主播\"小完\"单月带货销售额突破1亿元，成为美妆行业数字化转型标杆。作为国内首个全时段直播的数字人主播，\"小完\"每天24小时不间断直播带货，覆盖不同时区的全球消费者，极大地提升了品牌的曝光度和销售额。</p><p>完美日记市场部总监表示，数字人主播不仅解决了传统主播时间和体力的限制，还能够根据不同时段的用户特点自动调整产品推荐策略和互动方式，实现精准营销。数据显示，\"小完\"的粉丝忠诚度和复购率均高于行业平均水平，成为品牌的重要资产。</p><p>业内专家认为，数字人主播将成为直播电商的重要发展方向，特别适合需要长时间曝光和全球化运营的品牌。</p>"
+                    }
+                ],
+                
+                // 金融案例数据
+                financeCases: [
+                    {
+                        title: "招商银行数字人客服系统",
+                        description: "24小时智能金融顾问，提供个性化理财方案",
+                        thumbnail: "img/videos/customer-thumb1.jpg",
+                        duration: "03:45",
+                        videoUrl: "videos/customer-video1.mp4"
+                    },
+                    {
+                        title: "平安保险数字人代理",
+                        description: "保险咨询与规划的智能助手",
+                        thumbnail: "img/videos/customer-thumb2.jpg",
+                        duration: "04:12",
+                        videoUrl: "videos/customer-video2.mp4"
+                    },
+                    {
+                        title: "工商银行数字人投顾",
+                        description: "智能投资顾问，量身定制投资组合",
+                        thumbnail: "img/videos/customer-thumb3.jpg",
+                        duration: "03:20",
+                        videoUrl: "videos/customer-video3.mp4"
+                    },
+                    {
+                        title: "中国银行外汇数字人专家",
+                        description: "外汇交易与汇率咨询的AI专家",
+                        thumbnail: "img/videos/customer-thumb4.jpg",
+                        duration: "04:40",
+                        videoUrl: "videos/customer-video4.mp4"
+                    }
+                ],
+                
+                // 零售案例数据
+                retailCases: [
+                    {
+                        title: "完美日记数字人直播",
+                        description: "24小时不间断的美妆产品展示与推荐",
+                        thumbnail: "img/videos/interaction-thumb1.jpg",
+                        duration: "05:20",
+                        videoUrl: "videos/interaction-video1.mp4"
+                    },
+                    {
+                        title: "京东数字导购员",
+                        description: "沉浸式购物体验的智能导购系统",
+                        thumbnail: "img/videos/interaction-thumb2.jpg",
+                        duration: "03:58",
+                        videoUrl: "videos/interaction-video2.mp4"
+                    },
+                    {
+                        title: "天猫智能数字人导购",
+                        description: "全场景购物体验的AI导购助手",
+                        thumbnail: "img/videos/interaction-thumb3.jpg",
+                        duration: "04:15",
+                        videoUrl: "videos/interaction-video3.mp4"
+                    },
+                    {
+                        title: "苏宁易购数字人客服",
+                        description: "家电专业知识的智能咨询顾问",
+                        thumbnail: "img/videos/interaction-thumb4.jpg",
+                        duration: "03:35",
+                        videoUrl: "videos/interaction-video4.mp4"
+                    }
+                ],
+                
+                // 教育案例数据
+                educationCases: [
+                    {
+                        title: "清华大学数字助教",
+                        description: "AI驱动的个性化学习辅导系统",
+                        thumbnail: "img/videos/silicon-thumb1.jpg",
+                        duration: "04:35",
+                        videoUrl: "videos/silicon-video1.mp4"
+                    },
+                    {
+                        title: "新东方数字外教",
+                        description: "24小时在线的语言学习伙伴",
+                        thumbnail: "img/videos/silicon-thumb2.jpg",
+                        duration: "03:42",
+                        videoUrl: "videos/silicon-video2.mp4"
+                    },
+                    {
+                        title: "学而思数字人老师",
+                        description: "中小学全科目个性化辅导",
+                        thumbnail: "img/videos/silicon-thumb3.jpg",
+                        duration: "04:05",
+                        videoUrl: "videos/silicon-video3.mp4"
+                    },
+                    {
+                        title: "职业教育数字人讲师",
+                        description: "专业技能培训的数字化教学",
+                        thumbnail: "img/videos/silicon-thumb4.jpg",
+                        duration: "05:10",
+                        videoUrl: "videos/silicon-video4.mp4"
+                    }
+                ],
+                
+                // 技术应用案例数据
+                techCases: [
+                    {
+                        title: "Toolwiz智能广告在跨境电商中的应用",
+                        description: "跨境电商如何利用Toolwiz快速生成多语言产品介绍视频，提高转化率",
+                        thumbnail: "img/videos/tech-thumb1.jpg",
+                        duration: "03:15",
+                        videoUrl: "videos/tech-video1.mp4"
+                    },
+                    {
+                        title: "HeyGem数字人克隆技术展示",
+                        description: "仅需1秒视频即可完成数字人形象和声音的克隆，30秒内完成高清视频生成",
+                        thumbnail: "img/videos/tech-thumb2.jpg",
+                        duration: "04:20",
+                        videoUrl: "videos/tech-video2.mp4"
+                    },
+                    {
+                        title: "DUIX交互平台应用案例",
+                        description: "企业如何利用DUIX平台快速构建专属数字员工和智能客服",
+                        thumbnail: "img/videos/tech-thumb3.jpg",
+                        duration: "03:50",
+                        videoUrl: "videos/tech-video3.mp4"
+                    },
+                    {
+                        title: "跨国企业数字人营销案例",
+                        description: "全球化品牌如何利用数字人技术打破语言壁垒，提高品牌亲和力",
+                        thumbnail: "img/videos/tech-thumb4.jpg",
+                        duration: "04:10",
+                        videoUrl: "videos/tech-video4.mp4"
+                    }
+                ]
+            },
+            methods: {
+                goBack() {
+                    window.location.href = 'digital-human-new.html';
+                },
+                setActiveTab(tab) {
+                    this.activeTab = tab;
+                },
+                setNewsCategory(category) {
+                    this.activeNewsCategory = category;
+                },
+                setCaseCategory(category) {
+                    this.activeCaseCategory = category;
+                },
+                playVideo(video) {
+                    this.currentVideo = video;
+                    this.showVideoModal = true;
+                    document.body.classList.add('modal-open');
+                },
+                closeVideoModal() {
+                    this.showVideoModal = false;
+                    document.body.classList.remove('modal-open');
+                    // 停止视频播放
+                    const videoElement = document.querySelector('.video-player');
+                    if (videoElement) {
+                        videoElement.pause();
+                        videoElement.currentTime = 0;
+                    }
+                },
+                openNewsDetail(news) {
+                    this.currentNews = news;
+                    this.showNewsModal = true;
+                    document.body.classList.add('modal-open');
+                },
+                closeNewsModal() {
+                    this.showNewsModal = false;
+                    document.body.classList.remove('modal-open');
+                },
+                handleScroll() {
+                    // 瀑布流懒加载效果
+                    if (this.activeTab === 'cases') {
+                        const videoCards = document.querySelectorAll('.case-video-card');
+                        videoCards.forEach(card => {
+                            const cardPos = card.getBoundingClientRect();
+                            // 如果卡片进入视口，添加动画效果
+                            if (cardPos.top < window.innerHeight && cardPos.bottom > 0) {
+                                card.classList.add('visible');
+                            }
+                        });
+                    }
+                },
+                toggleTheme() {
+                    this.isDarkMode = !this.isDarkMode;
+                    if (this.isDarkMode) {
+                        document.body.classList.add('dark-mode');
+                        localStorage.setItem('digital-human-theme', 'dark');
+                    } else {
+                        document.body.classList.remove('dark-mode');
+                        localStorage.setItem('digital-human-theme', 'light');
+                    }
+                },
+                isHighlightedTech(item) {
+                    return item.title.includes("Toolwiz") || item.title.includes("HeyGem") || item.title.includes("DUIX");
+                },
+                processContent(news) {
+                    // 如果内容中已经包含图片标签，需要修正这些图片的src属性
+                    let processedContent = news.content;
+                    
+                    // 提取内容中已有的img标签
+                    const imgRegex = /<img[^>]+src="([^"]+)"[^>]*>/g;
+                    const imgMatches = [...processedContent.matchAll(imgRegex)];
+                    
+                    // 如果内容中已有图片，替换为真实可用的图片
+                    if (imgMatches.length > 0) {
+                        for (const match of imgMatches) {
+                            const originalSrc = match[1];
+                            let replacementSrc;
+                            
+                            // 根据不同的内容选择不同的真实图片
+                            if (originalSrc.includes('industry-banner')) {
+                                replacementSrc = 'img/videos/customer-thumb2.jpg';
+                            } else if (originalSrc.includes('silicon-news')) {
+                                replacementSrc = 'img/videos/silicon-thumb3.jpg';
+                            } else if (originalSrc.includes('news-placeholder')) {
+                                replacementSrc = 'img/videos/interaction-thumb3.jpg';
+                            } else {
+                                // 默认替换图片
+                                replacementSrc = 'img/videos/customer-thumb1.jpg';
+                            }
+                            
+                            // 替换原始src
+                            processedContent = processedContent.replace(
+                                match[0],
+                                match[0].replace(originalSrc, replacementSrc)
+                            );
+                        }
+                        return processedContent;
+                    }
+                    
+                    // 如果内容中没有图片，插入一个
+                    const imgPath = this.getImagePath(news);
+                    
+                    // 找到第一个h3标签后的位置来插入图片
+                    const h3Pos = processedContent.indexOf('</h3>');
+                    
+                    // 如果找到h3标签，在其后插入图片
+                    if (h3Pos > -1) {
+                        const imageTag = `</h3><div class="content-image-container"><img src="${imgPath}" alt="${news.title}" class="content-image" onerror="this.src='img/videos/customer-thumb1.jpg'"></div>`;
+                        processedContent = processedContent.replace('</h3>', imageTag);
+                    } else {
+                        // 如果没有h3标签，在第一个段落后插入
+                        const pPos = processedContent.indexOf('</p>');
+                        if (pPos > -1) {
+                            const imageTag = `</p><div class="content-image-container"><img src="${imgPath}" alt="${news.title}" class="content-image" onerror="this.src='img/videos/customer-thumb1.jpg'"></div>`;
+                            processedContent = processedContent.replace('</p>', imageTag);
+                        }
+                    }
+                    
+                    return processedContent;
+                },
+                getImagePath(news) {
+                    // 完全重写图片路径处理逻辑
+                    // 所有原始路径都有问题，使用实际存在的图片替代
+                    
+                    // 初始化真实可用的图片数组
+                    const realImages = [
+                        'img/case-donna.jpg',
+                        'img/profile-avatar.jpg',
+                        'img/videos/customer-thumb1.jpg',
+                        'img/videos/customer-thumb2.jpg',
+                        'img/videos/customer-thumb3.jpg',
+                        'img/videos/customer-thumb4.jpg',
+                        'img/videos/interaction-thumb1.jpg',
+                        'img/videos/interaction-thumb2.jpg',
+                        'img/videos/silicon-thumb1.jpg',
+                        'img/videos/silicon-thumb2.jpg'
+                    ];
+                    
+                    // 根据文章类别和索引选择图片
+                    if (news.title.includes('签就业协议') || news.title.includes('全媒体运营')) {
+                        return 'img/videos/customer-thumb1.jpg';
+                    } else if (news.title.includes('114.4万家') || news.title.includes('企业数量')) {
+                        return 'img/videos/interaction-thumb1.jpg';
+                    } else if (news.title.includes('应用场景') || news.title.includes('三大方向')) {
+                        return 'img/videos/silicon-thumb1.jpg';
+                    } else if (news.title.includes('技术标准') || news.title.includes('标准体系')) {
+                        return 'img/videos/customer-thumb2.jpg';
+                    } else if (news.title.includes('黄金期') || news.title.includes('政策')) {
+                        return 'img/videos/customer-thumb3.jpg';
+                    } else if (news.title.includes('Toolwiz') || news.title.includes('工具')) {
+                        return 'img/videos/silicon-thumb2.jpg';
+                    } else if (news.title.includes('HeyGem') || news.title.includes('秒级克隆')) {
+                        return 'img/videos/interaction-thumb2.jpg';
+                    } else if (news.title.includes('DUIX') || news.title.includes('交互平台')) {
+                        return 'img/videos/customer-thumb4.jpg';
+                    }
+                    
+                    // 随机选择一个真实图片
+                    const randomIndex = Math.floor(Math.random() * realImages.length);
+                    return realImages[randomIndex];
+                },
+                handleImageError(event) {
+                    // 使用真实图片代替占位图
+                    const realImages = [
+                        'img/case-donna.jpg',
+                        'img/videos/customer-thumb1.jpg', 
+                        'img/videos/customer-thumb2.jpg',
+                        'img/videos/interaction-thumb1.jpg',
+                        'img/videos/silicon-thumb1.jpg'
+                    ];
+                    
+                    // 随机选择一个真实图片
+                    const randomIndex = Math.floor(Math.random() * realImages.length);
+                    event.target.src = realImages[randomIndex];
+                }
+            },
+            mounted() {
+                // 检查URL参数，自动切换到相应的标签
+                const urlParams = new URLSearchParams(window.location.search);
+                const tab = urlParams.get('tab');
+                if (tab === 'cases') {
+                    this.activeTab = 'cases';
+                    
+                    // 等待DOM更新后再添加可见性
+                    this.$nextTick(() => {
+                        // 初始化视口内卡片的可见性
+                        this.handleScroll();
+                    });
+                }
+                
+                // 添加滚动监听，实现瀑布流加载效果
+                window.addEventListener('scroll', this.handleScroll);
+                
+                // 检查用户主题偏好
+                const savedTheme = localStorage.getItem('digital-human-theme');
+                if (savedTheme === 'dark') {
+                    this.isDarkMode = true;
+                    document.body.classList.add('dark-mode');
+                } else if (savedTheme === null) {
+                    // 如果用户没有设置过主题偏好，则检查系统偏好
+                    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    if (prefersDarkMode) {
+                        this.isDarkMode = true;
+                        document.body.classList.add('dark-mode');
+                        localStorage.setItem('digital-human-theme', 'dark');
+                    } else {
+                        localStorage.setItem('digital-human-theme', 'light');
+                    }
+                }
+            },
+            beforeDestroy() {
+                // 移除事件监听
+                window.removeEventListener('scroll', this.handleScroll);
+            }
+        });
+    </script>
+    <script src="js/digital-human-news.js?v=20250716"></script>
+    <script src="js/digital-human-news-placeholder.js?v=20250716"></script>
+</body>
+</html> 

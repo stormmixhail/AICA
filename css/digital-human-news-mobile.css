@@ -1,0 +1,234 @@
+/* 数字人新闻移动端增强样式 */
+
+/* 特色技术标签 */
+.featured-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(34, 166, 179, 0.9);
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 4px;
+    z-index: 5;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* 移动端通用优化 */
+@media (max-width: 768px) {
+    /* 性能优化 */
+    img {
+        /* 避免大图片导致页面加载缓慢 */
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* 字体本地化，避免加载网络字体 */
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", 
+            "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    }
+    
+    /* 布局优化 */
+    .news-tabs {
+        top: 50px;
+        padding: 10px 0;
+        position: sticky;
+        background-color: #fff;
+        z-index: 10;
+    }
+    
+    body.dark-mode .news-tabs {
+        background-color: #1e1e1e;
+    }
+    
+    .container {
+        padding: 0 10px;
+    }
+    
+    .news-item {
+        margin-bottom: 15px;
+        border-radius: 8px;
+    }
+    
+    .news-image {
+        height: 160px;
+    }
+    
+    .news-title {
+        font-size: 16px;
+    }
+    
+    .news-summary {
+        font-size: 14px;
+        -webkit-line-clamp: 2;
+    }
+    
+    .case-waterfall {
+        grid-template-columns: 1fr;
+    }
+    
+    /* 分类菜单横向滚动优化 */
+    .news-categories, .case-categories {
+        padding: 10px 0;
+        -webkit-overflow-scrolling: touch; /* iOS滚动优化 */
+        gap: 5px;
+        justify-content: flex-start;
+        white-space: nowrap;
+    }
+    
+    .category-button {
+        padding: 6px 12px;
+        font-size: 12px;
+        flex-shrink: 0;
+        min-width: 50px;
+        text-align: center;
+    }
+    
+    /* 视频卡片缩略图优化 */
+    .video-thumbnail {
+        padding-top: 56.25%; /* 16:9比例 */
+    }
+    
+    /* 模态框优化 */
+    .video-modal-content, .news-modal-content {
+        width: 95%;
+        max-height: 80vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch; /* iOS滚动优化 */
+    }
+    
+    .video-modal-header h3, .news-modal-header h3 {
+        font-size: 16px;
+    }
+    
+    /* 动画效果优化 - 减少动画以提升性能 */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .animate-in {
+        animation: fadeIn 0.4s ease forwards;
+    }
+    
+    /* 导航栏优化 */
+    .feature-header {
+        height: 50px;
+        padding: 0 10px;
+    }
+    
+    .feature-title {
+        font-size: 16px;
+    }
+    
+    .back-button, .theme-toggle {
+        width: 32px;
+        height: 32px;
+    }
+    
+    /* 主题切换按钮优化 */
+    .theme-toggle {
+        position: absolute;
+        right: 10px;
+    }
+    
+    /* 国内网络访问优化 - 减少网络请求 */
+    .news-image img, .video-thumbnail img {
+        /* 预先设定尺寸，避免布局变化 */
+        object-fit: cover;
+        background-color: #f5f5f5;
+    }
+    
+    body.dark-mode .news-image img, 
+    body.dark-mode .video-thumbnail img {
+        background-color: #2a2a2a;
+    }
+    
+    /* 延迟加载提示 */
+    .loading-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 160px;
+        background-color: #f5f5f5;
+        border-radius: 8px;
+        color: #888;
+    }
+    
+    body.dark-mode .loading-placeholder {
+        background-color: #2a2a2a;
+        color: #aaa;
+    }
+}
+
+/* 针对小屏幕手机的额外优化 */
+@media (max-width: 360px) {
+    .news-image {
+        height: 140px;
+    }
+    
+    .news-title {
+        font-size: 14px;
+    }
+    
+    .category-button {
+        padding: 5px 10px;
+        font-size: 11px;
+    }
+    
+    .featured-tag {
+        font-size: 10px;
+        padding: 3px 6px;
+    }
+}
+
+/* 弱网环境优化 */
+@media (prefers-reduced-data: reduce) {
+    /* 减少动画 */
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    /* 降低图片质量 */
+    img {
+        image-rendering: optimizeSpeed;
+    }
+}
+
+/* 动画类 */
+.animate-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* 暗黑模式下的特色标签 */
+body.dark-mode .featured-tag {
+    background-color: rgba(34, 166, 179, 0.8);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* 针对华为/小米等国内手机的额外优化 */
+@supports (-webkit-tap-highlight-color: transparent) {
+    /* 移除点击高亮 */
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* 优化按钮交互 */
+    button, .category-button, .news-item, .case-video-card {
+        cursor: pointer;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+} 

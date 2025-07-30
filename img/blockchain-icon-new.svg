@@ -1,0 +1,81 @@
+<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="blockchainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3366FF">
+        <animate attributeName="stop-color" values="#3366FF;#5c83ff;#3366FF" dur="4s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="100%" stop-color="#FF5722">
+        <animate attributeName="stop-color" values="#FF5722;#ff7a52;#FF5722" dur="4s" repeatCount="indefinite" />
+      </stop>
+    </linearGradient>
+  </defs>
+  
+  <!-- 区块链方块 -->
+  <rect x="12" y="12" width="10" height="10" rx="2" fill="#E0E0FF" stroke="#3366FF" stroke-width="1.5">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  
+  <rect x="12" y="34" width="10" height="10" rx="2" fill="#E0E0FF" stroke="#3366FF" stroke-width="1.5">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+  </rect>
+  
+  <rect x="34" y="12" width="10" height="10" rx="2" fill="#E0E0FF" stroke="#3366FF" stroke-width="1.5">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" begin="1s" repeatCount="indefinite"/>
+  </rect>
+  
+  <rect x="34" y="34" width="10" height="10" rx="2" fill="#E0E0FF" stroke="#3366FF" stroke-width="1.5">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- 中心区块 -->
+  <rect x="23" y="23" width="10" height="10" rx="2" fill="#FF5722" opacity="0.8">
+    <animate attributeName="opacity" values="0.6;0.9;0.6" dur="2s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- 连接线 -->
+  <path d="M22 17L34 17" stroke="#3366FF" stroke-width="1.5" stroke-dasharray="2 1">
+    <animate attributeName="stroke-dashoffset" values="3;0;3" dur="2s" repeatCount="indefinite"/>
+  </path>
+  
+  <path d="M22 39L34 39" stroke="#3366FF" stroke-width="1.5" stroke-dasharray="2 1">
+    <animate attributeName="stroke-dashoffset" values="3;0;3" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+  </path>
+  
+  <path d="M17 22L17 34" stroke="#3366FF" stroke-width="1.5" stroke-dasharray="2 1">
+    <animate attributeName="stroke-dashoffset" values="3;0;3" dur="2s" begin="1s" repeatCount="indefinite"/>
+  </path>
+  
+  <path d="M39 22L39 34" stroke="#3366FF" stroke-width="1.5" stroke-dasharray="2 1">
+    <animate attributeName="stroke-dashoffset" values="3;0;3" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- 对角线连接 -->
+  <path d="M22 22L34 34" stroke="url(#blockchainGradient)" stroke-width="1.5" stroke-dasharray="2 1">
+    <animate attributeName="stroke-dashoffset" values="3;0;3" dur="2s" begin="0.2s" repeatCount="indefinite"/>
+  </path>
+  
+  <path d="M22 34L34 22" stroke="url(#blockchainGradient)" stroke-width="1.5" stroke-dasharray="2 1">
+    <animate attributeName="stroke-dashoffset" values="3;0;3" dur="2s" begin="0.7s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- 数据流动点 -->
+  <circle cx="17" cy="17" r="2" fill="#3366FF">
+    <animate attributeName="r" values="1.5;2;1.5" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="17" cy="39" r="2" fill="#3366FF">
+    <animate attributeName="r" values="1.5;2;1.5" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="39" cy="17" r="2" fill="#3366FF">
+    <animate attributeName="r" values="1.5;2;1.5" dur="2s" begin="1s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="39" cy="39" r="2" fill="#3366FF">
+    <animate attributeName="r" values="1.5;2;1.5" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="28" cy="28" r="2" fill="#FFFFFF">
+    <animate attributeName="r" values="1.5;2.5;1.5" dur="2s" begin="0.3s" repeatCount="indefinite"/>
+  </circle>
+</svg>

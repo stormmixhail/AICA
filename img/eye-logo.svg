@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <style>
+    .eye-outline {
+      fill: none;
+      stroke: #00b4d8;
+      stroke-width: 2;
+    }
+    .eye-iris {
+      fill: #1a1a2e;
+      stroke: #00b4d8;
+      stroke-width: 1;
+    }
+    .eye-pupil {
+      fill: #00b4d8;
+    }
+    .eye-highlight {
+      fill: #ffffff;
+      opacity: 0.8;
+    }
+    .logo-text {
+      fill: #00b4d8;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      font-size: 10px;
+    }
+  </style>
+  
+  <!-- 眼睛外轮廓 -->
+  <ellipse class="eye-outline" cx="50" cy="50" rx="40" ry="25"/>
+  
+  <!-- 眼球 -->
+  <circle class="eye-iris" cx="50" cy="50" r="20"/>
+  
+  <!-- 瞳孔 -->
+  <circle class="eye-pupil" cx="50" cy="50" r="10"/>
+  
+  <!-- 高光反射 -->
+  <circle class="eye-highlight" cx="42" cy="45" r="5"/>
+  <circle class="eye-highlight" cx="58" cy="55" r="3"/>
+  
+  <!-- 虹膜LOGO -->
+  <text class="logo-text" x="45" y="52">AICA</text>
+</svg> 

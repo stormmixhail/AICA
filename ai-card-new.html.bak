@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>AI名片 - AICA</title>
+<link rel="stylesheet" href="css/style.css?v=20230704">
+<link rel="stylesheet" href="css/feature-page.css?v=20230704">
+<link rel="stylesheet" href="css/ai-card-new.css?v=20231105">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/scrolltrigger@1.0.0/dist/ScrollTrigger.min.js"></script>
+</head>
+<body>
+<div id="card-app" class="card-page">
+<header class="card-header">
+<button class="back-button" @click="goBack">
+<img src="img/back-arrow.svg?v=20250716" alt="返回">
+</button>
+<div class="feature-title">AI名片</div>
+</header>
+
+<section class="hero-section">
+<div class="container">
+<h1 class="main-title">为什么需要AI联享名片？</h1>
+<p class="subtitle">选择智能名片，而非纸质名片，让你的社交不再归零。</p>
+<div class="hero-visual">
+<div class="hero-graphic">
+<img src="img/infinity-icon-new.svg?v=20231104" alt="无限符号" class="infinity-symbol">
+</div>
+</div>
+</div>
+</section>
+
+<section class="core-value-section">
+    <div class="container">
+        <div class="value-timeline">
+            <div class="value-block">
+                <div class="value-icon"><img src="img/pro-speaker-icon.svg" alt="开口即高手"></div>
+                <h3 class="value-title">它让你开口即高手</h3>
+                <p class="value-desc">内置懂商业、更懂人性的"金牌话术引擎"。它能为你建议破冰话术、起草专业跟进、提炼核心卖点，让你的每一次沟通都成为一次加分。</p>
+            </div>
+            <div class="value-block">
+                <div class="value-icon"><img src="img/info-sync-icon.svg" alt="打破信息屏障"></div>
+                <h3 class="value-title">它打破信息屏障</h3>
+                <p class="value-desc">它让您的身份、职位、业务动态实时更新，确保您在人脉网络中的信息永远鲜活、准确。告别因信息过期而错失的每一个机会。</p>
+            </div>
+            <div class="value-block">
+                <div class="value-icon"><img src="img/network-activate-icon.svg" alt="激活连接网络"></div>
+                <h3 class="value-title">它激活连接网络</h3>
+                <p class="value-desc">它将一次脆弱的握手，升级为一次持续的商业对话。通过双向互动，智能地发现、培育并转化潜在的合作关系。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features-section">
+<div class="container">
+<h2 class="section-title">重新定义一张名片</h2>
+<p class="section-subtitle">为您解锁"身份、价值、生态、资本"四重力量</p>
+<div class="features-grid">
+<div class="feature-card">
+<div class="feature-icon"><img src="img/avatar-icon.svg" alt="创始人分身"></div>
+<h3 class="feature-title">不止是"数字名片"，更是"创始人分身"</h3>
+<p class="feature-desc">它将您从重复的自我介绍中解放出来，让一个不知疲倦、且拥有您全部智慧的"数字分身"，7x24小时为您建立高质量连接。</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon"><img src="img/explainer-icon.svg" alt="金牌讲解员"></div>
+<h3 class="feature-title">不止是"数字展厅"，更是"金牌讲解员"</h3>
+<p class="feature-desc">它将您静态的资料库，升级为一个交互式的"智能讲解员"。它能精准理解访客的疑问并给出专业解答，将访客从"浏览者"转变为"互动者"，深化他们对您价值的理解。</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon"><img src="img/ecosystem-icon.svg" alt="商业生态一员"></div>
+<h3 class="feature-title">不止是"独立拓展"，更是"商业生态一员"</h3>
+<p class="feature-desc">它让您不再是孤立的节点，而是无缝融入一个由算法驱动的商业生态。在这里，您的资源、需求和资讯可以被智能地匹配给生态内的其他成员，为您创造出超越个人人脉边界的全新合作机会。</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon"><img src="img/capital-icon.svg" alt="资本增值"></div>
+<h3 class="feature-title">不止是"生意增加"，更是"资本增值"</h3>
+<p class="feature-desc">它不仅仅是生意工具，更是您的"资本价值放大器"。平台对于符合条件的企业，会提供对接上市或并购的绿色通道。</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="interactive-demo-section">
+    <div class="container">
+        <h2 class="section-title">百闻不如一"扫"：即刻体验"活"的名片</h2>
+        <p class="section-subtitle">理论说再多，都不如一次真实的互动。<br>我们为您准备了品牌大使尼克（Nick）的AI联享名片，请用手机扫描，亲手开启一次不再归零的社交。</p>
+        <div class="qr-code-area">
+            <img src="img/nick-qr-code.png" alt="尼克AI名片二维码">
+        </div>
+        <div class="experience-guide">
+            <h4>体验指引：</h4>
+            <ol>
+                <li><b>与他对话：</b>尝试问他关于我们的业务，感受他作为"创始人分身"的智慧与风格。</li>
+                <li><b>看他"讲解"：</b>留意他是如何根据您的互动，为您智能推荐最相关的内容。</li>
+                <li><b>感受"连接"：</b>体验结束后，这张"活"的名片将留在您的手机中，一个持续创造价值的连接就此建立。</li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<section class="ecosystem-section">
+    <div class="container">
+        <h2 class="section-title">为你推荐：探索更广阔的商业网络</h2>
+        <div class="ecosystem-part">
+            <h3>名片广场：发现优质人脉，建立高效连接</h3>
+            <p>名片广场汇集各行各业精英的智能名片，让您轻松发现有价值的人脉资源。在这里，您可以浏览他人的专业背景、了解其核心优势，并通过AI助手发起高效的对话，实现无缝的商务连接和深度的专业交流。</p>
+            <div class="ecosystem-buttons">
+                <button class="eco-btn" @click="goToCardCollection">前往名片广场</button>
+            </div>
+        </div>
+        <div class="ecosystem-part">
+            <h3>商机广场：让机会主动找到您</h3>
+            <p>商机广场是分享专业视频内容和商业需求的互动平台。每位用户都拥有独立的展示空间，可以上传与专业领域相关的视频内容。您可通过关键词检索、热度排序等多维度筛选，精准定位潜在合作伙伴，让价值连接不再依赖偶然。</p>
+            <div class="ecosystem-buttons">
+                <button class="eco-btn" @click="goToMarketplace">探索商机广场</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="contact-section" id="contact">
+<div class="container">
+<h2 class="section-title">开启您的AI名片商务体验</h2>
+<p class="section-subtitle">填写下方表单，获取免费的企业连接健康度诊断报告</p>
+<div class="contact-form">
+<div class="form-group">
+<label for="company">公司名称</label>
+<input type="text" id="company" v-model="contactForm.company" placeholder="请输入公司名称">
+</div>
+<div class="form-group">
+<label for="name">您的姓名</label>
+<input type="text" id="name" v-model="contactForm.name" placeholder="请输入您的姓名">
+</div>
+<div class="form-group">
+<label for="position">职位</label>
+<input type="text" id="position" v-model="contactForm.position" placeholder="请输入您的职位">
+</div>
+<div class="form-group">
+<label for="phone">联系电话</label>
+<input type="tel" id="phone" v-model="contactForm.phone" placeholder="请输入您的联系电话">
+</div>
+<div class="form-group">
+<label for="problem">您目前面临的商务连接挑战</label>
+<textarea id="problem" v-model="contactForm.problem" placeholder="请简述您当前面临的商务连接挑战"></textarea>
+</div>
+<div class="form-action">
+<button class="submit-btn" @click="submitForm">获取诊断报告</button>
+</div>
+</div>
+</div>
+</section>
+
+<div class="floating-assistant" :class="{'active': showAssistant}" @click="toggleAssistant">
+<div class="assistant-icon">
+<img src="img/nick-avatar.svg" alt="尼克"> </div>
+<div class="assistant-label" v-if="!showAssistant">与尼克对话</div>
+</div>
+<div class="assistant-dialog" :class="{'active': showAssistant}">
+<div class="dialog-header">
+<div class="dialog-title">名片大使 · 尼克</div>
+<button class="close-btn" @click="toggleAssistant">×</button>
+</div>
+<div class="dialog-content">
+<div class="dialog-messages">
+<div class="message ai-message">
+<div class="message-avatar">
+<img src="img/nick-avatar.svg" alt="尼克"> </div>
+<div class="message-content">
+您好！我就是尼克。很高兴能在这里与您相遇。您可以向我提问，或者聊聊您对未来商务社交的看法。
+</div>
+</div>
+<div v-for="(msg, index) in assistantMessages" :key="index" :class="['message', msg.type + '-message']">
+<div class="message-avatar" v-if="msg.type === 'ai'">
+<img src="img/nick-avatar.svg" alt="尼克">
+</div>
+<div class="message-avatar" v-else>
+<img src="img/user-avatar.svg" alt="用户">
+</div>
+<div class="message-content">{{ msg.text }}</div>
+</div>
+<div class="typing-indicator" v-if="isTyping">
+<span class="typing-dot"></span>
+<span class="typing-dot"></span>
+<span class="typing-dot"></span>
+</div>
+</div>
+<div class="dialog-input">
+<input type="text" v-model="userInput" @keyup.enter="sendAssistantMessage" placeholder="输入您的问题...">
+<button class="send-btn" @click="sendAssistantMessage">发送</button>
+</div>
+</div>
+</div>
+</div>
+<script src="js/ai-card-new.js?v=20231105"></script>
+</body>
+</html> 

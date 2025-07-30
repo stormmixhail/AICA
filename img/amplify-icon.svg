@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="amplifyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4CAF50" />
+      <stop offset="100%" stop-color="#1B5E20" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" />
+      <feOffset dx="0" dy="1" result="offsetblur" />
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3" />
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- 背景圆 -->
+  <circle cx="32" cy="32" r="30" fill="url(#amplifyGradient)" opacity="0.1" />
+  <circle cx="32" cy="32" r="28" stroke="#4CAF50" stroke-width="2" fill="none" />
+
+  <!-- 放大镜 -->
+  <g filter="url(#shadow)">
+    <!-- 三角形图表 -->
+    <polygon points="16,40 32,16 48,40" fill="none" stroke="#4CAF50" stroke-width="2" />
+    
+    <!-- 价值线 -->
+    <line x1="16" y1="40" x2="48" y2="40" stroke="#4CAF50" stroke-width="2" />
+    
+    <!-- 上升指示器 -->
+    <path d="M32,16 L32,6 M28,10 L32,6 L36,10" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <!-- 增长点 -->
+    <circle cx="32" cy="16" r="3" fill="#4CAF50" />
+    <circle cx="16" cy="40" r="3" fill="#4CAF50" />
+    <circle cx="48" cy="40" r="3" fill="#4CAF50" />
+    
+    <!-- 水平扩展线 -->
+    <line x1="11" y1="40" x2="16" y2="40" stroke="#4CAF50" stroke-width="1.5" stroke-dasharray="2,1" />
+    <line x1="48" y1="40" x2="53" y2="40" stroke="#4CAF50" stroke-width="1.5" stroke-dasharray="2,1" />
+    
+    <!-- 垂直价值线 -->
+    <line x1="32" y1="6" x2="32" y2="0" stroke="#4CAF50" stroke-width="1.5" stroke-dasharray="2,1" />
+  </g>
+
+  <!-- 辐射效果 -->
+  <g opacity="0.6">
+    <circle cx="32" cy="16" r="8" fill="none" stroke="#4CAF50" stroke-width="1" stroke-dasharray="2,2" />
+    <circle cx="32" cy="16" r="14" fill="none" stroke="#4CAF50" stroke-width="1" stroke-dasharray="2,3" />
+  </g>
+
+  <!-- 价值元素 -->
+  <g transform="translate(42, 10)">
+    <circle cx="4" cy="4" r="8" fill="white" opacity="0.8" stroke="#4CAF50" stroke-width="1" />
+    <text x="4" y="7" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#4CAF50" text-anchor="middle">¥</text>
+  </g>
+  
+  <!-- 放大元素 -->
+  <g transform="translate(16, 46)">
+    <rect x="0" y="0" width="32" height="10" rx="5" ry="5" fill="#4CAF50" opacity="0.2" stroke="#4CAF50" stroke-width="1" />
+    <text x="16" y="8" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#4CAF50" text-anchor="middle">VALUE</text>
+  </g>
+</svg> 
