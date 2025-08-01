@@ -8,9 +8,7 @@
     <meta http-equiv="Expires" content="0">
     <title>视频播放 - AICA</title>
     
-    <link rel="stylesheet" href="css/style.css?v=20250717">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
+    <link rel="stylesheet" href="css/style.css?v=20250717">    
     <style>
         body, html {
             margin: 0;
@@ -224,7 +222,7 @@
         <div class="video-title" id="videoTitle">加载中...</div>
         <video id="videoPlayer" class="video-player" controls playsinline webkit-playsinline></video>
     </div>
-    
+
     <button class="back-button" id="backButton">
         <i class="bi bi-arrow-left"></i> 返回
     </button>
@@ -232,7 +230,7 @@
     <div class="loading-indicator" id="loadingIndicator">
         <i class="bi bi-arrow-repeat"></i> 视频加载中...
     </div>
-    
+
     <div class="play-button" id="playButton" style="display: none;">
         <i class="bi bi-play-fill"></i>
     </div>
@@ -258,9 +256,79 @@
                 document.title = videoTitle + ' - 视频播放';
             }
             
-            // 设置视频源
-            if (videoSrc) {
-                videoPlayer.src = videoSrc;
+                            // 添加低带宽检测
+                const isLowBandwidth = navigator.connection && 
+                    (navigator.connection.effectiveType === '2g' || 
+                     navigator.connection.effectiveType === '3g' ||
+                     navigator.connection.saveData);
+                    
+                // 设置视频源
+                if (videoSrc) {
+                    try {
+                        // 检查视频URL是否有效
+                        const isValidVideoUrl = videoSrc.match(/\.(mp4|webm|ogg|mov)(\?|$)/i) || 
+                                               videoSrc.startsWith('http') || 
+                                               videoSrc.startsWith('videos/');
+                        
+                        if (!isValidVideoUrl) {
+                            throw new Error('无效的视频格式或链接');
+                        }
+                        
+                        // 如果是低带宽，添加提示
+                        if (isLowBandwidth) {
+                            const bandwidthAlert = document.createElement('div');
+                            bandwidthAlert.style.position = 'absolute';
+                            bandwidthAlert.style.bottom = '100px';
+                            bandwidthAlert.style.left = '50%';
+                            bandwidthAlert.style.transform = 'translateX(-50%)';
+                            bandwidthAlert.style.background = 'rgba(0,0,0,0.7)';
+                            bandwidthAlert.style.color = 'white';
+                            bandwidthAlert.style.padding = '8px 15px';
+                            bandwidthAlert.style.borderRadius = '20px';
+                            bandwidthAlert.style.fontSize = '12px';
+                            bandwidthAlert.style.zIndex = '20';
+                            bandwidthAlert.innerText = '检测到网络带宽较低，视频可能需要较长加载时间';
+                            document.body.appendChild(bandwidthAlert);
+                            
+                            // 5秒后隐藏
+                            setTimeout(() => {
+                                bandwidthAlert.style.opacity = '0';
+                                bandwidthAlert.style.transition = 'opacity 0.5s ease';
+                                setTimeout(() => bandwidthAlert.remove(), 500);
+                            }, 5000);
+                        }
+                        
+                        // 为视频添加绝对路径前缀（如果是相对路径）
+                        if (videoSrc.startsWith('videos/') && !videoSrc.startsWith('http')) {
+                            // 获取当前网址的基础路径
+                            const basePath = window.location.href.split('/').slice(0, -1).join('/');
+                            videoPlayer.src = `${basePath}/${videoSrc}`;
+                        } else {
+                            videoPlayer.src = videoSrc;
+                        }
+                    } catch (err) {
+                        console.error('视频加载配置错误:', err);
+                        
+                        // 显示错误消息
+                        loadingIndicator.style.display = 'none';
+                        const errorMessage = document.createElement('div');
+                        errorMessage.className = 'error-message';
+                        errorMessage.innerHTML = `
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <p>视频无法加载: ${err.message}</p>
+                            <button class="back-button" style="position:static;transform:none;margin-top:10px;">
+                                <i class="bi bi-arrow-left"></i> 返回
+                            </button>
+                        `;
+                        document.body.appendChild(errorMessage);
+                        
+                        // 添加返回按钮点击事件
+                        const returnButton = errorMessage.querySelector('button');
+                        returnButton.addEventListener('click', function() {
+                            // 使用与主返回按钮相同的逻辑
+                            backButton.click();
+                        });
+                    }
                 
                 // 监听视频加载事件
                 videoPlayer.addEventListener('loadeddata', function() {
@@ -293,7 +361,8 @@
                     // 添加返回按钮点击事件
                     const returnButton = errorMessage.querySelector('button');
                     returnButton.addEventListener('click', function() {
-                        window.history.back();
+                        // 使用与主返回按钮相同的逻辑
+                        backButton.click();
                     });
                 });
                 
@@ -317,7 +386,8 @@
                 // 添加返回按钮点击事件
                 const returnButton = errorMessage.querySelector('button');
                 returnButton.addEventListener('click', function() {
-                    window.history.back();
+                    // 使用与主返回按钮相同的逻辑
+                    backButton.click();
                 });
             }
             
@@ -356,12 +426,32 @@
             
             // 返回按钮点击事件
             backButton.addEventListener('click', function() {
-                window.history.back();
+                // 使用更可靠的方式返回上一页
+                try {
+                    // 先停止视频播放
+                    if (videoPlayer) {
+                        videoPlayer.pause();
+                        videoPlayer.src = '';
+                    }
+                    
+                    // 确认referrer是来自同一网站的
+                    if (document.referrer && document.referrer.includes(window.location.hostname)) {
+                        window.location.href = document.referrer;
+                    } else {
+                        // 默认返回digital-human-new.html页面
+                        window.location.href = 'digital-human-new.html';
+                    }
+                } catch (e) {
+                    console.error('返回时出错:', e);
+                    // 备用返回方案
+                    window.location.href = 'digital-human-new.html';
+                }
             });
             
             // 点击覆盖层返回
             overlay.addEventListener('click', function() {
-                window.history.back();
+                // 触发返回按钮的点击事件，保持行为一致
+                backButton.click();
             });
             
             // 取消静音按钮函数

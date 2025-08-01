@@ -1015,6 +1015,53 @@
             }
         }
     </style>
+    <style>
+        /* 添加错误处理样式 */
+        .thumbnail-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a1a;
+            color: white;
+            z-index: 5;
+        }
+        
+        .thumbnail-fallback i {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .thumbnail-fallback .title {
+            font-size: 12px;
+            text-align: center;
+            padding: 0 10px;
+            max-width: 90%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* 改进图片缩略图样式 */
+        .thumbnail-video {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            background-color: #000;
+            transition: opacity 0.3s ease;
+        }
+
+        /* 当图片正在加载时应用的样式 */
+        .thumbnail-video.loading {
+            opacity: 0.6;
+        }
+    </style>
 </head>
 <body>
     <div id="digital-human-app" class="digital-human-page">
@@ -2368,8 +2415,26 @@
                     }, 10);
                     
                     // 跳转到新页面而不是打开弹窗
-                    // 将视频源和标题作为URL参数传递
-                    window.location.href = `video-player.html?src=${encodeURIComponent(videoSrc)}&title=${encodeURIComponent(videoTitle)}`;
+                    // 验证视频源是否有效
+                    if (!videoSrc) {
+                        console.error('视频源为空，无法播放');
+                        alert('很抱歉，视频源不可用，无法播放');
+                        return;
+                    }
+                    
+                    try {
+                        // 为视频源添加相对路径前缀（如果需要）
+                        let fullVideoSrc = videoSrc;
+                        if (videoSrc && !videoSrc.startsWith('http') && !videoSrc.startsWith('/')) {
+                            fullVideoSrc = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + videoSrc;
+                        }
+                        
+                        // 将视频源和标题作为URL参数传递
+                        window.location.href = `video-player.html?src=${encodeURIComponent(videoSrc)}&title=${encodeURIComponent(videoTitle)}`;
+                    } catch (e) {
+                        console.error('跳转到视频页面时发生错误:', e);
+                        alert('无法打开视频，请稍后重试');
+                    }
                 });
                 
                 // 同时为播放图标覆盖层添加点击事件
@@ -3503,6 +3568,113 @@
         }
     }
 });
+</script>
+<script>
+    // 添加到页面加载完成事件处理
+    document.addEventListener('DOMContentLoaded', function() {
+        // 处理所有缩略图加载
+        setupOptimizedThumbnails();
+        
+        // 预加载备用图片
+        preloadBackupImages();
+    });
+    
+    // 预加载备用SVG图片，提高加载速度
+    function preloadBackupImages() {
+        const types = ['服务', '应用', '电商', '直播', '自媒体', 'default'];
+        types.forEach(type => {
+            const img = new Image();
+            img.src = `img/category-${type}.svg`;
+        });
+    }
+
+    // 优化缩略图加载和错误处理
+    function setupOptimizedThumbnails() {
+        const thumbnails = document.querySelectorAll('.video-thumbnail');
+        thumbnails.forEach(container => {
+            const img = container.querySelector('img.thumbnail-video');
+            const title = container.getAttribute('data-title') || '视频';
+            
+            if (img) {
+                // 设置加载中状态
+                img.classList.add('loading');
+                
+                // 处理加载成功
+                img.onload = function() {
+                    img.classList.remove('loading');
+                };
+                
+                // 处理加载失败
+                img.onerror = function() {
+                    // 移除加载中状态
+                    img.classList.remove('loading');
+                    
+                    // 创建备用显示
+                    const fallback = document.createElement('div');
+                    fallback.className = 'thumbnail-fallback';
+                    fallback.innerHTML = `
+                        <i class="bi bi-image"></i>
+                        <div class="title">${title}</div>
+                    `;
+                    
+                    // 添加到容器
+                    container.appendChild(fallback);
+                    
+                    // 记录错误
+                    console.warn('图片加载失败:', img.src);
+                    
+                                         // 尝试加载备用SVG图片
+                     const categoryType = container.closest('.video-item')?.getAttribute('data-category') || '应用';
+                     const fallbackSrc = `img/category-${categoryType}.svg`;
+                     
+                     // 创建新的图片元素尝试加载备用图片
+                     const newImg = new Image();
+                     newImg.className = 'thumbnail-video';
+                     newImg.src = fallbackSrc;
+                     newImg.alt = title;
+                     
+                     // 如果第一个备用图片也加载失败，尝试加载默认备用图片
+                     newImg.onerror = function() {
+                         console.warn('分类备用图片加载失败:', fallbackSrc);
+                         newImg.src = 'img/category-default.svg';
+                     };
+                    
+                    // 如果备用图片加载成功，替换原始图片
+                    newImg.onload = function() {
+                        if (fallback.parentNode) {
+                            fallback.parentNode.removeChild(fallback);
+                        }
+                        container.insertBefore(newImg, img);
+                        img.style.display = 'none';
+                    };
+                    
+                                         // 处理备用图片的最终加载结果
+                     const originalOnError = newImg.onerror;
+                     newImg.onerror = function() {
+                         // 避免处理备用图片的错误处理中创建循环
+                         if (newImg.src.includes('category-default.svg')) {
+                             console.warn('所有备用图片均加载失败');
+                         } else {
+                             // 调用之前设置的错误处理
+                             originalOnError && originalOnError();
+                         }
+                     };
+                };
+                
+                // 优化加载方式
+                if (!img.complete) {
+                    // 如果图片尚未加载完成，设置较小的src
+                    const originalSrc = img.src;
+                    img.src = '';
+                    
+                    // 使用setTimeout延迟加载原始图片，优先加载页面其他部分
+                    setTimeout(() => {
+                        img.src = originalSrc;
+                    }, 100);
+                }
+            }
+        });
+    }
 </script>
 </body>
 </html> 
