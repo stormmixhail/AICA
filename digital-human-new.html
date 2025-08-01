@@ -238,26 +238,9 @@
             transition: transform 0.5s ease;
         }
         
-        /* 加载中状态 */
-        .video-thumbnail::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 3px solid rgba(255,255,255,0.15);
-            border-top-color: #0070F0;
-            animation: spin 1s infinite linear;
-            z-index: 2;
-        }
+        /* 加载中状态已移除 */
         
-        /* 加载完成后移除加载动画 */
-        .video-thumbnail.loaded::before {
-            display: none;
-        }
+        /* 加载完成状态已移除 */
         
         /* 视频播放图标覆盖层 */
         .play-overlay {
@@ -524,10 +507,7 @@
             }
         }
         
-        @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
+        /* 移除旋转动画 */
         
         .video-thumbnail:hover {
             transform: translateY(-5px);
@@ -718,29 +698,9 @@
             max-height: calc(100% - 10px); /* 留一点空间给控制器 */
         }
         
-        .video-loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #fff;
-            background: rgba(0,0,0,0.5);
-            padding: 10px 20px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 10;
-        }
+                /* 视频加载动画已移除 */
         
-        .video-loading .bi-arrow-repeat {
-            animation: spin 1.5s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        /* 移除旋转动画 */
         
         .unmute-button {
             position: absolute;
@@ -1477,14 +1437,14 @@
                             <!-- 第一行: 李彬数字人 和 张琦数字人 -->
                             <div class="video-item" style="width:198px; flex:0 0 198px; margin:0 0 4px 0; padding:0;">
                                 <div class="video-thumbnail" style="width:198px; height:200px; position:relative; overflow:hidden; background-color:#000;" data-video="videos/视频1.mp4" data-title="李彬数字人">
-                                    <video class="thumbnail-video" style="width:100%; height:100%; object-fit:cover; margin:0; padding:0;" data-src="videos/视频1.mp4" preload="none" poster="img/videos/customer-thumb1.jpg" muted></video>
+                                    <img class="thumbnail-video" style="width:100%; height:100%; object-fit:cover; margin:0; padding:0;" src="img/截屏2025-07-24 14.20.44.png" alt="数字人视频缩略图1"></img>
                                 </div>
                                 <p class="video-title">李彬数字人</p>
                             </div>
                             
                             <div class="video-item" style="width:198px; flex:0 0 198px; margin:0 0 4px 0; padding:0;">
                                 <div class="video-thumbnail" style="width:198px; height:200px; position:relative; overflow:hidden; background-color:#000;" data-video="videos/视频3.mp4" data-title="张琦数字人">
-                                    <video class="thumbnail-video" style="width:100%; height:100%; object-fit:cover; margin:0; padding:0;" data-src="videos/视频3.mp4" preload="none" poster="img/videos/customer-thumb2.jpg" muted></video>
+                                    <img class="thumbnail-video" style="width:100%; height:100%; object-fit:cover; margin:0; padding:0;" src="img/截屏2025-07-24 14.26.59.png" alt="数字人视频缩略图2"></img>
                                 </div>
                                 <p class="video-title">张琦数字人</p>
                             </div>
@@ -1492,14 +1452,14 @@
                             <!-- 第二行: 京东数字人 和 硅基律师 -->
                             <div class="video-item" style="width:198px; flex:0 0 198px; margin:0 0 4px 0; padding:0;">
                                 <div class="video-thumbnail" style="width:198px; height:200px; position:relative; overflow:hidden; background-color:#000;" data-video="videos/视频2.mp4" data-title="京东数字人">
-                                    <video class="thumbnail-video" style="width:100%; height:100%; object-fit:cover; margin:0; padding:0;" data-src="videos/视频2.mp4" preload="none" poster="img/videos/case-video-education.jpg" muted></video>
+                                    <img class="thumbnail-video" style="width:100%; height:100%; object-fit:cover; margin:0; padding:0;" src="img/截屏2025-07-24 14.27.25.png" alt="数字人视频缩略图3"></img>
                                 </div>
                                 <p class="video-title">京东数字人</p>
                             </div>
                             
                             <div class="video-item" style="width:198px; flex:0 0 198px; margin:0 0 4px 0; padding:0;">
                                 <div class="video-thumbnail" style="width:198px; height:200px; position:relative; overflow:hidden; background-color:#000;" data-video="videos/视频12.mp4" data-title="硅基律师">
-                                    <video class="thumbnail-video" style="width:100%; height:100%; object-fit:cover; margin:0; padding:0;" data-src="videos/视频12.mp4" preload="none" poster="img/videos/case-video-education.jpg" muted></video>
+                                    <img class="thumbnail-video" style="width:100%; height:100%; object-fit:cover; margin:0; padding:0;" src="img/截屏2025-07-24 14.28.11.png" alt="数字人视频缩略图4"></img>
                                 </div>
                                 <p class="video-title">硅基律师</p>
                             </div>
@@ -1507,7 +1467,7 @@
                             <!-- 第三行: 洪崖洞数字人 和 红豆数字人 -->
                             <div class="video-item">
                                 <div class="video-thumbnail" data-video="videos/视频4.mp4" data-title="洪崖洞数字人">
-                                    <video class="thumbnail-video" src="videos/视频4.mp4" preload="metadata" muted></video>
+                                    <img class="thumbnail-video" src="img/截屏2025-07-24 14.34.38.png" alt="数字人视频缩略图5"></img>
                                     <div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>
                                 </div>
                                 <p class="video-title">洪崖洞数字人</p>
@@ -1515,7 +1475,7 @@
                             
                             <div class="video-item">
                                 <div class="video-thumbnail" data-video="videos/视频5.mp4" data-title="红豆数字人">
-                                    <video class="thumbnail-video" src="videos/视频5.mp4" preload="metadata" muted></video>
+                                    <img class="thumbnail-video" src="img/截屏2025-07-24 14.35.09.png" alt="数字人视频缩略图6"></img>
                                     <div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>
                                 </div>
                                 <p class="video-title">红豆数字人</p>
@@ -1524,7 +1484,7 @@
                             <!-- 第四行: 直播数字人 和 女性数字人 -->
                             <div class="video-item">
                                 <div class="video-thumbnail" data-video="videos/视频6.mp4" data-title="直播数字人">
-                                    <video class="thumbnail-video" src="videos/视频6.mp4" preload="metadata" muted></video>
+                                    <img class="thumbnail-video" src="img/截屏2025-07-24 14.35.28.png" alt="数字人视频缩略图7"></img>
                                     <div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>
                                 </div>
                                 <p class="video-title">直播数字人</p>
@@ -1532,7 +1492,7 @@
                             
                             <div class="video-item">
                                 <div class="video-thumbnail" data-video="videos/视频7.mp4" data-title="女性数字人">
-                                    <video class="thumbnail-video" src="videos/视频7.mp4" preload="metadata" muted></video>
+                                    <img class="thumbnail-video" src="img/截屏2025-07-24 14.35.45.png" alt="数字人视频缩略图8"></img>
                                     <div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>
                                 </div>
                                 <p class="video-title">女性数字人</p>
@@ -1541,7 +1501,7 @@
                             <!-- 第五行: 直播数字人 和 智能商品介绍 -->
                             <div class="video-item">
                                 <div class="video-thumbnail" data-video="videos/视频8.mp4" data-title="直播数字人">
-                                    <video class="thumbnail-video" src="videos/视频8.mp4" preload="metadata" muted></video>
+                                    <img class="thumbnail-video" src="img/截屏2025-07-24 14.35.58.png" alt="数字人视频缩略图9"></img>
                                     <div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>
                                 </div>
                                 <p class="video-title">直播数字人</p>
@@ -1549,7 +1509,7 @@
                             
                             <div class="video-item">
                                 <div class="video-thumbnail" data-video="videos/视频9.mp4" data-title="智能商品介绍">
-                                    <video class="thumbnail-video" src="videos/视频9.mp4" preload="metadata" muted></video>
+                                    <img class="thumbnail-video" src="img/截屏2025-07-24 14.36.15.png" alt="数字人视频缩略图10"></img>
                                     <div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>
                                 </div>
                                 <p class="video-title">智能商品介绍</p>
@@ -2407,8 +2367,9 @@
                         }, 1500);
                     }, 10);
                     
-                    // 打开视频弹窗
-                    openVideoModal(videoSrc, videoTitle);
+                    // 跳转到新页面而不是打开弹窗
+                    // 将视频源和标题作为URL参数传递
+                    window.location.href = `video-player.html?src=${encodeURIComponent(videoSrc)}&title=${encodeURIComponent(videoTitle)}`;
                 });
                 
                 // 同时为播放图标覆盖层添加点击事件
@@ -2483,28 +2444,7 @@
                         behavior: 'smooth'
                     });
                 },
-                submitForm() {
-                    // 表单提交逻辑
-                    alert('您的需求已提交，我们将尽快与您联系！');
-                    // 清空表单
-                    this.contactForm = {
-                        name: '',
-                        company: '',
-                        phone: '',
-                        email: '',
-                        message: '',
-                        agreement: false
-                    };
-                },
-                submitQuickForm() {
-                    alert('您的需求已提交，我们将尽快与您联系！');
-                    this.quickForm = {
-                        name: '',
-                        company: '',
-                        phone: '',
-                        email: ''
-                    };
-                },
+         
                 initScrollAnimations() {
                     // 自定义指令用于滚动动画
                     Vue.directive('motion-fade-in', {
@@ -3496,21 +3436,7 @@
             z-index: 10;
         }
         
-        /* 视频优化样式 */
-        .video-thumbnail.loading::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: 2px solid rgba(255,255,255,0.2);
-            border-top-color: #0070F0;
-            animation: spin 1s linear infinite;
-            transform: translate(-50%, -50%);
-            z-index: 2;
-        }
+        /* 视频优化样式 - 加载动画已移除 */
         
         /* 低带宽模式样式 */
         .low-bandwidth .thumbnail-video {
